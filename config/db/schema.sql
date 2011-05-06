@@ -44,4 +44,4 @@ CREATE TABLE  `fz_info` (
 
 
 INSERT INTO `fz_info` (`key`, `value`) VALUES ('db_version', '2.0.0-2');
-INSERT INTO `fz_info` (`key`, `value`) VALUES ('cron_freq', null);
+INSERT INTO `fz_info` (`key`, `value`) VALUES ('cron_freq', NOW());
