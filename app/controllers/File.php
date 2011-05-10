@@ -35,6 +35,7 @@ class App_Controller_File extends Fz_Controller {
         set ('available',       $file->isAvailable () || $isOwner);
         set ('checkPassword',   !(empty ($file->password) || $isOwner));
         set ('uploader',        $file->getUploader ());
+        set ('requireAuth',     $file->require_auth);
         return html ('file/preview.php');
     }
 
@@ -252,6 +253,8 @@ class App_Controller_File extends Fz_Controller {
         if (! $file->isOwner ($this->getUser ())) {
             if (! $file->isAvailable ()) {
                 halt (HTTP_FORBIDDEN, __('File is not available for download'));
+            } else if (isset ($file->require_auth)) {
+                halt (HTTP_FORBIDDEN, __('File requires authentifiaction'));
             } else if (! empty ($file->password)
                     && ! $file->checkPassword ($_POST['password'])) {
                 flash ('error', __('Incorrect password'));

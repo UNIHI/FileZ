@@ -43,6 +43,12 @@
       </label>
       <input type="password" id="input-password" name="password" class="password" autocomplete="off" size="5"/>
     </li>
+    <li id="option-require-auth">
+      <input type="checkbox" name="require-auth" id="require-auth" checked="checked"/>
+      <label for="require-auth" title="<?php echo __('Require the user to authentificate before downloading') ?>">
+        <?php echo __('Require authentification') ?>
+      </label>
+    </li>
   </ul>
   <div id="upload">
     <input type="submit" id="start-upload" name="upload" class="awesome blue large" value="&raquo; <?php echo __('Upload') ?>" />
@@ -107,7 +113,7 @@
         bgiframe: true,
         autoOpen: false,
         resizable: false,
-        width: '560px',
+        width: '650px',
         modal: true
       });
 

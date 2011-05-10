@@ -111,9 +111,8 @@ class App_Controller_Upload extends Fz_Controller {
         $availableFrom  = new Zend_Date ($availableFrom, Zend_Date::DATE_SHORT);
         $availableUntil = clone ($availableFrom);
         $availableUntil->add ($lifetime, Zend_Date::DAY);
-
         $user = $this->getUser ();
-
+        
         // Storing values
         $file = new App_Model_File ();
         $file->setFileInfo      ($uploadedFile);
@@ -122,10 +121,13 @@ class App_Controller_Upload extends Fz_Controller {
         $file->comment          = substr ($comment, 0, 199);
         $file->setAvailableFrom ($availableFrom);
         $file->setAvailableUntil($availableUntil);
-        $file->notify_uploader  = isset ($post['email-notifications']);
+        $file->notify_uploader  = (isset ($post['email-notifications']) 
+        ? 1 : 0);
+        $file->require_auth     = (isset ($post['require-auth']) ? 1 : 0);
         if (! empty ($post ['password']))
             $file->setPassword  ($post ['password']);
 
+        
         try {
             $file->save ();
 

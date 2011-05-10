@@ -33,6 +33,7 @@
  * @property int     $extends_count
  * @property int     $created_at        TIMESTAMP
  * @property string  $password
+ * @property boolean $require_auth
  */
 class App_Model_File extends Fz_Db_Table_Row_Abstract {
 
@@ -343,6 +344,5 @@ class App_Model_File extends Fz_Db_Table_Row_Abstract {
             'png',
         ));
     }
-
 
 }

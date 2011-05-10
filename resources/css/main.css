@@ -29,9 +29,9 @@ a:hover {
   color: #78B2FF;
 }
 .clearboth {
-	clear: both;
-	height: 0px;
-	display: block;
+    clear: both;
+    height: 0px;
+    display: block;
 }
 
 /* 
@@ -120,7 +120,7 @@ header #auth-box a {
  * Notifications
  */
 .notif {
-    -moz-border-radius:		 10px;
+    -moz-border-radius:      10px;
     -webkit-border-radius: 10px;
     padding: 1em;
     margin-top: 2em;
@@ -234,11 +234,11 @@ section.new-file div#upload-loading {
   margin: 0 auto;
 }
 section.new-file ul#options {
-		margin-top: 0.8em;
+        margin-top: 0.8em;
 }
 section.new-file ul#options li + li {
   padding-left: 0.4em;
-	margin-left: 0.4em;
+    margin-left: 0.4em;
   border-left: 1px solid #DDD;
 }
 section.new-file div#password *,
@@ -253,14 +253,14 @@ h2.new-file a.awesome {
   background-position: 10px center;
   background-repeat: no-repeat;
   font-size: 0.85em;
-	font-weight: normal;
-	padding-left: 40px;
-	float: right;
-	margin-bottom: .7em;
-	color: #EEE;
+    font-weight: normal;
+    padding-left: 40px;
+    float: right;
+    margin-bottom: .7em;
+    color: #EEE;
 }
 h2.new-file a.awesome:hover {
-	color: #FFF;
+    color: #FFF;
 }
 .ui-dialog section.new-file {
     margin: 0;
@@ -295,10 +295,10 @@ label {
  */
 
 h2#uploaded-files-title {
-	padding-top: .3em;
+    padding-top: .3em;
 }
 section#uploaded-files {
-	clear: both;
+    clear: both;
 }
 section#uploaded-files ul#files {
   list-style: none;
@@ -341,7 +341,7 @@ section#uploaded-files ul li .file-description {
   padding: 0 0 0.2em 64px;
 }
 section#uploaded-files ul li .file-description p {
-	display: inline;
+    display: inline;
 }
 section#uploaded-files ul li p.filename {
 }
@@ -351,60 +351,60 @@ section#uploaded-files ul li p.filename a {
   letter-spacing: -0.05em;
 }
 section#uploaded-files ul li img.mimetype {
-	position: absolute;
-	top:  0.9em;
-	left: 1.0em;
+    position: absolute;
+    top:  0.9em;
+    left: 1.0em;
 }
 
 
 section#uploaded-files ul li p a.copy2clipboard {
-	opacity: 0;
+    opacity: 0;
 }
 section#uploaded-files ul li:hover p a.copy2clipboard {
-	text-indent: -5000px;
-	background: transparent url(../images/icons/copy.png) no-repeat center bottom; 
-	width: 16px;
-	padding: 0 5px;
-	display: inline-block;
-	opacity: 1;
+    text-indent: -5000px;
+    background: transparent url(../images/icons/copy.png) no-repeat center bottom; 
+    width: 16px;
+    padding: 0 5px;
+    display: inline-block;
+    opacity: 1;
 }
 section#uploaded-files ul li p.comment {
-	display: none;
-	/* TODO */
+    display: none;
+    /* TODO */
 }
 section#uploaded-files ul li .filesize {
-	color: #B0ABA6;
+    color: #B0ABA6;
   font-size: 0.82em;
 }
 section#uploaded-files ul li p.share {
-	padding-left: 1em;
+    padding-left: 1em;
 }
 section#uploaded-files ul li p.share a {
-	background-image: url(../images/icons/share-this-icon.png); 
+    background-image: url(../images/icons/share-this-icon.png); 
   background-position: 7px center;
   background-repeat: no-repeat;
-	padding-left: 26px;
-	padding-top:    4px;
-	padding-bottom: 4px;
-	position: absolute;
-	top:   20px;
-	right: 20px;
+    padding-left: 26px;
+    padding-top:    4px;
+    padding-bottom: 4px;
+    position: absolute;
+    top:   20px;
+    right: 20px;
 }
 /*
  * File attributes
  */
 section#uploaded-files ul li .file-attributes p {
-	display: inline;
+    display: inline;
 }
 section#uploaded-files ul li .file-attributes p + p {
-	border-left: 1px solid #DDD;
-	padding-left: 0.5em;
-	margin-left:  0.5em;
+    border-left: 1px solid #DDD;
+    padding-left: 0.5em;
+    margin-left:  0.5em;
 }
 section#uploaded-files ul li .file-attributes {
   color: #7C746C;
   font-size: 0.82em;
-	padding-bottom: 0.7em;
+    padding-bottom: 0.7em;
 }
 section#uploaded-files ul li .file-attributes .availability b { color: #433C34; }
 
@@ -421,12 +421,12 @@ section#uploaded-files ul li a.extend { background-image: url(../images/icons/ad
 section#uploaded-files ul li a.send-by-email { background-image: url(../images/icons/mail-message-new.png); }
 section#uploaded-files ul li a.extend { text-indent: -5000px; width: 16px; padding: 0; }
 section#uploaded-files ul li a.delete {
-	background: transparent url(../images/icons/remove.png) no-repeat left center;
-	text-indent: -5000px;
+    background: transparent url(../images/icons/remove.png) no-repeat left center;
+    text-indent: -5000px;
   line-height: 16px;
   height: 16px;
   width: 16px;
-	display: inline-block;
+    display: inline-block;
 }
 
 /*
@@ -468,7 +468,7 @@ form a.open-email-client {
 
 /* Section #preview-file */
 h2.preview img {
-	vertical-align: middle;
+    vertical-align: middle;
 }
 h2.filename {
   font-size: 1.3em;
@@ -480,34 +480,38 @@ section#preview-file {
   -moz-box-shadow:    inset 0 20px 20px rgba(0,0,0,0.05);
   -webkit-box-shadow: inset 0 20px 20px rgba(0,0,0,0.05);
   margin-top: 1em;
-	padding: 1.1em;
+    padding: 1.1em;
 }
 section#preview-file form,
 section#preview-file p {
   padding: 0.5em 0;
 }
 section#preview-file b {
-	color: #433C34;
+    color: #433C34;
 }
 section#preview-file #preview-image {
   text-align: center;
 }
 section#preview-file #availability {
-	float: left;
+    float: left;
 }
 section#preview-file #owner {
-	float: right;
+    float: right;
+}
+section#preview-file #preview-message {
+	padding-top: 40px;
+    text-align: center;
 }
 section#preview-file #download,
 section#preview-file #comment {
-	clear: both;
+    clear: both;
 }
 section#preview-file #download {
-	padding: 1.2em 0;
-	text-align: center;
+    padding: 1.2em 0;
+    text-align: center;
 }
 section#preview-file #download.image {
-	text-align: right;
+    text-align: right;
 }
 
 /*
@@ -515,33 +519,33 @@ section#preview-file #download.image {
  */
  
 #share-modal {
-	padding: 1em;
+    padding: 1em;
 }
 #share-modal #share-link a {
-	font-size: 1.8em;
-	line-height: 2em;
+    font-size: 1.8em;
+    line-height: 2em;
   color: #1E52A1;
 }
 #share-modal #share-destinations {
-	padding-top: 1em;
+    padding-top: 1em;
 }
 #share-modal #share-destinations li {
-	display: block;
-	float: left;
+    display: block;
+    float: left;
 }
 #share-modal #share-destinations li a {
-	display: block;
-	background-position: center top;
-	background-repeat: no-repeat;
-	width: 80px;
-	padding-top : 50px;
-	text-align: center;
-	font-size: .75em;
+    display: block;
+    background-position: center top;
+    background-repeat: no-repeat;
+    width: 80px;
+    padding-top : 50px;
+    text-align: center;
+    font-size: .75em;
 }
 #share-modal #share-destinations li a:hover {
-	background-position: center 2px;
+    background-position: center 2px;
 }
-#share-modal #share-destinations li.email		 a { background-image: url(../images/icons/share-email.png); }
+#share-modal #share-destinations li.email        a { background-image: url(../images/icons/share-email.png); }
 #share-modal #share-destinations li.facebook a { background-image: url(../images/icons/share-facebook.png); }
 #share-modal #share-destinations li.twitter  a { background-image: url(../images/icons/share-twitter.png); }
 
@@ -708,7 +712,7 @@ div.lim-debug hr {display: none;}
 /* Datepicker
 ----------------------------------*/
 .ui-datepicker {
-	font-size:80%;
+    font-size:80%;
         z-index: 10000;
 }
 
@@ -756,11 +760,11 @@ div.lim-debug hr {display: none;}
 
 .ui-tooltip-dark .ui-tooltip-titlebar,
 .ui-tooltip-dark .ui-tooltip-content{
-	border: 0;
+    border: 0;
 }
 .ui-tooltip-dark .ui-tooltip-content{
-	background-color: #505050;
-	background-color: rgba(0,0,0,.8);
+    background-color: #505050;
+    background-color: rgba(0,0,0,.8);
 }
 
 
@@ -944,5 +948,5 @@ article.doc .img-block img {
 }
 article.doc .img-block {
   text-align: center;
-	margin: 1em 0;
+    margin: 1em 0;
 }

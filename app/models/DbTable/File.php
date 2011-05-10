@@ -38,6 +38,7 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
         'comment',
         'created_at',
         'password',
+        'require_auth'
     );
 
     /**
