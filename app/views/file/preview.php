@@ -36,7 +36,7 @@
   <?php endif ?>
 
   <?php if ($available): ?>
-    <?php if (! $checkPassword): ?>
+    <?php if (! $checkPassword && ! $requireAuth): ?>
 
       <?php if ($file->isImage ()): ?>
         <p id="download" class="image">
@@ -58,7 +58,8 @@
           </script>
         </p>
       <?php endif ?>
-
+    <?php elseif(! $checkPassword && $requireAuth): // this file requires the user to authentificate ?>
+      <?php echo '<p id="preview-message">' . __('The file requires user authentification.') . '</p>' ?>
     <?php else: // this file need a password ?>
 
       <form action="<?php echo $file->getDownloadUrl ()?>/download" method="POST" id="download">

@@ -123,6 +123,7 @@ class App_Controller_Upload extends Fz_Controller {
         $file->setAvailableFrom ($availableFrom);
         $file->setAvailableUntil($availableUntil);
         $file->notify_uploader  = isset ($post['email-notifications']);
+        $file->require_auth     = isset ($post['require-auth']);
         if (! empty ($post ['password']))
             $file->setPassword  ($post ['password']);
 

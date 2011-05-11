@@ -30,6 +30,13 @@ class App_Controller_File extends Fz_Controller {
     public function previewAction () {
         $file = $this->getFile();
         $isOwner = $file->isOwner ($this->getUser ());
+		
+		// Protect (do not show) file related data, 
+		// if uploader wants downloaders to be logged in
+		if ($file->require_auth) {
+			$this->secure();
+		}
+		
         set ('file',            $file);
         set ('isOwner',         $isOwner);
         set ('available',       $file->isAvailable () || $isOwner);
@@ -108,6 +115,13 @@ class App_Controller_File extends Fz_Controller {
         set ('file',      $file);
         set ('available', $file->isAvailable () || $file->isOwner ($this->getUser ()));
         set ('uploader',  $file->getUploader ());
+
+		// Protect (do not show) file related data, 
+		// if uploader wants downloaders to be logged in
+		if ($file->require_auth) {
+			$this->secure();
+		}
+		
         return html ('file/preview.php');
     }
 
@@ -252,6 +266,8 @@ class App_Controller_File extends Fz_Controller {
         if (! $file->isOwner ($this->getUser ())) {
             if (! $file->isAvailable ()) {
                 halt (HTTP_FORBIDDEN, __('File is not available for download'));
+			} else if ($file->require_auth) { // redirect to login if not logged in
+				$this->secure();
             } else if (! empty ($file->password)
                     && ! $file->checkPassword ($_POST['password'])) {
                 flash ('error', __('Incorrect password'));

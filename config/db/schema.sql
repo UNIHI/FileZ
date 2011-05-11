@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `fz_file` (
   `uploader_email`  varchar(60)     DEFAULT NULL,
   `extends_count`   INTEGER         DEFAULT '0',
   `password`        varchar(40)     DEFAULT NULL,
+  `require_auth`    BOOLEAN         DEFAULT 0,
 
   UNIQUE KEY `id` (`id`)
 ) DEFAULT CHARSET=utf8;

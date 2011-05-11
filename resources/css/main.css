@@ -498,6 +498,10 @@ section#preview-file #availability {
 section#preview-file #owner {
 	float: right;
 }
+section#preview-file #preview-message {
+	padding-top: 40px;
+    text-align: center;
+}
 section#preview-file #download,
 section#preview-file #comment {
 	clear: both;
