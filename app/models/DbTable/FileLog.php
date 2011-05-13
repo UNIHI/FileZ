@@ -32,7 +32,7 @@
  */
 class App_Model_DbTable_FileLog extends Fz_Db_Table_Abstract {
 
-    protected $_name = 'fz_fileLog';
+	protected $_name = 'fz_fileLog';
     protected $_columns = array (
         '$file_id',
         'ip',
