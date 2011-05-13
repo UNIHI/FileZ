@@ -27,6 +27,7 @@
 /**
  * @property int $file_id
  * @property string  $ip
+ * @property string  username
  * @property int  $timestamp
  */
 class App_Model_DbTable_FileLog extends Fz_Db_Table_Abstract {
@@ -35,6 +36,7 @@ class App_Model_DbTable_FileLog extends Fz_Db_Table_Abstract {
     protected $_columns = array (
         '$file_id',
         'ip',
+    	'username',
     	'timestamp',
     );
 
@@ -45,14 +47,14 @@ class App_Model_DbTable_FileLog extends Fz_Db_Table_Abstract {
      *
      * @param int $file_id
      */
-    public function insert ($file_id, $username) {
+    public function insert ($file_id, $user) {
         $db   = Fz_Db::getConnection();
         $sql  = 'INSERT INTO `'.$this->getTableName ().'` (`file_id`, `ip`, `username`, `timestamp`) VALUES (:file_id, :ip, :username, :timestamp)';
         $stmt = $db->prepare ($sql);
         return $stmt->execute (array (
             ':file_id' => $file_id,
             ':ip' => $_SERVER['REMOTE_ADDR'],
-        	':username' => $username['id'],
+        	':username' => $user['id'],
         	':timestamp' => time(),
         )); 
     }
