@@ -51,7 +51,13 @@ class App_Controller_File extends Fz_Controller {
     public function downloadAction () {
         $file = $this->getFile ();
         $this->checkFileAuthorizations ($file);
-
+        
+        // logging information
+        // TODO Checking logging Level
+        $filelog = Fz_Db::getTable('FileLog');
+        $filelog->insert($file->id, $this->getUser());
+        //--
+        
         $file->download_count = $file->download_count + 1;
         $file->save ();
 
@@ -65,7 +71,13 @@ class App_Controller_File extends Fz_Controller {
     public function viewAction () {
         $file = $this->getFile ();
         $this->checkFileAuthorizations ($file);
-
+        
+        // logging information
+        // TODO Checking logging Level
+		$filelog = Fz_Db::getTable('fileLog');
+        $filelog->insert($file->id, $this->getUser ()->id);
+        //-- 
+        
         $file->download_count = $file->download_count + 1;
         $file->save ();
 
