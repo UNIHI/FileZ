@@ -1,9 +1,9 @@
 SET NAMES 'utf8';
 DROP TABLE IF EXISTS `fz_fileLog`;
-CREATE TABLE IF NOT EXISTS `fz_fileLog` (
+CREATE TABLE `fz_fileLog` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `file_id` int(11) NOT NULL,
-  `ip` int(11) NOT NULL,
+  `ip` varchar(11) NOT NULL,
   `username` varchar(150) NOT NULL,
   `timestamp` int(11) NOT NULL,
   PRIMARY KEY (`id`),
