@@ -55,7 +55,7 @@ class App_Controller_File extends Fz_Controller {
         // logging information
         // TODO Checking logging Level
         $filelog = Fz_Db::getTable('FileLog');
-        //$filelog->insert($file->id, $this->getUser());
+        $filelog->insert($file->id, $this->getUser());
         //--
         
         $file->download_count = $file->download_count + 1;
@@ -75,7 +75,7 @@ class App_Controller_File extends Fz_Controller {
         // logging information
         // TODO Checking logging Level
 		$filelog = Fz_Db::getTable('FileLog');
-        //$filelog->insert($file->id, $this->getUser());
+        $filelog->insert($file->id, $this->getUser());
         //-- 
         
         $file->download_count = $file->download_count + 1;
