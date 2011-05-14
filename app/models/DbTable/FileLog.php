@@ -54,7 +54,7 @@ class App_Model_DbTable_FileLog extends Fz_Db_Table_Abstract {
         return $stmt->execute (array (
             ':file_id' => $file_id,
             ':ip' => $_SERVER['REMOTE_ADDR'],
-        	':username' => $user['id'],
+        	':username' => $user,
         	':timestamp' => time(),
         )); 
     }

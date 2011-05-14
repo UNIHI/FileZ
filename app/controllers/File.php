@@ -51,13 +51,8 @@ class App_Controller_File extends Fz_Controller {
     public function downloadAction () {
         $file = $this->getFile ();
         $this->checkFileAuthorizations ($file);
-        
         // logging information
-        // TODO Checking logging Level
-        $filelog = Fz_Db::getTable('FileLog');
-        $filelog->insert($file->id, $this->getUser());
-        //--
-        
+       	$this->logging(); 
         $file->download_count = $file->download_count + 1;
         $file->save ();
 
@@ -71,12 +66,8 @@ class App_Controller_File extends Fz_Controller {
     public function viewAction () {
         $file = $this->getFile ();
         $this->checkFileAuthorizations ($file);
-        
-        // logging information
-        // TODO Checking logging Level
-		$filelog = Fz_Db::getTable('FileLog');
-        $filelog->insert($file->id, $this->getUser());
-        //-- 
+         // logging information
+       	$this->logging(); 
         
         $file->download_count = $file->download_count + 1;
         $file->save ();
@@ -319,6 +310,18 @@ class App_Controller_File extends Fz_Controller {
             return;
 
         halt (HTTP_UNAUTHORIZED, __('You are not the owner of the file'));
+    }
+    
+    private function logging() {
+    	 // logging information
+        // TODO Checking logging Level
+        $filelog = Fz_Db::getTable('FileLog');
+        $user = $this->getUser();
+        $file = $this->getFile ();
+        $userID = ($user == NULL) ? "Unknown UserID" : $user['id']; 
+        $filelog->insert($file->id, $userID);
+        //--
+    	
     }
 
 
