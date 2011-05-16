@@ -37,6 +37,21 @@
                                                 'x' => (int) $file->download_count
       )))); // TODO ugly DIY plural ... ?>
   </p>
+  <?php if (fz_config_get ('app', 'enable_require_login', 1) == 1
+          || (fz_config_get ('app', 'enable_require_login', 0) == 0 
+              && $file->require_login == 1)): ?>
+  <p class="toggle">
+    <?php if ($file->require_login == 1): ?>
+        <a href="<?php echo $file->getDownloadUrl () ?>/toggle" class="toggle-off" title="<?php echo __('Toggle login requirement OFF') ?>">
+          <?php echo __('Toggle login requirement OFF') ?>
+        </a>
+    <?php else: ?>
+        <a href="<?php echo $file->getDownloadUrl () ?>/toggle" class="toggle-on" title="<?php echo __('Toggle login requirement ON') ?>">
+          <?php echo __('Toggle login requirement ON') ?>
+        </a>
+    <?php endif ?>
+  </p>
+  <?php endif ?>
   <p class="delete">
     <a href="<?php echo $file->getDownloadUrl () ?>/delete" class="delete" title="<?php echo __('Delete') ?>">
       <?php echo __('Delete') ?>

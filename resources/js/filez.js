@@ -125,6 +125,18 @@ $.fn.initFileActions = function () {
         e.preventDefault();
     });
 
+    $('a.toggle-on', this).click (function (e) {
+        if (confirm (settings.messages.confirmToggleOn))
+            $('<form action="'+$(this).attr('href')+'" method="post"></form>').appendTo('body').submit();
+        e.preventDefault();
+    });
+
+    $('a.toggle-off', this).click (function (e) {
+        if (confirm (settings.messages.confirmToggleOff))
+            $('<form action="'+$(this).attr('href')+'" method="post"></form>').appendTo('body').submit();
+        e.preventDefault();
+    });
+    
     $('a.extend', this).click (function (e) {
         e.preventDefault();
         var fileListItem = $(this).closest ('li.file');
@@ -143,7 +155,7 @@ $.fn.initFileActions = function () {
     });
 
     // initialize tips
-    $('a.extend, a.delete, a.share').qtip({
+    $('a.extend, a.delete, a.share, a.toggle-on, a.toggle-off').qtip({
         content: {
            attr: 'title'
         },

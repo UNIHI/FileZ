@@ -188,5 +188,7 @@ fz_dispatch_post ('/:file_hash/delete'          ,'File'        ,'delete');
 
 fz_dispatch_get  ('/:file_hash/extend'          ,'File'        ,'extend');
 
+fz_dispatch_get  ('/:file_hash/toggle'          ,'File'        ,'confirmToggleRequireLogin');
+fz_dispatch_post ('/:file_hash/toggle'          ,'File'        ,'toggleRequireLogin');
 run ();
 

@@ -103,6 +103,8 @@
         },
         messages: {
           confirmDelete: <?php echo  json_encode (__('Are you sure to delete this file ?')) ?>,
+          confirmToggleOn: <?php echo json_encode(__('Do you want to toggle on login requirement for this file?')) ?>,
+          confirmToggleOff: <?php echo json_encode(__('Do you want to toggle off login requirement for this file ?')) ?>,
           unknownError: <?php echo  json_encode (__('Unknown error')) ?>,
           unknownErrorHappened: <?php echo  json_encode (__('An unknown error hapenned while uploading the file')) ?>,
           cancel: <?php echo  json_encode (__('Cancel')) ?>,

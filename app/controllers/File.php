@@ -105,6 +105,54 @@ class App_Controller_File extends Fz_Controller {
     }
 
     /**
+     * Toggle login requirement
+     */
+    public function confirmToggleRequireLoginAction () {
+        $this->secure ();
+        $file = $this->getFile ();
+        $user = $this->getUser ();
+        $this->checkOwner ($file, $user);
+        set ('file', $file);
+
+        return html ('file/confirmToggleRequireLogin.php');
+    }
+    /**
+     * Toggle login requirement
+     */
+    public function toggleRequireLoginAction () {
+        $file = $this->getFile ();
+
+        $result = array ();
+        if ($file->require_login == 1) {
+            $file->require_login = 0;
+            $result ['status']     = 'success';
+            $result ['statusText'] = __('Login requirement toggled off for file: ') . $file;
+            $result ['html']       = partial ('main/_file_row.php', array ('file' => $file));
+        } else {
+            if (fz_config_get('app', 'enable_require_login', 1) == 1) {
+                $file->require_login = 1;
+                $result ['status']     = 'success';
+                $result ['statusText'] = __('Login requirement toggled on for file: ') . $file;
+                $result ['html']       = partial ('main/_file_row.php', array ('file' => $file));
+            } else {
+                // error, not allowed to toggle on (global option)
+                $result ['status']     = 'error';
+                $result ['statusText'] = __('You are not allowed to toggle on login requirement.');
+            }
+        }
+        $file->save();
+
+        if ($this->isXhrRequest()) {
+            return json ($result);
+        }
+        else {
+            flash (($result ['status'] == 'success' ? 'notification' : 'error'),
+                    $result ['statusText']);
+            redirect_to ('/');
+        }
+    }
+    
+    /**
      * Allows to download file with filez-1.x urls
      */
     public function downloadFzOneAction () {

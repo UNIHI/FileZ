@@ -484,6 +484,24 @@ section#uploaded-files ul li a.extend {
     padding: 0;
 }
 
+section#uploaded-files ul li a.toggle-on {
+    background: transparent url(../images/icons/keys.png) no-repeat left center;
+    text-indent: -5000px;
+    line-height: 16px;
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+}
+
+section#uploaded-files ul li a.toggle-off {
+    background: transparent url(../images/icons/system-log-out.png) no-repeat left center;
+    text-indent: -5000px;
+    line-height: 16px;
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+}
+
 section#uploaded-files ul li a.delete {
     background: transparent url(../images/icons/remove.png) no-repeat left center;
     text-indent: -5000px;
