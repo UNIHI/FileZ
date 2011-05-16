@@ -43,12 +43,14 @@
       </label>
       <input type="password" id="input-password" name="password" class="password" autocomplete="off" size="5"/>
     </li>
+    <?php if (fz_config_get ('app', 'enable_require_login', 1) == 1): ?>
     <li id="option-require-login">
       <input type="checkbox" name="require-login" id="require-login" checked="checked"/>
       <label for="require-login" title="<?php echo __('Require the user to login to grant access to your file.') ?>">
         <?php echo __('Require login') ?>
       </label>
     </li>
+    <?php endif ?>
   </ul>
   <div id="upload">
     <input type="submit" id="start-upload" name="upload" class="awesome blue large" value="&raquo; <?php echo __('Upload') ?>" />

@@ -36,8 +36,12 @@ class App_Controller_File extends Fz_Controller {
         set ('available',       $file->isAvailable () || $isOwner);
         set ('checkPassword',   !(empty ($file->password) || $isOwner));
         set ('uploader',        $file->getUploader ());
-        set ('requireLogin',    $file->require_login);
-        set ('isLoggedIn',      $this->getAuthHandler()->isSecured());
+        if ((fz_config_get ('app', 'enable_require_login', 1) == 1)
+            || (fz_config_get ('app', 'enable_require_login', 0) == 0
+                && fz_config_get ('app', 'prioritize_privacy', 1) == 1)) {
+            set ('requireLogin',    $file->require_login);
+            set ('isLoggedIn',      $this->getAuthHandler()->isSecured());
+        }
         return html ('file/preview.php');
     }
 
@@ -260,11 +264,21 @@ class App_Controller_File extends Fz_Controller {
         if (! $file->isOwner ($this->getUser ())) {
             if (! $file->isAvailable ()) {
                 halt (HTTP_FORBIDDEN, __('File is not available for download'));
-			} else if ($file->require_login 
-			        && !$this->getAuthHandler()->isSecured()) {
-			    // redirect to login page if not logged in
+            } else if ($file->require_login 
+                    && !$this->getAuthHandler()->isSecured()
+                    && fz_config_get ('app', 'enable_require_login', 1) == 1) {
+                // redirect to login page if not logged in and global login requirement is set
                 flash ('error', __('You have to login before you can access the file'));
-			    $this->secure();
+                $this->secure();
+            } else if ($file->require_login 
+                    && !$this->getAuthHandler()->isSecured()
+                    && fz_config_get ('app', 'enable_require_login', 0) == 0
+                    && fz_config_get ('app', 'prioritize_privacy', 1) == 1) {
+                // redirect to login page if not logged in if global login requirement is not set
+                // but privacy is priorized for files which have still have an individual
+                // file requirement set
+                flash ('error', __('You have to login before you can access the file'));
+                $this->secure();
             } else if (! empty ($file->password)
                     && ! $file->checkPassword ($_POST['password'])) {
                 flash ('error', __('Incorrect password'));

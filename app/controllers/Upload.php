@@ -123,7 +123,11 @@ class App_Controller_Upload extends Fz_Controller {
         $file->setAvailableFrom ($availableFrom);
         $file->setAvailableUntil($availableUntil);
         $file->notify_uploader  = isset ($post['email-notifications']);
-        $file->require_login    = isset ($post['require-login']);
+        
+        if (fz_config_get ('app', 'enable_require_login', 1) == 1) {
+            $file->require_login    = isset ($post['require-login']);
+        }
+        
         if (! empty ($post ['password']))
             $file->setPassword  ($post ['password']);
 
