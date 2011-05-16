@@ -43,10 +43,10 @@
       </label>
       <input type="password" id="input-password" name="password" class="password" autocomplete="off" size="5"/>
     </li>
-    <li id="option-require-auth">
-      <input type="checkbox" name="require-auth" id="require-auth" checked="checked"/>
-      <label for="require-auth" title="<?php echo __('Require the user to authentificate before downloading') ?>">
-        <?php echo __('Require authentification') ?>
+    <li id="option-require-login">
+      <input type="checkbox" name="require-login" id="require-login" checked="checked"/>
+      <label for="require-login" title="<?php echo __('Require the user to login to grant access to your file.') ?>">
+        <?php echo __('Require login') ?>
       </label>
     </li>
   </ul>

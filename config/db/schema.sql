@@ -14,16 +14,26 @@ CREATE TABLE IF NOT EXISTS `fz_file` (
   `uploader_email`  varchar(60)     DEFAULT NULL,
   `extends_count`   INTEGER         DEFAULT '0',
   `password`        varchar(40)     DEFAULT NULL,
-  `require_auth`    BOOLEAN         DEFAULT 0,
+  `require_login`   BOOLEAN         DEFAULT 0,
 
   UNIQUE KEY `id` (`id`)
 ) DEFAULT CHARSET=utf8;
 
+CREATE TABLE `fz_fileLog` (
+  `id`              BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `file_id`         INTEGER         NOT NULL,
+  `ip`              varchar(15)     NOT NULL,
+  `username`        varchar(150),
+  `timestamp`       INTEGER         NOT NULL,
+  
+  PRIMARY KEY (  `id`  ),
+  UNIQUE KEY `id` (`id`)
+) DEFAULT CHARSET=utf8;
 
 CREATE TABLE  `fz_info` (
  `key`   VARCHAR( 30 ) NOT NULL ,
  `value` VARCHAR( 50 ) NOT NULL ,
-  PRIMARY KEY (  `key` )
+  PRIMARY KEY (  `key`  )
 ) DEFAULT CHARSET=utf8;
 
 

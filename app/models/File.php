@@ -33,7 +33,7 @@
  * @property int     $extends_count
  * @property int     $created_at        TIMESTAMP
  * @property string  $password
- * @property boolean $require_auth
+ * @property boolean $require_login
  */
 class App_Model_File extends Fz_Db_Table_Row_Abstract {
 

@@ -8,4 +8,15 @@ CREATE TABLE `fz_fileLog` (
   `timestamp` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+) DEFAULT CHARSET=utf8;
+
+
+  -- 05/16/2011 fz_file: Rename old column name (login requirement)
+ALTER TABLE `fz_file` CHANGE `require_auth` `require_login` TINYINT
+
+  -- 05/16/2011 fz_filelog: file_id INT -> BIGINT
+ALTER TABLE `fz_filelog`  CHANGE COLUMN `file_id` `file_id` BIGINT(20) NOT NULL AFTER `id`;
+
+  -- 05/16/2011 fz_filelog: username ALLOW NULL, DEFAULT NULL
+ALTER TABLE `fz_filelog`  CHANGE COLUMN `username` `username` VARCHAR(150) NULL DEFAULT NULL AFTER `ip`;
+

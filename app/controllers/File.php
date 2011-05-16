@@ -31,17 +31,13 @@ class App_Controller_File extends Fz_Controller {
         $file = $this->getFile();
         $isOwner = $file->isOwner ($this->getUser ());
 		
-		// Protect (do not show) file related data, 
-		// if uploader wants downloaders to be logged in
-		if ($file->require_auth) {
-			$this->secure();
-		}
-		
         set ('file',            $file);
         set ('isOwner',         $isOwner);
         set ('available',       $file->isAvailable () || $isOwner);
         set ('checkPassword',   !(empty ($file->password) || $isOwner));
         set ('uploader',        $file->getUploader ());
+        set ('requireLogin',    $file->require_login);
+        set ('isLoggedIn',      $this->getAuthHandler()->isSecured());
         return html ('file/preview.php');
     }
 
@@ -128,12 +124,6 @@ class App_Controller_File extends Fz_Controller {
         set ('available', $file->isAvailable () || $file->isOwner ($this->getUser ()));
         set ('uploader',  $file->getUploader ());
 
-		// Protect (do not show) file related data, 
-		// if uploader wants downloaders to be logged in
-		if ($file->require_auth) {
-			$this->secure();
-		}
-		
         return html ('file/preview.php');
     }
 
@@ -275,11 +265,15 @@ class App_Controller_File extends Fz_Controller {
      * @param File $file
      */
     protected function checkFileAuthorizations ($file) {
+
         if (! $file->isOwner ($this->getUser ())) {
             if (! $file->isAvailable ()) {
                 halt (HTTP_FORBIDDEN, __('File is not available for download'));
-			} else if ($file->require_auth) { // redirect to login if not logged in
-				$this->secure();
+			} else if ($file->require_login 
+			        && !$this->getAuthHandler()->isSecured()) {
+			    // redirect to login page if not logged in
+                flash ('error', __('You have to login before you can access the file'));
+			    $this->secure();
             } else if (! empty ($file->password)
                     && ! $file->checkPassword ($_POST['password'])) {
                 flash ('error', __('Incorrect password'));

@@ -36,7 +36,7 @@
   <?php endif ?>
 
   <?php if ($available): ?>
-    <?php if (! $checkPassword && ! $requireAuth): ?>
+    <?php if (! $checkPassword && (! $requireLogin || ($requireLogin && $isLoggedIn))): // no password, login required or login requirement while logged in ?>
 
       <?php if ($file->isImage ()): ?>
         <p id="download" class="image">
@@ -58,8 +58,10 @@
           </script>
         </p>
       <?php endif ?>
-    <?php elseif(! $checkPassword && $requireAuth): // this file requires the user to authentificate ?>
-      <?php echo '<p id="preview-message">' . __('The file requires user authentification.') . '</p>' ?>
+    <?php elseif (! $checkPassword && $requireLogin && !$isLoggedIn): // no password required, but login requirement and is is not logged in ?>
+          <p id="preview-message"><a href="login">
+          <?php echo __('You need to login before you can access this file.') ?>
+          </a></p>
     <?php else: // this file need a password ?>
 
       <form action="<?php echo $file->getDownloadUrl ()?>/download" method="POST" id="download">
