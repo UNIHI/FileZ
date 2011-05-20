@@ -59,6 +59,15 @@ class App_Model_DbTable_FileLog extends Fz_Db_Table_Abstract {
         )); 
     }
     
+public function countFile ($dat) {
+		//TODO Errorhandling
+     	$db   = Fz_Db::getConnection();
+        $sql  = 'SELECT count(`id`) FROM `'.$this->getTableName ().'` WHERE `file_id` = ? AND `timestamp` BETWEEN ? AND ?';
+        $stmt = $db->prepare ($sql);
+        $stmt->execute ($dat);
+        $countResult = $stmt->fetch();
+        return $countResult['0'];
+    }
 
      
      

@@ -34,6 +34,9 @@
  * @property int     $created_at        TIMESTAMP
  * @property string  $password
  * @property boolean $require_login
+ * @property boolean $downloadLimit
+ * @property boolean $intervalCount
+ * @property boolean $intervalType
  */
 class App_Model_File extends Fz_Db_Table_Row_Abstract {
 
@@ -343,6 +346,31 @@ class App_Model_File extends Fz_Db_Table_Row_Abstract {
             'jpg',
             'png',
         ));
+    }
+    
+    
+  public function isDownloadLimitReached ($user) {
+  		//TODO Error handling (Nullpointer etc)
+  		
+  		// downloadLimit Level
+  		$bLimit = fz_config_get ('app', 'downloadLimitOnlyForUnknownUsers', 1);
+  		
+  		// downloadLimit check needed? 
+  		if ( ($user['id'] == "Unknown UserID") || ($user['id'] != "Unknown UserID" && $bLimit == 0)  ) {
+  			die("ee");
+	  		$days = $this->intervalCount;
+	     	$type = $this->intervalType;
+	     	$oldTimestamp = '-'. $this->intervalCount . ' ' . $this->intervalType . ' 00:00:00';
+	     	$oldTimestamp = strtotime($oldTimestamp);
+	     	$filelog = Fz_Db::getTable('FileLog');
+	    	$count = $filelog->countFile(array ($this->id, $oldTimestamp, time()));
+	    	if ($this->downloadLimit == 0) {
+	    		$this->downloadLimit = fz_config_get ('app', 'downloadLimit', 20);
+	    	}
+	        if ($count >= $this->downloadLimit)
+	        	return true;
+  		}
+  		return false; 
     }
 
 

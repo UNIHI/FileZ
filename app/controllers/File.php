@@ -308,31 +308,37 @@ class App_Controller_File extends Fz_Controller {
      * @param File $file
      */
     protected function checkFileAuthorizations ($file) {
-
-        if (! $file->isOwner ($this->getUser ())) {
-            if (! $file->isAvailable ()) {
-                halt (HTTP_FORBIDDEN, __('File is not available for download'));
-            } else if ($file->require_login 
-                    && !$this->getAuthHandler()->isSecured()
-                    && fz_config_get ('app', 'enable_require_login', 1) == 1) {
-                // redirect to login page if not logged in and global login requirement is set
-                flash ('error', __('You have to login before you can access the file'));
-                $this->secure();
-            } else if ($file->require_login 
-                    && !$this->getAuthHandler()->isSecured()
-                    && fz_config_get ('app', 'enable_require_login', 0) == 0
-                    && fz_config_get ('app', 'prioritize_privacy', 1) == 1) {
-                // redirect to login page if not logged in if global login requirement is not set
-                // but privacy is priorized for files which have still have an individual
-                // file requirement set
-                flash ('error', __('You have to login before you can access the file'));
-                $this->secure();
-            } else if (! empty ($file->password)
-                    && ! $file->checkPassword ($_POST['password'])) {
-                flash ('error', __('Incorrect password'));
-                redirect ('/'.$file->getHash());
-            }
-        }
+      	//Check Downloadlimit
+       	if (!$file->isDownloadLimitReached($this->getUser ())) {
+   
+	        if (! $file->isOwner ($this->getUser ())) {
+	            if (! $file->isAvailable ()) {
+	                halt (HTTP_FORBIDDEN, __('File is not available for download'));
+	            } else if ($file->require_login 
+	                    && !$this->getAuthHandler()->isSecured()
+	                    && fz_config_get ('app', 'enable_require_login', 1) == 1) {
+	                // redirect to login page if not logged in and global login requirement is set
+	                flash ('error', __('You have to login before you can access the file'));
+	                $this->secure();
+	            } else if ($file->require_login 
+	                    && !$this->getAuthHandler()->isSecured()
+	                    && fz_config_get ('app', 'enable_require_login', 0) == 0
+	                    && fz_config_get ('app', 'prioritize_privacy', 1) == 1) {
+	                // redirect to login page if not logged in if global login requirement is not set
+	                // but privacy is priorized for files which have still have an individual
+	                // file requirement set
+	                flash ('error', __('You have to login before you can access the file'));
+	                $this->secure();
+	            } else if (! empty ($file->password)
+	                    && ! $file->checkPassword ($_POST['password'])) {
+	                flash ('error', __('Incorrect password'));
+	                redirect ('/'.$file->getHash());
+	            }
+	        } 
+    	} else {
+    			flash ('error', __('Sorry, download limit reached for this file '));
+	            redirect ('/');
+	        }
     }
 
     /**
@@ -376,6 +382,7 @@ class App_Controller_File extends Fz_Controller {
         $file = $this->getFile ();
         $userID = ($user == NULL) ? "Unknown UserID" : $user['id']; 
         $filelog->insert($file->id, $userID);
+        
         //--
     	
     }

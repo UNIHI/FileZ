@@ -39,6 +39,9 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
         'created_at',
         'password',
         'require_login',
+    	'downloadLimit', 
+    	'intervalCount',
+    	'intervalType',
     );
 
     /**
@@ -204,6 +207,9 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
         }
         return floatval ($size);
     }
+    
+  
+    
 }
 
 
