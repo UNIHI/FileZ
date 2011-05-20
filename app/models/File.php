@@ -360,13 +360,12 @@ class App_Model_File extends Fz_Db_Table_Row_Abstract {
   		//TODO Error handling (Nullpointer etc)
   		
   		// downloadLimit Level
-  		$bLimit = fz_config_get ('app', 'downloadLimit
-  		OnlyForUnknownUsers', 1);
+  		$onlyForUnknownUsers = fz_config_get ('app', 'downloadLimitOnlyForUnknownUsers', 1);
   		
   		// downloadLimit check needed? 
-  		if ( ($user['id'] == "Unknown UserID") || ($user['id'] != "Unknown UserID" && $bLimit == 0)  ) {
-	  		$days = $this->intervalCount;
-	     	$type = $this->intervalType;
+  		if ( ($user['id'] == "Unknown UserID") || ($user['id'] != "Unknown UserID" && $onlyForUnknownUsers == 0)  ) {
+	  		$days = ($this->intervalCount == NULL) ? fz_config_get ('app', 'intervalCount', 1) : $this->intervalCount;
+	  		$type = ($this->intervalType == NULL) ? fz_config_get ('app', 'intervalType', "Day") : $this->intervalType;
 	     	$oldTimestamp = '-'. $this->intervalCount . ' ' . $this->intervalType . ' 00:00:00';
 	     	$oldTimestamp = strtotime($oldTimestamp);
 	     	$filelog = Fz_Db::getTable('FileLog');

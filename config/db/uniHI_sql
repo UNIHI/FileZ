@@ -20,3 +20,7 @@ ALTER TABLE `fz_filelog`  CHANGE COLUMN `file_id` `file_id` BIGINT(20) NOT NULL 
   -- 05/16/2011 fz_filelog: username ALLOW NULL, DEFAULT NULL
 ALTER TABLE `fz_filelog`  CHANGE COLUMN `username` `username` VARCHAR(150) NULL DEFAULT NULL AFTER `ip`;
 
+-- 05/20/2011
+ALTER TABLE `fz_file` add downloadLimit int(11);
+ALTER TABLE `fz_file` add intervalCount int(11);
+ALTER TABLE `fz_file` add intervalType varchar(15);
