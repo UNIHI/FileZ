@@ -366,15 +366,18 @@ class App_Model_File extends Fz_Db_Table_Row_Abstract {
   		if ( ($user['id'] == "Unknown UserID") || ($user['id'] != "Unknown UserID" && $onlyForUnknownUsers == 0)  ) {
 	  		$days = ($this->intervalCount == NULL) ? fz_config_get ('app', 'intervalCount', 1) : $this->intervalCount;
 	  		$type = ($this->intervalType == NULL) ? fz_config_get ('app', 'intervalType', "Day") : $this->intervalType;
-	     	$oldTimestamp = '-'. $this->intervalCount . ' ' . $this->intervalType . ' 00:00:00';
+	     	$oldTimestamp = '-'. $days . ' ' .$type . ' 00:00:00';
 	     	$oldTimestamp = strtotime($oldTimestamp);
 	     	$filelog = Fz_Db::getTable('FileLog');
 	    	$count = $filelog->countFile(array ($this->id, $oldTimestamp, time()));
 	    	// Limit is not set for the file, then take the global settings (downloadLimit)
 	    	if ($this->downloadLimit == 0 || $this->downloadLimit == NULL) {
-	    		$this->downloadLimit = fz_config_get ('app', 'downloadLimit', 20);
+	    		$dlimit = fz_config_get ('app', 'downloadLimit', 20);
+	    	} else {
+	    		$dlimit = $this->downloadLimit;
 	    	}
-	        if ($count >= $this->downloadLimit)
+
+	        if ($count >= $dlimit)
 	        	return true;
   		}
   		return false; 

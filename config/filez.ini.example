@@ -56,7 +56,7 @@ enable_require_login = 1
 prioritize_privacy = 1
 
 ; Limit for file (max Downloads Counter)
-downloadLimit = 100
+downloadLimit = 5
 
 ; For which group is the downloadLimit valid
 ; 0 = for All Users
