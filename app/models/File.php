@@ -348,23 +348,31 @@ class App_Model_File extends Fz_Db_Table_Row_Abstract {
         ));
     }
     
-    
+    /**
+	 * This method checks if the download limit is reached. 
+	 * The user is required to determine if the download by an anonymous user 
+	 * or a registered user started.
+     * 
+     * @param array    $user ($this->getUser())
+     * @return boolean
+     */
   public function isDownloadLimitReached ($user) {
   		//TODO Error handling (Nullpointer etc)
   		
   		// downloadLimit Level
-  		$bLimit = fz_config_get ('app', 'downloadLimitOnlyForUnknownUsers', 1);
+  		$bLimit = fz_config_get ('app', 'downloadLimit
+  		OnlyForUnknownUsers', 1);
   		
   		// downloadLimit check needed? 
   		if ( ($user['id'] == "Unknown UserID") || ($user['id'] != "Unknown UserID" && $bLimit == 0)  ) {
-  			die("ee");
 	  		$days = $this->intervalCount;
 	     	$type = $this->intervalType;
 	     	$oldTimestamp = '-'. $this->intervalCount . ' ' . $this->intervalType . ' 00:00:00';
 	     	$oldTimestamp = strtotime($oldTimestamp);
 	     	$filelog = Fz_Db::getTable('FileLog');
 	    	$count = $filelog->countFile(array ($this->id, $oldTimestamp, time()));
-	    	if ($this->downloadLimit == 0) {
+	    	// Limit is not set for the file, then take the global settings (downloadLimit)
+	    	if ($this->downloadLimit == 0 || $this->downloadLimit == NULL) {
 	    		$this->downloadLimit = fz_config_get ('app', 'downloadLimit', 20);
 	    	}
 	        if ($count >= $this->downloadLimit)
