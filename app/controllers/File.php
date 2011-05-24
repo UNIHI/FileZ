@@ -36,9 +36,9 @@ class App_Controller_File extends Fz_Controller {
         set ('available',       $file->isAvailable () || $isOwner);
         set ('checkPassword',   !(empty ($file->password) || $isOwner));
         set ('uploader',        $file->getUploader ());
-        if ((fz_config_get ('app', 'enable_require_login', 1) == 1)
-            || (fz_config_get ('app', 'enable_require_login', 0) == 0
-                && fz_config_get ('app', 'prioritize_privacy', 1) == 1)) {
+        
+        // Check for access rights (require login)
+        if (! ( fz_config_get ('app', 'login_requirement', 'privacy') == 'off' ) ) {
             set ('requireLogin',    $file->require_login);
             set ('isLoggedIn',      $this->getAuthHandler()->isSecured());
         }
@@ -116,29 +116,26 @@ class App_Controller_File extends Fz_Controller {
 
         return html ('file/confirmToggleRequireLogin.php');
     }
+    
     /**
      * Toggle login requirement
      */
     public function toggleRequireLoginAction () {
+        $this->secure ();
         $file = $this->getFile ();
+        $user = $this->getUser ();
+        $this->checkOwner ($file, $user);
 
         $result = array ();
-        if ($file->require_login == 1) {
-            $file->require_login = 0;
+        if (! (fz_config_get('app', 'login_requirement', 'on') == 'on')) {
+            // do not allow to toggle at all if option is not enabled
+            $result ['status']     = 'error';
+            $result ['statusText'] = __('You are not allowed to toggle login requirement.');
+        } else {
+            $file->require_login = ($file->require_login == 1 ? 0 : 1);
             $result ['status']     = 'success';
             $result ['statusText'] = __('Login requirement toggled off for file: ') . $file;
             $result ['html']       = partial ('main/_file_row.php', array ('file' => $file));
-        } else {
-            if (fz_config_get('app', 'enable_require_login', 1) == 1) {
-                $file->require_login = 1;
-                $result ['status']     = 'success';
-                $result ['statusText'] = __('Login requirement toggled on for file: ') . $file;
-                $result ['html']       = partial ('main/_file_row.php', array ('file' => $file));
-            } else {
-                // error, not allowed to toggle on (global option)
-                $result ['status']     = 'error';
-                $result ['statusText'] = __('You are not allowed to toggle on login requirement.');
-            }
         }
         $file->save();
 
@@ -312,19 +309,13 @@ class App_Controller_File extends Fz_Controller {
         if (! $file->isOwner ($this->getUser ())) {
             if (! $file->isAvailable ()) {
                 halt (HTTP_FORBIDDEN, __('File is not available for download'));
-            } else if ($file->require_login 
-                    && !$this->getAuthHandler()->isSecured()
-                    && fz_config_get ('app', 'enable_require_login', 1) == 1) {
+            // TODO: this looks bloated, any way to make it look simpler ?
+            } else if (   ( fz_config_get ('app', 'login_requirement', 'on') == 'force'
+                          && !$this->getAuthHandler()->isSecured() )
+                       || (! ( fz_config_get ('app', 'login_requirement', 'on') == 'off' )
+                          &&  $file->require_login 
+                          && !$this->getAuthHandler()->isSecured()) ) { // force login
                 // redirect to login page if not logged in and global login requirement is set
-                flash ('error', __('You have to login before you can access the file'));
-                $this->secure();
-            } else if ($file->require_login 
-                    && !$this->getAuthHandler()->isSecured()
-                    && fz_config_get ('app', 'enable_require_login', 0) == 0
-                    && fz_config_get ('app', 'prioritize_privacy', 1) == 1) {
-                // redirect to login page if not logged in if global login requirement is not set
-                // but privacy is priorized for files which have still have an individual
-                // file requirement set
                 flash ('error', __('You have to login before you can access the file'));
                 $this->secure();
             } else if (! empty ($file->password)

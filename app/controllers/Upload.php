@@ -124,7 +124,10 @@ class App_Controller_Upload extends Fz_Controller {
         $file->setAvailableUntil($availableUntil);
         $file->notify_uploader  = isset ($post['email-notifications']);
         
-        if (fz_config_get ('app', 'enable_require_login', 1) == 1) {
+        // Check for login requirement enforcement 
+        if (fz_config_get ('app', 'login_requirement' 'force') == 'force') {
+            $file->require_login = 1;
+        } else if (fz_config_get ('app', 'login_requirement', 'on') == 'on') {
             $file->require_login    = isset ($post['require-login']);
         }
         

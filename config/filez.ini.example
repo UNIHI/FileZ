@@ -44,16 +44,16 @@ user_factory_class = Fz_User_Factory_Ldap
 ; Max disk spaced per user. Support shorthand format : M (Mega), G (Giga)
 user_quota = 2G
 
-; Set to 1 if you want to offer the option to users to require a login 
-; to access a file (can be chosen for each file individually when enabled)
-enable_require_login = 1
-
-; Set this to 1 if you want to leave login requirement in function for 
-; uploaded files which have been marked as require_login = 1 while 
-; having enable_require_login = 0, so that the 'privacy' set to these files
-; remains in effect. 
-; This option has no effect if enable_require_login is set to 1
-prioritize_privacy = 1
+; This option allows users to require a valid login before the file can be accessed
+; Note: this option does not influence the requirement for a valid password
+; Available modes are: 
+; "on"      - offer login requirement option during file uploads
+; "off"     - do not offer login requirement option during file uploads
+; "force"   - login requirement is enabled globally and individually
+              enabled during file uploads.
+; "privacy" - disable login requirement but keep the requirement for files 
+              (to protect and respect the user's choice of privacy)
+login_requirement = "on"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Cron Job
