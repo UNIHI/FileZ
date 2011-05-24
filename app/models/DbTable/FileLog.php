@@ -48,7 +48,7 @@ class App_Model_DbTable_FileLog extends Fz_Db_Table_Abstract {
      * @param int $file_id
      */
     public function insert ($file_id, $user) {
-        $db   = Fz_Db::getConnection();
+    	$db   = Fz_Db::getConnection();
         $sql  = 'INSERT INTO `'.$this->getTableName ().'` (`file_id`, `ip`, `username`, `timestamp`) VALUES (:file_id, :ip, :username, :timestamp)';
         $stmt = $db->prepare ($sql);
         return $stmt->execute (array (
@@ -59,6 +59,16 @@ class App_Model_DbTable_FileLog extends Fz_Db_Table_Abstract {
         )); 
     }
     
+public function countFile ($dat) {
+		//TODO Errorhandling 
+		// TODO Count all Users? 
+     	$db   = Fz_Db::getConnection();
+        $sql  = 'SELECT count(`id`) FROM `'.$this->getTableName ().'` WHERE `file_id` = ? AND `timestamp` BETWEEN ? AND ?';
+        $stmt = $db->prepare ($sql);
+        $stmt->execute ($dat);
+        $countResult = $stmt->fetch();
+        return $countResult['0'];
+    }
 
      
      

@@ -34,6 +34,9 @@
  * @property int     $created_at        TIMESTAMP
  * @property string  $password
  * @property boolean $require_login
+ * @property boolean $downloadLimit
+ * @property boolean $intervalCount
+ * @property boolean $intervalType
  */
 class App_Model_File extends Fz_Db_Table_Row_Abstract {
 
@@ -343,6 +346,41 @@ class App_Model_File extends Fz_Db_Table_Row_Abstract {
             'jpg',
             'png',
         ));
+    }
+    
+    /**
+	 * This method checks if the download limit is reached. 
+	 * The user is required to determine if the download by an anonymous user 
+	 * or a registered user started.
+     * 
+     * @param array    $user ($this->getUser())
+     * @return boolean
+     */
+  public function isDownloadLimitReached ($user) {
+  		//TODO Error handling (Nullpointer etc)
+  		
+  		// downloadLimit Level
+  		$onlyForUnknownUsers = fz_config_get ('app', 'downloadLimitOnlyForUnknownUsers', 1);
+  		
+  		// downloadLimit check needed? 
+  		if ( ($user['id'] == "Unknown UserID") || ($user['id'] != "Unknown UserID" && $onlyForUnknownUsers == 0)  ) {
+	  		$days = ($this->intervalCount == NULL) ? fz_config_get ('app', 'intervalCount', 1) : $this->intervalCount;
+	  		$type = ($this->intervalType == NULL) ? fz_config_get ('app', 'intervalType', "Day") : $this->intervalType;
+	     	$oldTimestamp = '-'. $days . ' ' .$type . ' 00:00:00';
+	     	$oldTimestamp = strtotime($oldTimestamp);
+	     	$filelog = Fz_Db::getTable('FileLog');
+	    	$count = $filelog->countFile(array ($this->id, $oldTimestamp, time()));
+	    	// Limit is not set for the file, then take the global settings (downloadLimit)
+	    	if ($this->downloadLimit == 0 || $this->downloadLimit == NULL) {
+	    		$dlimit = fz_config_get ('app', 'downloadLimit', 20);
+	    	} else {
+	    		$dlimit = $this->downloadLimit;
+	    	}
+
+	        if ($count >= $dlimit)
+	        	return true;
+  		}
+  		return false; 
     }
 
 

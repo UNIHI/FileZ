@@ -39,7 +39,11 @@ class App_Controller_File extends Fz_Controller {
         
         // Check for access rights (require login)
         if (! ( fz_config_get ('app', 'login_requirement', 'privacy') == 'off' ) ) {
-            set ('requireLogin',    $file->require_login);
+            if (fz_config_get ('app', 'login_requirement', 'force') == 'force') {
+                set ('requireLogin',    1);
+            } else {
+                set ('requireLogin',    $file->require_login);
+            }
             set ('isLoggedIn',      $this->getAuthHandler()->isSecured());
         }
         return html ('file/preview.php');
@@ -305,18 +309,21 @@ class App_Controller_File extends Fz_Controller {
      * @param File $file
      */
     protected function checkFileAuthorizations ($file) {
-
+        
+        // TODO: this looks bloated, any way to make it look cleaner ?
         if (! $file->isOwner ($this->getUser ())) {
             if (! $file->isAvailable ()) {
                 halt (HTTP_FORBIDDEN, __('File is not available for download'));
-            // TODO: this looks bloated, any way to make it look simpler ?
-            } else if (   ( fz_config_get ('app', 'login_requirement', 'on') == 'force'
+
+        	} else if ($file->isDownloadLimitReached($this->getUser () )) {
+        		halt (HTTP_FORBIDDEN, __('Sorry, download limit reached for this file'));
+			} else if (   ( fz_config_get ('app', 'login_requirement', 'on') == 'force'
                           && !$this->getAuthHandler()->isSecured() )
                        || (! ( fz_config_get ('app', 'login_requirement', 'on') == 'off' )
                           &&  $file->require_login 
                           && !$this->getAuthHandler()->isSecured()) ) { // force login
                 // redirect to login page if not logged in and global login requirement is set
-                flash ('error', __('You have to login before you can access the file'));
+                flash ('error', __('You have to login before you can access the file') . ': '. $file);
                 $this->secure();
             } else if (! empty ($file->password)
                     && ! $file->checkPassword ($_POST['password'])) {
@@ -367,6 +374,9 @@ class App_Controller_File extends Fz_Controller {
         $file = $this->getFile ();
         $userID = ($user == NULL) ? "Unknown UserID" : $user['id']; 
         $filelog->insert($file->id, $userID);
+
+    
+        
         //--
     	
     }

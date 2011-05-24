@@ -55,6 +55,24 @@ user_quota = 2G
               (to protect and respect the user's choice of privacy)
 login_requirement = "on"
 
+; Limit for file (max Downloads Counter)
+downloadLimit = 5
+
+; For which group is the downloadLimit valid
+; 0 = for All Users
+; 1 = for Unknown Users
+downloadLimitOnlyForUnknownUsers = 1
+
+; both paramaters needed for strtotime()
+; intervalCount = (int) e.G 2 
+; intervalType = (String) Day, Week Year etc.)
+; example:( this settings reset the Download limit every three days) 
+; intervalCount = 3
+; intervalType = Day
+
+intervalCount = 1
+intervalType = Day
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Cron Job
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
