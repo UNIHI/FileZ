@@ -24,3 +24,7 @@ ALTER TABLE `fz_filelog`  CHANGE COLUMN `username` `username` VARCHAR(150) NULL 
 ALTER TABLE `fz_file` add downloadLimit int(11);
 ALTER TABLE `fz_file` add intervalCount int(11);
 ALTER TABLE `fz_file` add intervalType varchar(15);
+
+ -- 05/24/2011 fz_file : additional fields 'reported' 'prevent_reporting'
+ALTER TABLE `fz_file` ADD reported BOOLEAN
+ALTER TABLE `fz_file` ADD prevent_reporting BOOLEAN

@@ -51,9 +51,20 @@ user_quota = 2G
 ; "off"     - do not offer login requirement option during file uploads
 ; "force"   - login requirement is enabled globally and individually
               enabled during file uploads.
+              If enabled the user has no choice to set uploaded files to
+              require login. It is set automatically instead.
 ; "privacy" - disable login requirement but keep the requirement for files 
               (to protect and respect the user's choice of privacy)
 login_requirement = "on"
+
+; this option handles to ability to autostart downloads.
+; true: enable autostart of downloads, false: disable autostart of downloads 
+; setting the option to fase can be useful in case a user
+; does not want to download the file immediately or at all
+autostart_download = true
+
+; reporting allows users to notifiy the administration about a file
+enable_reporting = true
 
 ; Limit for file (max Downloads Counter)
 downloadLimit = 5

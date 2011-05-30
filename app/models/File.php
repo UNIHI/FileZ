@@ -37,6 +37,8 @@
  * @property boolean $downloadLimit
  * @property boolean $intervalCount
  * @property boolean $intervalType
+ * @property boolean $reported
+ * @property boolean $prevent_reporting
  */
 class App_Model_File extends Fz_Db_Table_Row_Abstract {
 
