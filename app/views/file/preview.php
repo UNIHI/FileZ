@@ -81,7 +81,7 @@
       <?php endif ?>
     <?php elseif (! $checkPassword && $requireLogin && !$isLoggedIn): 
     // no password required, but login requirement and is is not logged in ?>
-          <p id="preview-message"><a href="login">
+          <p id="preview-message"><a href="<?php echo $file->getDownloadUrl ()?>/download">
           <?php echo __('You need to login before you can access this file.') ?>
           </a></p>
     <?php else: // this file need a password ?>
