@@ -44,9 +44,19 @@ class App_Controller_Upload extends Fz_Controller {
         }
         // User accepted agreement (if enabled in options)?
         else if (fz_config_get('app', 'require_user_agreement', true) == true
-            && !isset ($_POST['require_user_agreement'])) {
+            && !isset ($_POST['user-agreement'])) {
             $response ['status']     = 'error';
-            $response ['statusText'] = __('You have to accept the user agreement.').' ';
+            $response ['statusText'] = __('You have to accept the user agreement.');
+            return $this->returnData ($response);
+
+        }
+        // user has to require login or a password for his file 
+        // if filez setting privacy_mode is true
+        else if (fz_config_get('app', 'privacy_mode', false) == true
+            && !isset ($_POST['require-login'])
+            && !isset ($_POST['use-password'])) {
+            $response ['status']     = 'error';
+            $response ['statusText'] = __('You have to protect your file with either login requirement or a password.');
             return $this->returnData ($response);
 
         }

@@ -68,7 +68,7 @@
       <input type="checkbox" name="user-agreement" id="user-agreement"/>
       <label for="user-agreement" title="<?php echo __('You have to accept this user agreement before you can upload the file.')?>">
        <a id="user-agreement" target="user-agreement" href="disclaimer" class="underlined">
-         <?php echo __('I have read, understood and accept the user agreement.') ?>
+         <?php echo __('I have read and understood the user agreement.') ?>
        </a>
       </label>
     </li>

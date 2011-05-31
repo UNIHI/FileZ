@@ -378,6 +378,45 @@ msgstr "Ich habe die Benutzervereinbahrung gelesen, verstanden."
 msgid "You have to accept the user agreement."
 msgstr "Sie müssen der Benutzervereinbahrung zustimmen, um eine Datei hochladen zu dürfen."
 
+msgid "on"
+msgstr "an"
+
+msgid "off"
+msgstr "aus"
+
+msgid "Toggle login requirement %var%"
+msgstr "Loginanforderung %var%schalten"
+
+msgid "Do you want to toggle on login requirement for this file?"
+msgstr "Möchten Sie die Loginanforderung für dise Datei anschalten?"
+
+msgid "Do you want to toggle off login requirement for this file ?"
+msgstr "Möchten Sie die Loginanforderung für diese Datei aussschalten?"
+
+msgid "Login requirement toggled off for file %var%"
+msgstr "Loginanforderung für %var% ausgestellt.
+
+msgid "Login requirement toggled %status% for file %file%"
+msgstr "Loginanforderung für %file% %status%gestellt"
+
+msgid "You are not allowed to toggle login requirement."
+msgstr "Sie haben nicht die Berechtigung die Loginanforderung umzustellen."
+
+msgid "Require login"
+msgstr "erfordere Login"
+
+msgid "and the University of Hildesheim"
+msgstr "und der Universität Hildesheim"
+
+msgid "You have to protect your file with either login requirement or a password."
+msgstr "Sie müssen Ihre Datei mindestens mit Loginanforderung oder einem Kennwort schützen."
+
+msgid "File has been reported."
+msgstr "Datei wurde gemeldet."
+
+msgid "Report this file"
+msgstr "Datei melden"
+
 #~ msgid "Details"
 #~ msgstr "Details"
 #~ msgid "Your file was uploaded successfuly."

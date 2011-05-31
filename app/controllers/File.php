@@ -137,8 +137,11 @@ class App_Controller_File extends Fz_Controller {
             $result ['statusText'] = __('You are not allowed to toggle login requirement.');
         } else {
             $file->require_login = ($file->require_login == 1 ? 0 : 1);
+            $status = ($file->require_login ? __('on') : __(off));
             $result ['status']     = 'success';
-            $result ['statusText'] = __('Login requirement toggled off for file: ') . $file;
+            $result ['statusText'] = 
+            __r('Login requirement toggled %status% for file %file%', 
+            array('status' => $status, 'file' => $file->file_name));
             $result ['html']       = partial ('main/_file_row.php', array ('file' => $file));
         }
         $file->save();
@@ -207,8 +210,32 @@ class App_Controller_File extends Fz_Controller {
      */
     public function reportAction () {
         $file = $this->getFile ();
-        $user = $this->getUser ();
+
+        // Send report
+        $mail = $this->createMail();
+        $subject = $file->file_name . ' has been reported';
+        $msg = 'File name: ' . $file->file_name . '\n';
+        $msg.= 'Reason: ' . $_POST['report-reason'] . '\n';
+        if (isset($_POST['comment'])) {
+            $msg.= 'Additional information: ' . $_POST['comment'] . '\n';
+        }
         
+        $mail->setBodyText ($msg);
+        $mail->setSubject  ($subject);
+        $mail->setReplyTo  (fz_config_get('app', 'admin_email'));
+        $mail->clearFrom();
+        $mail->setFrom     (fz_config_get('app', 'admin_email'));
+        $mail->addTo(fz_config_get('app', 'admin_email'));
+        try {
+            $mail->send ();
+            flash ('notification', __('File has been reported.'));
+            redirect_to($file->getDownloadUrl());
+        }
+        catch (Exception $e) {
+            fz_log ('Error while sending email (reporting)', FZ_LOG_ERROR, $e);
+            flash ('notification', __('Failed to report the file. Try again.'));
+            redirect_to($file->getDownloadUrl());
+        }
     }
     
     /**

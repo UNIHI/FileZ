@@ -81,7 +81,8 @@ function before () {
 
     // I18N
     Zend_Locale::setDefault (fz_config_get ('app', 'default_locale', 'fr'));
-    $currentLocale = new Zend_Locale ('auto');
+    //$currentLocale = new Zend_Locale ('auto');
+    $currentLocale = new Zend_Locale ('de');
     $translate     = new Zend_Translate ('gettext', option ('root_dir').DIRECTORY_SEPARATOR.'i18n', $currentLocale,
         array('scan' => Zend_Translate::LOCALE_DIRECTORY));
     option ('translate', $translate);

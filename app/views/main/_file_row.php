@@ -39,9 +39,11 @@
   </p>
   <?php if (fz_config_get ('app', 'login_requirement', 'on') == 'on'): ?>
   <p class="toggle">
-    <?php $toggle = ($file->require_login ? 'off' : 'on'); ?>
-      <a href="<?php echo $file->getDownloadUrl () ?>/toggle" class="toggle-<?php echo $toggle; ?>" title="<?php echo __('Toggle login requirement ' . $toggle) ?>">
-        <?php echo __('Toggle login requirement ') . $toggle ?>
+    <?php $toggle = ($file->require_login ? __('off') : __('on')); ?>
+      <a href="<?php echo $file->getDownloadUrl () ?>/toggle" 
+          class="toggle-<?php echo ($file->require_login ? 'off' : 'on'); ?>" 
+          title="<?php echo __r('Toggle login requirement %var%', array('var' => $toggle)) ?>">
+        <?php echo __r('Toggle login requirement %var%' , array('var' => $toggle)) ?>
       </a>
   </p>
   <?php endif ?>

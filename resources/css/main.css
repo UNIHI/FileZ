@@ -503,22 +503,24 @@ section#uploaded-files ul li a.extend {
 }
 
 section#uploaded-files ul li a.toggle-on {
-    /*background: transparent url(../images/icons/keys.png) no-repeat left center;
+    background: transparent url(../images/icons/login_require_on.png) no-repeat left center;
     text-indent: -5000px;
     line-height: 16px;
     height: 16px;
     width: 16px;
-   */ display: inline-block;
+    display: inline-block;
 }
 
+
 section#uploaded-files ul li a.toggle-off {
-    /*background: transparent url(../images/icons/system-log-out.png) no-repeat left center;
+    background: transparent url(../images/icons/login_require_off.png) no-repeat left center;
     text-indent: -5000px;
     line-height: 16px;
     height: 16px;
     width: 16px;
-   */ display: inline-block;
+    display: inline-block;
 }
+
 
 section#uploaded-files ul li a.delete {
     background: transparent url(../images/icons/remove.png) no-repeat left center;
@@ -1188,4 +1190,11 @@ article.doc .img-block {
 
 .underlined {
     text-decoration: underline;
+}
+
+.disclaimer {
+    font-size: 0.8em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 2em;
 }

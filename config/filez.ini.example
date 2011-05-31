@@ -57,6 +57,12 @@ user_quota = 2G
               (to protect and respect the user's choice of privacy)
 login_requirement = "on"
 
+; privacy mode setting decides if the user is required to set at least to
+; require a login or a password for a file to be uploaded.
+; TODO: this setting is not optimal but it is required to be available
+; a.s.a.p. (31_05_2011), so implementation might change and improve in future.
+privacy_mode = false
+
 ; this option handles to ability to autostart downloads.
 ; true: enable autostart of downloads, false: disable autostart of downloads 
 ; setting the option to fase can be useful in case a user

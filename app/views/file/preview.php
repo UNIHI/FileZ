@@ -101,7 +101,7 @@
 
 
 <section class="report-file fz-modal">
-  <form method="POST" enctype="application/x-www-form-urlencoded" action="<?php echo url_for ('report') ?>" id="report-form">
+  <form method="POST" enctype="application/x-www-form-urlencoded" action="<?php echo $file->getDownloadUrl ()?>/report" id="report-form">
   <div id="report-reason">
     <label for="select-report-reason"><?php echo __('Report reason') ?> :</label>
     <select id="select-report-reason" name="report-reason" alt="<?php echo __('Select a report reason') ?>" class="report-select">

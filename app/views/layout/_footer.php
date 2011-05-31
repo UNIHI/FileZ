@@ -25,7 +25,13 @@
       </div>
 
       <?php if (fz_config_get('looknfeel', 'show_credit')): ?>
-        <a href="http://gpl.univ-avignon.fr" target="#_blank"><?php echo __('A free software from the University of Avignon') ?></a>
+        <a href="http://gpl.univ-avignon.fr" target="#_blank">
+        <?php echo __('A free software from the University of Avignon'); ?>
+        </a><br />
+        <a href="http://www.uni-hildesheim.de" target="#_blank">
+        <?php echo __('and the University of Hildesheim') ?>
+        
+        </a>
       <?php endif ?>
 
       <?php echo check_cron();?>
