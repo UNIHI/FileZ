@@ -152,6 +152,7 @@ if (fz_config_load (dirname(__FILE__).DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEP
 // -----------------------------------------------------------------------------
 // Main controller
 fz_dispatch ('/'                                ,'Main'        ,'index');
+fz_dispatch_get ('/disclaimer'                  ,'Main'        ,'disclaimer');
 
 // Upload controller
 fz_dispatch_post ('/upload'                     ,'Upload'      ,'start');
@@ -190,5 +191,8 @@ fz_dispatch_get  ('/:file_hash/extend'          ,'File'        ,'extend');
 
 fz_dispatch_get  ('/:file_hash/toggle'          ,'File'        ,'confirmToggleRequireLogin');
 fz_dispatch_post ('/:file_hash/toggle'          ,'File'        ,'toggleRequireLogin');
+
+fz_dispatch_post ('/:file_hash/report'          ,'File'        ,'report');
+
 run ();
 

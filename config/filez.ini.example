@@ -66,6 +66,13 @@ autostart_download = true
 ; reporting allows users to notifiy the administration about a file
 enable_reporting = true
 
+; notification for soon expired files cannot be disabled, if set to true
+force_notification = false
+
+; the user must accept a defined user agreement before the upload can
+; be accomplished
+require_user_agreement = true
+
 ; Limit for file (max Downloads Counter)
 downloadLimit = 5
 

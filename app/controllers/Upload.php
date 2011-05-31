@@ -42,6 +42,14 @@ class App_Controller_Upload extends Fz_Controller {
             fz_log ('upload error (POST request > post_max_size)', FZ_LOG_ERROR);
             return $this->onFileUploadError (UPLOAD_ERR_INI_SIZE);
         }
+        // User accepted agreement (if enabled in options)?
+        else if (fz_config_get('app', 'require_user_agreement', true) == true
+            && !isset ($_POST['require_user_agreement'])) {
+            $response ['status']     = 'error';
+            $response ['statusText'] = __('You have to accept the user agreement.').' ';
+            return $this->returnData ($response);
+
+        }
         else if ($_FILES ['file']['error'] === UPLOAD_ERR_OK) {
             if ($this->checkQuota ($_FILES ['file'])) // Check user quota first
                 return $this->onFileUploadError (UPLOAD_ERR_QUOTA_EXCEEDED);
@@ -122,7 +130,13 @@ class App_Controller_Upload extends Fz_Controller {
         $file->comment          = substr ($comment, 0, 199);
         $file->setAvailableFrom ($availableFrom);
         $file->setAvailableUntil($availableUntil);
-        $file->notify_uploader  = isset ($post['email-notifications']);
+        // Check for notification enforcement
+        if (fz_config_get ('app', 'force_notification', false) == true) {
+            $file->notify_uploader  = true;    
+        } else {
+            $file->notify_uploader  = isset ($post['email-notifications']);
+        }
+        
         
         // Check for login requirement enforcement 
         if (fz_config_get ('app', 'login_requirement', 'force') == 'force') {

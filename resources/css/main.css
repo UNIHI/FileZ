@@ -1185,3 +1185,7 @@ article.doc .img-block {
     text-align: center;
     margin: 1em 0;
 }
+
+.underlined {
+    text-decoration: underline;
+}

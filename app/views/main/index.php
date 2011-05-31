@@ -31,10 +31,20 @@
   </div>
   <ul id="options">
     <li id="option-email-notifications">
+      <?php if (fz_config_get('app', 'force_notification', true) == true): ?>
+      <input type="checkbox" name="email-notifications" id="email-notifications" checked="checked" disabled="disabled" />
+      <label for="email-notifications" title="
+      <?php echo __('Send me email notifications when the file is uploaded and before it will be deleted.'); 
+            echo __('This option cannot be disabled.') 
+      ?>">
+      <?php echo __('Send me email notifications') ?>
+      </label>
+      <?php else: ?>
       <input type="checkbox" name="email-notifications" id="email-notifications" checked="checked"/>
       <label for="email-notifications" title="<?php echo __('Send me email notifications when the file is uploaded and before it will be deleted') ?>">
         <?php echo __('Send me email notifications') ?>
       </label>
+      <?php endif ?>          
     </li>
     <li id="option-use-password">
       <input type="checkbox" name="use-password" id="use-password"/>
@@ -52,6 +62,18 @@
     </li>
     <?php endif ?>
   </ul>
+  <?php if (fz_config_get('app' , 'require_user_agreement', true) == true): ?>
+  <ul id="options">
+    <li id="option-use-password">
+      <input type="checkbox" name="user-agreement" id="user-agreement"/>
+      <label for="user-agreement" title="<?php echo __('You have to accept this user agreement before you can upload the file.')?>">
+       <a id="user-agreement" target="user-agreement" href="disclaimer" class="underlined">
+         <?php echo __('I have read, understood and accept the user agreement.') ?>
+       </a>
+      </label>
+    </li>
+  </ul>
+  <?php endif ?>
   <div id="upload">
     <input type="submit" id="start-upload" name="upload" class="awesome blue large" value="&raquo; <?php echo __('Upload') ?>" />
     <div id="upload-loading"  style="display: none;"></div>

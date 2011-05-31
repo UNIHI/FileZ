@@ -47,4 +47,8 @@ class App_Controller_Main extends Fz_Controller {
         set ('max_upload_size'  , $maxUploadSize);
         return html ('main/index.php');
     }
+
+    public function disclaimerAction () {
+        return html ('main/disclaimer.php');
+    }
 }

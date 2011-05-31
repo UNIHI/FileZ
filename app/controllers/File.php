@@ -203,6 +203,15 @@ class App_Controller_File extends Fz_Controller {
     }
 
     /**
+     * Report a file
+     */
+    public function reportAction () {
+        $file = $this->getFile ();
+        $user = $this->getUser ();
+        
+    }
+    
+    /**
      * Share a file url by mail (show email form only)
      */
     public function emailFormAction () {
