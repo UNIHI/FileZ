@@ -394,7 +394,7 @@ msgid "Do you want to toggle off login requirement for this file ?"
 msgstr "Möchten Sie die Loginanforderung für diese Datei aussschalten?"
 
 msgid "Login requirement toggled off for file %var%"
-msgstr "Loginanforderung für %var% ausgestellt.
+msgstr "Loginanforderung für %var% ausgestellt."
 
 msgid "Login requirement toggled %status% for file %file%"
 msgstr "Loginanforderung für %file% %status%gestellt"

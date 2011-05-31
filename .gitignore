@@ -2,3 +2,4 @@ log/*
 config/filez.ini
 nbproject/
 .idea
+app/views/main/disclaimer.php
