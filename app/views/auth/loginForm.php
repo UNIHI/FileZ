@@ -1,4 +1,7 @@
-
+<?php if (array_key_exists('download_url', $flash)) {
+    $_SESSION['download_url'] = $flash['download_url'];
+    //flash ('download_url', $flash['download_url']);
+} ?>
 
 <form action="" method="post" id="login-form">
   <p id="username">

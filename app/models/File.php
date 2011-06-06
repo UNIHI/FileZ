@@ -39,6 +39,7 @@
  * @property boolean $intervalType
  * @property boolean $reported
  * @property boolean $prevent_reporting
+ * @property string  $folder
  */
 class App_Model_File extends Fz_Db_Table_Row_Abstract {
 
@@ -283,6 +284,16 @@ class App_Model_File extends Fz_Db_Table_Row_Abstract {
         $this->extends_count = $this->extends_count + 1;
     }
 
+    /**
+     * Extend file lifetime to maximum
+     */
+    public function extendMaximumLifetime () {
+        $this->setAvailableUntil (
+            $this->getCreatedAt()->addDay(
+                fz_config_get ('app', 'max_file_lifetime')));
+        $this->extends_count = fz_config_get ('app', 'max_extend_count');
+    }
+    
     /**
      * Set the password for the file. This function use the filename to salt
      * the password hash meaning that 'file_name' must have been already set

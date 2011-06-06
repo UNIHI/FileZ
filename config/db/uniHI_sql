@@ -26,5 +26,8 @@ ALTER TABLE `fz_file` add intervalCount int(11);
 ALTER TABLE `fz_file` add intervalType varchar(15);
 
  -- 05/24/2011 fz_file : additional fields 'reported' 'prevent_reporting'
-ALTER TABLE `fz_file` ADD reported BOOLEAN
-ALTER TABLE `fz_file` ADD prevent_reporting BOOLEAN
+ALTER TABLE `fz_file` ADD reported BOOLEAN;
+ALTER TABLE `fz_file` ADD prevent_reporting BOOLEAN;
+
+ -- 06/06/2011 fz_file : folder
+ALTER TABLE `fz_file` ADD folder varchar(200);

@@ -28,6 +28,9 @@
       <a href="<?php echo $file->getDownloadUrl () ?>/extend" class="extend" title="<?php echo __('Extend one more day') ?>">
         <?php echo __('Extend one more day') ?>
       </a>
+      <a href="<?php echo $file->getDownloadUrl () ?>/extendMaximum" class="extendMaximum" title="<?php echo __('Extend maximum possible') ?>">
+        <?php echo __('Extend maximum possible') ?>
+      </a>
     <?php endif ?>
   </p>
   <p class="download-counter">

@@ -1,3 +1,9 @@
+<?php if (array_key_exists('download_url', $_SESSION)) {
+    // used in case a login was required. user will get redirected after having logged in
+    $download_url = $_SESSION['download_url'];
+    unset($_SESSION['download_url']);
+    redirect_to($download_url);
+} ?>
 
 <h2 class="new-file"><?php echo __('Upload a new file') ?></h2>
 <section class="new-file fz-modal">
@@ -28,6 +34,10 @@
   <div id="comment">
     <label for="input-comment"><?php echo __('Comments') ?> :</label>
     <input type="text" id="input-comment" name="comment" value="" alt="<?php echo __('Add a comment (optional)') ?>" maxlength="200" />
+  </div>
+  <div id="folder">
+    <label for="input-folder"><?php echo __('Assign file to folder (optional)') ?> :</label>
+    <input type="text" id="input-folder" name="folder" value="" alt="<?php echo __('Assign file to folder (optional)') ?>" maxlength="50" />
   </div>
   <ul id="options">
     <li id="option-email-notifications">

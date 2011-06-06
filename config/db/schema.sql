@@ -19,7 +19,8 @@ CREATE TABLE IF NOT EXISTS `fz_file` (
   `intervalCount`   INTEGER         DEFAULT NULL,
   `intervalType`    varchar(15)     DEFAULT NULL,
   `reported`        BOOLEAN         DEFAULT NULL,
-  `prevent_reporting` BOOLEAN       DEFAULT NULL
+  `prevent_reporting` BOOLEAN       DEFAULT NULL,
+  `folder`          varchar(200)    DEFAULT NULL,
   
   UNIQUE KEY `id` (`id`)
 ) DEFAULT CHARSET=utf8;

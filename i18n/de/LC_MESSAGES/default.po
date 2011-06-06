@@ -171,7 +171,7 @@ msgstr "vom %available_from%. bis %available_until%"
 #: /home/didrya/filez/app/views/file/preview.php:23
 #: /home/didrya/filez/app/views/main/index.php:29
 msgid "Comments"
-msgstr "Kommentare"
+msgstr "Kommentar"
 
 #: /home/didrya/filez/app/views/file/preview.php:28
 msgid "Your download will start shortly..."
@@ -373,7 +373,7 @@ msgid "You have to accept this user agreement before you can upload the file."
 msgstr "Sie müssen der Benutzervereinbahrung zustimmen, bevor Sie die Datei hochladen können."
 
 msgid "I have read and understood the user agreement."
-msgstr "Ich habe die Benutzervereinbahrung gelesen, verstanden."
+msgstr "Ich habe die Benutzervereinbahrung gelesen und verstanden."
 
 msgid "You have to accept the user agreement."
 msgstr "Sie müssen der Benutzervereinbahrung zustimmen, um eine Datei hochladen zu dürfen."
@@ -416,6 +416,30 @@ msgstr "Datei wurde gemeldet."
 
 msgid "Report this file"
 msgstr "Datei melden"
+
+msgid "Select a reason"
+msgstr "Meldegrund wählen"
+
+msgid "Copyright infringement"
+msgstr "Kopierrecht-Verletzung"
+
+msgid "Offensive contents"
+msgstr "Offensive Inhalte"
+
+msgid "Site rule violation"
+msgstr "Seitenregelverletzung"
+
+msgid "Click here to download the file"
+msgstr "Datei downloaden"
+
+msgid "Assign file to folder (optional)"
+msgstr "Datei einem Ordner zuweisen (optional)"
+
+msgid "Extend maximum possible"
+msgstr "Bis zum Maximum verlängern"
+
+msgid "Lifetime extended to maximum"
+msgstr "Dauer wurde bis zum Maximum verlängert"
 
 #~ msgid "Details"
 #~ msgstr "Details"

@@ -107,6 +107,35 @@ class App_Controller_File extends Fz_Controller {
             redirect_to ('/');
         }
     }
+    
+    /**
+     * Extend lifetime to the possible allowed maximum
+     */
+    public function extendMaximumAction () {
+        $file = $this->getFile ();
+
+        $result = array ();
+        if ($file->extends_count < fz_config_get ('app', 'max_extend_count')) {
+            $file->extendMaximumLifetime ();
+            $file->save ();
+            $result ['status']     = 'success';
+            $result ['statusText'] = __('Lifetime extended to maximum');
+            $result ['html']       = partial ('main/_file_row.php', array ('file' => $file));
+        } else {
+            $result ['status']     = 'error';
+            $result ['statusText'] = __r('You can\'t extend a file lifetime more than %x% times',
+                                    array ('x' => fz_config_get ('app', 'max_extend_count')));
+        }
+
+        if ($this->isXhrRequest()) {
+            return json ($result);
+        }
+        else {
+            flash (($result ['status'] == 'success' ? 'notification' : 'error'),
+                    $result ['statusText']);
+            redirect_to ('/');
+        }
+    }
 
     /**
      * Toggle login requirement
@@ -304,6 +333,14 @@ class App_Controller_File extends Fz_Controller {
         }
     }
 
+    /**
+     * List folder content of a user
+     */
+    public function folderAction() {
+        
+    }
+    
+    
     // TODO documenter les 2 fonctions suivantes et ? les passer dans la classe controleur
 
     private function returnError ($msg, $template) {

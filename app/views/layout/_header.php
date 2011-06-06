@@ -20,7 +20,6 @@
       <?php if (array_key_exists ('error', $flash)): ?>
         <p class="notif error"><?php echo $flash ['error'] ?></p>
       <?php endif ?>
-
       <?php if (isset ($user)): ?>
         <p id="auth-box">
           <?php echo $user ['email'] ?> |

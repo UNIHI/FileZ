@@ -28,16 +28,23 @@ class App_Controller_Auth extends Fz_Controller {
      * Display a login form
      */
     public function loginFormAction () {
+
+        
         $https = fz_config_get ('app', 'https');
 
-        if ($this->getAuthHandler ()->isSecured ())
+        if ($this->getAuthHandler ()->isSecured ()) {
             fz_redirect_to ('/', ($https == 'always'));
+        } elseif  ($this->getAuthHandler() instanceof Fz_Controller_Security_Cas) { 
+            // do not use internal login if CAS is set
+            $this->secure();
+        }
 
         if ($https == 'always' || $https == 'login_only' )
             fz_force_https ();
 
         set ('username', (array_key_exists ('username', $_POST) ?
             $_POST['username'] : ''));
+
 
         return html ('auth/loginForm.php');
     }

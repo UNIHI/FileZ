@@ -173,17 +173,20 @@ header #auth-box a {
 /*
  * Section new-file
  */
-section.new-file, section.report-file {
+section.new-file, 
+section.report-file {
     -moz-box-shadow: inset 0 20px 20px rgba(0, 0, 0, 0.04);
     -webkit-box-shadow: inset 0 20px 20px rgba(0, 0, 0, 0.04);
 }
 
-.qtip section.new-file, .qtip section.report-file {
+.qtip section.new-file, 
+.qtip section.report-file {
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
 }
 
-section.new-file form, section.report-file form {
+section.new-file form, 
+section.report-file form {
     position: relative;
 }
 
@@ -210,7 +213,8 @@ section.new-file div#lifetime select,
 section.new-file div#comment input, 
 section.new-file div#start-from input,
 section.report-file div#report-reason,
-section.report-file div#report-comment input {
+section.report-file div#report-comment input,
+section.new-file div#folder input {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -246,6 +250,7 @@ section.new-file div#start-from input {
 section.new-file div#comment, 
 section.report-file div#report-comment,
 section.report-file div#report-reason,
+section.new-file div#folder,
 section.new-file ul#options {
     padding: 0 1.3em;
 }
@@ -478,7 +483,8 @@ section#uploaded-files ul li .file-attributes .availability b {
     color: #433C34;
 }
 
-section#uploaded-files ul li a.extend {
+section#uploaded-files ul li a.extend,
+section#uploaded-files ul li a.extendMaximum {
     padding-left: 20px;
     line-height: 16px;
     height: 16px;
@@ -492,11 +498,16 @@ section#uploaded-files ul li a.extend {
     background-image: url(../images/icons/add.png);
 }
 
+section#uploaded-files ul li a.extendMaximum {
+    background-image: url(../images/icons/add-maximum.png);
+}
+
 section#uploaded-files ul li a.send-by-email {
     background-image: url(../images/icons/mail-message-new.png);
 }
 
-section#uploaded-files ul li a.extend {
+section#uploaded-files ul li a.extend,
+section#uploaded-files ul li a.extendMaximum {
     text-indent: -5000px;
     width: 16px;
     padding: 0;
@@ -616,7 +627,8 @@ section#preview-file #preview-message {
 
 section#preview-file #download, 
 section#preview-file #comment,
-section#preview-file #report {
+section#preview-file #report
+ {
     clear: both;
 }
 

@@ -115,7 +115,12 @@ class App_Controller_Upload extends Fz_Controller {
     private function saveFile ($post, $uploadedFile) {
         // Computing default values
         $comment = array_key_exists ('comment',  $post) ? $post['comment'] : '';
-
+        $folder = array_key_exists ('folder', $post) ? $post['folder'] : 'x';
+        
+        // Allow only numbers and letters and convert space to _
+        $folder = preg_replace('/[^A-Za-z0-9_]/', '', $folder);
+        $folder = preg_replace('/ /', '_', $folder);
+        
         // Validating lifetime
         $lifetime = fz_config_get ('app', 'default_file_lifetime', 10);
         if (array_key_exists ('lifetime', $post) && is_numeric ($post['lifetime'])) {
@@ -138,6 +143,7 @@ class App_Controller_Upload extends Fz_Controller {
         $file->setUploader      ($user);
         $file->setCreatedAt     (new Zend_Date ());
         $file->comment          = substr ($comment, 0, 199);
+        $file->folder           = substr ($folder, 0, 199);
         $file->setAvailableFrom ($availableFrom);
         $file->setAvailableUntil($availableUntil);
         // Check for notification enforcement

@@ -190,10 +190,14 @@ fz_dispatch_post ('/:file_hash/delete'          ,'File'        ,'delete');
 
 fz_dispatch_get  ('/:file_hash/extend'          ,'File'        ,'extend');
 
+fz_dispatch_get  ('/:file_hash/extendMaximum'   ,'File'        ,'extendMaximum');
+
 fz_dispatch_get  ('/:file_hash/toggle'          ,'File'        ,'confirmToggleRequireLogin');
 fz_dispatch_post ('/:file_hash/toggle'          ,'File'        ,'toggleRequireLogin');
 
 fz_dispatch_post ('/:file_hash/report'          ,'File'        ,'report');
+
+fz_dispatch_get ('/:username/list/:folder'      ,'File'        ,'folder');
 
 run ();
 
