@@ -119,6 +119,24 @@ $.fn.initFileActions = function () {
         return false;
     }),
 
+    $('a.edit', this).click (function (e) {
+        e.preventDefault();
+        var modal = $('section.edit-file');
+        var fileUrl = $(this).attr ('href')
+                .substring (-1, $(this).attr ('href').lastIndexOf ('/'));
+
+        var filename = $('.filename a', $(this).closest('.file-description')).html();
+
+        $('section.edit-file').dialog ('option', 'title', filename);
+        modal.dialog ('open');
+        /*
+        $('form', modal).attr ('action', $(this).attr ('href'));
+        $('.open-email-client', modal).attr ('href', 'mailto:'
+            +'?body='+settings.messages.emailMessage+' : '+fileUrl);
+        */
+        return false;
+    }),
+    
     $('a.delete', this).click (function (e) {
         if (confirm (settings.messages.confirmDelete))
             $('<form action="'+$(this).attr('href')+'" method="post"></form>').appendTo('body').submit();
@@ -155,7 +173,7 @@ $.fn.initFileActions = function () {
     });
 
     // initialize tips
-    $('a.extend, a.delete, a.share, a.toggle-on, a.toggle-off').qtip({
+    $('a.extend, a.extendMaximum, a.delete, a.share, a.edit, a.toggle-on, a.toggle-off').qtip({
         content: {
            attr: 'title'
         },

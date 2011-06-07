@@ -55,5 +55,9 @@
       <?php echo __('Delete') ?>
     </a>
   </p>
+  <p class="edit">
+    <a href="<?php echo $file->getDownloadUrl() ?>/edit" class="edit" title="<?php echo __('Edit') ?>">
+      <?php echo __('Edit') ?>
+    </a>
+  </p>
 </div>
-

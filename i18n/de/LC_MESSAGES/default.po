@@ -441,6 +441,9 @@ msgstr "Bis zum Maximum verlängern"
 msgid "Lifetime extended to maximum"
 msgstr "Dauer wurde bis zum Maximum verlängert"
 
+msgid "Upload"
+msgstr "Hochladen"
+
 #~ msgid "Details"
 #~ msgstr "Details"
 #~ msgid "Your file was uploaded successfuly."

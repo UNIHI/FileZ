@@ -37,7 +37,7 @@
   </div>
   <div id="folder">
     <label for="input-folder"><?php echo __('Assign file to folder (optional)') ?> :</label>
-    <input type="text" id="input-folder" name="folder" value="" alt="<?php echo __('Assign file to folder (optional)') ?>" maxlength="50" />
+    <input type="text" id="input-folder" name="folder" value="" alt="<?php echo __('Assign file to folder (optional)') ?>" maxlength="200" />
   </div>
   <ul id="options">
     <li id="option-email-notifications">
@@ -92,6 +92,7 @@
   </form>
 </section>
 
+
 <h2 id="uploaded-files-title"><?php echo __('Uploaded files') ?></h2>
 <section id="uploaded-files">
   <ul id="files">
@@ -102,6 +103,7 @@
     <?php endforeach ?>
   </ul>
 </section>
+
 
 <div id="share-modal" class="fz-modal" style="display: none;">
     <p class="instruction"><?php echo __('Give this link to the person you want to share this file with') ?></p>
@@ -116,6 +118,55 @@
     <div class="cleartboth"></div>
 </div>
 
+
+<section class="edit-file fz-modal">
+  <form method="POST" enctype="application/x-www-form-urlencoded" action="<?php echo url_for ('edit') ?>" id="edit-form">
+  <div id="comment">
+    <label for="input-comment"><?php echo __('Comments') ?> :</label>
+    <input type="text" id="input-comment" name="comment" value="" alt="<?php echo __('Add a comment (optional)') ?>" maxlength="200" />
+  </div>
+  <div id="folder">
+    <label for="input-folder"><?php echo __('Assign file to folder (optional)') ?> :</label>
+    <input type="text" id="input-folder" name="folder" value="" alt="<?php echo __('Assign file to folder (optional)') ?>" maxlength="200" />
+  </div>
+  <ul id="options">
+    <li id="option-email-notifications">
+      <?php if (fz_config_get('app', 'force_notification', true) == true): ?>
+      <input type="checkbox" name="email-notifications" id="email-notifications" checked="checked" disabled="disabled" />
+      <label for="email-notifications" title="
+      <?php echo __('Send me email notifications before it will be deleted.'); 
+            echo __('This option cannot be disabled.') 
+      ?>">
+      <?php echo __('Send me email notifications') ?>
+      </label>
+      <?php else: ?>
+      <input type="checkbox" name="email-notifications" id="email-notifications" checked="checked"/>
+      <label for="email-notifications" title="<?php echo __('Send me email notifications when the file is uploaded and before it will be deleted') ?>">
+        <?php echo __('Send me email notifications') ?>
+      </label>
+      <?php endif ?>          
+    </li>
+    <li id="option-use-password">
+      <input type="checkbox" name="use-password" id="use-password"/>
+      <label for="use-password" title="<?php echo __('Ask a password to people who will download your file') ?>">
+        <?php echo __('Use a password to download') ?>
+      </label>
+      <input type="password" id="input-password" name="password" class="password" autocomplete="off" size="5"/>
+    </li>
+    <?php if (fz_config_get ('app', 'login_requirement', 'on') == 'on'): ?>
+    <li id="option-require-login">
+      <input type="checkbox" name="require-login" id="require-login" checked="checked"/>
+      <label for="require-login" title="<?php echo __('Require the user to login to grant access to your file.') ?>">
+        <?php echo __('Require login') ?>
+      </label>
+    </li>
+    <?php endif ?>
+  </ul>
+  <div id="edit">
+    <input type="submit" id="do-edit" name="edit" class="awesome blue large" value="&raquo; <?php echo __('Edit') ?>" />
+  </div>
+  </form>
+</section>
 
 <script type="text/javascript">
     $(document).ready (function () {

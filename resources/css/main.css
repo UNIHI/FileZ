@@ -174,19 +174,22 @@ header #auth-box a {
  * Section new-file
  */
 section.new-file, 
-section.report-file {
+section.report-file,
+section.edit-file {
     -moz-box-shadow: inset 0 20px 20px rgba(0, 0, 0, 0.04);
     -webkit-box-shadow: inset 0 20px 20px rgba(0, 0, 0, 0.04);
 }
 
 .qtip section.new-file, 
-.qtip section.report-file {
+.qtip section.report-file,
+.qtip section.edit-file {
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
 }
 
 section.new-file form, 
-section.report-file form {
+section.report-file form,
+section.edit-file form {
     position: relative;
 }
 
@@ -211,10 +214,12 @@ section.report-file div#report-reason {
 section.new-file div#file input, 
 section.new-file div#lifetime select, 
 section.new-file div#comment input, 
+section.edit-file div#comment input,
 section.new-file div#start-from input,
 section.report-file div#report-reason,
 section.report-file div#report-comment input,
-section.new-file div#folder input {
+section.new-file div#folder input,
+section.edit-file div#folder input {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -247,22 +252,27 @@ section.new-file div#start-from input {
     padding-left: 28px;
 }
 
-section.new-file div#comment, 
+section.new-file div#comment,
+section.edit-file div#comment,  
 section.report-file div#report-comment,
 section.report-file div#report-reason,
 section.new-file div#folder,
-section.new-file ul#options {
+section.edit-file div#folder,
+section.new-file ul#options,
+section.edit-file ul#options {
     padding: 0 1.3em;
 }
 
 section.new-file label,
+section.edit-file label,
 section.report-file label {
     padding-top: 0.8em;
     display: block;
 }
 
 section.new-file div#upload,
-section.report-file div#report {
+section.report-file div#report,
+section.edit-file div#edit {
     background: #F6F8FB;
     -moz-border-radius-bottomright: 5px;
     -webkit-border-radius-bottomright: 5px;
@@ -280,7 +290,8 @@ section.report-file div#report {
     border-color: #EDF2F7;
 }
 
-section.new-file div#upload * {
+section.new-file div#upload *,
+section.edit-file div#edit * {
 }
 
 section.new-file div#upload-loading {
@@ -290,7 +301,8 @@ section.new-file div#upload-loading {
     margin: 0 auto;
 }
 
-section.new-file ul#options {
+section.new-file ul#options,
+section.edit-file ul#options {
     margin-top: 0.8em;
 }
 
@@ -300,7 +312,20 @@ section.new-file ul#options li + li {
     border-left: 1px solid #DDD;
 }
 
-section.new-file div#password *, section.new-file ul#options li, section.new-file ul#options input, section.new-file ul#options li label {
+section.edit-file ul#options li + li {
+    padding-left: 0.4em;
+    margin-left: 0.4em;
+    border-left: 1px solid #DDD;
+}
+
+section.new-file div#password *, 
+section.new-file ul#options li, 
+section.new-file ul#options input, 
+section.new-file ul#options li label,
+section.edit-file div#password *, 
+section.edit-file ul#options li, 
+section.edit-file ul#options input, 
+section.edit-file ul#options li label {
     display: inline;
 }
 
@@ -320,7 +345,8 @@ h2.new-file a.awesome:hover {
     color: #FFF;
 }
 
-.ui-dialog section.new-file {
+.ui-dialog section.new-file,
+.ui-dialog section.edit-file {
     margin: 0;
 }
 
@@ -542,6 +568,16 @@ section#uploaded-files ul li a.delete {
     display: inline-block;
 }
 
+section#uploaded-files ul li a.edit {
+    background: transparent url(../images/icons/edit.png) no-repeat left center;
+    text-indent: -5000px;
+    line-height: 16px;
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+}
+
+
 /*
  * send-email-form
  */
@@ -647,7 +683,7 @@ section#preview-file #download.image {
 }
 
 /*
- * Share modal
+ * Share modal, Edit modal
  */
 #share-modal {
     padding: 1em;
