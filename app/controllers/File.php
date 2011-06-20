@@ -287,13 +287,6 @@ class App_Controller_File extends Fz_Controller {
         $folder = preg_replace('/[^A-Za-z0-9_]/', '', $folder);
         $folder = preg_replace('/ /', '_', $folder);
 
-        // Check for login requirement enforcement 
-        if (fz_config_get ('app', 'login_requirement', 'force') == 'force') {
-            $file->require_login = 1;
-        } else if (fz_config_get ('app', 'login_requirement', 'on') == 'on') {
-            $file->require_login    = isset ($post['require-login']);
-        }
-
         if (! empty ($post ['password']))
             $file->setPassword  ($post ['password']);
         
@@ -491,15 +484,37 @@ class App_Controller_File extends Fz_Controller {
     
     private function logging() {
     	 // logging information
+        // TODO Checking logging Level
         $filelog = Fz_Db::getTable('FileLog');
         $user = $this->getUser();
         $file = $this->getFile ();
         $userID = ($user == NULL) ? "Unknown UserID" : $user['id']; 
         $filelog->insert($file->id, $userID);
+
+    
+        
         //--
     	
     }
 
+    /**
+     * Return data to the browser with the correct response type (json or html).
+     * If the request comes from an iframe (with the is-async GET parameter,
+     * the response is embedded inside a textarea to prevent some browsers :
+     * quirks (http://www.malsup.com/jquery/form/#file-upload) JQuery Form
+     * Plugin will handle the response transparently.
+     * 
+     * @param array $data
+     */
+    private function returnData ($data) {
+        if (array_key_exists ('is-async', $_GET) && $_GET ['is-async']) {
+            return html("<textarea>\n".json_encode ($data)."\n</textarea>",'');
+        }
+        else {
+            flash ('notification', $data ['statusText']);
+            redirect_to ('/');
+        }
+    }
 
 }
 

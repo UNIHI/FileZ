@@ -137,14 +137,6 @@
       </label>
       <input type="password" id="edit-input-password" name="password" class="password" autocomplete="off" size="5"/>
     </li>
-    <?php if (fz_config_get ('app', 'login_requirement', 'on') == 'on'): ?>
-    <li id="edit-option-require-login">
-      <input type="checkbox" name="require-login" id="edit-require-login" checked="checked"/>
-      <label for="edit-require-login" title="<?php echo __('Require the user to login to grant access to your file.') ?>">
-        <?php echo __('Require login') ?>
-      </label>
-    </li>
-    <?php endif ?>
   </ul>
   <div id="edit">
     <input type="submit" id="do-edit" name="edit" class="awesome blue large" value="&raquo; <?php echo __('Edit') ?>" />
@@ -208,6 +200,7 @@
         var filename = $('.filename a', $('.file-description p.filename').closest('.file-description')).html();
         var comment = $('.comment', $('.file-description p.comment').closest('.file-description')).html();
         var folder = $('.folder', $('.file-description p.folder').closest('.file-description')).html();
+        var requireLogin = $('.require-login', $('.file-description p.folder').closest('.file-description')).html();
         //var fileHash = fileUrl.split('').reverse().join('');
         //fileHash = fileHash.substring(0,fileHash.indexOf('/')).split('').reverse().join('');
         
@@ -248,12 +241,6 @@
         }
       });
       
-      $('#edit-use-password, #edit-require-login').click(function(event) {
-        if (!$('#edit-use-password').is(':checked') && !$('#edit-require-login').is(':checked')) {
-          $('#edit-require-login').attr('checked','checked')
-          alert(<?php echo "'" . __('You have to give at least a password or require a login.') . "'" ?>);
-        }
-      });
     });
 
 

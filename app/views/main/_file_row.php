@@ -11,6 +11,7 @@
   <p class="comment"><?php echo $file->comment ?></p>
   <p class="folder"><?php echo $file->folder ?></p>
   <p class="require-login"><?php echo $file->require_login; ?></p>
+  <p class="has-password"><?php echo ($file->password ? 1 : 0)?></p>
   <p class="filesize">(<?php echo $file->getReadableFileSize () ?>)</p>
   <p class="share">
     <a href="<?php echo $file->getDownloadUrl () ?>/share" class="awesome green share">
