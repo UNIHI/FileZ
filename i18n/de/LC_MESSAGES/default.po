@@ -268,7 +268,7 @@ msgstr "Passwort verwenden"
 
 #: /home/didrya/filez/app/views/main/index.php:48
 msgid "Upload"
-msgstr "Upload"
+msgstr "Hochladen"
 
 #: /home/didrya/filez/app/views/main/index.php:55
 msgid "Uploaded files"
@@ -370,13 +370,13 @@ msgid "This option cannot be disabled."
 msgstr "Diese Option kann nicht deaktiviert werden."
 
 msgid "You have to accept this user agreement before you can upload the file."
-msgstr "Sie müssen der Benutzervereinbahrung zustimmen, bevor Sie die Datei hochladen können."
+msgstr "Sie müssen der Nutzungsvereinbahrung zustimmen, bevor Sie die Datei hochladen können."
 
 msgid "I have read and understood the user agreement."
-msgstr "Ich habe die Benutzervereinbahrung gelesen und verstanden."
+msgstr "Ich habe die Nutzungsvereinbahrung gelesen und verstanden."
 
 msgid "You have to accept the user agreement."
-msgstr "Sie müssen der Benutzervereinbahrung zustimmen, um eine Datei hochladen zu dürfen."
+msgstr "Sie müssen der Nutzungsvereinbahrung zustimmen, um eine Datei hochladen zu dürfen."
 
 msgid "on"
 msgstr "an"
@@ -441,8 +441,14 @@ msgstr "Bis zum Maximum verlängern"
 msgid "Lifetime extended to maximum"
 msgstr "Dauer wurde bis zum Maximum verlängert"
 
-msgid "Upload"
-msgstr "Hochladen"
+msgid "Edit file"
+msgstr "Datei bearbeiten"
+
+msgid "You have to give at least a password or require a login."
+msgstr "Sie müssen mindestens ein Passwort vergeben oder einen Login für die Datei erfordern."
+
+msgid "File updated."
+msgstr "Datei wurde erfolgreich aktualisiert."
 
 #~ msgid "Details"
 #~ msgstr "Details"

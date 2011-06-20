@@ -216,6 +216,7 @@ class App_Controller_File extends Fz_Controller {
 
         return html ('file/confirmDelete.php');
     }
+    
     /**
      * Delete a file
      */
@@ -265,6 +266,55 @@ class App_Controller_File extends Fz_Controller {
             flash ('notification', __('Failed to report the file. Try again.'));
             redirect_to($file->getDownloadUrl());
         }
+    }
+    
+     /**
+     * Edit a file.
+     */
+    public function editAction () {
+        $post = $_POST;
+        $this->secure ();
+        $file = $this->getFile ();
+        $user = $this->getUser ();
+        $this->checkOwner ($file, $user);
+
+        // Usual checks
+        // Computing default values
+        $comment = array_key_exists ('comment',  $post) ? $post['comment'] : '';
+        $folder = array_key_exists ('folder', $post) ? $post['folder'] : '';
+        
+        // Allow only numbers and letters and convert space to _
+        $folder = preg_replace('/[^A-Za-z0-9_]/', '', $folder);
+        $folder = preg_replace('/ /', '_', $folder);
+
+        // Check for login requirement enforcement 
+        if (fz_config_get ('app', 'login_requirement', 'force') == 'force') {
+            $file->require_login = 1;
+        } else if (fz_config_get ('app', 'login_requirement', 'on') == 'on') {
+            $file->require_login    = isset ($post['require-login']);
+        }
+
+        if (! empty ($post ['password']))
+            $file->setPassword  ($post ['password']);
+        
+        $file->comment = substr ($comment, 0, 199);
+        $file->folder  = substr ($folder, 0, 199);
+        
+        try {
+            $file->save ();
+        
+            if ($this->isXhrRequest())
+                return json (array ('status' => 'success'));
+            else {
+                flash ('notification', __('File updated.'));
+                redirect_to ('/');
+            }
+        } catch (Exception $e) {
+            fz_log ('Can\'t update file "'. $file .'" edited by '.$user['email'], FZ_LOG_ERROR);
+            fz_log ($e, FZ_LOG_ERROR);
+            return null;
+        }
+
     }
     
     /**

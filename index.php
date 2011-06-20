@@ -153,7 +153,8 @@ if (fz_config_load (dirname(__FILE__).DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEP
 // -----------------------------------------------------------------------------
 // Main controller
 fz_dispatch ('/'                                ,'Main'        ,'index');
-fz_dispatch_get ('/disclaimer'                  ,'Main'        ,'disclaimer');
+
+fz_dispatch_get  ('/disclaimer'                 ,'Main'        ,'disclaimer');
 
 // Upload controller
 fz_dispatch_post ('/upload'                     ,'Upload'      ,'start');
@@ -197,7 +198,11 @@ fz_dispatch_post ('/:file_hash/toggle'          ,'File'        ,'toggleRequireLo
 
 fz_dispatch_post ('/:file_hash/report'          ,'File'        ,'report');
 
+fz_dispatch_post('/:file_hash/edit'             ,'File'        ,'edit');
+
 fz_dispatch_get ('/:username/list/:folder'      ,'File'        ,'folder');
+
+
 
 run ();
 

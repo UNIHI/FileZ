@@ -214,12 +214,12 @@ section.report-file div#report-reason {
 section.new-file div#file input, 
 section.new-file div#lifetime select, 
 section.new-file div#comment input, 
-section.edit-file div#comment input,
+section.edit-file div#edit-comment input,
 section.new-file div#start-from input,
 section.report-file div#report-reason,
 section.report-file div#report-comment input,
 section.new-file div#folder input,
-section.edit-file div#folder input {
+section.edit-file div#edit-folder input {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -253,13 +253,13 @@ section.new-file div#start-from input {
 }
 
 section.new-file div#comment,
-section.edit-file div#comment,  
+section.edit-file div#edit-comment,  
 section.report-file div#report-comment,
 section.report-file div#report-reason,
 section.new-file div#folder,
-section.edit-file div#folder,
+section.edit-file div#edit-folder,
 section.new-file ul#options,
-section.edit-file ul#options {
+section.edit-file ul#edit-options {
     padding: 0 1.3em;
 }
 
@@ -302,17 +302,12 @@ section.new-file div#upload-loading {
 }
 
 section.new-file ul#options,
-section.edit-file ul#options {
+section.edit-file ul#edit-options {
     margin-top: 0.8em;
 }
 
-section.new-file ul#options li + li {
-    padding-left: 0.4em;
-    margin-left: 0.4em;
-    border-left: 1px solid #DDD;
-}
-
-section.edit-file ul#options li + li {
+section.new-file ul#options li + li,
+section.edit-file ul#edit-options li + li {
     padding-left: 0.4em;
     margin-left: 0.4em;
     border-left: 1px solid #DDD;
@@ -322,10 +317,10 @@ section.new-file div#password *,
 section.new-file ul#options li, 
 section.new-file ul#options input, 
 section.new-file ul#options li label,
-section.edit-file div#password *, 
-section.edit-file ul#options li, 
-section.edit-file ul#options input, 
-section.edit-file ul#options li label {
+section.edit-file div#edit-password *, 
+section.edit-file ul#edit-options li, 
+section.edit-file ul#edit-options input, 
+section.edit-file ul#edit-options li label {
     display: inline;
 }
 
@@ -460,7 +455,9 @@ section#uploaded-files ul li:hover p a.copy2clipboard {
     opacity: 1;
 }
 
-section#uploaded-files ul li p.comment {
+section#uploaded-files ul li p.comment,
+section#uploaded-files ul li p.folder,
+section#uploaded-files ul li p.require-login {
     display: none;
     /* TODO */
 }
@@ -1240,9 +1237,21 @@ article.doc .img-block {
     text-decoration: underline;
 }
 
-.disclaimer {
+.disclaimer h1 {
+    font-size: 1.2em;
+}
+
+.disclaimer p {
     font-size: 0.8em;
-    padding-top: 1em;
-    padding-bottom: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;    
+}
+
+.disclaimer li {
+    font-size: 0.8em;
     padding-left: 2em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    list-style: none;
+
 }

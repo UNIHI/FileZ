@@ -42,31 +42,31 @@
   <ul id="options">
     <li id="option-email-notifications">
       <?php if (fz_config_get('app', 'force_notification', true) == true): ?>
-      <input type="checkbox" name="email-notifications" id="email-notifications" checked="checked" disabled="disabled" />
       <label for="email-notifications" title="
       <?php echo __('Send me email notifications when the file is uploaded and before it will be deleted.'); 
             echo __('This option cannot be disabled.') 
       ?>">
+      <input type="checkbox" name="email-notifications" id="email-notifications" checked="checked" disabled="disabled" />
       <?php echo __('Send me email notifications') ?>
       </label>
       <?php else: ?>
-      <input type="checkbox" name="email-notifications" id="email-notifications" checked="checked"/>
       <label for="email-notifications" title="<?php echo __('Send me email notifications when the file is uploaded and before it will be deleted') ?>">
+      <input type="checkbox" name="email-notifications" id="email-notifications" checked="checked"/>
         <?php echo __('Send me email notifications') ?>
       </label>
       <?php endif ?>          
     </li>
     <li id="option-use-password">
-      <input type="checkbox" name="use-password" id="use-password"/>
       <label for="use-password" title="<?php echo __('Ask a password to people who will download your file') ?>">
+      <input type="checkbox" name="use-password" id="use-password"/>
         <?php echo __('Use a password to download') ?>
       </label>
       <input type="password" id="input-password" name="password" class="password" autocomplete="off" size="5"/>
     </li>
     <?php if (fz_config_get ('app', 'login_requirement', 'on') == 'on'): ?>
     <li id="option-require-login">
-      <input type="checkbox" name="require-login" id="require-login" checked="checked"/>
       <label for="require-login" title="<?php echo __('Require the user to login to grant access to your file.') ?>">
+      <input type="checkbox" name="require-login" id="require-login" checked="checked"/>
         <?php echo __('Require login') ?>
       </label>
     </li>
@@ -75,8 +75,8 @@
   <?php if (fz_config_get('app' , 'require_user_agreement', true) == true): ?>
   <ul id="options">
     <li id="option-use-password">
-      <input type="checkbox" name="user-agreement" id="user-agreement"/>
-      <label for="user-agreement" title="<?php echo __('You have to accept this user agreement before you can upload the file.')?>">
+      <label for="accept-user-agreement" title="<?php echo __('You have to accept this user agreement before you can upload the file.')?>">   
+      <input type="checkbox" name="user-agreement" id="accept-user-agreement"/>
        <a id="user-agreement" target="user-agreement" href="disclaimer" class="underlined">
          <?php echo __('I have read and understood the user agreement.') ?>
        </a>
@@ -119,44 +119,28 @@
 </div>
 
 
-<section class="edit-file fz-modal">
-  <form method="POST" enctype="application/x-www-form-urlencoded" action="<?php echo url_for ('edit') ?>" id="edit-form">
-  <div id="comment">
+<section id="edit-modal" class="edit-file fz-modal">
+  <form method="POST" enctype="application/x-www-form-urlencoded" action="" id="edit-form">
+  <div id="edit-comment">
     <label for="input-comment"><?php echo __('Comments') ?> :</label>
     <input type="text" id="input-comment" name="comment" value="" alt="<?php echo __('Add a comment (optional)') ?>" maxlength="200" />
   </div>
-  <div id="folder">
+  <div id="edit-folder">
     <label for="input-folder"><?php echo __('Assign file to folder (optional)') ?> :</label>
-    <input type="text" id="input-folder" name="folder" value="" alt="<?php echo __('Assign file to folder (optional)') ?>" maxlength="200" />
+    <input type="text" id="edit-input-folder" name="folder" value="" alt="<?php echo __('Assign file to folder (optional)') ?>" maxlength="200" />
   </div>
-  <ul id="options">
-    <li id="option-email-notifications">
-      <?php if (fz_config_get('app', 'force_notification', true) == true): ?>
-      <input type="checkbox" name="email-notifications" id="email-notifications" checked="checked" disabled="disabled" />
-      <label for="email-notifications" title="
-      <?php echo __('Send me email notifications before it will be deleted.'); 
-            echo __('This option cannot be disabled.') 
-      ?>">
-      <?php echo __('Send me email notifications') ?>
-      </label>
-      <?php else: ?>
-      <input type="checkbox" name="email-notifications" id="email-notifications" checked="checked"/>
-      <label for="email-notifications" title="<?php echo __('Send me email notifications when the file is uploaded and before it will be deleted') ?>">
-        <?php echo __('Send me email notifications') ?>
-      </label>
-      <?php endif ?>          
-    </li>
-    <li id="option-use-password">
-      <input type="checkbox" name="use-password" id="use-password"/>
-      <label for="use-password" title="<?php echo __('Ask a password to people who will download your file') ?>">
+  <ul id="edit-options">
+    <li id="edit-option-use-password">
+      <input type="checkbox" name="use-password" id="edit-use-password"/>
+      <label for="edit-use-password" title="<?php echo __('Ask a password to people who will download your file') ?>">
         <?php echo __('Use a password to download') ?>
       </label>
-      <input type="password" id="input-password" name="password" class="password" autocomplete="off" size="5"/>
+      <input type="password" id="edit-input-password" name="password" class="password" autocomplete="off" size="5"/>
     </li>
     <?php if (fz_config_get ('app', 'login_requirement', 'on') == 'on'): ?>
-    <li id="option-require-login">
-      <input type="checkbox" name="require-login" id="require-login" checked="checked"/>
-      <label for="require-login" title="<?php echo __('Require the user to login to grant access to your file.') ?>">
+    <li id="edit-option-require-login">
+      <input type="checkbox" name="require-login" id="edit-require-login" checked="checked"/>
+      <label for="edit-require-login" title="<?php echo __('Require the user to login to grant access to your file.') ?>">
         <?php echo __('Require login') ?>
       </label>
     </li>
@@ -214,6 +198,28 @@
         e.preventDefault();
       });
       
+      // Get specific values for edit dialog from the DOM
+      $('a.edit', this).click (function (e) {
+        e.preventDefault();
+        var modal = $('#edit-modal');
+        var fileUrl = $(this).attr ('href')
+                .substring (-1, $(this).attr ('href').lastIndexOf ('/')) + '/edit';
+        
+        var filename = $('.filename a', $('.file-description p.filename').closest('.file-description')).html();
+        var comment = $('.comment', $('.file-description p.comment').closest('.file-description')).html();
+        var folder = $('.folder', $('.file-description p.folder').closest('.file-description')).html();
+        //var fileHash = fileUrl.split('').reverse().join('');
+        //fileHash = fileHash.substring(0,fileHash.indexOf('/')).split('').reverse().join('');
+        
+        $('#edit-modal').dialog ('option', 'title', <?php echo "'" . __("Edit file").": ' + " ?> filename);
+        $('#edit-modal input[name="comment"]').val(comment);
+        $('#edit-modal input[name="folder"]').val(folder);
+        $('#edit-form').attr('action', fileUrl);
+        
+        modal.dialog ('open');
+        return false;
+      });
+    
       // Show password box on checkbox click
       $('input.password').hide();
       $('#use-password, #option-use-password label').click (function () { // IE quirk fix
@@ -224,6 +230,32 @@
         }
 
       });
+      
+      $('#edit-use-password, #edit-option-use-password label').click (function () { // IE quirk fix
+        if ($('#edit-use-password').attr ('checked')) {
+            $('input.password').show().focus();
+        } else {
+            $('input.password').val('').hide();
+        }
+
+      });
+      
+    
+      $('#use-password, #require-login').click(function(event) {
+        if (!$('#use-password').is(':checked') && !$('#require-login').is(':checked')) {
+          $('#require-login').attr('checked','checked')
+          alert(<?php echo "'" . __('You have to give at least a password or require a login.') . "'" ?>);
+        }
+      });
+      
+      $('#edit-use-password, #edit-require-login').click(function(event) {
+        if (!$('#edit-use-password').is(':checked') && !$('#edit-require-login').is(':checked')) {
+          $('#edit-require-login').attr('checked','checked')
+          alert(<?php echo "'" . __('You have to give at least a password or require a login.') . "'" ?>);
+        }
+      });
     });
+
+
 </script>
 

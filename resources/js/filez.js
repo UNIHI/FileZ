@@ -118,24 +118,6 @@ $.fn.initFileActions = function () {
         */
         return false;
     }),
-
-    $('a.edit', this).click (function (e) {
-        e.preventDefault();
-        var modal = $('section.edit-file');
-        var fileUrl = $(this).attr ('href')
-                .substring (-1, $(this).attr ('href').lastIndexOf ('/'));
-
-        var filename = $('.filename a', $(this).closest('.file-description')).html();
-
-        $('section.edit-file').dialog ('option', 'title', filename);
-        modal.dialog ('open');
-        /*
-        $('form', modal).attr ('action', $(this).attr ('href'));
-        $('.open-email-client', modal).attr ('href', 'mailto:'
-            +'?body='+settings.messages.emailMessage+' : '+fileUrl);
-        */
-        return false;
-    }),
     
     $('a.delete', this).click (function (e) {
         if (confirm (settings.messages.confirmDelete))
@@ -283,9 +265,15 @@ var onCheckProgressError = function (xhr, textStatus, errorThrown) {
  * Function called on form submission
  */
 var onFormSubmit = function (data, form, options) {
+    // check if user agreement is enabled if it exists
+    if ( $('#accept-user-agreement').length && !$('#accept-user-agreement').is(':checked')) {
+        alert('You have to accept the user agreement to upload the file.');
+        return false;
+    }
+
     console.log ('upload starts...');
     $('#start-upload').hide (); // hidding the start upload button
-
+        
     // If the progress bar is enabled
     if (settings.progressBar.enable) {
         $("#upload-loading").hide ();
