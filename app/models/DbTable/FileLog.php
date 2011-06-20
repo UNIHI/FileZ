@@ -49,11 +49,16 @@ class App_Model_DbTable_FileLog extends Fz_Db_Table_Abstract {
      */
     public function insert ($file_id, $user) {
     	$db   = Fz_Db::getConnection();
+    	// Logging-Settings
+    	$user = (fz_config_get ('app', 'log_username')) ? $user['id'] : "Not logged"; 
+        $ip = (fz_config_get ('app', 'log_ip')) ? $_SERVER['REMOTE_ADDR'] : "Not logged";
+        //TODO logging Browser Version
+        
         $sql  = 'INSERT INTO `'.$this->getTableName ().'` (`file_id`, `ip`, `username`, `timestamp`) VALUES (:file_id, :ip, :username, :timestamp)';
         $stmt = $db->prepare ($sql);
         return $stmt->execute (array (
             ':file_id' => $file_id,
-            ':ip' => $_SERVER['REMOTE_ADDR'],
+            ':ip' => $ip,
         	':username' => $user,
         	':timestamp' => time(),
         )); 

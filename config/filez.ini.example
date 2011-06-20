@@ -97,6 +97,10 @@ downloadLimitOnlyForUnknownUsers = 1
 intervalCount = 1
 intervalType = Day
 
+; Logging of sensitive data (On/Off)
+log_username = 1
+log_ip = 1
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Cron Job
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
