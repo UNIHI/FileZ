@@ -370,31 +370,37 @@ label {
 /*
  * Section uploaded-files
  */
-h2#uploaded-files-title {
+h2#uploaded-files-title,
+h2#folder-listing-title {
     padding-top: .3em;
 }
 
-section#uploaded-files {
+section#uploaded-files,
+section#folder-content {
     clear: both;
 }
 
-section#uploaded-files ul#files {
+section#uploaded-files ul#files,
+section#folder-content ul#files {
     list-style: none;
 }
 
-section#uploaded-files ul li.file {
+section#uploaded-files ul li.file,
+section#folder-content ul li.file {
     position: relative;
     padding-top: 0.7em;
 }
 
-section#uploaded-files ul li.file.even {
+section#uploaded-files ul li.file.even,
+section#folder-content ul li.file.even {
     background: #F5F4F2;
     border-width: 1px 0 1px 0;
     border-style: solid;
     border-color: #EDF2F7;
 }
 
-section#uploaded-files ul li.file:first-child {
+section#uploaded-files ul li.file:first-child,
+section#folder-content ul li.file:first-child {
     -moz-border-radius-topright: 5px;
     -webkit-border-top-left-radius: 5px;
     border-radius-topright: 5px;
@@ -403,7 +409,8 @@ section#uploaded-files ul li.file:first-child {
     border-radius-topleft: 5px;
 }
 
-section#uploaded-files ul li.file:last-child {
+section#uploaded-files ul li.file:last-child,
+section#folder-content ul li.file:last-child {
     -moz-border-radius-bottomright: 5px;
     -webkit-border-bottom-left-radius: 5px;
     border-radius-bottomright: 5px;
@@ -412,41 +419,51 @@ section#uploaded-files ul li.file:last-child {
     border-radius-bottomleft: 5px;
 }
 
-section#uploaded-files ul li.file:hover {
+section#uploaded-files ul li.file:hover,
+section#folder-content ul li.file:hover {
     background: #FFFDE9;
 }
 
 /*
  * File description
  */
-section#uploaded-files ul li .file-attributes, section#uploaded-files ul li .file-description {
+section#uploaded-files ul li .file-attributes,
+section#folder-content ul li .file-attributes, 
+section#uploaded-files ul li .file-description,
+section#folder-content ul li .file-description {
     padding: 0 0 0.2em 64px;
 }
 
-section#uploaded-files ul li .file-description p {
+section#uploaded-files ul li .file-description p,
+section#folder-content ul li .file-description p {
     display: inline;
 }
 
-section#uploaded-files ul li p.filename {
+section#uploaded-files ul li p.filename,
+section#folder-content ul li p.filename {
 }
 
-section#uploaded-files ul li p.filename a {
+section#uploaded-files ul li p.filename a,
+section#folder-content ul li p.filename a {
     font-weight: bold;
     font-size: 1.3em;
     letter-spacing: -0.05em;
 }
 
-section#uploaded-files ul li img.mimetype {
+section#uploaded-files ul li img.mimetype,
+section#folder-content ul li img.mimetype {
     position: absolute;
     top: 0.9em;
     left: 1.0em;
 }
 
-section#uploaded-files ul li p a.copy2clipboard {
+section#uploaded-files ul li p a.copy2clipboard,
+section#folder-content ul li p a.copy2clipboard {
     opacity: 0;
 }
 
-section#uploaded-files ul li:hover p a.copy2clipboard {
+section#uploaded-files ul li:hover p a.copy2clipboard,
+section#folder-content ul li:hover p a.copy2clipboard {
     text-indent: -5000px;
     background: transparent url(../images/icons/copy.png) no-repeat center bottom;
     width: 16px;
@@ -456,22 +473,28 @@ section#uploaded-files ul li:hover p a.copy2clipboard {
 }
 
 section#uploaded-files ul li p.comment,
+section#folder-content ul li p.comment,
 section#uploaded-files ul li p.folder,
+section#uploaded-files ul li p.has-password,
 section#uploaded-files ul li p.require-login {
     display: none;
     /* TODO */
 }
 
-section#uploaded-files ul li .filesize {
+section#uploaded-files ul li .filesize,
+section#uploaded-files ul li .filefolder,
+section#folder-content ul li .filesize {
     color: #B0ABA6;
     font-size: 0.82em;
 }
 
-section#uploaded-files ul li p.share {
+section#uploaded-files ul li p.share,
+section#folder-content ul li p.share {
     padding-left: 1em;
 }
 
-section#uploaded-files ul li p.share a {
+section#uploaded-files ul li p.share a,
+section#folder-content ul li p.share a {
     background-image: url(../images/icons/share-this-icon.png);
     background-position: 7px center;
     background-repeat: no-repeat;
@@ -486,23 +509,27 @@ section#uploaded-files ul li p.share a {
 /*
  * File attributes
  */
-section#uploaded-files ul li .file-attributes p {
+section#uploaded-files ul li .file-attributes p,
+section#folder-content ul li .file-attributes p {
     display: inline;
 }
 
-section#uploaded-files ul li .file-attributes p + p {
+section#uploaded-files ul li .file-attributes p + p,
+section#folder-content ul li .file-attributes p + p {
     border-left: 1px solid #DDD;
     padding-left: 0.5em;
     margin-left: 0.5em;
 }
 
-section#uploaded-files ul li .file-attributes {
+section#uploaded-files ul li .file-attributes,
+section#folder-content ul li .file-attributes {
     color: #7C746C;
     font-size: 0.82em;
     padding-bottom: 0.7em;
 }
 
-section#uploaded-files ul li .file-attributes .availability b {
+section#uploaded-files ul li .file-attributes .availability b,
+section#folder-content ul li .file-attributes .availability b {
     color: #433C34;
 }
 

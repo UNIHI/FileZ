@@ -154,6 +154,27 @@ $.fn.initFileActions = function () {
         });
     });
 
+    $('a.edit', this).click (function (e) {
+        e.preventDefault();
+        var modal = $('#edit-modal');
+        var fileUrl = $(this).attr ('href');
+        var dataBlock = $(this).closest('.file-attributes').prev('.file-description');
+        var filename = $('.filename a', dataBlock).html();
+        var comment = $('.comment', dataBlock).html();
+        var folder = $('.folder', dataBlock).html();
+        var requireLogin = $('.require-login', dataBlock).html();
+        //var fileHash = fileUrl.split('').reverse().join('');
+        //fileHash = fileHash.substring(0,fileHash.indexOf('/')).split('').reverse().join('');
+        
+        $('#edit-modal').dialog ('option', 'title', settings.messages.editFile + ' ' + filename);
+        $('#edit-modal input[name="comment"]').val(comment);
+        $('#edit-modal input[name="folder"]').val(folder);
+        $('#edit-form').attr('action', fileUrl);
+        
+        modal.dialog ('open');
+        return false;
+    });
+      
     // initialize tips
     $('a.extend, a.extendMaximum, a.delete, a.share, a.edit, a.toggle-on, a.toggle-off').qtip({
         content: {

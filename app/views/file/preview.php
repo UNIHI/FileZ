@@ -39,7 +39,7 @@
   <?php if (fz_config_get('app', 'enable_reporting', true) == true
     && !$file->prevent_reporting && $file->reported): ?>
     <p id="report">
-      <?php __('This file has been reported.'); ?>
+      <?php echo __('This file has been reported.'); ?>
     </p>
   <?php elseif (!$file->prevent_reporting && !$file->reported): ?>
     <p id="report" class="report-file">

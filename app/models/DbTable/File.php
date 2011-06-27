@@ -133,7 +133,27 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
               .' ORDER BY created_at DESC';
         return $this->findBySql ($sql, array (':uid' => $uid));
     }
+    
 
+    /**
+     * Return all file owned by $uid which are available (not deleted)
+     * and located in the specified folder
+     *
+     * @param string $uploader_uid
+     * @param string $folder
+     * @return array of App_Model_File
+     */
+    public function findByOwnerFolderOrderByUploadDateDesc ($uploader_uid, $folder) {
+        $sql = 'SELECT * FROM '.$this->getTableName ()
+              .' WHERE uploader_uid=:uid '
+              .' AND folder=:folder '
+              .' AND  available_until >= CURRENT_DATE() '
+              .' ORDER BY created_at DESC';
+        return $this->findBySql ($sql, 
+            array (':uid' => $uploader_uid, ':folder' => $folder));
+    }
+    
+    
     /**
      * Delete files whose lifetime expired
      */

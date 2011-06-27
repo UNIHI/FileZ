@@ -6,7 +6,7 @@
 } ?>
 
 <h2 class="new-file"><?php echo __('Upload a new file') ?></h2>
-<section class="new-file fz-modal">
+<section class="new-file fz-modal" style="display:none">
   <form method="POST" enctype="multipart/form-data" action="<?php echo url_for ('upload') ?>" id="upload-form">
   <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $max_upload_size ?>" />
   <div id="file">
@@ -119,7 +119,7 @@
 </div>
 
 
-<section id="edit-modal" class="edit-file fz-modal">
+<section id="edit-modal" class="edit-file fz-modal" style="display:none">
   <form method="POST" enctype="application/x-www-form-urlencoded" action="" id="edit-form">
   <div id="edit-comment">
     <label for="input-comment"><?php echo __('Comments') ?> :</label>
@@ -167,7 +167,8 @@
           unknownError: <?php echo  json_encode (__('Unknown error')) ?>,
           unknownErrorHappened: <?php echo  json_encode (__('An unknown error hapenned while uploading the file')) ?>,
           cancel: <?php echo  json_encode (__('Cancel')) ?>,
-          emailMessage: <?php echo  json_encode (__('You can download the file I uploaded here')) ?>
+          emailMessage: <?php echo  json_encode (__('You can download the file I uploaded here')) ?>,
+          editFile: <?php echo json_encode(__("Edit file")) ?> 
         }
       });
 
@@ -190,29 +191,6 @@
         e.preventDefault();
       });
       
-      // Get specific values for edit dialog from the DOM
-      $('a.edit', this).click (function (e) {
-        e.preventDefault();
-        var modal = $('#edit-modal');
-        var fileUrl = $(this).attr ('href')
-                .substring (-1, $(this).attr ('href').lastIndexOf ('/')) + '/edit';
-        
-        var filename = $('.filename a', $('.file-description p.filename').closest('.file-description')).html();
-        var comment = $('.comment', $('.file-description p.comment').closest('.file-description')).html();
-        var folder = $('.folder', $('.file-description p.folder').closest('.file-description')).html();
-        var requireLogin = $('.require-login', $('.file-description p.folder').closest('.file-description')).html();
-        //var fileHash = fileUrl.split('').reverse().join('');
-        //fileHash = fileHash.substring(0,fileHash.indexOf('/')).split('').reverse().join('');
-        
-        $('#edit-modal').dialog ('option', 'title', <?php echo "'" . __("Edit file").": ' + " ?> filename);
-        $('#edit-modal input[name="comment"]').val(comment);
-        $('#edit-modal input[name="folder"]').val(folder);
-        $('#edit-form').attr('action', fileUrl);
-        
-        modal.dialog ('open');
-        return false;
-      });
-    
       // Show password box on checkbox click
       $('input.password').hide();
       $('#use-password, #option-use-password label').click (function () { // IE quirk fix
@@ -234,13 +212,14 @@
       });
       
     
+      <?php if (fz_config_get('app','privacy_mode',false) == true): ?>
       $('#use-password, #require-login').click(function(event) {
         if (!$('#use-password').is(':checked') && !$('#require-login').is(':checked')) {
           $('#require-login').attr('checked','checked')
           alert(<?php echo "'" . __('You have to give at least a password or require a login.') . "'" ?>);
         }
       });
-      
+      <?php endif ?>
     });
 
 

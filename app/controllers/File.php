@@ -380,7 +380,18 @@ class App_Controller_File extends Fz_Controller {
      * List folder content of a user
      */
     public function folderAction() {
-        
+        $folder = Fz_Db::getTable('File')->folderExists (
+            params ('uploader_uid'), params ('folder'));
+
+        if ($folder === false) {
+
+            halt (NOT_FOUND, __('There are no files in this folder.'));
+        }
+        set ('files', 
+            Fz_Db::getTable ('File') 
+                ->findByOwnerFolderOrderByUploadDateDesc (
+                    params ('uploader_uid'),params ('folder')));
+        return html ('file/folder.php');
     }
     
     
@@ -419,6 +430,7 @@ class App_Controller_File extends Fz_Controller {
         return $file;
     }
 
+   
     /**
      * Check if the client is authorized to download the file
      *

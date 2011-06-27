@@ -450,6 +450,21 @@ msgstr "Sie müssen mindestens ein Passwort vergeben oder einen Login für die D
 msgid "File updated."
 msgstr "Datei wurde erfolgreich aktualisiert."
 
+msgid "This file has been reported."
+msgstr "Diese Datei wurde gemeldet."
+
+msgid "Folder listing"
+msgstr "Ordneransicht"
+
+msgid "There are no files in this folder."
+msgstr "In diesem Ordner befinden sich keine Dateien."
+
+msgid "No folder assigned"
+msgstr "Keinem Ordner zugewiesen"
+
+msgid "Folder"
+msgstr "Ordner"
+
 #~ msgid "Details"
 #~ msgstr "Details"
 #~ msgid "Your file was uploaded successfuly."

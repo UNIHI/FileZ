@@ -13,6 +13,16 @@
   <p class="require-login"><?php echo $file->require_login; ?></p>
   <p class="has-password"><?php echo ($file->password ? 1 : 0)?></p>
   <p class="filesize">(<?php echo $file->getReadableFileSize () ?>)</p>
+  <p class="filefolder">
+      (<?php
+      if (isset($file->folder) && $file->folder != '') {
+        echo __('Folder') .': '.$file->folder;          
+      } else {
+        echo __('No folder assigned');
+      }
+ 
+      ?>)
+  </p>
   <p class="share">
     <a href="<?php echo $file->getDownloadUrl () ?>/share" class="awesome green share">
       <?php echo __('Share') ?>
@@ -63,4 +73,5 @@
       <?php echo __('Edit') ?>
     </a>
   </p>
+
 </div>
