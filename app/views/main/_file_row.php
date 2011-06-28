@@ -23,11 +23,19 @@
  
       ?>)
   </p>
+  <p class="zclip">
+    <a href="<?php echo $file->getDownloadUrl () ?>/copy" class="awesome blue zclip">
+      <?php echo __('Copy to clipboard') ?>
+    </a>
+  </p>
+  
   <p class="share">
     <a href="<?php echo $file->getDownloadUrl () ?>/share" class="awesome green share">
       <?php echo __('Share') ?>
     </a>
   </p>
+
+  
 </div>
 
 <div class="file-attributes">

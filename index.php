@@ -200,7 +200,7 @@ fz_dispatch_post ('/:file_hash/report'          ,'File'        ,'report');
 
 fz_dispatch_post('/:file_hash/edit'             ,'File'        ,'edit');
 
-fz_dispatch_get ('/:uploader_uid/:folder'           ,'File'        ,'folder');
+fz_dispatch_get ('/:uploader_uid/list/:folder'  ,'File'        ,'folder');
 
 
 

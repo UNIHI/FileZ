@@ -168,7 +168,8 @@
           unknownErrorHappened: <?php echo  json_encode (__('An unknown error hapenned while uploading the file')) ?>,
           cancel: <?php echo  json_encode (__('Cancel')) ?>,
           emailMessage: <?php echo  json_encode (__('You can download the file I uploaded here')) ?>,
-          editFile: <?php echo json_encode(__("Edit file")) ?> 
+          editFile: <?php echo json_encode(__("Edit file")) ?>,
+          copiedToClipboard: <?php echo json_encode(__('Copied to clipboard')) ?> 
         }
       });
 

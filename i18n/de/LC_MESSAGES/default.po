@@ -465,6 +465,12 @@ msgstr "Keinem Ordner zugewiesen"
 msgid "Folder"
 msgstr "Ordner"
 
+msgid "Copy to clipboard"
+msgstr "Copy to clipboard"
+
+msgid "Copied to clipboard"
+msgstr "Copied to clipboard"
+
 #~ msgid "Details"
 #~ msgstr "Details"
 #~ msgid "Your file was uploaded successfuly."

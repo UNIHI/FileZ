@@ -489,6 +489,7 @@ section#folder-content ul li .filesize {
 }
 
 section#uploaded-files ul li p.share,
+section#uploaded-files ul li p.zclip,
 section#folder-content ul li p.share {
     padding-left: 1em;
 }
@@ -502,8 +503,20 @@ section#folder-content ul li p.share a {
     padding-top: 4px;
     padding-bottom: 4px;
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 34px;
+    right: 6px;
+}
+
+section#uploaded-files ul li p.zclip a {
+    background-image: url(../images/icons/share-this-icon.png);
+    background-position: 7px center;
+    background-repeat: no-repeat;
+    padding-left: 26px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    position: absolute;
+    top: 6px;
+    right: 6px;
 }
 
 /*

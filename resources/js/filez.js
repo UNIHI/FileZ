@@ -118,6 +118,19 @@ $.fn.initFileActions = function () {
         */
         return false;
     }),
+
+    $('a.zclip', this).click (function (e) {
+        e.preventDefault();
+        return false;
+    }),
+    
+    $('a.zclip', this).zclip({
+        path:'resources/js/ZeroClipboard.swf',
+        copy:$('a.zclip',this).attr('href').substring (-1, $('a.zclip',this).attr ('href').lastIndexOf ('/')),
+        afterCopy:function() {
+            $(this).text(settings.messages.copiedToClipboard);
+        }
+    }),
     
     $('a.delete', this).click (function (e) {
         if (confirm (settings.messages.confirmDelete))
@@ -166,7 +179,7 @@ $.fn.initFileActions = function () {
         //var fileHash = fileUrl.split('').reverse().join('');
         //fileHash = fileHash.substring(0,fileHash.indexOf('/')).split('').reverse().join('');
         
-        $('#edit-modal').dialog ('option', 'title', settings.messages.editFile + ' ' + filename);
+        $('#edit-modal').dialog ('option', 'title', settings.messages.editFile + ': ' + filename);
         $('#edit-modal input[name="comment"]').val(comment);
         $('#edit-modal input[name="folder"]').val(folder);
         $('#edit-form').attr('action', fileUrl);
