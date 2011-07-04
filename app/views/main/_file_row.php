@@ -13,22 +13,13 @@
   <p class="require-login"><?php echo $file->require_login; ?></p>
   <p class="has-password"><?php echo ($file->password ? 1 : 0)?></p>
   <p class="filesize">(<?php echo $file->getReadableFileSize () ?>)</p>
-  <p class="filefolder">
-      (<?php
-      if (isset($file->folder) && $file->folder != '') {
-        echo __('Folder') .': '.$file->folder;          
-      } else {
-        echo __('No folder assigned');
-      }
- 
-      ?>)
-  </p>
+  <?php if (fz_config_get ('app', 'enable_copy_to_clipboard', true) == true): ?>
   <p class="zclip">
     <a href="<?php echo $file->getDownloadUrl () ?>/copy" class="awesome blue zclip">
       <?php echo __('Copy to clipboard') ?>
     </a>
   </p>
-  
+  <?php endif ?>
   <p class="share">
     <a href="<?php echo $file->getDownloadUrl () ?>/share" class="awesome green share">
       <?php echo __('Share') ?>
@@ -37,8 +28,20 @@
 
   
 </div>
-
+<div class="file-attributes file-folder">
+      <p class="filefolder">
+      <?php
+      if (isset($file->folder) && $file->folder != '') {
+        echo __('Folder') .': '.$file->folder;          
+      } else {
+        echo __('No folder assigned');
+      }
+ 
+      ?>
+  </p>
+</div>
 <div class="file-attributes">
+    
   <p class="availability"><?php echo __r('Available from %from% to %to%', array (
     'from' => ($file->getAvailableFrom  ()->get (Zend_Date::MONTH) ==
                $file->getAvailableUntil ()->get (Zend_Date::MONTH)) ?

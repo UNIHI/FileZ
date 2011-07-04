@@ -105,6 +105,10 @@ log_ip = 1
 ; if enabled
 enable_autocomplete = true
 
+; Copy to clipboard adds a button using Adobe Flash to each uploaded file 
+; and allows easy copying the URL to the clipboard
+enable_copy_to_clipboard = true
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Cron Job
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

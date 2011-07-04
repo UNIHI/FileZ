@@ -428,6 +428,7 @@ section#folder-content ul li.file:hover {
  * File description
  */
 section#uploaded-files ul li .file-attributes,
+section#uploaded-files ul li .file-folder,
 section#folder-content ul li .file-attributes, 
 section#uploaded-files ul li .file-description,
 section#folder-content ul li .file-description {
@@ -482,7 +483,6 @@ section#uploaded-files ul li p.require-login {
 }
 
 section#uploaded-files ul li .filesize,
-section#uploaded-files ul li .filefolder,
 section#folder-content ul li .filesize {
     color: #B0ABA6;
     font-size: 0.82em;
@@ -523,11 +523,13 @@ section#uploaded-files ul li p.zclip a {
  * File attributes
  */
 section#uploaded-files ul li .file-attributes p,
+section#uploaded-files ul li .file-folder p,
 section#folder-content ul li .file-attributes p {
     display: inline;
 }
 
 section#uploaded-files ul li .file-attributes p + p,
+section#uploaded-files ul li .file-folder p + p,
 section#folder-content ul li .file-attributes p + p {
     border-left: 1px solid #DDD;
     padding-left: 0.5em;
@@ -539,6 +541,12 @@ section#folder-content ul li .file-attributes {
     color: #7C746C;
     font-size: 0.82em;
     padding-bottom: 0.7em;
+}
+
+section#uploaded-files ul li .file-folder {
+    color: #7C746C;
+    font-size: 0.82em;
+    
 }
 
 section#uploaded-files ul li .file-attributes .availability b,

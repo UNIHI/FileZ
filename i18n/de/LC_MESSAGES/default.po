@@ -471,6 +471,9 @@ msgstr "Copy to clipboard"
 msgid "Copied to clipboard"
 msgstr "Copied to clipboard"
 
+msgid "Edit"
+msgstr "Bearbeiten"
+
 #~ msgid "Details"
 #~ msgstr "Details"
 #~ msgid "Your file was uploaded successfuly."
