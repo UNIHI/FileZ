@@ -35,6 +35,7 @@ class App_Controller_Main extends Fz_Controller {
 
         $progressMonitor = fz_config_get ('app', 'progress_monitor');
         $progressMonitor = new $progressMonitor ();
+        $folders = implode(',', Fz_Db::getTable('File')->getFolders($user));
         
         set ('upload_id'        , md5 (uniqid (mt_rand (), true)));
         set ('start_from'       , Zend_Date::now ()->get (Zend_Date::DATE_SHORT));
@@ -45,6 +46,7 @@ class App_Controller_Main extends Fz_Controller {
         set ('upload_id_name'   , $progressMonitor->getUploadIdName ());
         set ('free_space_left'  , $freeSpaceLeft);
         set ('max_upload_size'  , $maxUploadSize);
+        set ('folders'          , $folders);
         return html ('main/index.php');
     }
 

@@ -122,17 +122,17 @@
 <section id="edit-modal" class="edit-file fz-modal" style="display:none">
   <form method="POST" enctype="application/x-www-form-urlencoded" action="" id="edit-form">
   <div id="edit-comment">
-    <label for="input-comment"><?php echo __('Comments') ?> :</label>
-    <input type="text" id="input-comment" name="comment" value="" alt="<?php echo __('Add a comment (optional)') ?>" maxlength="200" />
+    <label for="edit-input-comment"><?php echo __('Comments') ?> :</label>
+    <input type="text" id="edit-input-comment" name="comment" value="" alt="<?php echo __('Add a comment (optional)') ?>" maxlength="200" />
   </div>
   <div id="edit-folder">
-    <label for="input-folder"><?php echo __('Assign file to folder (optional)') ?> :</label>
+    <label for="edit-input-folder"><?php echo __('Assign file to folder (optional)') ?> :</label>
     <input type="text" id="edit-input-folder" name="folder" value="" alt="<?php echo __('Assign file to folder (optional)') ?>" maxlength="200" />
   </div>
   <ul id="edit-options">
     <li id="edit-option-use-password">
       <input type="checkbox" name="use-password" id="edit-use-password"/>
-      <label for="edit-use-password" title="<?php echo __('Ask a password to people who will download your file') ?>">
+      <label for="edit-input-password" title="<?php echo __('Ask a password to people who will download your file') ?>">
         <?php echo __('Use a password to download') ?>
       </label>
       <input type="password" id="edit-input-password" name="password" class="password" autocomplete="off" size="5"/>
@@ -146,83 +146,98 @@
 
 <script type="text/javascript">
     $(document).ready (function () {
-      $('#input-start-from').datepicker ({minDate: new Date()});
-      $('#upload-form').initFilez ({
-        fileList:         'ul#files',
-        progressBox:      '#upload-progress',
-        loadingBox:       '#upload-loading',
-        maxFileSize:      <?php echo $max_upload_size ?>,
-        progressBar: {
-          enable:        <?php echo ($use_progress_bar ? 'true':'false') ?>,
-          upload_id_name: '<?php echo $upload_id_name ?>',
-          barImage:     '<?php echo public_url_for ('resources/images/progressbg_green.gif') ?>',
-          boxImage:     '<?php echo public_url_for ('resources/images/progressbar.gif') ?>',
-          refreshRate:   <?php echo $refresh_rate ?>,
-          progressUrl:  '<?php echo url_for ('upload/progress/') ?>'
-        },
-        messages: {
-          confirmDelete: <?php echo  json_encode (__('Are you sure to delete this file ?')) ?>,
-          confirmToggleOn: <?php echo json_encode(__('Do you want to toggle on login requirement for this file?')) ?>,
-          confirmToggleOff: <?php echo json_encode(__('Do you want to toggle off login requirement for this file ?')) ?>,
-          unknownError: <?php echo  json_encode (__('Unknown error')) ?>,
-          unknownErrorHappened: <?php echo  json_encode (__('An unknown error hapenned while uploading the file')) ?>,
-          cancel: <?php echo  json_encode (__('Cancel')) ?>,
-          emailMessage: <?php echo  json_encode (__('You can download the file I uploaded here')) ?>,
-          editFile: <?php echo json_encode(__("Edit file")) ?>,
-          copiedToClipboard: <?php echo json_encode(__('Copied to clipboard')) ?> 
-        }
-      });
+        $('#input-start-from').datepicker ({minDate: new Date()});
+        $('#upload-form').initFilez ({
+            fileList:         'ul#files',
+            progressBox:      '#upload-progress',
+            loadingBox:       '#upload-loading',
+            maxFileSize:      <?php echo $max_upload_size ?>,
+            progressBar: {
+                enable:        <?php echo ($use_progress_bar ? 'true':'false') ?>,
+                upload_id_name: '<?php echo $upload_id_name ?>',
+                barImage:     '<?php echo public_url_for ('resources/images/progressbg_green.gif') ?>',
+                boxImage:     '<?php echo public_url_for ('resources/images/progressbar.gif') ?>',
+                refreshRate:   <?php echo $refresh_rate ?>,
+                progressUrl:  '<?php echo url_for ('upload/progress/') ?>'
+            },
+            messages: {
+                confirmDelete: <?php echo  json_encode (__('Are you sure to delete this file ?')) ?>,
+                confirmToggleOn: <?php echo json_encode(__('Do you want to toggle on login requirement for this file?')) ?>,
+                confirmToggleOff: <?php echo json_encode(__('Do you want to toggle off login requirement for this file ?')) ?>,
+                unknownError: <?php echo  json_encode (__('Unknown error')) ?>,
+                unknownErrorHappened: <?php echo  json_encode (__('An unknown error hapenned while uploading the file')) ?>,
+                cancel: <?php echo  json_encode (__('Cancel')) ?>,
+                emailMessage: <?php echo  json_encode (__('You can download the file I uploaded here')) ?>,
+                editFile: <?php echo json_encode(__("Edit file")) ?>,
+                copiedToClipboard: <?php echo json_encode(__('Copied to clipboard')) ?> 
+            }
+        });
 
-      // Modal box generic configuration
-      $(".fz-modal").dialog({
-        bgiframe: true,
-        autoOpen: false,
-        resizable: false,
-        width: '650px',
-        modal: true
-      });
+        // Modal box generic configuration
+        $(".fz-modal").dialog({
+            bgiframe: true,
+            autoOpen: false,
+            resizable: false,
+            width: '650px',
+            modal: true
+        });
 
-      // Set title for each modal
-      $('section.new-file').dialog ('option', 'title', <?php echo json_encode(__('Upload a new file')) ?>);
+        // Set title for each modal
+        $('section.new-file').dialog ('option', 'title', <?php echo json_encode(__('Upload a new file')) ?>);
 
-      // Replace upload form with one big button, and open a modal box on click
-      $('h2.new-file').wrapInner ($('<a href="#" class="awesome large"></a>'));
-      $('h2.new-file a').click (function (e) {
-        $('section.new-file').dialog ('open');
-        e.preventDefault();
-      });
+        // Replace upload form with one big button, and open a modal box on click
+        $('h2.new-file').wrapInner ($('<a href="#" class="awesome large"></a>'));
+        $('h2.new-file a').click (function (e) {
+            $('section.new-file').dialog ('open');
+            e.preventDefault();
+        });
       
-      // Show password box on checkbox click
-      $('input.password').hide();
-      $('#use-password, #option-use-password label').click (function () { // IE quirk fix
-        if ($('#use-password').attr ('checked')) {
-            $('input.password').show().focus();
-        } else {
-            $('input.password').val('').hide();
-        }
-
-      });
+        // Show password box on checkbox click
+        $('input.password').hide();
+        $('#use-password, #option-use-password label').click (function () { // IE quirk fix
+            if ($('#use-password').attr ('checked')) {
+                $('input.password').show().focus();
+            } else {
+                $('input.password').val('').hide();
+            }
+        });
       
-      $('#edit-use-password, #edit-option-use-password label').click (function () { // IE quirk fix
-        if ($('#edit-use-password').attr ('checked')) {
-            $('input.password').show().focus();
-        } else {
-            $('input.password').val('').hide();
-        }
-
-      });
-      
+        // IE quirk fix
+        $('#edit-use-password, #edit-option-use-password label').click (function () {
+            if ($('#edit-use-password').attr ('checked')) {
+                $('input.password').show().focus();
+            } else {
+                $('input.password').val('').hide();
+            }
+        });
     
-      <?php if (fz_config_get('app','privacy_mode',false) == true): ?>
-      $('#use-password, #require-login').click(function(event) {
-        if (!$('#use-password').is(':checked') && !$('#require-login').is(':checked')) {
-          $('#require-login').attr('checked','checked')
-          alert(<?php echo "'" . __('You have to give at least a password or require a login.') . "'" ?>);
-        }
-      });
-      <?php endif ?>
-    });
+        // Check if at least one checkbox is checked
+        <?php if (fz_config_get('app', 'privacy_mode', false) == true): ?>
+        $('#use-password, #require-login').click(function(event) {
+          if (!$('#use-password').is(':checked') && !$('#require-login').is(':checked')) {
+            $('#require-login').attr('checked','checked')
+            alert(<?php echo "'" . __('You have to give at least a password or require a login.') . "'" ?>);
+          }
+        });
+        <?php endif ?>
 
+      
+        <?php if (fz_config_get('app', 'enable_autocomplete', true) == true): ?>
+        // Autocomplete content
+        var ac1;
+        var ac2;
+        ac1 = $('#input-folder').autocomplete({
+            width: 300,
+            delimiter: /(,|;)\s*/,
+            lookup: '<?php echo $folders ?>'.split(',')
+        });
+        ac2 = $('#edit-input-folder').autocomplete({
+            width: 300,
+            delimiter: /(,|;)\s*/,
+            lookup: '<?php echo $folders ?>'.split(',')
+        });        
+        <?php endif ?>
+    });
 
 </script>
 

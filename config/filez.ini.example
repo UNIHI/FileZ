@@ -101,6 +101,10 @@ intervalType = Day
 log_username = 1
 log_ip = 1
 
+; Autocomplete - does offer a list for certain input fields (depending on implementation)
+; if enabled
+enable_autocomplete = true
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Cron Job
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

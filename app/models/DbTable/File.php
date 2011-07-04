@@ -231,8 +231,24 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
         return floatval ($size);
     }
     
-  
-    
+    /**
+     * Return list of already used folders
+     *
+     * @param array     $user   User data
+     * @return array            List of folders
+     */
+    public function getFolders ($user) {
+        $result = option ('db_conn')
+            ->prepare ('SELECT DISTINCT folder FROM `'
+                .$this->getTableName ()
+                .'` WHERE uploader_uid = ? '
+                .'AND folder <> "" '
+                .'AND folder IS NOT NULL '
+                .'ORDER BY folder ASC');
+        $result->execute (array ($user['id']));
+        while ($folder = $result->fetchColumn()) { $folders[] = $folder; }
+        return $folders;
+    }
 }
 
 
