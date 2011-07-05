@@ -111,11 +111,11 @@ $.fn.initFileActions = function () {
         $('#share-modal').dialog ('option', 'title', filename);
 
         modal.dialog ('open');
-        /*
-        $('form', modal).attr ('action', $(this).attr ('href'));
+        
+        $('form', $('#email-modal')).attr ('action', $(this).attr ('href'));
         $('.open-email-client', modal).attr ('href', 'mailto:'
             +'?body='+settings.messages.emailMessage+' : '+fileUrl);
-        */
+        
         return false;
     }),
 
@@ -342,7 +342,7 @@ var onFileUploadEnd = function (data, status) {
     console.log (data);
 
     if (data.status == 'success') {
-        appendFile (data.html);
+        appendFile (data.html, data.fileHash);
         $('#disk-usage-value').html (data.disk_usage);
         notify (data.statusText);
     } else if (data.status == 'error'){
@@ -361,16 +361,18 @@ var onFileUploadEnd = function (data, status) {
  *----------------------------------------------------------------------------*/
 
 /**
- * Append a file (html code) to the top of the file list
+ * Prepend a file (html code) to the top of the file list
  */
-var appendFile = function (html) {
+var appendFile = function (html, fileHash) {
     var files = $(settings.fileList);
     var cssClass = files.children ('li:first').hasClass ('odd') ? 'even' : 'odd' ;
 
     files.prepend (
-        '<li class="file '+cssClass+'" style="display: none;">'+html+'</li>'
+        '<li id="file-' + fileHash + '" class="file '+cssClass+'" style="display: none;">'+html+'</li>'
     );
     files.children ('li:first').slideDown (500);
+    files = $(settings.fileList);
+    files.children ('li:first').initFileActions();
 };
 
 var reloadUploadForm = function () {

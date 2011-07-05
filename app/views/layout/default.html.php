@@ -18,15 +18,16 @@
     <script type="text/javascript" src="<?php echo public_url_for ('resources/js/html5.js') ?>"></script>
     <![endif]-->
     <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery-1.6.1.min.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery.form.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery.form.min.js') ?>"></script>
     <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery.progressbar.min.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery.autocomplete.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery.autocomplete.min.js') ?>"></script>
     <script type="text/javascript" src="<?php echo public_url_for ('resources/jquery.ui/js/jquery-ui-1.7.2.custom.min.js') ?>"></script>
     <script type="text/javascript" src="<?php echo public_url_for ('resources/js/qtip/jquery.qtip.pack.js') ?>"></script>
     <?php if (option ('locale')->getLanguage () != 'en'): ?>
       <script type="text/javascript" src="<?php echo public_url_for ('resources/jquery.ui/js/i18n/ui.datepicker-'.option ('locale')->getLanguage ().'.js') ?>"></script>
     <?php endif ?>
     <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery.zclip.min.js') ?>"></script>
+    <!-- script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery.livequery.min.js') ?>"></script -->
     <script type="text/javascript" src="<?php echo public_url_for ('resources/js/filez.js') ?>"></script>
     <script>
       function checkPortal() {

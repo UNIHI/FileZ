@@ -256,6 +256,8 @@ class App_Controller_Upload extends Fz_Controller {
      */
     private function returnData ($data) {
         if (array_key_exists ('is-async', $_GET) && $_GET ['is-async']) {
+            // Notice by July 04, 2011: this is a temporary fix, 
+            // to solve the problem with non-working buttons
             return html("<textarea>\n".json_encode ($data)."\n</textarea>",'');
         }
         else {
@@ -275,6 +277,7 @@ class App_Controller_Upload extends Fz_Controller {
         $response ['status']     = 'success';
         $response ['statusText'] = __('The file was successfuly uploaded');
         $response ['html']       = partial ('main/_file_row.php', array ('file' => $file));
+        $response ['fileHash']   = $file->getHash();
         $response ['disk_usage'] = bytesToShorthand (max (0,
                      Fz_Db::getTable('File')->getTotalDiskSpaceByUser ($user)));
         return $this->returnData ($response);

@@ -152,55 +152,71 @@ if (fz_config_load (dirname(__FILE__).DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEP
 //                                              //             // 
 // -----------------------------------------------------------------------------
 // Main controller
-fz_dispatch ('/'                                ,'Main'        ,'index');
+fz_dispatch ('/'                                ,'Main'         ,'index');
 
-fz_dispatch_get  ('/disclaimer'                 ,'Main'        ,'disclaimer');
+fz_dispatch_get  ('/disclaimer'                 ,'Main'         ,'disclaimer');
 
 // Upload controller
-fz_dispatch_post ('/upload'                     ,'Upload'      ,'start');
-fz_dispatch_get  ('/upload/progress/:upload_id' ,'Upload'      ,'getProgress');
+fz_dispatch_post ('/upload'                     ,'Upload'       ,'start');
+fz_dispatch_get  ('/upload/progress/:upload_id' ,'Upload'       ,'getProgress');
 
 // Backend controller
-//fz_dispatch_get  ('/admin'                      ,'Admin'       ,'index');
-fz_dispatch_get  ('/admin/checkFiles'           ,'Admin'       ,'checkFiles');
+fz_dispatch_get ('/admin'                       ,'Admin'        ,'index');
+
+// Backend::Users
+fz_dispatch_get ('/admin/users'                 ,'User'         ,'index');
+fz_dispatch_get ('/admin/users/new'             ,'User'         ,'create');
+fz_dispatch_post ('/admin/users/new'            ,'User'         ,'postnew');
+fz_dispatch_get ('/admin/users/:id'             ,'User'         ,'show');
+fz_dispatch_get ('/admin/users/:id/delete'      ,'User'         ,'delete');
+fz_dispatch_get ('/admin/users/:id/edit'        ,'User'         ,'edit');
+fz_dispatch_post ('/admin/users/:id/edit'       ,'User'         ,'update');
+
+// Backend::Files
+fz_dispatch_get ('/admin/files'                 ,'Admin'        ,'files');
+fz_dispatch_get ('/admin/config'                ,'Admin'        ,'config');
+fz_dispatch_get ('/admin/invitations'           ,'Admin'        ,'invitations');
+
+// Backend::CRON
+fz_dispatch_get ('/admin/checkFiles'            ,'Admin'        ,'checkFiles');
 
 // Authentication controller
-fz_dispatch_get  ('/login'                      ,'Auth'        ,'loginForm');
-fz_dispatch_post ('/login'                      ,'Auth'        ,'login');
-fz_dispatch_get  ('/logout'                     ,'Auth'        ,'logout');
+fz_dispatch_get  ('/login'                      ,'Auth'         ,'loginForm');
+fz_dispatch_post ('/login'                      ,'Auth'         ,'login');
+fz_dispatch_get  ('/logout'                     ,'Auth'         ,'logout');
 
 // Filez-1.x url compatibility
-fz_dispatch_get  ('/download.php'               ,'File'        ,'downloadFzOne');
+fz_dispatch_get  ('/download.php'               ,'File'         ,'downloadFzOne');
 
 // User documentation
-fz_dispatch_get  ('/help'                       ,'Help'        ,'index');
-fz_dispatch_get  ('/help/:page'                 ,'Help'        ,'showPage');
+fz_dispatch_get  ('/help'                       ,'Help'         ,'index');
+fz_dispatch_get  ('/help/:page'                 ,'Help'         ,'showPage');
 
 // Download controller
-fz_dispatch_get  ('/:file_hash'                 ,'File'        ,'preview');
-fz_dispatch_get  ('/:file_hash/view'            ,'File'        ,'view');
-fz_dispatch_get  ('/:file_hash/download'        ,'File'        ,'download');
-fz_dispatch_post ('/:file_hash/download'        ,'File'        ,'download'); // with password
+fz_dispatch_get  ('/:file_hash'                 ,'File'         ,'preview');
+fz_dispatch_get  ('/:file_hash/view'            ,'File'         ,'view');
+fz_dispatch_get  ('/:file_hash/download'        ,'File'         ,'download');
+fz_dispatch_post ('/:file_hash/download'        ,'File'         ,'download'); // with password
 
 // File controller
-fz_dispatch_get  ('/:file_hash/email'           ,'File'        ,'emailForm');
-fz_dispatch_post ('/:file_hash/email'           ,'File'        ,'email');
+fz_dispatch_get  ('/:file_hash/email'           ,'File'         ,'emailForm');
+fz_dispatch_post ('/:file_hash/email'           ,'File'         ,'email');
 
-fz_dispatch_get  ('/:file_hash/delete'          ,'File'        ,'confirmDelete');
-fz_dispatch_post ('/:file_hash/delete'          ,'File'        ,'delete');
+fz_dispatch_get  ('/:file_hash/delete'          ,'File'         ,'confirmDelete');
+fz_dispatch_post ('/:file_hash/delete'          ,'File'         ,'delete');
 
-fz_dispatch_get  ('/:file_hash/extend'          ,'File'        ,'extend');
+fz_dispatch_get  ('/:file_hash/extend'          ,'File'         ,'extend');
 
-fz_dispatch_get  ('/:file_hash/extendMaximum'   ,'File'        ,'extendMaximum');
+fz_dispatch_get  ('/:file_hash/extendMaximum'   ,'File'         ,'extendMaximum');
 
-fz_dispatch_get  ('/:file_hash/toggle'          ,'File'        ,'confirmToggleRequireLogin');
-fz_dispatch_post ('/:file_hash/toggle'          ,'File'        ,'toggleRequireLogin');
+fz_dispatch_get  ('/:file_hash/toggle'          ,'File'         ,'confirmToggleRequireLogin');
+fz_dispatch_post ('/:file_hash/toggle'          ,'File'         ,'toggleRequireLogin');
 
-fz_dispatch_post ('/:file_hash/report'          ,'File'        ,'report');
+fz_dispatch_post ('/:file_hash/report'          ,'File'         ,'report');
 
-fz_dispatch_post('/:file_hash/edit'             ,'File'        ,'edit');
+fz_dispatch_post('/:file_hash/edit'             ,'File'         ,'edit');
 
-fz_dispatch_get ('/:uploader_uid/list/:folder'  ,'File'        ,'folder');
+fz_dispatch_get ('/:uploader_uid/list/:folder'  ,'File'         ,'folder');
 
 
 
