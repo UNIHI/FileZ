@@ -26,17 +26,16 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
     protected $_columns = array (
         'del_notif_sent',
         'file_name',
-        'uploader_email',
         'file_size',
         'nom_physique',
         'available_from',
         'available_until',
         'download_count',
         'notify_uploader',
-        'uploader_uid',
+        'created_by',
+        'created_at',
         'extends_count',
         'comment',
-        'created_at',
         'password',
         'require_login',
     	'downloadLimit', 
@@ -123,34 +122,35 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
     /**
      * Return all file owned by $uid which are available (not deleted)
      *
-     * @param string $uid
+     * @param App_Model_User $user
      * @return array of App_Model_File
      */
-    public function findByOwnerOrderByUploadDateDesc ($uid) {
+    public function findByOwnerOrderByUploadDateDesc ($user) {
         $sql = 'SELECT * FROM '.$this->getTableName ()
-              .' WHERE uploader_uid=:uid '
+              .' WHERE created_by=:id '
               .' AND  available_until >= CURRENT_DATE() '
               .' ORDER BY created_at DESC';
-        return $this->findBySql ($sql, array (':uid' => $uid));
+        return $this->findBySql ($sql, array (':id' => $user->id));
     }
     
 
     /**
-     * Return all file owned by $uid which are available (not deleted)
+     * Return all files owned by $created_by which are available (not deleted)
      * and located in the specified folder
-     *
-     * @param string $uploader_uid
+     * 
+     * @param string $created_by
      * @param string $folder
      * @return array of App_Model_File
      */
-    public function findByOwnerFolderOrderByUploadDateDesc ($uploader_uid, $folder) {
+    //TODO: Check for further file availability
+    public function findByOwnerFolderOrderByUploadDateDesc ($created_by, $folder) {
         $sql = 'SELECT * FROM '.$this->getTableName ()
-              .' WHERE uploader_uid=:uid '
+              .' WHERE created_by=:created_by '
               .' AND folder=:folder '
               .' AND  available_until >= CURRENT_DATE() '
               .' ORDER BY created_at DESC';
         return $this->findBySql ($sql, 
-            array (':uid' => $uploader_uid, ':folder' => $folder));
+            array (':created_by' => $created_by, ':folder' => $folder));
     }
     
     
@@ -191,23 +191,23 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
     /**
      * Return disk space used by someone
      *
-     * @param array     $user   User data
+     * @param App_Model_User    $user   User
      * @return float            Size in bytes
      */
     public function getTotalDiskSpaceByUser ($user) {
         $result = option ('db_conn')
             ->prepare ('SELECT sum(file_size) FROM `'
                 .$this->getTableName ()
-                .'` WHERE uploader_email = ?'
+                .'` WHERE created_by = ?'
                 .' AND  available_until >= CURRENT_DATE() ');
-        $result->execute (array ($user['email']));
+        $result->execute (array ($user->id));
         return (float) $result->fetchColumn ();
     }
 
     /**
      * Return remaining disk space available for user $user
      *
-     * @param array     $user   User data
+     * @param App_Model_User    $user   User data
      * @return float            Size in bytes or string if $shorthand = true
      */
     public function getRemainingSpaceForUser ($user) {
@@ -234,18 +234,18 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
     /**
      * Return list of already used folders
      *
-     * @param array     $user   User data
+     * @param App_Model_User $user
      * @return array            List of folders
      */
     public function getFolders ($user) {
         $result = option ('db_conn')
             ->prepare ('SELECT DISTINCT folder FROM `'
                 .$this->getTableName ()
-                .'` WHERE uploader_uid = ? '
+                .'` WHERE created_by = ? '
                 .'AND folder <> "" '
                 .'AND folder IS NOT NULL '
                 .'ORDER BY folder ASC');
-        $result->execute (array ($user['id']));
+        $result->execute (array ($user->id));
         while ($folder = $result->fetchColumn()) { $folders[] = $folder; }
         return $folders;
     }

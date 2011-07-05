@@ -144,7 +144,7 @@ class App_Controller_File extends Fz_Controller {
         $this->secure ();
         $file = $this->getFile ();
         $user = $this->getUser ();
-        $this->checkOwner ($file, $user);
+        if (! $user->is_admin) $this->checkOwner ($file, $user);
         set ('file', $file);
 
         return html ('file/confirmToggleRequireLogin.php');
@@ -157,7 +157,7 @@ class App_Controller_File extends Fz_Controller {
         $this->secure ();
         $file = $this->getFile ();
         $user = $this->getUser ();
-        $this->checkOwner ($file, $user);
+        if (! $user->is_admin) $this->checkOwner ($file, $user);
 
         $result = array ();
         if (! (fz_config_get('app', 'login_requirement', 'on') == 'on')) {
@@ -181,7 +181,7 @@ class App_Controller_File extends Fz_Controller {
         else {
             flash (($result ['status'] == 'success' ? 'notification' : 'error'),
                     $result ['statusText']);
-            redirect_to ('/');
+            $user->is_admin ? redirect_to ('/admin/files') : redirect_to ('/');
         }
     }
     
@@ -211,7 +211,7 @@ class App_Controller_File extends Fz_Controller {
         $this->secure ();
         $file = $this->getFile ();
         $user = $this->getUser ();
-        $this->checkOwner ($file, $user);
+        if (! $user->is_admin) $this->checkOwner ($file, $user);
         set ('file', $file);
 
         return html ('file/confirmDelete.php');
@@ -224,14 +224,14 @@ class App_Controller_File extends Fz_Controller {
         $this->secure ();
         $file = $this->getFile ();
         $user = $this->getUser ();
-        $this->checkOwner ($file, $user);
+        if (! $user->is_admin) $this->checkOwner ($file, $user);
         $file->delete();
 
         if ($this->isXhrRequest())
             return json (array ('status' => 'success'));
         else {
             flash ('notification', __('File deleted.'));
-            redirect_to ('/');
+            $user->is_admin ? redirect_to ('/admin/files') : redirect_to ('/');
         }
     }
 
@@ -276,7 +276,7 @@ class App_Controller_File extends Fz_Controller {
         $this->secure ();
         $file = $this->getFile ();
         $user = $this->getUser ();
-        $this->checkOwner ($file, $user);
+        if (! $user->is_admin) $this->checkOwner ($file, $user);
 
         // Usual checks
         // Computing default values
@@ -300,7 +300,7 @@ class App_Controller_File extends Fz_Controller {
                 return json (array ('status' => 'success'));
             else {
                 flash ('notification', __('File updated.'));
-                redirect_to ('/');
+                $user->is_admin ? redirect_to ('/admin/files') : redirect_to ('/');
             }
         } catch (Exception $e) {
             fz_log ('Can\'t update file "'. $file .'" edited by '.$user['email'], FZ_LOG_ERROR);
@@ -317,7 +317,7 @@ class App_Controller_File extends Fz_Controller {
         $this->secure ();
         $user = $this->getUser ();
         $file = $this->getFile ();
-        $this->checkOwner ($file, $user);
+        if (! $user->is_admin) $this->checkOwner ($file, $user);
         set ('file', $file);
         return html ('file/email.php');
     }
@@ -329,27 +329,25 @@ class App_Controller_File extends Fz_Controller {
         $this->secure ();
         $user = $this->getUser ();
         $file = $this->getFile ();
-        $this->checkOwner ($file, $user);
+        if (! $user->is_admin) $this->checkOwner ($file, $user);
         set ('file', $file);
 
         // Send mails
         $user = $this->getUser ();
         $mail = $this->createMail();
         $subject = __r('[FileZ] "%sender%" wants to share a file with you', array (
-            'sender' => $user['firstname'].' '.$user['lastname']));
+            'sender' => $user));
         $msg = __r('email_share_file (%file_name%, %file_url%, %sender%, %msg%)', array(
             'file_name' => $file->file_name,
             'file_url'  => $file->getDownloadUrl(),
             'msg'       => $_POST ['msg'],
-            'sender'    => $user['firstname'].' '.$user['lastname'],
+            'sender'    => $user,
         ));
         $mail->setBodyText ($msg);
         $mail->setSubject  ($subject);
-        $mail->setReplyTo  ($user['email'],
-                            $user['firstname'].' '.$user['lastname']);
+        $mail->setReplyTo  ($user->email, $user);
         $mail->clearFrom();
-        $mail->setFrom     ($user['email'],
-                            $user['firstname'].' '.$user['lastname']);
+        $mail->setFrom     ($user->email, $user);
 
         $emailValidator = new Zend_Validate_EmailAddress();
         foreach (explode (' ', $_POST['to']) as $email) {
@@ -381,7 +379,7 @@ class App_Controller_File extends Fz_Controller {
      */
     public function folderAction() {
         $folder = Fz_Db::getTable('File')->folderExists (
-            params ('uploader_uid'), params ('folder'));
+            params ('created_by'), params ('folder'));
 
         if ($folder === false) {
 
@@ -390,7 +388,7 @@ class App_Controller_File extends Fz_Controller {
         set ('files', 
             Fz_Db::getTable ('File') 
                 ->findByOwnerFolderOrderByUploadDateDesc (
-                    params ('uploader_uid'),params ('folder')));
+                    params ('created_by'),params ('folder')));
         return html ('file/folder.php');
     }
     
@@ -485,7 +483,7 @@ class App_Controller_File extends Fz_Controller {
      * Checks if the user is the owner of the file. Stop the request if not.
      * 
      * @param App_Model_File $file
-     * @param array $user
+     * @param App_Model_User $user
      */
     protected function checkOwner (App_Model_File $file, $user) {        
         if ($file->isOwner ($user))

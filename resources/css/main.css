@@ -55,8 +55,9 @@ section {
 }
 
 .qtip section {
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
     border: none;
     margin: 0;
 }
@@ -110,8 +111,10 @@ header #auth-box {
     right: 0;
     -moz-border-radius-bottomleft: 6px;
     -webkit-border-bottom-left-radius: 6px;
+    border-bottom-left-radius: 6px;
     -moz-border-radius-bottomright: 6px;
     -webkit-border-bottom-right-radius: 6px;
+    border-bottom-right-radius: 6px;
     -moz-box-shadow: inset 0 15px 15px #F2EDE7;
     -webkit-box-shadow: inset 0 15px 15px #F2EDE7;
     padding: 0.3em 0.7em;
@@ -123,7 +126,7 @@ header #auth-box {
     font-size: 0.8em;
 }
 
-header #auth-box a {
+header #auth-box a#logout {
     background: transparent url(../images/icons/system-log-out.png) no-repeat right center;
     padding: 8px;
     text-indent: -2000px;
@@ -136,6 +139,7 @@ header #auth-box a {
 .notif {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
+    border-radius: 10px;
     padding: 1em;
     margin-top: 2em;
     background: #fffec2; /* notif ok */
@@ -162,6 +166,7 @@ header #auth-box a {
     filter: alpha(opacity = 40);
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 
 .notif .notif-close:hover, .notif:hover .notif-close {
@@ -276,10 +281,9 @@ section.edit-file div#edit {
     background: #F6F8FB;
     -moz-border-radius-bottomright: 5px;
     -webkit-border-radius-bottomright: 5px;
-    border-radius-bottomright: 5px;
     -moz-border-radius-bottomleft: 5px;
     -webkit-border-radius-bottomleft: 5px;
-    border-radius-bottomleft: 5px;
+    border-radius: 0px 0px 5px 5px;
     -moz-box-shadow: inset 0 20px 20px rgba(63, 109, 177, 0.05);
     -webkit-box-shadow: inset 0 20px 20px rgba(63, 109, 177, 0.05);
     padding: 0.7em;
@@ -402,21 +406,19 @@ section#folder-content ul li.file.even {
 section#uploaded-files ul li.file:first-child,
 section#folder-content ul li.file:first-child {
     -moz-border-radius-topright: 5px;
-    -webkit-border-top-left-radius: 5px;
-    border-radius-topright: 5px;
-    -moz-border-radius-topleft: 5px;
     -webkit-border-top-right-radius: 5px;
-    border-radius-topleft: 5px;
+    -moz-border-radius-topleft: 5px;
+    -webkit-border-top-left-radius: 5px;
+    border-radius: 5px 5px 0px 0px;
 }
 
 section#uploaded-files ul li.file:last-child,
 section#folder-content ul li.file:last-child {
     -moz-border-radius-bottomright: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    border-radius-bottomright: 5px;
+    -webkit-border-bottom-right-radius: 5px;
     -moz-border-radius-bottomleft: 5px;
     -webkit-border-bottom-left-radius: 5px;
-    border-radius-bottomleft: 5px;
+    border-radius: 0px 0px 5px 5px;
 }
 
 section#uploaded-files ul li.file:hover,
@@ -810,7 +812,10 @@ form#login-form p#submit-login {
     font-size: 0.8em;
 }
 
-input.password, input.username, form#login-form input.username, form#login-form input.password {
+input.password, 
+input.username, 
+form#login-form input.username, 
+form#login-form input.password {
     padding-left: 21px;
     background-repeat: no-repeat;
     background-position: 3px center;
@@ -842,7 +847,8 @@ footer #disk-usage {
     font-size: 0.8em;
 }
 
-div.lim-debug, footer div.debug {
+div.lim-debug, 
+footer div.debug {
     margin: 0 0 1em 0;
     background: #242423;
     color: red;
@@ -851,7 +857,8 @@ div.lim-debug, footer div.debug {
     font-size: 0.9em;
 }
 
-div.lim-debug dl, footer div.debug pre {
+div.lim-debug dl, 
+footer div.debug pre {
     white-space: pre-wrap;
     border-top: 1px solid #651918;
     padding-top: 0.2em;
@@ -911,7 +918,8 @@ div.lim-debug hr {
 }
 
 /* Awesome button from http://www.zurb.com/blog_uploads/0000/0485/buttons-02.html */
-.awesome, .awesome:visited {
+.awesome, 
+.awesome:visited {
     background: #222;
     display: inline-block;
     padding: 5px 10px 6px;
@@ -919,6 +927,7 @@ div.lim-debug hr {
     text-decoration: none;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
     text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.3);
     border-bottom: 1px solid rgba(0, 0, 0, 0.25);
     position: relative;
@@ -992,10 +1001,10 @@ div.lim-debug hr {
     padding: .5em .3em .5em 1em;
     position: relative;
     border: none;
-    -moz-border-radius-bottomleft: 0;
-    -webkit-border-bottom-left-radius: 0;
-    -moz-border-radius-bottomright: 0;
-    -webkit-border-bottom-right-radius: 0;
+    -moz-border-radius-bottomleft: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    -moz-border-radius-bottomright: 0px;
+    -webkit-border-bottom-right-radius: 0px;
     -moz-box-shadow: inset 0 10px 10px rgba(255, 255, 255, 0.06);
     -webkit-box-shadow: inset 0 10px 10px rgba(255, 255, 255, 0.06);
     background: #333;
@@ -1024,7 +1033,8 @@ div.lim-debug hr {
     margin: 1px;
 }
 
-.ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus {
+.ui-dialog .ui-dialog-titlebar-close:hover, 
+.ui-dialog .ui-dialog-titlebar-close:focus {
     padding: 0;
 }
 
@@ -1065,14 +1075,18 @@ div.lim-debug hr {
     cursor: move;
 }
 
-.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+.ui-widget input, 
+.ui-widget select, 
+.ui-widget textarea, 
+.ui-widget button {
     font-size: 0.8em;
 }
 
 /**
  * qtip
  */
-.ui-tooltip-dark .ui-tooltip-titlebar, .ui-tooltip-dark .ui-tooltip-content {
+.ui-tooltip-dark .ui-tooltip-titlebar, 
+.ui-tooltip-dark .ui-tooltip-content {
     border: 0;
 }
 
@@ -1091,6 +1105,7 @@ div.lim-debug hr {
     border: 1px solid rgba(0, 0, 0, 0.15);
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
     -moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
 }
@@ -1100,18 +1115,19 @@ div.lim-debug hr {
     font-weight: bold;
 }
 
-#install label, #install input {
+#install label, 
+#install input {
     display: block;
     width: 80%;
 }
 
-#install label, #install fieldset table {
+#install label, 
+#install fieldset table {
     width: 100%;
     box-sizing: border-box;
 }
 
-#install input[type =
-'checkbox'] {
+#install input[type ='checkbox'] {
     display: inline;
     width: 1em;
     height: 2em;
@@ -1143,11 +1159,14 @@ div.lim-debug hr {
     border: 1px solid rgba(0, 0, 0, 0.1);
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    border-radius: 5px;
     -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-#install .help, #install .help li, #install .help p {
+#install .help, 
+#install .help li, 
+#install .help p {
     font-size: 13px;
 }
 
@@ -1181,9 +1200,11 @@ div.lim-debug hr {
     text-transform: uppercase;
 }
 
-#install-notifs, #install-errors {
+#install-notifs, 
+#install-errors {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
+    border-radius: 10px;
     background: #D2E0CC;
     border: 1px solid #BDCAB8;
     padding: 0.5em 1em;

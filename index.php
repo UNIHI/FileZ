@@ -1,5 +1,30 @@
 <?php 
 /**
+ * @mainpage FileZ source code documentation
+ * <center>
+ * See also: <a href="http://gpl.univ-avignon.fr/filez">gpl.univ-avignon.fr/FileZ</a> - <a href="https://github.com/UAPV/FileZ">README, issues & wiki on github</a>
+ * </center>
+ *
+ * @htmlonly
+ * <style type="text/css">h2{position: relative;left: -15px;font-size: 140%;}</style>
+ * @endhtmlonly
+ *
+ * @section Model–view–controller
+ *
+ * Filez has been developed around the MVC pattern thanks to the Limonade micro framework.
+ *
+ * Limonade micro framework provide the glue between the controllers and views : * Routes declarations * Request handler/dispatcher (index.php) * and many action helpers
+ * - Domain logic is implemented in 'app/model/DOMAIN_OBJECT.php' files.
+ * - Controllers & actions reside in 'app/controller/CONTROLLER_NAME.php' files and contain a set of functions (actions). Fz_Controller
+ * - Views are raw php files stored in 'app/view/CONTROLLER_NAME/ACTION_NAME.php' Static files are stored in the 'resource' directory.
+ *
+ * See also <a href="https://github.com/UAPV/FileZ/blob/master/doc/README.DEV.markdown">doc/README.DEV.markdown</a>
+ * @section About
+ *
+ * - See <a href="http://gpl.univ-avignon.fr">gpl.univ-avignon.fr</a> for more information
+ *
+ * @section Copyright
+ *
  * Copyright 2010  Université d'Avignon et des Pays de Vaucluse 
  * email: gpl@univ-avignon.fr
  *
@@ -19,7 +44,7 @@
  * along with Filez.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define ('FZ_VERSION', '2.1.0-1');
+define ('FZ_VERSION', '2.2.0-1');
 
 /**
  * Loading Zend for i18n classes and autoloader
@@ -161,24 +186,23 @@ fz_dispatch_post ('/upload'                     ,'Upload'       ,'start');
 fz_dispatch_get  ('/upload/progress/:upload_id' ,'Upload'       ,'getProgress');
 
 // Backend controller
-fz_dispatch_get ('/admin'                       ,'Admin'        ,'index');
+fz_dispatch_get  ('/admin'                      ,'Admin'        ,'index');
 
 // Backend::Users
-fz_dispatch_get ('/admin/users'                 ,'User'         ,'index');
-fz_dispatch_get ('/admin/users/new'             ,'User'         ,'create');
-fz_dispatch_post ('/admin/users/new'            ,'User'         ,'postnew');
-fz_dispatch_get ('/admin/users/:id'             ,'User'         ,'show');
-fz_dispatch_get ('/admin/users/:id/delete'      ,'User'         ,'delete');
-fz_dispatch_get ('/admin/users/:id/edit'        ,'User'         ,'edit');
-fz_dispatch_post ('/admin/users/:id/edit'       ,'User'         ,'update');
+fz_dispatch_get  ('/admin/users'                ,'User'         ,'index');
+fz_dispatch_post ('/admin/users'                ,'User'         ,'postnew');
+fz_dispatch_get  ('/admin/users/new'            ,'User'         ,'create');
+fz_dispatch_get  ('/admin/users/:id'            ,'User'         ,'show');
+fz_dispatch_post ('/admin/users/:id'            ,'User'         ,'update');
+fz_dispatch_get  ('/admin/users/:id/delete'     ,'User'         ,'delete');
+fz_dispatch_get  ('/admin/users/:id/edit'       ,'User'         ,'edit');
 
 // Backend::Files
-fz_dispatch_get ('/admin/files'                 ,'Admin'        ,'files');
-fz_dispatch_get ('/admin/config'                ,'Admin'        ,'config');
-fz_dispatch_get ('/admin/invitations'           ,'Admin'        ,'invitations');
+fz_dispatch_get  ('/admin/files'                ,'Admin'        ,'files');
+fz_dispatch_get  ('/admin/config'               ,'Admin'        ,'config');
 
 // Backend::CRON
-fz_dispatch_get ('/admin/checkFiles'            ,'Admin'        ,'checkFiles');
+fz_dispatch_get  ('/admin/checkFiles'           ,'Admin'        ,'checkFiles');
 
 // Authentication controller
 fz_dispatch_get  ('/login'                      ,'Auth'         ,'loginForm');
@@ -216,9 +240,8 @@ fz_dispatch_post ('/:file_hash/report'          ,'File'         ,'report');
 
 fz_dispatch_post('/:file_hash/edit'             ,'File'         ,'edit');
 
-fz_dispatch_get ('/:uploader_uid/list/:folder'  ,'File'         ,'folder');
+fz_dispatch_get ('/:created_by/list/:folder'    ,'File'         ,'folder');
 
 
 
 run ();
-
