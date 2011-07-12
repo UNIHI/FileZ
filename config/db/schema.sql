@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `fz_file` (
 
 CREATE TABLE `fz_fileLog` (
   `id`              BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `file_id`         INTEGER         NOT NULL,
+  `file_id`         BIGINT UNSIGNED NOT NULL,
   `ip`              varchar(15)     NOT NULL,
   `username`        varchar(150),
   `timestamp`       INTEGER         NOT NULL,

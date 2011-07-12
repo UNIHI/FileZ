@@ -47,10 +47,10 @@ class App_Model_DbTable_FileLog extends Fz_Db_Table_Abstract {
      *
      * @param int $file_id
      */
-    public function insert ($file_id, $user) {
+    public function insert ($file_id, $userId) {
     	$db   = Fz_Db::getConnection();
     	// Logging-Settings
-    	$user = (fz_config_get ('app', 'log_username')) ? $user['id'] : "Not logged"; 
+    	$userId = (fz_config_get ('app', 'log_username')) ? $userId : "Not logged"; 
         $ip = (fz_config_get ('app', 'log_ip')) ? $_SERVER['REMOTE_ADDR'] : "Not logged";
         //TODO logging Browser Version
         
@@ -59,7 +59,7 @@ class App_Model_DbTable_FileLog extends Fz_Db_Table_Abstract {
         return $stmt->execute (array (
             ':file_id' => $file_id,
             ':ip' => $ip,
-        	':username' => $user,
+        	':username' => $userId,
         	':timestamp' => time(),
         )); 
     }

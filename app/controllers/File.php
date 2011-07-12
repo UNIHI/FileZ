@@ -498,7 +498,7 @@ class App_Controller_File extends Fz_Controller {
         $filelog = Fz_Db::getTable('FileLog');
         $user = $this->getUser();
         $file = $this->getFile ();
-        $userID = ($user == NULL) ? "Unknown UserID" : $user['id']; 
+        $userID = ($user == NULL) ? "Unknown UserID" : $user->id; 
         $filelog->insert($file->id, $userID);
 
     
