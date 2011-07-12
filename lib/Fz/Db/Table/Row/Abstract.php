@@ -213,7 +213,7 @@ abstract class Fz_Db_Table_Row_Abstract {
         fz_log ($sql, FZ_LOG_DEBUG);
 
         $stmt = $db->prepare ($sql);
-        $this->bindUpdatedColumnsValues ($stmt);
+        $stmt = $this->bindUpdatedColumnsValues ($stmt);
         $stmt->execute ();
 
         return $db->lastInsertId ();
@@ -236,9 +236,9 @@ abstract class Fz_Db_Table_Row_Abstract {
      * @return PDO_Statement
      */
     private function bindUpdatedColumnsValues ($stmt) {
-        foreach ($this->getUpdatedColumns () as $column)
+        foreach ($this->getUpdatedColumns () as $column) {
             $stmt->bindValue (':'.$column, $this->_data[$column]);
-
+        }
         return $stmt;
     }
 

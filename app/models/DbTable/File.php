@@ -238,6 +238,7 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
      * @return array            List of folders
      */
     public function getFolders ($user) {
+        $folders = array();
         $result = option ('db_conn')
             ->prepare ('SELECT DISTINCT folder FROM `'
                 .$this->getTableName ()

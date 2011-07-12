@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `fz_file` (
   `comment`         varchar(200),
   `download_count`  INTEGER         DEFAULT 0,
   `notify_uploader` BOOLEAN         DEFAULT 0,
-  `created_by`      INTEGER         NOT NULL,
+  `created_by`      BIGINT          NOT NULL,
   `created_at`      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `extends_count`   INTEGER         DEFAULT '0',
   `password`        varchar(40)     DEFAULT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `fz_file` (
   `folder`          varchar(200)    DEFAULT NULL,
   
   INDEX       (`created_by`),
-  FOREIGN KEY (`created_by`) REFERENCES fz_user(id),
+  FOREIGN KEY (`created_by`) REFERENCES fz_user(`id`),
   UNIQUE KEY `id` (`id`)
 ) DEFAULT CHARSET=utf8;
 
