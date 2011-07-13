@@ -130,7 +130,10 @@ class Fz_Controller {
         if (self::$_mailTransportSet === false) {
             $config = fz_config_get ('email');
             $config ['name'] = 'filez';
-            $transport = new Zend_Mail_Transport_Smtp ($config ['host'], $config);
+            if ($config ['host'] == "sendmail")
+                $transport = new Zend_Mail_Transport_Sendmail();
+            else
+                $transport = new Zend_Mail_Transport_Smtp ($config ['host'], $config);
             Zend_Mail::setDefaultTransport ($transport);
             self::$_mailTransportSet = true;
         }

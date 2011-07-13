@@ -68,7 +68,8 @@ class Fz_Controller_Security_Cas extends Fz_Controller_Security_Abstract {
     private function initCasClient () {
         if (! $this->_casInitialized) {
             require_once 'CAS.php';
-            phpCAS::setDebug();
+            if ( $this->getOption ('cas_debug_log', '') != '' )
+                phpCAS::setDebug($this->getOption ('cas_debug_log', ''));
             phpCAS::client (CAS_VERSION_2_0,
                 $this->getOption ('cas_server_host', 'localhost'),
           (int) $this->getOption ('cas_server_port', 443),
