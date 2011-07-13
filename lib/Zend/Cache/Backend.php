@@ -205,6 +205,22 @@ class Zend_Cache_Backend
      */
     protected function _isGoodTmpDir($dir)
     {
+        $go_on = true;
+        if ( $open_basedir = ini_get('open_basedir') ) {
+            $basedir_check_array = explode(':',$open_basedir);
+            if ( count($basedir_check_array) > 0 )
+                $go_on = false;
+            foreach($basedir_check_array as $basedir_check) {
+                $pos = strpos( $dir, $basedir_check );
+                if ( $pos !== FALSE && $pos == 0 ) {
+                    $go_on = true;
+                }
+            }
+        }
+
+        if ( !$go_on )
+            return false;
+
         if (is_readable($dir)) {
             if (is_writable($dir)) {
                 return true;
