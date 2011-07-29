@@ -66,6 +66,7 @@ class App_Controller_Admin extends Fz_Controller {
     	if ( $_SERVER['REMOTE_ADDR'] != fz_config_get ('cron', 'cron_allowed_ip') )
     	{
     	    fz_log ('Unallowed access to checkFiles via browser', FZ_LOG_ERROR);
+    	    halt (HTTP_BAD_REQUEST, 'You are not allowed to execute this script');
     	    return;
     	}
     	
