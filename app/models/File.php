@@ -374,7 +374,7 @@ class App_Model_File extends Fz_Db_Table_Row_Abstract {
   		$onlyForUnknownUsers = fz_config_get ('app', 'downloadLimitOnlyForUnknownUsers', 1);
   		
   		// downloadLimit check needed? 
-  		if ( ($user['id'] == "Unknown UserID") || ($user['id'] != "Unknown UserID" && $onlyForUnknownUsers == 0)  ) {
+  		if ( ($user->id == "Unknown UserID") || ($user->id != "Unknown UserID" && $onlyForUnknownUsers == 0)  ) {
 	  		$days = ($this->intervalCount == NULL) ? fz_config_get ('app', 'intervalCount', 1) : $this->intervalCount;
 	  		$type = ($this->intervalType == NULL) ? fz_config_get ('app', 'intervalType', "Day") : $this->intervalType;
 	     	$oldTimestamp = '-'. $days . ' ' .$type . ' 00:00:00';
