@@ -61,6 +61,22 @@ class App_Controller_Admin extends Fz_Controller {
      * the configured log directory.
      */
     public function checkFilesAction () {
+    	
+    	// No access via browser, only via PHP-CLI (crontabs, etc.)
+    	if ( $_SERVER['REMOTE_ADDR'] != $_SERVER['SERVER_ADDR'] )
+    	{
+    	    fz_log ('Unallowed access to checkFiles via browser', FZ_LOG_ERROR);
+    	    return;
+    	}
+    	
+    	$lastCron = Fz_Db::getTable('Info')->getLastCronTimestamp();
+    	$freq = fz_config_get ('cron', 'frequency');
+    
+    	if(strtotime($freq." ".$lastCron) > time())
+    		return;
+    		
+        Fz_Db::getTable('Info')->setLastCronTimestamp(date('Y-m-d H:i:s'));
+    
         // Delete files whose lifetime expired
         Fz_Db::getTable('File')->deleteExpiredFiles ();
 

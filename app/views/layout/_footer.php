@@ -34,5 +34,4 @@
         </a>
       <?php endif ?>
 
-      <?php echo check_cron();?>
     </footer>
