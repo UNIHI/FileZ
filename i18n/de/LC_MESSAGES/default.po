@@ -370,13 +370,13 @@ msgid "This option cannot be disabled."
 msgstr "Diese Option kann nicht deaktiviert werden."
 
 msgid "You have to accept this user agreement before you can upload the file."
-msgstr "Sie müssen der Nutzungsvereinbahrung zustimmen, bevor Sie die Datei hochladen können."
+msgstr "Sie müssen der Nutzungsvereinbarung zustimmen, bevor Sie die Datei hochladen können."
 
 msgid "I have read and understood the user agreement."
-msgstr "Ich habe die Nutzungsvereinbahrung gelesen und verstanden."
+msgstr "Ich habe die Nutzungsvereinbarung gelesen und verstanden."
 
 msgid "You have to accept the user agreement."
-msgstr "Sie müssen der Nutzungsvereinbahrung zustimmen, um eine Datei hochladen zu dürfen."
+msgstr "Sie müssen der Nutzungsvereinbarung zustimmen, um eine Datei hochladen zu dürfen."
 
 msgid "on"
 msgstr "an"

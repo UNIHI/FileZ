@@ -11,7 +11,7 @@ Hilfeseiten, wer macht's freiwillig?
 * Passwort verwenden (optional): Um die Datei heruntenladen zu können, muss das auf der Vorschauseite eingegebene Kennwort mit dem hier angegebenen Kennwort übereinstimmen.
 * Erfordere Login (optional): Der Benutzer muss eingeloggt sein, um die Datei herunteladen zu können.
   * Anmerkung zu den beiden vorhergehenden Optionen: Sie können in beliebiger Kombination verwendet werden. Eine Systemoption kann aber verlangen, dass mindestens eine der Zugriffsbeschränkungen aktiviert ist.
-* Benutzervereinbahrung: Nicht optional, falls das System es verlangt, dass der Benutzer dieser zustimmen muss. Durch das Setzen des Hakens wird der Vereinbahrung zugestimmt.
+* Benutzervereinbarung: Nicht optional, falls das System es verlangt, dass der Benutzer dieser zustimmen muss. Durch das Setzen des Hakens wird der Vereinbahrung zugestimmt.
 
 # Vorschau
 
