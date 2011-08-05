@@ -276,7 +276,7 @@ section.report-file label {
 }
 
 section.new-file div#upload,
-section.report-file div#report,
+section.report-file div.submit-report,
 section.edit-file div#edit {
     background: #F6F8FB;
     -moz-border-radius-bottomright: 5px;
@@ -696,11 +696,11 @@ section#preview-file #preview-image {
 }
 
 section#preview-file #availability {
-    float: left;
+    /*float: left;*/
 }
 
 section#preview-file #owner {
-    float: right;
+    /*float: right;*/
 }
 
 section#preview-file #preview-message {
@@ -1323,4 +1323,8 @@ article.doc .img-block {
     padding-bottom: 0.5em;
     list-style: none;
 
+}
+
+.folder-list {
+    font-size: 0.7em;
 }

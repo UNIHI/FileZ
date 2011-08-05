@@ -42,6 +42,9 @@ class Fz_Controller {
         // setting user template var
         set ('fz_user', $user);
 
+        if ($user->is_locked) {
+            halt (HTTP_FORBIDDEN, __('Your account has been locked. Please contact the FileZ administrator.'));
+        }
         if ($credential == 'admin') { // 
             if (! $user->is_admin)
                 halt (HTTP_FORBIDDEN, __('This page is secured'));
@@ -107,6 +110,7 @@ class Fz_Controller {
      * @return Fz_User_Factory_Abstract
      */
     protected function getUserFactory () {
+        // userFactory option is set in ./index.php
         return option ('userFactory');
     }
 
@@ -148,6 +152,28 @@ class Fz_Controller {
     protected function goBack () {
         redirect ($_SERVER["HTTP_REFERER"]);
     }
+    
+    /**
+     * Return data to the browser with the correct response type (json or html).
+     * If the request comes from an iframe (with the is-async GET parameter,
+     * the response is embedded inside a textarea to prevent some browsers :
+     * quirks (http://www.malsup.com/jquery/form/#file-upload) JQuery Form
+     * Plugin will handle the response transparently.
+     * 
+     * @param array $data
+     */
+    protected function returnData ($data) {
+        if (array_key_exists ('is-async', $_GET) && $_GET ['is-async']) {
+            // Notice by July 04, 2011: this is a temporary fix, 
+            // to solve the problem with non-working buttons
+            return html("<textarea>\n".json_encode ($data)."\n</textarea>",'');
+        }
+        else {
+            flash ('notification', $data ['statusText']);
+            redirect_to ('/');
+        }
+    }
+
 }
 
 

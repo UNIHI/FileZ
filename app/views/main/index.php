@@ -72,7 +72,7 @@
     </li>
     <?php endif ?>
   </ul>
-  <?php if (fz_config_get('app' , 'require_user_agreement', true) == true): ?>
+  <?php if (fz_config_get('app' , 'require_user_agreement', true)): ?>
   <ul id="options">
     <li id="option-use-password">
       <label for="accept-user-agreement" title="<?php echo __('You have to accept this user agreement before you can upload the file.')?>">   
@@ -94,6 +94,9 @@
 
 
 <h2 id="uploaded-files-title"><?php echo __('Uploaded files') ?></h2>
+<?php if ($folders != ''): ?>
+<p id="folders" class="folder-list">(<?php echo __('Used folders:') . ' ' . $folders ?>)</p>
+<?php endif ?>
 <section id="uploaded-files">
   <ul id="files">
     <?php $odd = true; foreach ($files as $file): ?>
@@ -169,7 +172,10 @@
                 cancel: <?php echo  json_encode (__('Cancel')) ?>,
                 emailMessage: <?php echo  json_encode (__('You can download the file I uploaded here')) ?>,
                 editFile: <?php echo json_encode(__("Edit file")) ?>,
-                copiedToClipboard: <?php echo json_encode(__('Copied to clipboard')) ?> 
+                copiedToClipboard: <?php echo json_encode(__('Copied to clipboard')) ?>,
+                acceptDisclaimer: <?php echo json_encode(__('You have to accept the user agreement to upload the file.')) ?>,
+                noFolderAssigned: <?php echo json_encode(__('No folder assigned')) ?>,
+                folder: <?php echo json_encode(__('Folder')) ?> 
             }
         });
 
@@ -222,16 +228,14 @@
         <?php endif ?>
 
       
-        <?php if (fz_config_get('app', 'enable_autocomplete', true) == true): ?>
+        <?php if (fz_config_get('app', 'enable_autocomplete', true)): ?>
         // Autocomplete content
-        var ac1;
-        var ac2;
-        ac1 = $('#input-folder').autocomplete({
+        $('#input-folder').autocomplete({
             width: 300,
             delimiter: /(,|;)\s*/,
             lookup: '<?php echo $folders ?>'.split(',')
         });
-        ac2 = $('#edit-input-folder').autocomplete({
+        $('#edit-input-folder').autocomplete({
             width: 300,
             delimiter: /(,|;)\s*/,
             lookup: '<?php echo $folders ?>'.split(',')

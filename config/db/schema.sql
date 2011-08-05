@@ -26,12 +26,13 @@ CREATE TABLE IF NOT EXISTS `fz_file` (
   UNIQUE KEY `id` (`id`)
 ) DEFAULT CHARSET=utf8;
 
-CREATE TABLE `fz_fileLog` (
+CREATE TABLE `fz_log` (
   `id`              BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `file_id`         BIGINT UNSIGNED NOT NULL,
   `ip`              varchar(15)     NOT NULL,
-  `username`        varchar(150),
+  `username`        varchar(30),
   `timestamp`       INTEGER         NOT NULL,
+  `action`          varchar(20)     NOT NULL,
   
   PRIMARY KEY (  `id`  ),
   UNIQUE KEY `id` (`id`)

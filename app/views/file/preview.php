@@ -30,14 +30,9 @@
     <p id="comment"><b><?php echo __('Comments') ?></b> : <?php echo h($file->comment) ?></p>
   <?php endif ?>
 
-  <?php if (fz_config_get('app', 'enable_reporting', true) == true
-    && !$file->prevent_reporting && $file->reported): ?>
-    <p id="report">
-      <?php echo __('This file has been reported.'); ?>
-    </p>
-  <?php elseif (!$file->prevent_reporting && !$file->reported): ?>
+  <?php if (fz_config_get('app', 'enable_reporting', true)): ?>
     <p id="report" class="report-file">
-      <a href="<?php echo $file->getDownloadUrl () ?>/report" class="small">
+      <a id="report-link" href="<?php echo $file->getDownloadUrl () ?>/report" class="small">
         <?php echo __('Report this file'); ?>
       </a>
     </p>
@@ -55,7 +50,7 @@
         </p>
       <?php else: ?>
         <p id="download">
-          <?php if (fz_config_get('app', 'autostart_download', true) == true): ?>
+          <?php if (fz_config_get('app', 'autostart_download', true)): ?>
               <?php echo __('Your download will start shortly...') ?>
               <a href="<?php echo $file->getDownloadUrl ()?>/download">
                 <?php echo __('If not, click here') ?>
@@ -100,7 +95,8 @@
   <div id="report-reason">
     <label for="select-report-reason"><?php echo __('Report reason') ?> :</label>
     <select id="select-report-reason" name="report-reason" alt="<?php echo __('Select a report reason') ?>" class="report-select">
-      <option value=""><?php echo __('Select a reason') ?></option>
+      <option selected="selected"><?php echo __('Select a reason') ?></option>
+      <option><?php echo __('File is corrupt') ?></option>
       <option><?php echo __('Copyright infringement') ?></option>
       <option><?php echo __('Offensive contents') ?></option>
       <option><?php echo __('Site rule violation') ?></option>
@@ -110,7 +106,7 @@
     <label for="input-comment"><?php echo __('Comments') ?> :</label>
     <input type="text" id="input-comment" name="comment" value="" alt="<?php echo __('Add a comment (optional)') ?>" maxlength="200" />
   </div>
-    <div id="report">
+  <div class="submit-report">
     <input type="submit" id="send-report" name="upload" class="awesome blue" value="&raquo; <?php echo __('Report') ?>" />
   </div>
   </form>
@@ -132,14 +128,78 @@
       // Set title for each modal
       $('section.report-file').dialog ('option', 'title', <?php echo json_encode(__('Report file')) ?>);
 
-      // Replace upload form with one big button, and open a modal box on click
+      // Open a modal box on click
       $('p.report-file').wrapInner ($('<a href="#"></a>'));
       $('p.report-file a').click (function (e) {
         $('section.report-file').dialog ('open');
         e.preventDefault();
       });
+      
+      // Hide report button unless user has chosen a valid reason 
+      $('#send-report').hide();
+      
+      $('#select-report-reason').change(function () {
+        if ($(this).val() != '<?php echo __('Select a reason') ?>') {
+            $('#send-report').show();
+        } else {
+            $('#send-report').hide();
+        }
+      });
 
+
+    
+        
+      //$('#report-form').ajaxForm(function () {
+        //$('section.report-file').dialog ('close');
+        //$('#report').html('<?php echo __('File has been reported.'); ?>');
+      //});
+
+      $('#report-form').ajaxForm ({
+        success:      onReportFinished, // post-submit callback
+        resetForm:    true,             // reset the form after successful submit
+        dataType:     'json',           // force response type to JSON
+        iframe:       true              // force the form to be submitted using an iframe
+      });
+
+      // Let the server know it has to return JSON
+      $('#report-form').attr ('action', 
+        $('#report-form').attr ('action') + '?is-async=1');
+        
     });
+    
+    /**
+     * Function called once report request has processed
+     */
+    var onReportFinished = function (data, status) {
+      $('section.report-file').dialog ('close');
+      $('#report').html('<?php echo __('File has been reported.'); ?>');
+      if (data.status == 'success') {
+          notify (data.statusText);
+      } else {
+          notifyError (data.statusText);
+      }
+    };
+    
+    /**
+     * Display an error notification and register the delete handler
+     */
+    var notifyError = function (msg) {
+        $('.notif').remove();
+        $('<p class="notif error">'+msg+'</p>')
+            .appendTo ($('header'))
+            .configureNotification ();
+    };
+    
+    /**
+     * Display a success notification and register the delete handler
+     */
+    var notify = function (msg) {
+        $('.notif').remove();
+        $('<p class="notif ok">'+msg+'</p>')
+            .appendTo ($('header'))
+            .configureNotification ();
+    };
+
 </script>
 
 

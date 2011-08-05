@@ -7,13 +7,7 @@
 use_url_rewriting = true
 
 ; Must be writtable by the web server
-upload_dir = /var/fz_uploads
-
-; Must be writtable by the web server
-log_dir = /var/log
-
-; Allow downloading file sent with filez 1.x
-filez1_compat = true
+upload_dir = "/var/fz_uploads"
 
 ; Max and default lifetime of a file on the server
 max_file_lifetime     = 20 
@@ -27,7 +21,7 @@ min_hash_size = 4
 max_hash_size = 6
 
 ; Default langage when no translation exists for the user locale
-default_locale = fr
+default_locale = "fr"
 
 ; Name of the class used to authenticate the user. Built-in handler are :
 ;  * Fz_Controller_Security_Cas       Log the user against a CAS server
@@ -42,7 +36,7 @@ auth_handler_class = Fz_Controller_Security_Internal
 user_factory_class = Fz_User_Factory_Ldap
 
 ; Max disk spaced per user. Support shorthand format : M (Mega), G (Giga)
-user_quota = 2G
+user_quota = "2G"
 
 ; This option allows users to require a valid login before the file can be accessed
 ; Note: this option does not influence the requirement for a valid password
@@ -85,7 +79,7 @@ downloadLimit = 5
 ; For which group is the downloadLimit valid
 ; 0 = for All Users
 ; 1 = for Unknown Users
-downloadLimitOnlyForUnknownUsers = 1
+downloadLimitOnlyForUnknownUsers = true
 
 ; both paramaters needed for strtotime()
 ; intervalCount = (int) e.G 2 
@@ -95,11 +89,7 @@ downloadLimitOnlyForUnknownUsers = 1
 ; intervalType = Day
 
 intervalCount = 1
-intervalType = Day
-
-; Logging of sensitive data (On/Off)
-log_username = 1
-log_ip = 1
+intervalType = "Day"
 
 ; Autocomplete - does offer a list for certain input fields (depending on implementation)
 ; if enabled
@@ -108,6 +98,26 @@ enable_autocomplete = true
 ; Copy to clipboard adds a button using Adobe Flash to each uploaded file 
 ; and allows easy copying the URL to the clipboard
 enable_copy_to_clipboard = true
+
+; Do not allow files uploaded by a user who is locked to be downloaded at all 
+disable_locked_user_files = false
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Logging
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[logging]
+; Must be writtable by the web server
+log_dir = /var/log/filez
+
+; Log activities (download, upload, extend, delete, preview, etc.)
+log_activity = true
+
+; Database table name for logging
+log_db_table = "fz_log"
+
+; Logging of sensitive data (On/Off)
+log_username = true
+log_ip = true
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Cron Job
@@ -140,17 +150,17 @@ bug_report_href = mailto:some-one@somewhere.com ; or http://your-bug-tracker.com
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [db]
 dsn      = "mysql:host=localhost;dbname=filez"
-user     = filez
-password = filez
+user     = "filez"
+password = "filez"
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Mail configuration
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [email]
-from_email=filez@univ-avignon.fr
-from_name=Filez
-host=smtp.univ-avignon.fr
+from_email="filez@univ-avignon.fr"
+from_name="Filez"
+host="smtp.univ-avignon.fr"
 ; auth=login ; possible values = crammd5, login, plain
 ; port=25
 ; username=user
@@ -162,7 +172,7 @@ host=smtp.univ-avignon.fr
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [auth_options]
 ; Parameters for the CAS authentication handler.
-cas_server_host = cas.univ-avignon.fr
+cas_server_host = "cas.univ-avignon.fr"
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -171,7 +181,7 @@ cas_server_host = cas.univ-avignon.fr
 [user_factory_options]
 ; Parameters passed to the Ldap user factory.
 ; Available parameters : http://framework.zend.com/manual/en/zend.ldap.api.html
-host = ldap.univ-avignon.fr
+host = "ldap.univ-avignon.fr"
 useSsl = false
 baseDn = "ou=people,dc=univ-avignon,dc=fr"
 bindRequiresDn = true
@@ -202,7 +212,7 @@ bindRequiresDn = true
 ;  * email
 ;  * id
 ; Exemple for an Ldap repository :
-firstname = givenname
-lastname  = sn
-email     = mail
-id        = uid
+firstname = "givenname"
+lastname  = "sn"
+email     = "mail"
+id        = "uid"

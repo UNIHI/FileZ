@@ -42,7 +42,6 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
     	'intervalCount',
     	'intervalType',
         'reported',
-        'prevent_reporting',
         'folder'
     );
 
@@ -109,16 +108,28 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
     }
 
     /**
-     * Find a file by its hash code (Filez 1.x only)
-     *
-     * @param string $hash
-     * @return App_Model_File
+     * Find a file by its id
+     * which is NOT marked as deleted
+     * 
+     * @param   int     $id
+     * @return  Fz_Table_Row_Abstrat
      */
-    public function findByFzOneHash ($hash) {
-        $sql = 'SELECT * FROM '.$this->getTableName ().' WHERE adresse = ?';
-        return $this->findOneBySQL ($sql, array ($hash));
+    public function findById ($id) {
+        $sql = "SELECT * FROM ".$this->getTableName ()
+        .' WHERE id = ? AND isDeleted = 0';
+        return $this->findOneBySQL ($sql, array ($id));
     }
-
+    
+    /**
+     * Retrieve all rows of the current table
+     *
+     * @return array  Array of Fz_Table_Row_Abstrat
+     */
+    public function findNotDeleted () {
+        $sql = "SELECT * FROM ".$this->getTableName () . " WHERE isDeleted = 0";
+        return Fz_Db::findObjectsBySQL ($sql, $this->getRowClass ());
+    }
+	
     /**
      * Return all file owned by $uid which are available (not deleted)
      *
@@ -129,6 +140,7 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
         $sql = 'SELECT * FROM '.$this->getTableName ()
               .' WHERE created_by=:id '
               .' AND  available_until >= CURRENT_DATE() '
+              .' AND isDeleted = 0 '
               .' ORDER BY created_at DESC';
         return $this->findBySql ($sql, array (':id' => $user->id));
     }
@@ -159,7 +171,8 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
      */
     public function deleteExpiredFiles () {
         $select = 'SELECT * FROM '.$this->getTableName ();
-        $where  = ' WHERE available_until<CURRENT_DATE()';
+        //$where  = ' WHERE available_until<CURRENT_DATE()';
+        $where  = ' WHERE available_until<CURRENT_DATE() AND isDeleted = 0';
         foreach ($this->findBySql ($select.$where) as $file) {
             if ($file->deleteFromDisk () === true) {
                 fz_log ('Deleted file "'.$file->getOnDiskLocation ().'"',
@@ -169,7 +182,10 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
                         FZ_LOG_CRON_ERROR);
             }
         }
-        option ('db_conn')->exec ('DELETE FROM '.$this->getTableName ().$where);
+        //Fz_Db::getConnection()->exec ('DELETE FROM '.$this->getTableName ().$where);
+		// Do not delete table row, instead mark file as deleted.
+		Fz_Db::getConnection()->exec ('UPDATE '.$this->getTableName () 
+		. ' SET isDeleted = 1 ' . $where);
     }
 
     /**
@@ -195,7 +211,7 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
      * @return float            Size in bytes
      */
     public function getTotalDiskSpaceByUser ($user) {
-        $result = option ('db_conn')
+        $result = Fz_Db::getConnection()
             ->prepare ('SELECT sum(file_size) FROM `'
                 .$this->getTableName ()
                 .'` WHERE created_by = ?'
@@ -239,16 +255,35 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
      */
     public function getFolders ($user) {
         $folders = array();
-        $result = option ('db_conn')
+        $result = Fz_Db::getConnection()
             ->prepare ('SELECT DISTINCT folder FROM `'
                 .$this->getTableName ()
                 .'` WHERE created_by = ? '
                 .'AND folder <> "" '
                 .'AND folder IS NOT NULL '
+                .'AND isDeleted = 0 '
                 .'ORDER BY folder ASC');
         $result->execute (array ($user->id));
         while ($folder = $result->fetchColumn()) { $folders[] = $folder; }
         return $folders;
+    }
+    
+    /**
+     * Return true or false wheter a row of <created_by,folder> exists or not.
+     *
+     * @param   string      $created_by
+     * @param   string      $folder
+     * @return  boolean
+     */
+    public function folderExists ($created_by, $folder) {
+        $db = Fz_Db::getConnection();
+        $sql  = 'SELECT folder FROM `'.$this->getTableName ().'` '
+                .'WHERE created_by = ? AND '
+                .'folder = ?';
+        $stmt = $db->prepare ($sql);
+        $stmt->execute (array ($created_by, $folder));
+
+        return $stmt->fetchColumn () === false ? false : true;
     }
 }
 

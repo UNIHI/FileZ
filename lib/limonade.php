@@ -573,6 +573,7 @@ function error($errno = null, $function = null)
  */
 function halt($errno = SERVER_ERROR, $msg = '', $debug_args = null)
 {
+  
   $args = func_get_args();
   $error = array_shift($args);
 

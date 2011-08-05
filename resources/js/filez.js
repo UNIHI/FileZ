@@ -33,7 +33,7 @@ var settings = {};
 var progressCheckerLoop = 0;
 
 var uploadForm = null;
-
+var editForm = null;
 
 /*******************************************************************************
  * PUBLIC METHODS
@@ -46,25 +46,26 @@ var uploadForm = null;
 $.fn.initFilez = function (options) {
 
     uploadForm = $(this);
-
+    editForm = $('#edit-form');
+    
     settings = jQuery.extend(true, {
         refreshRate: 2000,
         useProgressBar: false
     }, options);
 
     $(this).ajaxForm ({
-        beforeSubmit: onFormSubmit,     // pre-submit callback
-        success:      onFileUploadEnd,  // post-submit callback
-        resetForm:    true,             // reset the form after successful submit
-        dataType:     'json',           // force response type to JSON
-        iframe:       true              // force the form to be submitted using an iframe
+        beforeSubmit: onUploadFormSubmit, // pre-submit callback
+        success:      onFileUploadEnd,    // post-submit callback
+        resetForm:    true,               // reset the form after successful submit
+        dataType:     'json',             // force response type to JSON
+        iframe:       true                // force the form to be submitted using an iframe
     });
 
     if (settings.progressBar.enable) {
         $(this).prepend ('<input type="hidden" name="'+settings.progressBar.upload_id_name+'" id="upload-id"  value="'+uniqid ()+'" />');
     }
     
-    // let the server knows it has to return JSON
+    // Let the server know it has to return JSON
     $(this).attr ('action', $(this).attr ('action') + '?is-async=1');
 
     // Initialise actions event handlers
@@ -85,6 +86,14 @@ $.fn.initFilez = function (options) {
         }
     });
 
+    $('#edit-form').ajaxForm ({
+        beforeSubmit: onEditFormSubmit, // pre-submit callback
+        success:      onFileEditEnd,    // post-submit callback
+        resetForm:    true,             // reset the form after successful submit
+        dataType:     'json',           // force response type to JSON
+        iframe:       true              // force the form to be submitted using an iframe
+    });
+    
     return $(this);
 };
 
@@ -131,13 +140,32 @@ $.fn.initFileActions = function () {
             $(this).text(settings.messages.copiedToClipboard);
         }
     }),
-    
+    /*
     $('a.delete', this).click (function (e) {
         if (confirm (settings.messages.confirmDelete))
             $('<form action="'+$(this).attr('href')+'" method="post"></form>').appendTo('body').submit();
         e.preventDefault();
     });
-
+    */
+    $('a.delete', this).click (function (e) {
+        if (confirm (settings.messages.confirmDelete)) {
+            e.preventDefault();
+            var fileListItem = $(this).closest ('li.file');
+            var link = $(this);
+            $.getJSON($(this).attr('href'), function (data) {
+                if (data.status == undefined) {
+                    notifyError (settings.messages.unknownErrorHappened);
+                } else if (data.status == 'success') {
+                    link.qtip('destroy');
+                    fileListItem.slideUp(1000, function() { $(this).remove(); });
+                    fileListItem.initFileActions ();
+                } else if (data.status == 'error'){
+                    notifyError (data.statusText);
+                }
+            });
+        }
+    });
+/*
     $('a.toggle-on', this).click (function (e) {
         if (confirm (settings.messages.confirmToggleOn))
             $('<form action="'+$(this).attr('href')+'" method="post"></form>').appendTo('body').submit();
@@ -149,8 +177,25 @@ $.fn.initFileActions = function () {
             $('<form action="'+$(this).attr('href')+'" method="post"></form>').appendTo('body').submit();
         e.preventDefault();
     });
+*/
+    $('#toggle', this).click (function (e) {
+        e.preventDefault();
+        var fileListItem = $(this).closest ('li.file');
+        var link = $(this);
+        $.getJSON($(this).attr('href'), function (data) {
+            if (data.status == undefined) {
+                notifyError (settings.messages.unknownErrorHappened);
+            } else if (data.status == 'success') {
+                link.qtip('destroy');
+                fileListItem.html (data.html);
+                fileListItem.initFileActions ();
+            } else if (data.status == 'error'){
+                notifyError (data.statusText);
+            }
+        });
+    });
     
-    $('a.extend', this).click (function (e) {
+    $('a.extend,a.extendMaximum', this).click (function (e) {
         e.preventDefault();
         var fileListItem = $(this).closest ('li.file');
         var link = $(this);
@@ -170,15 +215,15 @@ $.fn.initFileActions = function () {
     $('a.edit', this).click (function (e) {
         e.preventDefault();
         var modal = $('#edit-modal');
-        var fileUrl = $(this).attr ('href');
-        var dataBlock = $(this).closest('.file-attributes').prev('.file-description');
+        var fileUrl = $(this).attr ('href') + '?is-async=1';
+        var dataBlock = $(this).closest ('li.file');
+        //var dataBlock = $(this).closest('.file-attributes').prev().prev();
         var filename = $('.filename a', dataBlock).html();
         var comment = $('.comment', dataBlock).html();
         var folder = $('.folder', dataBlock).html();
         var requireLogin = $('.require-login', dataBlock).html();
         //var fileHash = fileUrl.split('').reverse().join('');
         //fileHash = fileHash.substring(0,fileHash.indexOf('/')).split('').reverse().join('');
-        
         $('#edit-modal').dialog ('option', 'title', settings.messages.editFile + ': ' + filename);
         $('#edit-modal input[name="comment"]').val(comment);
         $('#edit-modal input[name="folder"]').val(folder);
@@ -296,12 +341,12 @@ var onCheckProgressError = function (xhr, textStatus, errorThrown) {
 };
 
 /**
- * Function called on form submission
+ * Function called on upload form submission
  */
-var onFormSubmit = function (data, form, options) {
+var onUploadFormSubmit = function (data, form, options) {
     // check if user agreement is enabled if it exists
     if ( $('#accept-user-agreement').length && !$('#accept-user-agreement').is(':checked')) {
-        alert('You have to accept the user agreement to upload the file.');
+        alert(settings.messages.acceptDisclaimer);
         return false;
     }
 
@@ -356,6 +401,41 @@ var onFileUploadEnd = function (data, status) {
 
 };
 
+
+/**
+ * Function called on edit form submission
+ */
+var onEditFormSubmit = function (data, form, options) {
+
+    $('#do-edit').hide (); // hidding the start upload button
+        
+};
+
+/**
+ * Function called once the file has been successfully edited
+ */
+var onFileEditEnd = function (data, status) {
+    reloadEditForm ();
+    if (data.status == 'success') {
+        var fileId = $("[id='file-" + data.hash + "']");
+        if (data.folder == '') {
+            fileId.find('.filefolder').html(
+                settings.messages.noFolderAssigned);    
+        } else {
+            fileId.find('.filefolder').html(
+                settings.messages.folder + ': ' + data.folder);
+        }
+        notify (data.statusText);
+    } else if (data.status == 'error'){
+        notifyError (data.statusText);
+    } else {
+        notifyError (settings.messages.unknownErrorHappened);
+    }
+
+    // Hide the modal box
+    $('.ui-dialog-content').dialog('close');
+
+};
 /*------------------------------------------------------------------------------
  * UI TOOLKIT
  *----------------------------------------------------------------------------*/
@@ -386,6 +466,10 @@ var reloadUploadForm = function () {
     $('#input-password').hide();
 };
 
+var reloadEditForm = function () {
+    editForm.resetForm ();
+    $('#do-edit').show ();
+};
 
 /**
  * Display an error notification and register the delete handler

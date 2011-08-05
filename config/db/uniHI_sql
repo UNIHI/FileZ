@@ -1,6 +1,6 @@
 SET NAMES 'utf8';
-DROP TABLE IF EXISTS `fz_fileLog`;
-CREATE TABLE `fz_fileLog` (
+DROP TABLE IF EXISTS `fz_log`;
+CREATE TABLE `fz_log` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `file_id` int(11) NOT NULL,
   `ip` varchar(15) NOT NULL,
@@ -14,11 +14,11 @@ CREATE TABLE `fz_fileLog` (
   -- 05/16/2011 fz_file: Rename old column name (login requirement)
 ALTER TABLE `fz_file` CHANGE `require_auth` `require_login` TINYINT
 
-  -- 05/16/2011 fz_filelog: file_id INT -> BIGINT
-ALTER TABLE `fz_filelog`  CHANGE COLUMN `file_id` `file_id` BIGINT(20) NOT NULL AFTER `id`;
+  -- 05/16/2011 fz_log: file_id INT -> BIGINT
+ALTER TABLE `fz_log`  CHANGE COLUMN `file_id` `file_id` BIGINT(20) NOT NULL AFTER `id`;
 
-  -- 05/16/2011 fz_filelog: username ALLOW NULL, DEFAULT NULL
-ALTER TABLE `fz_filelog`  CHANGE COLUMN `username` `username` VARCHAR(150) NULL DEFAULT NULL AFTER `ip`;
+  -- 05/16/2011 fz_log: username ALLOW NULL, DEFAULT NULL
+ALTER TABLE `fz_log`  CHANGE COLUMN `username` `username` VARCHAR(150) NULL DEFAULT NULL AFTER `ip`;
 
 -- 05/20/2011
 ALTER TABLE `fz_file` add downloadLimit int(11);

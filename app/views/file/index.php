@@ -5,7 +5,7 @@
 <table id="file_list" class="data">
   <tr>
     <th><?php echo __('Name') ?></th>
-    <th><?php echo __('Author') ?></th>
+    <th><?php echo __('Uploader') ?></th>
     <th><?php echo __('Availability') ?></th>
     <th><?php echo __('Size') ?></th>
     <th><?php echo __('DL count') ?></th>

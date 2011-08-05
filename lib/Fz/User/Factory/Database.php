@@ -94,18 +94,27 @@ class Fz_User_Factory_Database extends Fz_User_Factory_Abstract {
      * Return a connection ressource to the database
      */
     protected function getConnection () {
-        if ($this->getOption('db_use_global_conf'))
-            return option ('db_conn');
+        if ($this->getOption('db_use_global_conf')) {
+			return Fz_Db::getConnection();
+		}
 
         if ($this->_dbCon === null) {
-            $this->_dbCon = new PDO ($this->getOption ('db_server_dsn'),
-                                     $this->getOption ('db_server_user'),
-                                     $this->getOption ('db_server_password'));
-            $this->_dbCon->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            // TODO gérer les erreurs de connexion
+		
+			// UserFactory-Database configuration
+			try {
+				$this->_dbCon = new PDO (
+					$this->getOption ('db_server_dsn'),
+					$this->getOption ('db_server_user'),
+					$this->getOption ('db_server_password'));
+                $this->_dbCon->setAttribute (PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$this->_dbCon->exec ('SET NAMES \'utf8\'');
+			} catch (Exception $e) {
+				halt (SERVER_ERROR, 'Can\'t connect to the user factory database');
+			}
         }
 
         return $this->_dbCon;
+
     }
 
     /**

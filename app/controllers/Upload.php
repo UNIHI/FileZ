@@ -35,7 +35,6 @@ class App_Controller_Upload extends Fz_Controller {
         fz_log ('uploading');
         fz_log ('uploading', FZ_LOG_DEBUG, $_FILES);
         $response = array (); // returned data
-
         // check if request exceed php.ini post_max_size
         if ($_SERVER ['CONTENT_LENGTH'] > $this->shorthandSizeToBytes (
                                                    ini_get ('post_max_size'))) {
@@ -43,7 +42,7 @@ class App_Controller_Upload extends Fz_Controller {
             return $this->onFileUploadError (UPLOAD_ERR_INI_SIZE);
         }
         // User accepted agreement (if enabled in options)?
-        else if (fz_config_get('app', 'require_user_agreement', true) == true
+        else if (fz_config_get('app', 'require_user_agreement', true)
             && !isset ($_POST['user-agreement'])) {
             $response ['status']     = 'error';
             $response ['statusText'] = __('You have to accept the user agreement.');
@@ -52,7 +51,7 @@ class App_Controller_Upload extends Fz_Controller {
         }
         // user has to require login or a password for his file 
         // if filez setting privacy_mode is true
-        else if (fz_config_get('app', 'privacy_mode', false) == true
+        else if (fz_config_get('app', 'privacy_mode', false)
             && !isset ($_POST['require-login'])
             && !isset ($_POST['use-password'])) {
             $response ['status']     = 'error';
@@ -169,7 +168,9 @@ class App_Controller_Upload extends Fz_Controller {
             $file->save ();
 
             if ($file->moveUploadedFile ($uploadedFile)) {
-                fz_log ('Saved "'.$file->file_name.'"['.$file->id.'] uploaded by '.$user);
+                //fz_log ('Saved "'.$file->file_name.'"['.$file->id.'] uploaded by '.$user);
+                fz_log ('',FZ_LOG_UPLOAD, 
+                    array('file_id' => $file->id));
                 return $file;
             }
             else {
@@ -211,6 +212,7 @@ class App_Controller_Upload extends Fz_Controller {
 
         try {
             $mail->send ();
+            fz_log ('', FZ_LOG_UPLOAD_MAIL_SENT, array('file_id' => $file->id));
         }
         catch (Exception $e) {
             fz_log ('Can\'t send email "File Uploaded" : '.$e, FZ_LOG_ERROR);
@@ -243,27 +245,6 @@ class App_Controller_Upload extends Fz_Controller {
         $fileSize = $_FILES['file']['size'];
         $freeSpace = Fz_Db::getTable('File')->getRemainingSpaceForUser ($this->getUser());
         return ($fileSize > $freeSpace);
-    }
-
-    /**
-     * Return data to the browser with the correct response type (json or html).
-     * If the request comes from an iframe (with the is-async GET parameter,
-     * the response is embedded inside a textarea to prevent some browsers :
-     * quirks (http://www.malsup.com/jquery/form/#file-upload) JQuery Form
-     * Plugin will handle the response transparently.
-     * 
-     * @param array $data
-     */
-    private function returnData ($data) {
-        if (array_key_exists ('is-async', $_GET) && $_GET ['is-async']) {
-            // Notice by July 04, 2011: this is a temporary fix, 
-            // to solve the problem with non-working buttons
-            return html("<textarea>\n".json_encode ($data)."\n</textarea>",'');
-        }
-        else {
-            flash ('notification', $data ['statusText']);
-            redirect_to ('/');
-        }
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php 
+
 /**
  * @mainpage FileZ source code documentation
  * <center>
@@ -44,7 +45,7 @@
  * along with Filez.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define ('FZ_VERSION', '2.2.0-1');
+define ('FZ_VERSION', '2.1.0-1');
 
 /**
  * Loading Zend for i18n classes and autoloader
@@ -91,7 +92,7 @@ function configure() {
  */
 function before () {
 
-    if (fz_config_get ('app', 'use_url_rewriting'))
+    if (fz_config_get ('app', 'use_url_rewriting', true))
       option ('base_uri', option ('base_path'));
 
     // error handling
@@ -105,7 +106,7 @@ function before () {
     }
 
     // I18N
-    Zend_Locale::setDefault (fz_config_get ('app', 'default_locale', 'fr'));
+    Zend_Locale::setDefault (fz_config_get ('app', 'default_locale', 'de'));
     //$currentLocale = new Zend_Locale ('auto');
     $currentLocale = new Zend_Locale ('de');
     $translate     = new Zend_Translate ('gettext', option ('root_dir').DIRECTORY_SEPARATOR.'i18n', $currentLocale,
@@ -118,9 +119,9 @@ function before () {
     if (! option ('installing')) {
         
         // check log dir
-        if (! is_writable (fz_config_get ('app', 'log_dir')))
+        if (! is_writable (fz_config_get ('logging', 'log_dir')))
             trigger_error ('Log dir is not writeable "'
-                      .fz_config_get ('app', 'log_dir').'"', E_USER_WARNING);
+                      .fz_config_get ('logging', 'log_dir').'"', E_USER_WARNING);
 
         // check upload dir
         if (! is_writable (fz_config_get ('app', 'upload_dir')))
@@ -201,6 +202,8 @@ fz_dispatch_get  ('/admin/users/:id/edit'       ,'User'         ,'edit');
 fz_dispatch_get  ('/admin/files'                ,'Admin'        ,'files');
 fz_dispatch_get  ('/admin/config'               ,'Admin'        ,'config');
 
+fz_dispatch_get  ('/admin/statistics'           ,'Admin'        ,'statistics');
+
 // Backend::CRON
 fz_dispatch_get  ('/admin/checkFiles'           ,'Admin'        ,'checkFiles');
 
@@ -208,9 +211,6 @@ fz_dispatch_get  ('/admin/checkFiles'           ,'Admin'        ,'checkFiles');
 fz_dispatch_get  ('/login'                      ,'Auth'         ,'loginForm');
 fz_dispatch_post ('/login'                      ,'Auth'         ,'login');
 fz_dispatch_get  ('/logout'                     ,'Auth'         ,'logout');
-
-// Filez-1.x url compatibility
-fz_dispatch_get  ('/download.php'               ,'File'         ,'downloadFzOne');
 
 // User documentation
 fz_dispatch_get  ('/help'                       ,'Help'         ,'index');
@@ -226,21 +226,23 @@ fz_dispatch_post ('/:file_hash/download'        ,'File'         ,'download'); //
 fz_dispatch_get  ('/:file_hash/email'           ,'File'         ,'emailForm');
 fz_dispatch_post ('/:file_hash/email'           ,'File'         ,'email');
 
-fz_dispatch_get  ('/:file_hash/delete'          ,'File'         ,'confirmDelete');
+//fz_dispatch_get  ('/:file_hash/delete'          ,'File'         ,'confirmDelete');
 fz_dispatch_post ('/:file_hash/delete'          ,'File'         ,'delete');
+fz_dispatch_get  ('/:file_hash/delete'          ,'File'         ,'delete');
 
 fz_dispatch_get  ('/:file_hash/extend'          ,'File'         ,'extend');
 
 fz_dispatch_get  ('/:file_hash/extendMaximum'   ,'File'         ,'extendMaximum');
 
-fz_dispatch_get  ('/:file_hash/toggle'          ,'File'         ,'confirmToggleRequireLogin');
+//fz_dispatch_get  ('/:file_hash/toggle'          ,'File'         ,'confirmToggleRequireLogin');
+fz_dispatch_get  ('/:file_hash/toggle'          ,'File'         ,'toggleRequireLogin');
 fz_dispatch_post ('/:file_hash/toggle'          ,'File'         ,'toggleRequireLogin');
 
 fz_dispatch_post ('/:file_hash/report'          ,'File'         ,'report');
 
-fz_dispatch_post('/:file_hash/edit'             ,'File'         ,'edit');
+fz_dispatch_post ('/:file_hash/edit'             ,'File'         ,'edit');
 
-fz_dispatch_get ('/:created_by/list/:folder'    ,'File'         ,'folder');
+fz_dispatch_get  ('/:created_by/list/:folder'    ,'File'         ,'folder');
 
 
 

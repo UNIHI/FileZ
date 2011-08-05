@@ -32,26 +32,14 @@ Installation
 
 * Enjoy !
 
-Upgrade from Filez-1.x
-======================
-
-Filez-2 allows you to use your the same database as your previous installation.
-Actually your database schema will be updated so you should backup your database,
-filez source files, and keep the uploaded files.
-
-All you have to do is remove all files from your old filez install (keep uploaded
-files) and copy filez-2 files instead.
-
-Then, just follow "Installation" paragraph and fill the configuration form with
-your filez-1 database settings.
-
 
 Advanced configuration
 ======================
 
 if you need to edit your configuration afterward, all the configuration is stored
 in config/filez.ini. The following paragraphs will help you to edit this file
-manually.
+manually. The configuration options are described more thoroughly 
+in filez.ini.example.
 
 
 General Configuration
@@ -61,14 +49,21 @@ The "[app]" section contains common options :
 
 - "use_url_rewriting" (boolean) : Not tested with "false" yet
 - "upload_dir" (Absolute path)  : Upload directory (writtable by the web server)
-- "log_dir"    (Absolute path)  : Log directory (writtable by the web server)
-- "filez1_compat" (boolean)     : Enable the filez-1.x support for downloading previously uploaded files
 - "max_file_lifetime" (integer) : Maximum lifetime of the file on the server before being delete
 - "default_file_lifetime (int)  : Default lifetime
 - "min_hash_size" (integer)     : Minimum number of characters in the hash
 - "max_hash_size" (integer)     : Maximum number of characters in the hash
 - "default_locale" (string)     : Default locale used when Filez can find the prefered user locale or when there is no corresponding i18n for the user locale.
 
+Logging Configuration
+---------------------
+
+The [logging] section contains settings related to logging :
+- "log_dir" (Absolute path) : Log directory (writtable by the web server)
+- "log_activity (boolean)   : Log activity to database
+- "log_db_table" (string)   : table name for logs
+- "log_username (boolean)   : true, if username should be associated to logging information
+- "log_ip (boolean)         : true, if ip should be associated to logging information
 
 Database
 --------

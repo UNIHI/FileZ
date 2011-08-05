@@ -83,7 +83,7 @@ msgstr "Beim Hochladen der Datei ist ein Fehler aufgetreten."
 
 #: /home/didrya/filez/app/controllers/Upload.php:271
 msgid "The uploaded file exceeds the max file size."
-msgstr "Die hochgeladene Datei ist zu gross."
+msgstr "Die hochgeladene Datei ist zu groß."
 
 #: /home/didrya/filez/app/controllers/Upload.php:276
 msgid "The uploaded file was only partially uploaded."
@@ -414,20 +414,34 @@ msgstr "Sie müssen Ihre Datei mindestens mit Loginanforderung oder einem Kennwo
 msgid "File has been reported."
 msgstr "Datei wurde gemeldet."
 
+msgid "Failed to report the file. Try again."
+msgstr "Fehler beim Melden der Datei. Bitte versuchen Sie es später noch einmal."
+
 msgid "Report this file"
 msgstr "Datei melden"
 
+msgid "Report file"
+msgstr "Datei melden"
+
+msgid "Report"
+msgstr "Melden"
+
+#Important: check ./app/views/file/preview.php for msgid if changed
 msgid "Select a reason"
 msgstr "Meldegrund wählen"
 
 msgid "Copyright infringement"
-msgstr "Kopierrecht-Verletzung"
+msgstr "Copyright-Verletzung"
 
 msgid "Offensive contents"
 msgstr "Offensive Inhalte"
 
 msgid "Site rule violation"
-msgstr "Seitenregelverletzung"
+msgstr "Verletzung der Benutzervereinbarung"
+
+#Important: If you change this ID, change it in the app/File.php
+msgid "File is corrupt"
+msgstr "Download defekt"
 
 msgid "Click here to download the file"
 msgstr "Datei downloaden"
@@ -444,11 +458,17 @@ msgstr "Dauer wurde bis zum Maximum verlängert"
 msgid "Edit file"
 msgstr "Datei bearbeiten"
 
+msgid "This is an automatically sent message by FileZ.\nYour uploaded file \"%file%\" was reported as corrupt.\nPlease check the file's integrity and upload it again.\nIf you have any questions, you can answer this eMail directly.\n\nThank you."
+msgstr "Dies ist eine automatisch erstellte Nachricht von FileZ. Ihre hochgeladene Datei \"%file%\" wurde als defekt gemeldet. Bitte prüfen Sie die Dateiintegrität und laden sie die Datei erneut hoch.\nWenn Sie Fragen haben, können Sie direkt auf diese eMail antworten.\n\nVielen Dank."
+
 msgid "You have to give at least a password or require a login."
 msgstr "Sie müssen mindestens ein Passwort vergeben oder einen Login für die Datei erfordern."
 
 msgid "File updated."
 msgstr "Datei wurde erfolgreich aktualisiert."
+
+msgid "File could not be updated."
+msgstr "Datei konnte nicht aktualisiert werden."
 
 msgid "This file has been reported."
 msgstr "Diese Datei wurde gemeldet."
@@ -482,6 +502,117 @@ msgstr "Ja, Datei löschen"
 
 msgid "No, return to the main page"
 msgstr "Nein, zurück zur Hauptseite"
+
+msgid "Update"
+msgstr "Änderungen speichern"
+
+msgid "Lastname:"
+msgstr "Nachname:"
+
+msgid "Firstname:"
+msgstr "Vorname:"
+
+msgid "Username:"
+msgstr "Benutzername:"
+
+msgid "Edit user"
+msgstr "Benutzer bearbeiten"
+
+msgid "This user can administrate FileZ"
+msgstr "Dieser Benutzer kann FileZ verwalten"
+
+msgid "Are you sure you want to delete the user \"%displayname%\" (%username%)?"
+msgstr "Möchten Sie den Benutzer \"%displayname%\" (%username%) wirklich löschen?"
+
+msgid "Role"
+msgstr "Rolle"
+
+msgid "File count"
+msgstr "Zahl der Dateien"
+
+msgid "Disk usage"
+msgstr "Speichernutzung"
+
+msgid "Expired files"
+msgstr "Verfallene Dateien"
+
+msgid "Actions"
+msgstr "Aktionen"
+
+msgid "Create a new user"
+msgstr "neuen Benutzer anlegen"
+
+msgid "Manage users"
+msgstr "Benutzerverwaltung"
+
+msgid "Users"
+msgstr "Benutzer"
+
+msgid "users"
+msgstr "Benutzer"
+
+msgid "Files"
+msgstr "Dateien"
+
+msgid "files"
+msgstr "Dateien"
+
+msgid "Config"
+msgstr "Konfiguration"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Statistics"
+msgstr "Statistik" 
+
+msgid "Admin dashboard"
+msgstr "Admin dashboard"
+
+msgid "Manage %users% and %files%."
+msgstr "%users% und %files% verwalten."
+
+msgid "Uploader"
+msgstr "Uploader"
+
+msgid "Manage files"
+msgstr "Dateiverwaltung"
+
+msgid "Size"
+msgstr "Größe"
+
+msgid "DL count"
+msgstr "Downloadzähler"
+
+msgid "Account created"
+msgstr "Account erstellt am"
+
+msgid "File does not exist."
+msgstr "Datei existiert nicht."
+
+msgid "Your account has been locked. Please contact the FileZ administrator."
+msgstr "Ihr Zugang wurde gesperrt. Bitte wenden Sie sich an den FileZ-Administrator"
+
+msgid "File is locked and currently not available for download."
+msgstr "Die Datei ist gesperrt und steht derzeit nicht zur Verfügung."
+
+msgid "Available from %available_from% to %available_until%"
+msgstr "Verfügbar ab dem %available_from% bis einschließlich zum %available_until%"
+
+msgid "You have to accept the user agreement to upload the file."
+msgstr "Sie müssen der Benutzervereinbarung zustimmen, um die Datei hochzuladen."
+
+msgid "Used folders:"
+msgstr "Verwendete Ordner:"
+
+msgid "Security restrictions do not allow public access of this file. Please contact the file uploader to solve this problem."
+msgstr "Die Sicherheitseinschränkungen erlauben keinen öffentlichen Zugriff auf diese Datei. Kontaktieren Sie den Datei-Uploader."
+
+msgid "This user is excluded from FileZ usage."
+msgstr "Dieser Benutzer ist von der FileZ-Nutzung ausgeschlossen."
+
+msgid "User locked"
+msgstr "Benutzer gesperrt."
 
 #~ msgid "Details"
 #~ msgstr "Details"

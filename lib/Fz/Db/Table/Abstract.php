@@ -103,28 +103,10 @@ abstract class Fz_Db_Table_Abstract {
      * @return  boolean
      */
     public function rowExists ($id) {
-        $db   = option ('db_conn');
+		$db = Fz_Db::getConnection();
         $sql  = 'SELECT id FROM `'.$this->getTableName ().'` WHERE id = ?';
         $stmt = $db->prepare ($sql);
         $stmt->execute (array ($id));
-
-        return $stmt->fetchColumn () === false ? false : true;
-    }
-
-    /**
-     * Return true or false wheter a row of <uploader_uid,folder> exists or not.
-     *
-     * @param   string      $uploader_uid
-     * @param   string      $folder
-     * @return  boolean
-     */
-    public function folderExists ($uploader_uid, $folder) {
-        $db   = option ('db_conn');
-        $sql  = 'SELECT folder FROM `'.$this->getTableName ().'` '
-                .'WHERE uploader_uid = ? AND '
-                .'folder = ?';
-        $stmt = $db->prepare ($sql);
-        $stmt->execute (array ($uploader_uid, $folder));
 
         return $stmt->fetchColumn () === false ? false : true;
     }

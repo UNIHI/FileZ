@@ -35,6 +35,8 @@ class App_Controller_User extends Fz_Controller {
     public function indexAction () {
         $this->secure ('admin');
         set ('users', Fz_Db::getTable ('User')->findAll ()); // TODO paginate
+        set ('isInternal', $this->getUserFactory ()->isInternal ());
+        
         return html ('user/index.php');
     }
 
@@ -59,7 +61,8 @@ class App_Controller_User extends Fz_Controller {
         $user->setPassword  ($_POST ['password']);
         $user->setFirstname ($_POST ['firstname']);
         $user->setLastname  ($_POST ['lastname']);
-        $user->setIsAdmin   ($_POST ['is_admin'] == 'on');
+        $user->setIsAdmin   ($_POST ['is_admin'] == 'on' ? 1 : 0);
+        $user->setIsLocked  ($_POST ['is_locked'] == 'on' ? 1 : 0);
         $user->setEmail     ($_POST ['email']);
 
         // TODO improve form check
@@ -78,17 +81,25 @@ class App_Controller_User extends Fz_Controller {
      * Action called to update values of an existing user.
      */
     public function updateAction () {
-        // TODO prevent CSRF
 
         $this->secure ('admin');
         $user = Fz_Db::getTable ('User')->findById (params ('id'));
+        $user->setIsAdmin   ($_POST ['is_admin'] == 'on' ? 1 : 0);
+        $user->setIsLocked   ($_POST ['is_locked'] == 'on' ? 1 : 0);
+        // If not internal database, firstname, lastname, 
+        // username, password or email cannot be changed, so skip it
+        if ($this->getUserFactory ()->isInternal () == false) {
+            $user->save ();
+            return redirect_to ('/admin/users');
+        }
+        
+        // TODO prevent CSRF
         $user->setUsername  ($_POST ['username']);
         if ( 0 < strlen($_POST['password']) ) {
           $user->setPassword  ($_POST ['password']);
         }
         $user->setFirstname ($_POST ['firstname']);
         $user->setLastname  ($_POST ['lastname']);
-        $user->setIsAdmin   ($_POST ['is_admin'] == 'on');
         $user->setEmail     ($_POST ['email']);
         // TODO improve form check
         // for example : test if the email and the username are not already in DB
@@ -109,7 +120,13 @@ class App_Controller_User extends Fz_Controller {
      */
     public function createAction () {
         $this->secure ('admin');
-        return html ('user/create.php');
+        if ($this->getUserFactory ()->isInternal () == false) {
+            flash_now('error', 
+            "error: cannot create new users while using external user database");
+            return $this->indexAction();
+        } else {
+            return html ('user/create.php');
+        }
     }
 
     /**
@@ -118,6 +135,7 @@ class App_Controller_User extends Fz_Controller {
     public function editAction () {
         $this->secure ('admin');
         set ('user', Fz_Db::getTable ('User')->findById (params ('id')));
+        set ('isInternal', $this->getUserFactory ()->isInternal ());
         return html ('user/edit.php');
     }
 
@@ -126,11 +144,16 @@ class App_Controller_User extends Fz_Controller {
      */
     public function deleteAction () {
         // TODO prevent CSRF
-
         $this->secure ('admin');
-        $user = Fz_Db::getTable ('User')->findById (params ('id'));
-        if($user) 
-            $user->delete();
+        if ($this->getUserFactory ()->isInternal () == false) {
+            flash_now('error', 
+            "error: cannot delete users while using external user database");
+            return $this->indexAction();
+        } else {
+            $user = Fz_Db::getTable ('User')->findById (params ('id'));
+            if($user) 
+                $user->delete();
+        }
 
         return redirect_to ('/admin/users');
     }

@@ -8,6 +8,17 @@ Filez-2.1.0
 * Fixed the max length of a hash to 10
 * Added german translation
 * Redesigned file list
+* Disclaimer
+* Various login requirement options
+* Edit dialog
+* Admin panel
+* File folders
+* Extend to maximum
+* Extended logging
+* Download limits
+* Copy to clipboard
+* File reporting
+* User locking
 
 Filez-2.0.2
 

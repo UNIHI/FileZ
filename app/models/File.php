@@ -37,7 +37,6 @@
  * @property boolean $intervalCount
  * @property boolean $intervalType
  * @property boolean $reported
- * @property boolean $prevent_reporting
  * @property string  $folder
  */
 class App_Model_File extends Fz_Db_Table_Row_Abstract {
@@ -98,7 +97,7 @@ class App_Model_File extends Fz_Db_Table_Row_Abstract {
     }
 
     /**
-     * Set the avaulable until date.
+     * Set the available until date.
      * If $date is a Zend_Date, it will be converted to the correct database format
      *
      * @param mixed $date       String or Zend_Date
@@ -193,6 +192,7 @@ class App_Model_File extends Fz_Db_Table_Row_Abstract {
     public function setUploader (App_Model_User $user) {
         $this->created_by = $user->id;
     }
+    
     /**
      * Return file uploader info 
      *
@@ -231,7 +231,9 @@ class App_Model_File extends Fz_Db_Table_Row_Abstract {
      */
     public function delete () {
         $this->deleteFromDisk();
-        return parent::delete();
+        // Do not delete the table row, but mark it as deleted instead
+        //return parent::delete();
+        parent::update();
     }
 
     /**
@@ -268,10 +270,7 @@ class App_Model_File extends Fz_Db_Table_Row_Abstract {
      * @return string
      */
     public function getOnDiskLocation () {
-        if ($this->nom_physique != '' && fz_config_get('app', 'filez1_compat'))
-            return fz_config_get ('app', 'upload_dir').'/'.$this->nom_physique;
-        else
-            return fz_config_get ('app', 'upload_dir').'/'.$this->getHash();
+        return fz_config_get ('app', 'upload_dir').'/'.$this->getHash();
     }
 
     /**
@@ -360,9 +359,10 @@ class App_Model_File extends Fz_Db_Table_Row_Abstract {
     }
     
     /**
-	 * This method checks if the download limit is reached. 
-	 * The user is required to determine if the download by an anonymous user 
-	 * or a registered user started.
+	 * This method checks if the download limit is reached 
+     * in a specific time interval. The user is required to 
+     * determine if the download by an anonymous user or a 
+     * registered user started.
      * 
      * @param array    $user ($this->getUser())
      * @return boolean
@@ -371,16 +371,18 @@ class App_Model_File extends Fz_Db_Table_Row_Abstract {
   		//TODO Error handling (Nullpointer etc)
   		
   		// downloadLimit Level
-  		$onlyForUnknownUsers = fz_config_get ('app', 'downloadLimitOnlyForUnknownUsers', 1);
-  		
+  		$onlyForUnknownUsers = 
+			fz_config_get ('app', 'downloadLimitOnlyForUnknownUsers', true);
+
   		// downloadLimit check needed? 
-  		if ( ($user->id == "Unknown UserID") || ($user->id != "Unknown UserID" && $onlyForUnknownUsers == 0)  ) {
+  		if ( ($user === null) || ($user !== null && !$onlyForUnknownUsers)  ) {
+  		    
 	  		$days = ($this->intervalCount == NULL) ? fz_config_get ('app', 'intervalCount', 1) : $this->intervalCount;
 	  		$type = ($this->intervalType == NULL) ? fz_config_get ('app', 'intervalType', "Day") : $this->intervalType;
 	     	$oldTimestamp = '-'. $days . ' ' .$type . ' 00:00:00';
 	     	$oldTimestamp = strtotime($oldTimestamp);
-	     	$filelog = Fz_Db::getTable('FileLog');
-	    	$count = $filelog->countFile(array ($this->id, $oldTimestamp, time()));
+	     	$log = Fz_Db::getTable('Log');
+	    	$count = $log->countFileDownloads(array ($this->id, $oldTimestamp, time()));
 	    	// Limit is not set for the file, then take the global settings (downloadLimit)
 	    	if ($this->downloadLimit == 0 || $this->downloadLimit == NULL) {
 	    		$dlimit = fz_config_get ('app', 'downloadLimit', 20);

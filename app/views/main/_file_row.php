@@ -1,6 +1,3 @@
-
-
-
 <div class="file-description">
   <img src="<?php echo get_mimetype_icon_url ($file->getMimetype ()) ?>" class="mimetype" />
   <p class="filename">
@@ -13,7 +10,7 @@
   <p class="require-login"><?php echo $file->require_login; ?></p>
   <p class="has-password"><?php echo ($file->password ? 1 : 0)?></p>
   <p class="filesize">(<?php echo $file->getReadableFileSize () ?>)</p>
-  <?php if (fz_config_get ('app', 'enable_copy_to_clipboard', true) == true): ?>
+  <?php if (fz_config_get ('app', 'enable_copy_to_clipboard', true)): ?>
   <p class="zclip">
     <a href="<?php echo $file->getDownloadUrl () ?>/copy" class="awesome blue zclip">
       <?php echo __('Copy to clipboard') ?>
@@ -25,11 +22,11 @@
       <?php echo __('Share') ?>
     </a>
   </p>
-
-  
 </div>
+
 <div class="file-attributes file-folder">
-      <p class="filefolder">
+    
+    <p class="filefolder">
       <?php
       if (isset($file->folder) && $file->folder != '') {
         echo __('Folder') .': '.$file->folder;          
@@ -38,8 +35,10 @@
       }
  
       ?>
-  </p>
+    </p>
+  
 </div>
+
 <div class="file-attributes">
     
   <p class="availability"><?php echo __r('Available from %from% to %to%', array (
@@ -57,6 +56,7 @@
       </a>
     <?php endif ?>
   </p>
+  
   <p class="download-counter">
       <?php echo ($file->download_count == 0 ? __ ('Never downloaded') : (
                   $file->download_count == 1 ? __ ('Downloaded once') :
@@ -64,25 +64,28 @@
                                                 'x' => (int) $file->download_count
       )))); // TODO ugly DIY plural ... ?>
   </p>
+  
   <?php if (fz_config_get ('app', 'login_requirement', 'on') == 'on'): ?>
   <p class="toggle">
     <?php $toggle = ($file->require_login ? __('off') : __('on')); ?>
-      <a href="<?php echo $file->getDownloadUrl () ?>/toggle" 
+      <a id="toggle" href="<?php echo $file->getDownloadUrl () ?>/toggle" 
           class="toggle-<?php echo ($file->require_login ? 'off' : 'on'); ?>" 
           title="<?php echo __r('Toggle login requirement %var%', array('var' => $toggle)) ?>">
         <?php echo __r('Toggle login requirement %var%' , array('var' => $toggle)) ?>
       </a>
   </p>
   <?php endif ?>
+  
   <p class="delete">
     <a href="<?php echo $file->getDownloadUrl () ?>/delete" class="delete" title="<?php echo __('Delete') ?>">
       <?php echo __('Delete') ?>
     </a>
   </p>
+  
   <p class="edit">
     <a href="<?php echo $file->getDownloadUrl() ?>/edit" class="edit" title="<?php echo __('Edit') ?>">
       <?php echo __('Edit') ?>
     </a>
   </p>
-
+  
 </div>

@@ -39,7 +39,7 @@ class App_Controller_Admin extends Fz_Controller {
      */
     public function filesAction () {
         $this->secure ('admin');        
-        set ('files', Fz_Db::getTable ('File')->findAll ()); // TODO paginat
+        set ('files', Fz_Db::getTable ('File')->findNotDeleted ()); // TODO paginat
         return html ('file/index.php');
         //TODO
     }
@@ -53,6 +53,14 @@ class App_Controller_Admin extends Fz_Controller {
         //TODO
     }
 
+    /**
+     * Evaluation of database information
+     */
+    public function statisticsAction () {
+        $this->secure ('admin');
+        return html ('admin/index.php');
+    }
+    
     /**
      * Action called to clean expired files and send mail to those who will be
      * in the next 2 days. This action is meant to be called from a cron script.
@@ -118,12 +126,12 @@ class App_Controller_Admin extends Fz_Controller {
             $mail->setSubject  ($subject);
             $mail->addTo ($user->email);
             $mail->send ();
-
-            fz_log ('Delete notification sent to '.$user->email, FZ_LOG_CRON);
+            fz_log ('', FZ_LOG_DELETE_MAIL_SENT, array('file_id' => $file->id));
         }
         catch (Exception $e) {
             fz_log ('Can\'t send email to '.$user->email
                 .' file_id:'.$file->id, FZ_LOG_CRON_ERROR);
         }
     }
+
 }

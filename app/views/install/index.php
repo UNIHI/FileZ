@@ -62,7 +62,7 @@ function config_form_row ($section, $var, $label, $type, $default_values, $choic
   <fieldset>
     <legend>General</legend>
     <?php echo config_form_row ('app', 'upload_dir' , 'Upload directory (absolute dir)' , 'text', $config) ?>
-    <?php echo config_form_row ('app', 'log_dir'    , 'Log directory (absolute dir)'    , 'text', $config) ?>
+    <?php echo config_form_row ('logging', 'log_dir'    , 'Log directory (absolute dir)'    , 'text', $config) ?>
     <?php echo config_form_row ('app', 'user_quota' , 'Default user quota'      , 'text', $config) ?>
     <?php echo config_form_row ('app', 'admin_email', 'Filez administor email (used to test the smtp server and in case of fatal errors)' , 'text', $config) ?>
     <table><tr><td>
@@ -104,7 +104,6 @@ function config_form_row ($section, $var, $label, $type, $default_values, $choic
     
   <fieldset>
     <legend>Filez Database</legend>
-    <?php echo config_form_row ('app', 'filez1_compat', 'Migrate Filez 1.x data. WARNING : Old website will not work anymore, you should backup your database before' , 'checkbox', $config) ?>
     <?php echo config_form_row ('db', 'dsn', '<a href="http://www.php.net/manual/en/pdo.drivers.php" target="_blank">DSN</a> to connect to your database' , 'text', $config) ?>
     <table>
       <tr>
@@ -296,11 +295,10 @@ function config_form_row ($section, $var, $label, $type, $default_values, $choic
             nowhitespace: true,
             required: true
         },
-        'config[app][log_dir]': {
+        'config[logging][log_dir]': {
             nowhitespace: true,
             required: true
         },
-        'config[app][filez1_compat]': {},
         'config[app][max_file_lifetime]': {
             number: true,
             min: 1

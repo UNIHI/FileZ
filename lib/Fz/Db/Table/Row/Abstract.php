@@ -168,7 +168,7 @@ abstract class Fz_Db_Table_Row_Abstract {
      * @return self
      */
     protected function update () {
-        $db = option ('db_conn');
+		$db = Fz_Db::getConnection();
         $table = $this->getTableName ();
         $columnsName = $this->getUpdatedColumns ();
         $sqlModifiersColumnsName = array_keys ($this->_sqlModifiers);
@@ -198,7 +198,7 @@ abstract class Fz_Db_Table_Row_Abstract {
      * @return self
      */
     protected function insert () {
-        $db = option ('db_conn');
+		$db = Fz_Db::getConnection();
         $table = $this->getTableName ();
         $columnsName = $this->getUpdatedColumns ();
         $sqlModifiersColumnsName = array_keys ($this->_sqlModifiers);
@@ -223,7 +223,7 @@ abstract class Fz_Db_Table_Row_Abstract {
      * Delete an existing row from the database
      */
     public function delete () {
-        $db = option ('db_conn');
+		$db = Fz_Db::getConnection();
         if ($this->_exists === false) return;
         $stmt = $db->prepare ('DELETE FROM `'.$this->getTableName ().'` WHERE id = ?');
         $stmt->execute (array ($this->id));

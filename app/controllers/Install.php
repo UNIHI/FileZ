@@ -88,7 +88,7 @@ class App_Controller_Install extends Fz_Controller {
 
             // prevent unchecked input from being transformed to true when merging config
             $_POST['config']['looknfeel']['show_credit'] = (
-                array_key_exists ('show_credit', $_POST['config']['looknfeel']) ? 1 : 0);
+                array_key_exists ('show_credit', $_POST['config']['looknfeel']) ? true : false);
             $config = merge_config($_POST['config'], $config);
 
             // checking rights
@@ -292,7 +292,7 @@ class App_Controller_Install extends Fz_Controller {
                 'title' => 'Upload directory is not writeable by the web server',
             );
 
-        if (! is_writable($config['app']['log_dir']))
+        if (! is_writable($config['logging']['log_dir']))
             $errors [] = array (
                 'title' => 'Logs directory is not writeable by the web server',
             );

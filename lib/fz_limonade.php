@@ -38,6 +38,8 @@ function fz_dispatcher () {
     $controller = 'App_Controller_'.params ('controller');;
     $controllerInstance = new $controller ();
     $controllerInstance->init ();
+	//$method = params ('action').'Action';
+	//return $controllerInstance->$method();
     return call_user_func (array ($controllerInstance, params ('action').'Action'));
 }
 
@@ -82,7 +84,6 @@ function not_found($errno, $errstr, $errfile=null, $errline=null)
   $msg = h(rawurldecode($errstr));
   return html('<h1>'.__('Page not found')." :</h1><p><code>{$msg}</code></p>", error_layout());
 }
-
 
 /**
  * Tells if the request protocol is HTTPS

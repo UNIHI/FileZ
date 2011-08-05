@@ -1,4 +1,13 @@
-<h2>Admin dashboard</h2>
+<h2><?php echo __('Admin dashboard') ?></h2>
 
-Manage <a href="<?php echo url_for ('admin/users') ?>">users</a>
-and <a href="<?php echo url_for ('admin/files') ?>">files</a>.
+<?php 
+
+echo __r('Manage %users% and %files%.',
+
+array(
+    'users'=>'<a href="'.url_for ('admin/users').'">'.__('users').'</a>',
+    'files'=>'<a href="'.url_for ('admin/files').'">'.__('files').'</a>'
+     )
+);
+
+?>

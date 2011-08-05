@@ -17,12 +17,16 @@
     <!--[if lte IE 8]>
     <script type="text/javascript" src="<?php echo public_url_for ('resources/js/html5.js') ?>"></script>
     <![endif]-->
-    <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery-1.4.2.min.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery-1.6.1.min.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery.form.min.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery.progressbar.min.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery.autocomplete.min.js') ?>"></script>
     <script type="text/javascript" src="<?php echo public_url_for ('resources/jquery.ui/js/jquery-ui-1.7.2.custom.min.js') ?>"></script>
     <script type="text/javascript" src="<?php echo public_url_for ('resources/js/qtip/jquery.qtip.pack.js') ?>"></script>
     <?php if (option ('locale')->getLanguage () != 'en'): ?>
       <script type="text/javascript" src="<?php echo public_url_for ('resources/jquery.ui/js/i18n/ui.datepicker-'.option ('locale')->getLanguage ().'.js') ?>"></script>
     <?php endif ?>
+    <script type="text/javascript" src="<?php echo public_url_for ('resources/js/filez.js') ?>"></script>
   </head>
   <body id="admin">
 
@@ -32,10 +36,11 @@
 
       <nav>
         <ul>
-          <li><a href="<?php echo url_for ('admin') ?>">Dashboard</a></li>
-          <li><a href="<?php echo url_for ('admin/users') ?>">Users</a></li>
-          <li><a href="<?php echo url_for ('admin/files') ?>">Files</a></li>
-          <li><a href="<?php echo url_for ('admin/config') ?>">Config</a></li>
+          <li><a href="<?php echo url_for ('admin') ?>"><?php echo __('Dashboard') ?></a></li>
+          <li><a href="<?php echo url_for ('admin/users') ?>"><?php echo __('Users') ?></a></li>
+          <li><a href="<?php echo url_for ('admin/files') ?>"><?php echo __('Files') ?></a></li>
+          <li><a href="<?php echo url_for ('admin/config') ?>"><?php echo __('Config') ?></a></li>
+          <li><a href="<?php echo url_for ('admin/statistics') ?>"><?php echo __('Statistics') ?></a></li>
         </ul>
       </nav>
       <article>
