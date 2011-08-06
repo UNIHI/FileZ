@@ -27,6 +27,7 @@ class App_Controller_File extends Fz_Controller {
     /**
      * Delete a file
      */
+    /*
     public function confirmDeleteAction () {
         $this->secure ();
         $file = $this->getFile ();
@@ -36,10 +37,11 @@ class App_Controller_File extends Fz_Controller {
 
         return html ('file/confirmDelete.php');
     }
-        
+    */  
     /**
      * Toggle login requirement
      */
+    /*
     public function confirmToggleRequireLoginAction () {
         $this->secure ();
         $file = $this->getFile ();
@@ -49,7 +51,7 @@ class App_Controller_File extends Fz_Controller {
 
         return html ('file/confirmToggleRequireLogin.php');
     }
-    
+    */
     /**
      * Delete a file
      */
@@ -59,13 +61,23 @@ class App_Controller_File extends Fz_Controller {
         $user = $this->getUser ();
         
         if (! $user->is_admin) $this->checkOwner ($file, $user);
+
+        if (!$this->verifyToken()) {
+            $result ['status']     = 'error';
+            $result ['statusText'] = __('Action expired. Try again.');
+        } else {
+            $result ['status']     = 'success';
+            $result ['statusText'] = __('File deleted.');
+            $file->isDeleted = 1;
+            // This does only delete the physical file but not the table row
+            $file->delete();
+        }
         
-        $file->isDeleted = 1;
-        // This does only delete the physical file but not the table row
-        $file->delete();
+        $this->setToken();
+        $result ['token'] = $this->getTokenSecret();
 
         if ($this->isXhrRequest())
-            return json (array ('status' => 'success'));
+            return json ($result);
         else {
             flash ('notification', __('File deleted.'));
             $user->is_admin ? redirect_to ('/admin/files') : redirect_to ('/');
@@ -88,7 +100,6 @@ class App_Controller_File extends Fz_Controller {
      * Edit a file.
      */
     public function editAction () {
-        $post = $_POST;
         $this->secure ();
         $file = $this->getFile ();
         $user = $this->getUser ();
@@ -96,15 +107,15 @@ class App_Controller_File extends Fz_Controller {
 
         // Usual checks
         // Computing default values
-        $comment = array_key_exists ('comment',  $post) ? $post['comment'] : '';
-        $folder = array_key_exists ('folder', $post) ? $post['folder'] : '';
+        $comment = array_key_exists ('comment',  $_POST) ? $_POST['comment'] : '';
+        $folder = array_key_exists ('folder', $_POST) ? $_POST['folder'] : '';
         
         // Allow only numbers and letters and convert space to _
         $folder = preg_replace('/[^A-Za-z0-9_]/', '', $folder);
         $folder = preg_replace('/ /', '_', $folder);
 
-        if (! empty ($post ['password']))
-            $file->setPassword  ($post ['password']);
+        if (! empty ($_POST ['password']))
+            $file->setPassword  ($_POST ['password']);
         
         $file->comment = substr ($comment, 0, 199);
         $file->folder  = substr ($folder, 0, 199);
@@ -213,12 +224,18 @@ class App_Controller_File extends Fz_Controller {
             $result ['status']     = 'success';
             $result ['statusText'] = __('Lifetime extended');
             $result ['html']       = partial ('main/_file_row.php', array ('file' => $file));
+        } else if (!$this->verifyToken()) {
+            $result ['status']     = 'error';
+            $result ['statusText'] = __('Action expired. Try again.');
         } else {
             $result ['status']     = 'error';
             $result ['statusText'] = __r('You can\'t extend a file lifetime more than %x% times',
                                     array ('x' => fz_config_get ('app', 'max_extend_count')));
         }
 
+        $this->setToken();
+        $result ['token'] = $this->getTokenSecret();
+        
         if ($this->isXhrRequest()) {
             return json ($result);
         } else {
@@ -241,12 +258,18 @@ class App_Controller_File extends Fz_Controller {
             $result ['status']     = 'success';
             $result ['statusText'] = __('Lifetime extended to maximum');
             $result ['html']       = partial ('main/_file_row.php', array ('file' => $file));
+        } else if (!$this->verifyToken()) {
+            $result ['status']     = 'error';
+            $result ['statusText'] = __('Action expired. Try again.');
         } else {
             $result ['status']     = 'error';
             $result ['statusText'] = __r('You can\'t extend a file lifetime more than %x% times',
                                     array ('x' => fz_config_get ('app', 'max_extend_count')));
         }
 
+        $this->setToken();
+        $result ['token'] = $this->getTokenSecret();
+        
         if ($this->isXhrRequest()) {
             return json ($result);
         } else {
@@ -362,27 +385,30 @@ class App_Controller_File extends Fz_Controller {
         $file = $this->getFile ();
         $user = $this->getUser ();
         if (! $user->is_admin) $this->checkOwner ($file, $user);
-
         $result = array ();
         if (! (fz_config_get('app', 'login_requirement', 'on') == 'on')) {
-            // do not allow to toggle at all if option is not enabled
             $result ['status']     = 'error';
             $result ['statusText'] = __('You are not allowed to toggle login requirement.');
+        } else if (!$this->verifyToken()) {
+            $result ['status']     = 'error';
+            $result ['statusText'] = __('Action expired. Try again.');
         } else {
             $file->require_login = ($file->require_login == 1 ? 0 : 1);
             $status = ($file->require_login ? __('on') : __('off'));
+            $file->save();
             $result ['status']     = 'success';
             $result ['statusText'] = 
             __r('Login requirement toggled %status% for file %file%', 
             array('status' => $status, 'file' => $file->file_name));
             $result ['html']       = partial ('main/_file_row.php', array ('file' => $file));
         }
-        $file->save();
-
+        
+        $this->setToken();
+        $result ['token'] = $this->getTokenSecret();
+        
         if ($this->isXhrRequest()) {
             return json ($result);
-        }
-        else {
+        } else {
             flash (($result ['status'] == 'success' ? 'notification' : 'error'),
                     $result ['statusText']);
             $user->is_admin ? redirect_to ('/admin/files') : redirect_to ('/');

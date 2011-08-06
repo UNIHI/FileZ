@@ -215,7 +215,8 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
             ->prepare ('SELECT sum(file_size) FROM `'
                 .$this->getTableName ()
                 .'` WHERE created_by = ?'
-                .' AND  available_until >= CURRENT_DATE() ');
+                .' AND  available_until >= CURRENT_DATE() '
+                .' AND isDeleted = 0');
         $result->execute (array ($user->id));
         return (float) $result->fetchColumn ();
     }

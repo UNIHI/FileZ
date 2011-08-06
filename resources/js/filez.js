@@ -39,7 +39,16 @@ var editForm = null;
  * PUBLIC METHODS
  ******************************************************************************/
 
-
+/**
+ * Extend jquery's getJSON to allow post Requests
+ * 
+ */
+jQuery.extend({
+    postJSON: function( url, data, callback) {
+        return jQuery.post(url, data, callback, "json");
+    }
+});
+    
 /**
  * Initialise actions event handlers
  */
@@ -148,23 +157,27 @@ $.fn.initFileActions = function () {
     });
     */
     $('a.delete', this).click (function (e) {
+        e.preventDefault();
         if (confirm (settings.messages.confirmDelete)) {
-            e.preventDefault();
             var fileListItem = $(this).closest ('li.file');
             var link = $(this);
-            $.getJSON($(this).attr('href'), function (data) {
+            var postData = { token : $.cookie('token') }
+            $.postJSON($(this).attr('href'), postData, function (data) {
                 if (data.status == undefined) {
                     notifyError (settings.messages.unknownErrorHappened);
                 } else if (data.status == 'success') {
                     link.qtip('destroy');
                     fileListItem.slideUp(1000, function() { $(this).remove(); });
                     fileListItem.initFileActions ();
+                    notify (data.statusText);
                 } else if (data.status == 'error'){
                     notifyError (data.statusText);
                 }
+                $.cookie('token', data.token);
             });
         }
     });
+    
 /*
     $('a.toggle-on', this).click (function (e) {
         if (confirm (settings.messages.confirmToggleOn))
@@ -182,16 +195,19 @@ $.fn.initFileActions = function () {
         e.preventDefault();
         var fileListItem = $(this).closest ('li.file');
         var link = $(this);
-        $.getJSON($(this).attr('href'), function (data) {
+        var postData = { token : $.cookie('token') }
+        $.postJSON($(this).attr('href'), postData, function (data) {
             if (data.status == undefined) {
                 notifyError (settings.messages.unknownErrorHappened);
             } else if (data.status == 'success') {
                 link.qtip('destroy');
                 fileListItem.html (data.html);
                 fileListItem.initFileActions ();
+                notify (data.statusText);
             } else if (data.status == 'error'){
                 notifyError (data.statusText);
             }
+            $.cookie('token', data.token);
         });
     });
     
@@ -199,16 +215,19 @@ $.fn.initFileActions = function () {
         e.preventDefault();
         var fileListItem = $(this).closest ('li.file');
         var link = $(this);
-        $.getJSON($(this).attr('href'), function (data) {
+        var postData = { token : $.cookie('token') }
+        $.postJSON($(this).attr('href'), postData, function (data) {
             if (data.status == undefined) {
                 notifyError (settings.messages.unknownErrorHappened);
             } else if (data.status == 'success') {
                 link.qtip('destroy');
                 fileListItem.html (data.html);
                 fileListItem.initFileActions ();
+                notify (data.statusText);
             } else if (data.status == 'error'){
                 notifyError (data.statusText);
             }
+            $.cookie('token', data.token);
         });
     });
 
@@ -234,7 +253,7 @@ $.fn.initFileActions = function () {
     });
       
     // initialize tips
-    $('a.extend, a.extendMaximum, a.delete, a.share, a.edit, a.toggle-on, a.toggle-off').qtip({
+    $('a.extend, a.extendMaximum, a.delete, a.share, a.zclip, a.edit, a.toggle-on, a.toggle-off').qtip({
         content: {
            attr: 'title'
         },
@@ -395,7 +414,8 @@ var onFileUploadEnd = function (data, status) {
     } else {
         notifyError (settings.messages.unknownErrorHappened);
     }
-
+    $.cookie('token', data.token);
+    
     // Hide the modal box
     $('.ui-dialog-content').dialog('close');
 

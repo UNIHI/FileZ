@@ -64,7 +64,7 @@ class App_Controller_Upload extends Fz_Controller {
                 return $this->onFileUploadError (UPLOAD_ERR_QUOTA_EXCEEDED);
 
             // Still no error ? we can move the file to its final destination
-            $file = $this->saveFile ($_POST, $_FILES ['file']);
+            $file = $this->saveFile ();
             if ($file !== null) {
                 $this->sendFileUploadedMail ($file);
                 return $this->onFileUploadSuccess ($file);
@@ -111,11 +111,11 @@ class App_Controller_Upload extends Fz_Controller {
      * @param array $files      ~= $_FILES
      * @return App_Model_File
      */
-    private function saveFile ($post, $uploadedFile) {
+    private function saveFile () {
         // Computing default values
 
-        $comment = array_key_exists ('comment',  $post) ? $post['comment'] : '';
-        $folder = array_key_exists ('folder', $post) ? $post['folder'] : '';
+        $comment = array_key_exists ('comment',  $_POST) ? $_POST['comment'] : '';
+        $folder = array_key_exists ('folder', $_POST) ? $_POST['folder'] : '';
         
         // Allow only numbers and letters and convert space to _
         $folder = preg_replace('/[^A-Za-z0-9_]/', '', $folder);
@@ -123,14 +123,14 @@ class App_Controller_Upload extends Fz_Controller {
         
         // Validating lifetime
         $lifetime = fz_config_get ('app', 'default_file_lifetime', 10);
-        if (array_key_exists ('lifetime', $post) && is_numeric ($post['lifetime'])) {
-            $lifetime = intval ($post['lifetime']);
+        if (array_key_exists ('lifetime', $_POST) && is_numeric ($_POST['lifetime'])) {
+            $lifetime = intval ($_POST['lifetime']);
             $maxLifetime = intval (fz_config_get ('app', 'max_file_lifetime', 20));
             if ($lifetime > $maxLifetime)
                 $lifetime = $maxLifetime;
         }
 
-        $availableFrom  = array_key_exists ('start-from', $post) ? $post['start-from'] : null;
+        $availableFrom  = array_key_exists ('start-from', $_POST) ? $_POST['start-from'] : null;
         $availableFrom  = new Zend_Date ($availableFrom, Zend_Date::DATE_SHORT);
         $availableUntil = clone ($availableFrom);
         $availableUntil->add ($lifetime, Zend_Date::DAY);
@@ -139,7 +139,7 @@ class App_Controller_Upload extends Fz_Controller {
         
         // Storing values
         $file = new App_Model_File ();
-        $file->setFileInfo      ($uploadedFile);
+        $file->setFileInfo      ($_FILES ['file']);
         $file->setUploader      ($user);
         $file->setCreatedAt     (new Zend_Date());
         $file->comment          = substr ($comment, 0, 199);
@@ -150,7 +150,7 @@ class App_Controller_Upload extends Fz_Controller {
         if (fz_config_get ('app', 'force_notification', false) == true) {
             $file->notify_uploader  = true;    
         } else {
-            $file->notify_uploader  = isset ($post['email-notifications']);
+            $file->notify_uploader  = isset ($_POST['email-notifications']);
         }
         
         
@@ -158,16 +158,16 @@ class App_Controller_Upload extends Fz_Controller {
         if (fz_config_get ('app', 'login_requirement', 'force') == 'force') {
             $file->require_login = 1;
         } else if (fz_config_get ('app', 'login_requirement', 'on') == 'on') {
-            $file->require_login    = isset ($post['require-login']);
+            $file->require_login    = isset ($_POST['require-login']);
         }
         
-        if (! empty ($post ['password']))
-            $file->setPassword  ($post ['password']);
+        if (! empty ($_POST ['password']))
+            $file->setPassword  ($_POST ['password']);
 
         try {
             $file->save ();
 
-            if ($file->moveUploadedFile ($uploadedFile)) {
+            if ($file->moveUploadedFile ($_FILES ['file'])) {
                 //fz_log ('Saved "'.$file->file_name.'"['.$file->id.'] uploaded by '.$user);
                 fz_log ('',FZ_LOG_UPLOAD, 
                     array('file_id' => $file->id));
@@ -178,7 +178,7 @@ class App_Controller_Upload extends Fz_Controller {
                 return null;
             }
         } catch (Exception $e) {
-            fz_log ('Can\'t save file "'.$uploadedFile['name'].'" uploaded by '.$user, FZ_LOG_ERROR);
+            fz_log ('Can\'t save file "'.$_FILES ['file']['name'].'" uploaded by '.$user, FZ_LOG_ERROR);
             fz_log ($e, FZ_LOG_ERROR);
             return null;
         }
@@ -261,6 +261,8 @@ class App_Controller_Upload extends Fz_Controller {
         $response ['fileHash']   = $file->getHash();
         $response ['disk_usage'] = bytesToShorthand (max (0,
                      Fz_Db::getTable('File')->getTotalDiskSpaceByUser ($user)));
+        $this->setToken();
+        $result ['token'] = $this->getTokenSecret();
         return $this->returnData ($response);
     }
 

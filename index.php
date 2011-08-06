@@ -50,14 +50,39 @@ define ('FZ_VERSION', '2.1.0-1');
 /**
  * Loading Zend for i18n classes and autoloader
  */
+
 set_include_path (get_include_path ()
     .PATH_SEPARATOR.dirname (__FILE__).DIRECTORY_SEPARATOR.'lib'
     .PATH_SEPARATOR.dirname (__FILE__).DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'pear'
-    .PATH_SEPARATOR.dirname (__FILE__).DIRECTORY_SEPARATOR.'plugins');
+    .PATH_SEPARATOR.dirname (__FILE__).DIRECTORY_SEPARATOR.'plugins'
+    );
 
-require_once 'Zend/Loader/Autoloader.php';
+
+
+// Tests, trying to reduce loading time
+/*
+function __class_loader($classname)
+{
+  $ns = array (
+    'App_Controller',
+    'App_Model',
+    '_'
+        );
+  $bp = array (
+    'app_controllers',
+    'app_models',
+    DIRECTORY_SEPARATOR
+      );
+  include str_replace($ns, $bp, $classname).'.php';
+}
+spl_autoload_register('__class_loader');
+*/
+
+require 'Zend/Loader/Autoloader.php';
+
 // Autoloading for Fz_* classes in lib/ dir
 Zend_Loader_Autoloader::getInstance ()->registerNamespace ('Fz_');
+
 // Autoloading for App_Model_* & App_Controller_* classes in app/ dir
 //(automagicaly added to Zend autoloaders)
 $autoloader = new Zend_Application_Module_Autoloader (array (
@@ -73,15 +98,16 @@ $autoloader->addResourceTypes (array ('controller' => array (
  * Configuration of the limonade framework. Automatically called by run()
  */
 function configure() {
-    option ('session'   , 'filez'); // specific session name
-    option ('views_dir' , option ('root_dir').DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR);
+    option ('session'   , 'filez'); // specific session name (not session id)
+    option ('views_dir' , option ('root_dir').DIRECTORY_SEPARATOR
+        .'app'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR);
     
     // Layout settings
     error_layout ('layout'.DIRECTORY_SEPARATOR.'error.html.php');
     layout       ('layout'.DIRECTORY_SEPARATOR.'default.html.php');
 
     require_once_dir (option ('lib_dir'));
-
+      
     // error handling
     set_error_handler     ('fz_php_error_handler', E_ALL ^ E_NOTICE); // Log every error
     set_exception_handler ('fz_exception_handler'); // also handle uncatched excpeptions
@@ -105,10 +131,30 @@ function before () {
         option ('debug', false);
     }
 
-    // I18N
+    // I18N + Caching
+    $frontendOptions = array(
+       'lifetime' => 3600 * 24 * 7,
+       'automatic_serialization' => true
+    );
+  
+    $backendOptions = array(
+        'cache_dir' => './cache/'
+    );
+    /*
+   $backendOptions = array (
+       'cache_db_complete_path' => 'cache/cache.sqlite',
+       'automatic_vacuum_factor' => 0);
+    */
+    $cache = Zend_Cache::factory('Core', 'File', 
+        $frontendOptions, $backendOptions);
+     Zend_Translate::setCache($cache);
+
+
+    
     Zend_Locale::setDefault (fz_config_get ('app', 'default_locale', 'de'));
-    //$currentLocale = new Zend_Locale ('auto');
-    $currentLocale = new Zend_Locale ('de');
+
+    $currentLocale = new Zend_Locale ('auto');
+    //$currentLocale = new Zend_Locale ('de');
     $translate     = new Zend_Translate ('gettext', option ('root_dir').DIRECTORY_SEPARATOR.'i18n', $currentLocale,
         array('scan' => Zend_Translate::LOCALE_DIRECTORY));
     option ('translate', $translate);
@@ -154,13 +200,12 @@ function before () {
     }
 }
 
-
 /**
  * Loading Limonade PHP
  */
-require_once 'lib/limonade.php';
-require_once 'lib/fz_limonade.php';
-require_once 'lib/fz_config.php';
+require 'lib/limonade.php';
+require 'lib/fz_limonade.php';
+require 'lib/fz_config.php';
 
 // Check config presence, if not, force the user to the install controller
 if (fz_config_load (dirname(__FILE__).DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR) === false) {
@@ -172,10 +217,9 @@ if (fz_config_load (dirname(__FILE__).DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEP
     exit;
 }
 
-
-//                                              //             // 
-// Url Schema                                   // Controller  // Action
-//                                              //             // 
+//                                              //              // 
+// Url Schema                                   // Controller   // Action
+//                                              //              // 
 // -----------------------------------------------------------------------------
 // Main controller
 fz_dispatch ('/'                                ,'Main'         ,'index');
@@ -225,25 +269,14 @@ fz_dispatch_post ('/:file_hash/download'        ,'File'         ,'download'); //
 // File controller
 fz_dispatch_get  ('/:file_hash/email'           ,'File'         ,'emailForm');
 fz_dispatch_post ('/:file_hash/email'           ,'File'         ,'email');
-
 //fz_dispatch_get  ('/:file_hash/delete'          ,'File'         ,'confirmDelete');
 fz_dispatch_post ('/:file_hash/delete'          ,'File'         ,'delete');
-fz_dispatch_get  ('/:file_hash/delete'          ,'File'         ,'delete');
-
-fz_dispatch_get  ('/:file_hash/extend'          ,'File'         ,'extend');
-
-fz_dispatch_get  ('/:file_hash/extendMaximum'   ,'File'         ,'extendMaximum');
-
+fz_dispatch_post ('/:file_hash/extend'          ,'File'         ,'extend');
+fz_dispatch_post ('/:file_hash/extendMaximum'   ,'File'         ,'extendMaximum');
 //fz_dispatch_get  ('/:file_hash/toggle'          ,'File'         ,'confirmToggleRequireLogin');
-fz_dispatch_get  ('/:file_hash/toggle'          ,'File'         ,'toggleRequireLogin');
 fz_dispatch_post ('/:file_hash/toggle'          ,'File'         ,'toggleRequireLogin');
-
 fz_dispatch_post ('/:file_hash/report'          ,'File'         ,'report');
-
 fz_dispatch_post ('/:file_hash/edit'             ,'File'         ,'edit');
-
 fz_dispatch_get  ('/:created_by/list/:folder'    ,'File'         ,'folder');
-
-
 
 run ();

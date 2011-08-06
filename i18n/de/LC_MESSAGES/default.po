@@ -488,6 +488,9 @@ msgstr "Ordner"
 msgid "Copy to clipboard"
 msgstr "Copy to clipboard"
 
+msgid "Copy download link to clipboard"
+msgstr "Download-Link in die Zwischenablage kopieren"
+
 msgid "Copied to clipboard"
 msgstr "Copied to clipboard"
 
@@ -613,6 +616,12 @@ msgstr "Dieser Benutzer ist von der FileZ-Nutzung ausgeschlossen."
 
 msgid "User locked"
 msgstr "Benutzer gesperrt."
+
+msgid "Share file with others"
+msgstr "Datei anbieten"
+
+msgid "Action expired. Try again."
+msgstr "Aktion abgelaufen. Bitte versuchen Sie es noch einmal."
 
 #~ msgid "Details"
 #~ msgstr "Details"

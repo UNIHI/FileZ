@@ -1,4 +1,5 @@
 log/*
+cache/*
 config/filez.ini
 nbproject/
 .idea

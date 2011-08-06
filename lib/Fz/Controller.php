@@ -85,9 +85,64 @@ class Fz_Controller {
     /**
      * Initialize the controller
      */
-    public function init () {}
+    public function init () {
+    }
 
+    /**
+     * Set request token in session (secret, created_at)
+     * and send token with response as temporary cookie.
+     * 
+     * @param boolean $delete if true, delete token 
+     * @return void
+     */
+    protected  function setToken() {
+        $_SESSION['token'] = array(
+            'secret'  => time(),
+            'created_at' => time()
+        );
+        setcookie('token',$this->getTokenSecret());
+    }
 
+    /**
+     * Returns token secret.
+     * 
+     * @return string Token secret
+     */    
+    protected function getTokenSecret() {
+        return $_SESSION['token']['secret'];
+    }
+
+    /**
+     * Returns token creation time. 
+     * 
+     * @return integer UNIX timestamp
+     */
+    protected function getTokenCreationTime() {
+        return $_SESSION['token']['created_at'];
+    }
+    
+    /**
+     * Verify token. (equality, expiration, http_referer)
+     * 
+     * @return boolean true if submitted token is valid, else false
+     */
+    public function verifyToken () {
+        if ($_POST['token'] == $this->getTokenSecret()) {
+            // TODO: make token lifetime value configurable
+            // token is configured to be valid for 60 seconds
+            if ( (time() - $this->getTokenCreationTime()) > 60
+                || !isset($_SERVER['HTTP_REFERER'])
+                || $_SERVER['HTTP_REFERER'] == '') {
+                return false;
+            } else {
+                return true;
+            }
+            
+        } else {
+            return false;
+        }
+    }
+    
     /**
      * Return an instance of the authentication handler class
      * 

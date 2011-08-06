@@ -12,13 +12,17 @@
   <p class="filesize">(<?php echo $file->getReadableFileSize () ?>)</p>
   <?php if (fz_config_get ('app', 'enable_copy_to_clipboard', true)): ?>
   <p class="zclip">
-    <a href="<?php echo $file->getDownloadUrl () ?>/copy" class="awesome blue zclip">
+    <a href="<?php echo $file->getDownloadUrl () ?>/copy" 
+        class="awesome blue zclip" 
+        title="<?php echo __('Copy download link to clipboard'); ?>">
       <?php echo __('Copy to clipboard') ?>
     </a>
   </p>
   <?php endif ?>
   <p class="share">
-    <a href="<?php echo $file->getDownloadUrl () ?>/share" class="awesome green share">
+    <a href="<?php echo $file->getDownloadUrl () ?>/share" 
+        class="awesome green share" 
+        title="<?php echo __('Share file with others') ?>">
       <?php echo __('Share') ?>
     </a>
   </p>

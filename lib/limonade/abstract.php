@@ -47,6 +47,7 @@ function after($output)
 {
   # Call functions...
   # .. modifies $output...
+  
   return $output;
 }
  
