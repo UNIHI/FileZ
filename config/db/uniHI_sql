@@ -31,3 +31,8 @@ ALTER TABLE `fz_file` ADD prevent_reporting BOOLEAN;
 
  -- 06/06/2011 fz_file : folder
 ALTER TABLE `fz_file` ADD folder varchar(200);
+
+ -- 08/12/2011 fz_file, fz_log, fz_users
+ALTER TABLE `fz_file` ADD `isDeleted` BOOLEAN DEFAULT 0;
+ALTER TABLE `fz_log` ADD `message` TEXT;
+ALTER TABLE `fz_user` ADD `require_auth` BOOLEAN DEFAULT 0;
