@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `fz_file` (
   `reported`        BOOLEAN         DEFAULT NULL,
   `prevent_reporting` BOOLEAN       DEFAULT NULL,
   `folder`          varchar(200)    DEFAULT NULL,
+  `isDeleted`       BOOLEAN         DEFAULT 0,
   
   INDEX       (`created_by`),
   FOREIGN KEY (`created_by`) REFERENCES fz_user(`id`),
@@ -33,6 +34,7 @@ CREATE TABLE `fz_log` (
   `username`        varchar(30),
   `timestamp`       INTEGER         NOT NULL,
   `action`          varchar(20)     NOT NULL,
+  `message`         TEXT,
   
   PRIMARY KEY (  `id`  ),
   UNIQUE KEY `id` (`id`)
@@ -53,7 +55,8 @@ CREATE TABLE `fz_user` (
   `lastname`    VARCHAR(50) NOT NULL,
   `email`       VARCHAR(50) NOT NULL,
   `is_admin`    BOOLEAN     DEFAULT 0,
-  `created_at`  TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at`  TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_locked`   BOOLEAN     DEFAULT 0
 ) ENGINE = MYISAM ;
 
 INSERT INTO `fz_info` (`key`, `value`) VALUES ('db_version', '2.2.0-1');
