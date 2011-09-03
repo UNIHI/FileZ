@@ -28,16 +28,29 @@
   <input type="hidden" name="is_admin" id="is_admin-input" value="0" />
   <input type="hidden" name="is_locked" id="is_locked-input" value="0" />
   <ul id="options">
-    <li id="is_admin-item">
+    <?php /* 
+      <li id="is_admin-item">
       <input type="checkbox" name="is_admin" id="is_admin" <?php echo ($user->is_admin==1) ? "checked" : "" ?> />
       <label for="is_admin" title="<?php echo __('This user can administrate FileZ') ?>">
         <?php echo __('Admin') ?>
       </label>
-    </li>
+    </li> 
+    */ ?>
     <li id="is_locked-item">
-      <input type="checkbox" name="is_locked" id="is_locked" <?php echo ($user->is_locked==1) ? "checked" : "" ?> />
-      <label for="is_locked" title="<?php echo __('This user is excluded from FileZ usage.') ?>">
+      <input type="checkbox" name="is_locked" id="is_locked" 
+      <?php echo ($user->is_locked==1) ? "checked" : "" ?> />
+      <label for="is_locked" title="
+      <?php echo __('This user is excluded from FileZ usage.') ?>">
         <?php echo __('User locked') ?>
+      </label>
+    </li>
+    <li id="lock_reason-item">
+      <input type="text" name="lock_reason" id="lock_reason" value="
+ <?php echo ($user->is_locked==1 && $user->lock_reason != '') 
+        ? $user->lock_reason : "" ?>" />
+      <label id="lock_reason_label" for="lock_reason" title="
+      <?php echo __('This user is excluded from FileZ usage.') ?>">
+        <?php echo __('Lock reason') ?>
       </label>
     </li>
   </ul>
@@ -47,3 +60,23 @@
   </div>
   </form>
 </section>
+
+<script type="text/javascript">
+    $(document).ready (function () {
+      
+      checkReason();
+      $('#is_locked').click(function (e) {
+        checkReason();
+      });
+      
+      function checkReason() {
+        if ($("#is_locked:checked").length) {
+          $('#lock_reason').show();
+          $('#lock_reason_label').show();
+        } else {
+          $('#lock_reason').hide();
+          $('#lock_reason_label').hide();
+        }
+      }
+    });
+</script>

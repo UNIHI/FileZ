@@ -530,8 +530,8 @@ msgstr "Möchten Sie den Benutzer \"%displayname%\" (%username%) wirklich lösch
 msgid "Role"
 msgstr "Rolle"
 
-msgid "File count"
-msgstr "Zahl der Dateien"
+msgid "Valid files"
+msgstr "Gültige Dateien"
 
 msgid "Disk usage"
 msgstr "Speichernutzung"

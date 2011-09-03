@@ -134,17 +134,17 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
      * Return all file owned by $uid which are available (not deleted)
      *
      * @param App_Model_User $user
+     * @param boolean $expired only count expired files
      * @return array of App_Model_File
      */
-    public function findByOwnerOrderByUploadDateDesc ($user) {
+    public function findByOwnerOrderByUploadDateDesc ($user, $expired = false) {
         $sql = 'SELECT * FROM '.$this->getTableName ()
               .' WHERE created_by=:id '
-              .' AND  available_until >= CURRENT_DATE() '
-              .' AND isDeleted = 0 '
+              .' AND  available_until '.($expired?'<':'>='). ' CURRENT_DATE() '
+              . ($expired?'':' AND isDeleted = 0 ' )
               .' ORDER BY created_at DESC';
         return $this->findBySql ($sql, array (':id' => $user->id));
     }
-    
 
     /**
      * Return all files owned by $created_by which are available (not deleted)
@@ -260,10 +260,11 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
             ->prepare ('SELECT DISTINCT folder FROM `'
                 .$this->getTableName ()
                 .'` WHERE created_by = ? '
-                .'AND folder <> "" '
-                .'AND folder IS NOT NULL '
-                .'AND isDeleted = 0 '
-                .'ORDER BY folder ASC');
+                .' AND folder <> "" '
+                .' AND folder IS NOT NULL '
+                .' AND isDeleted != 1 ' 
+                .' AND available_until >= CURRENT_DATE() '
+                .' ORDER BY folder ASC');
         $result->execute (array ($user->id));
         while ($folder = $result->fetchColumn()) { $folders[] = $folder; }
         return $folders;

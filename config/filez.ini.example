@@ -21,7 +21,7 @@ min_hash_size = 4
 max_hash_size = 6
 
 ; Default langage when no translation exists for the user locale
-default_locale = "fr"
+default_locale = "en"
 
 ; Name of the class used to authenticate the user. Built-in handler are :
 ;  * Fz_Controller_Security_Cas       Log the user against a CAS server

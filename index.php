@@ -153,10 +153,13 @@ function before () {
     
     Zend_Locale::setDefault (fz_config_get ('app', 'default_locale', 'de'));
 
-    $currentLocale = new Zend_Locale ('auto');
-    //$currentLocale = new Zend_Locale ('de');
-    $translate     = new Zend_Translate ('gettext', option ('root_dir').DIRECTORY_SEPARATOR.'i18n', $currentLocale,
-        array('scan' => Zend_Translate::LOCALE_DIRECTORY));
+    //$currentLocale = new Zend_Locale ('auto');
+    $currentLocale = new Zend_Locale ('de');
+    $translate     = new Zend_Translate (
+      'gettext', 
+      option ('root_dir').DIRECTORY_SEPARATOR.'i18n', 
+      $currentLocale,
+      array('scan' => Zend_Translate::LOCALE_DIRECTORY));
     option ('translate', $translate);
     option ('locale'   , $currentLocale);
     Zend_Registry::set('Zend_Locale', $currentLocale);
@@ -269,11 +272,10 @@ fz_dispatch_post ('/:file_hash/download'        ,'File'         ,'download'); //
 // File controller
 fz_dispatch_get  ('/:file_hash/email'           ,'File'         ,'emailForm');
 fz_dispatch_post ('/:file_hash/email'           ,'File'         ,'email');
-//fz_dispatch_get  ('/:file_hash/delete'          ,'File'         ,'confirmDelete');
+fz_dispatch_get  ('/:file_hash/delete'          ,'File'         ,'delete');
 fz_dispatch_post ('/:file_hash/delete'          ,'File'         ,'delete');
 fz_dispatch_post ('/:file_hash/extend'          ,'File'         ,'extend');
 fz_dispatch_post ('/:file_hash/extendMaximum'   ,'File'         ,'extendMaximum');
-//fz_dispatch_get  ('/:file_hash/toggle'          ,'File'         ,'confirmToggleRequireLogin');
 fz_dispatch_post ('/:file_hash/toggle'          ,'File'         ,'toggleRequireLogin');
 fz_dispatch_post ('/:file_hash/report'          ,'File'         ,'report');
 fz_dispatch_post ('/:file_hash/edit'             ,'File'         ,'edit');

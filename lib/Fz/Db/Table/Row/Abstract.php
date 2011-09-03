@@ -69,7 +69,11 @@ abstract class Fz_Db_Table_Row_Abstract {
         if (substr ($method, 0, 3) == 'get') {
             return $this->$var;
         } else   if (substr ($method, 0, 3) == 'set') {
-            return $this->$var = $args[0]; // TODO check args size & trigger error
+            if ($var == 'is_admin') {
+              // TODO security concern: always remove admin privileges
+                return 0;
+            } else
+                return $this->$var = $args[0]; // TODO check args size & trigger error
         } else {
             throw new Exception ('Unknown method "'.$method.'"');
         }
@@ -83,12 +87,11 @@ abstract class Fz_Db_Table_Row_Abstract {
      * @return mixed          Column value
      */
     public function __set ($var, $value) {
-        if (array_key_exists ($var, $this->_data) && $this->_data [$var] == $value)
-            return $value;
-
-        $this->_data [$var] = $value;
-        $this->_updatedColumns [] = $var;
-        return $value;
+      if (array_key_exists ($var, $this->_data) && $this->_data [$var] == $value)
+          return $value;
+      $this->_data [$var] = $value;
+      $this->_updatedColumns [] = $var;
+      return $value;
     }
 
     /**
@@ -173,7 +176,6 @@ abstract class Fz_Db_Table_Row_Abstract {
         $columnsName = $this->getUpdatedColumns ();
         $sqlModifiersColumnsName = array_keys ($this->_sqlModifiers);
         $unmodifiedColumns =  array_diff ($columnsName, $sqlModifiersColumnsName);
-
         if (count ($columnsName) == 0 && count ($sqlModifiersColumnsName) == 0)
             return $this;
 

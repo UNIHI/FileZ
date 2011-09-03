@@ -56,7 +56,8 @@ CREATE TABLE `fz_user` (
   `email`       VARCHAR(50) NOT NULL,
   `is_admin`    BOOLEAN     DEFAULT 0,
   `created_at`  TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `is_locked`   BOOLEAN     DEFAULT 0
+  `is_locked`   BOOLEAN     DEFAULT 0,
+  `lock_reason` VARCHAR(400)
 ) ENGINE = MYISAM ;
 
 INSERT INTO `fz_info` (`key`, `value`) VALUES ('db_version', '2.2.0-1');

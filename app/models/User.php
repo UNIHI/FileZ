@@ -55,12 +55,12 @@ class App_Model_User extends Fz_Db_Table_Row_Abstract {
     /**
      * Return every file uploaded by the user (
      *
-     * @param  boolean  $expired    Are the expired file included ?
+     * @param  boolean  $expired    return amount of expired files onstead
      * @return array                Array of App_Model_File
      */
-    public function getFiles ($includeExpired = false) {
-        return Fz_Db::getTable('File')->findByOwnerOrderByUploadDateDesc ($this);
-        // TODO handle the $includeExpired parameter
+    public function getFiles ($expired = false) {
+        return Fz_Db::getTable('File')->findByOwnerOrderByUploadDateDesc (
+          $this, $expired);
     }
     
     /**
@@ -90,6 +90,15 @@ class App_Model_User extends Fz_Db_Table_Row_Abstract {
 
         if ($sql !== null)
             $this->setColumnModifier ('password', $sql);
+    }
+        
+    /**
+     * Override the defaults to intercept is_admin
+     *
+     * @return self
+     */
+    public function save () {
+        return parent::save();
     }
 }
 

@@ -320,14 +320,14 @@
 	box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
 }
 
-	.ui-tooltip-shadow .ui-tooltip-titlebar,
-	.ui-tooltip-shadow .ui-tooltip-content{
-		filter: progid:DXImageTransform.Microsoft.Shadow(Color='gray', Direction=135, Strength=3);
-		-ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Color='gray', Direction=135, Strength=3)";
-
-		_margin-bottom: -3px; /* IE6 */
-		.margin-bottom: -3px; /* IE7 */
-	}
+.ui-tooltip-shadow .ui-tooltip-titlebar,
+.ui-tooltip-shadow .ui-tooltip-content{
+    	filter: progid:DXImageTransform.Microsoft.Shadow(Color='gray', Direction=135, Strength=3);
+    -ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Color='gray', Direction=135, Strength=3)";
+    
+    _margin-bottom: -3px; /* IE6 */
+    .margin-bottom: -3px; /* IE7 */
+}
 
 
 /*! Add rounded corners to your tooltips in: FF3+, Chrome 2+, Opera 10.6+, IE9+, Safari 2+ */
@@ -493,7 +493,7 @@
 	}
 
 	.ui-tooltip-tipsy .ui-tooltip-content{
-		padding: 6px 10;
+		padding: 6px 10px;
 	}
 	
 	.ui-tooltip-tipsy .ui-tooltip-icon{

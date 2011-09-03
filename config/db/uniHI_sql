@@ -36,3 +36,8 @@ ALTER TABLE `fz_file` ADD folder varchar(200);
 ALTER TABLE `fz_file` ADD `isDeleted` BOOLEAN DEFAULT 0;
 ALTER TABLE `fz_log` ADD `message` TEXT;
 ALTER TABLE `fz_user` ADD `require_auth` BOOLEAN DEFAULT 0;
+
+ -- 09/03/2011
+ALTER TABLE `fz_user` ADD `is_locked` BOOLEAN DEFAULT 0;
+ALTER TABLE `fz_user` ADD `lock_reason` VARCHAR(400)
+;

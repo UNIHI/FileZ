@@ -107,11 +107,12 @@ class App_Controller_File extends Fz_Controller {
 
         // Usual checks
         // Computing default values
-        $comment = array_key_exists ('comment',  $_POST) ? $_POST['comment'] : '';
+        $comment = 
+          array_key_exists ('comment',  $_POST) ? $_POST['comment'] : '';
         $folder = array_key_exists ('folder', $_POST) ? $_POST['folder'] : '';
         
         // Allow only numbers and letters and convert space to _
-        $folder = preg_replace('/[^A-Za-z0-9_]/', '', $folder);
+        $folder = preg_replace('/[^A-Za-z0-9_ ]/', '', $folder);
         $folder = preg_replace('/ /', '_', $folder);
 
         if (! empty ($_POST ['password']))
@@ -133,7 +134,9 @@ class App_Controller_File extends Fz_Controller {
                 return $this->returnData ($response);
             }
         } catch (Exception $e) {
-            fz_log ('Can\'t update file "'. $file .'" edited by '.$user['email'], FZ_LOG_ERROR);
+            fz_log (
+              'Can\'t update file "'. $file .'" edited by '.$user['email'], 
+              FZ_LOG_ERROR);
             fz_log ($e, FZ_LOG_ERROR);
             $response ['status']     = 'error';
             $response ['statusText'] = __('File could not be updated.');
@@ -146,56 +149,59 @@ class App_Controller_File extends Fz_Controller {
      * Share a file url by mail
      */
     public function emailAction () {
-        $this->secure ();
-        $user = $this->getUser ();
-        $file = $this->getFile ();
-        if (! $user->is_admin) $this->checkOwner ($file, $user);
-        set ('file', $file);
+      $this->secure ();
+      $user = $this->getUser ();
+      $file = $this->getFile ();
+      if (! $user->is_admin) $this->checkOwner ($file, $user);
+      set ('file', $file);
 
-        // Send mails
-        $user = $this->getUser ();
-        $mail = $this->createMail();
-        $subject = __r('[FileZ] "%sender%" wants to share a file with you', array (
-            'sender' => $user));
-        $msg = __r('email_share_file (%file_name%, %file_url%, %sender%, %msg%)', array(
-            'file_name' => $file->file_name,
-            'file_url'  => $file->getDownloadUrl(),
-            'msg'       => $_POST ['msg'],
-            'sender'    => $user,
+      // Send mails
+      $user = $this->getUser ();
+      $mail = $this->createMail();
+      $subject = __r('[FileZ] "%sender%" wants to share a file with you', 
+        array ('sender' => $user));
+      $msg = __r('email_share_file (%file_name%, %file_url%, %sender%, %msg%)', 
+        array(
+          'file_name' => $file->file_name,
+          'file_url'  => $file->getDownloadUrl(),
+          'msg'       => $_POST ['msg'],
+          'sender'    => $user,
         ));
-        $mail->setBodyText ($msg);
-        $mail->setSubject  ($subject);
-        $mail->setReplyTo  ($user->email, $user);
-        $mail->clearFrom();
-        $mail->setFrom     ($user->email, $user);
+      $mail->setBodyText ($msg);
+      $mail->setSubject  ($subject);
+      $mail->setReplyTo  ($user->email, $user);
+      $mail->clearFrom();
+      $mail->setFrom     ($user->email, $user);
 
-        $emailValidator = new Zend_Validate_EmailAddress();
-        $emails = array();
-        foreach (explode (' ', $_POST['to']) as $email) {
-            $email = trim ($email);
-            if (empty ($email))
-                continue;
-            
-            if ($emailValidator->isValid ($email)) {
-                $mail->addBcc ($email);
-                $emails[] = $email;
-            } else {
-                $msg = __r('Email address "%email%" is incorrect, please correct it.',
-                    array ('email' => $email));
-                return $this->returnError ($msg, 'file/email.php');
-            }
+      $emailValidator = new Zend_Validate_EmailAddress();
+      $emails = array();
+      foreach (explode (' ', $_POST['to']) as $email) {
+        $email = trim ($email);
+        if (empty ($email))
+          continue;
+        
+        if ($emailValidator->isValid ($email)) {
+          $mail->addBcc ($email);
+          $emails[] = $email;
+        } else {
+          $msg = __r('Email address "%email%" is incorrect, please correct it.',
+            array ('email' => $email));
+          return $this->returnError ($msg, 'file/email.php');
         }
+      }
 
-        try {
-            $mail->send ();
-            fz_log (implode(',',$emails), FZ_LOG_SHARE_MAIL_SENT, array('file_id' => $file->id));
-            return $this->returnSuccessOrRedirect ('/');
-        }
-        catch (Exception $e) {
-            fz_log ('Error while sending email: "Share file"', FZ_LOG_ERROR, $e);
-            $msg = __('An error occured during email submission. Please try again.');
-            return $this->returnError ($msg, 'file/email.php');
-        }
+      try {
+        $mail->send ();
+        fz_log (implode(',',$emails), FZ_LOG_SHARE_MAIL_SENT, 
+          array('file_id' => $file->id));
+        return $this->returnSuccessOrRedirect ('/');
+      }
+      catch (Exception $e) {
+        fz_log ('Error while sending email: "Share file"', FZ_LOG_ERROR, $e);
+        $msg = 
+          __('An error occured during email submission. Please try again.');
+        return $this->returnError ($msg, 'file/email.php');
+      }
     }
 
    /**
@@ -223,14 +229,16 @@ class App_Controller_File extends Fz_Controller {
             fz_log('', FZ_LOG_EXTEND, array('file_id' => $file->id));
             $result ['status']     = 'success';
             $result ['statusText'] = __('Lifetime extended');
-            $result ['html']       = partial ('main/_file_row.php', array ('file' => $file));
+            $result ['html']       = 
+              partial ('main/_file_row.php', array ('file' => $file));
         } else if (!$this->verifyToken()) {
             $result ['status']     = 'error';
             $result ['statusText'] = __('Action expired. Try again.');
         } else {
             $result ['status']     = 'error';
-            $result ['statusText'] = __r('You can\'t extend a file lifetime more than %x% times',
-                                    array ('x' => fz_config_get ('app', 'max_extend_count')));
+            $result ['statusText'] = 
+              __r('You can\'t extend a file lifetime more than %x% times',
+                array ('x' => fz_config_get ('app', 'max_extend_count')));
         }
 
         $this->setToken();
@@ -257,14 +265,16 @@ class App_Controller_File extends Fz_Controller {
             $file->save ();
             $result ['status']     = 'success';
             $result ['statusText'] = __('Lifetime extended to maximum');
-            $result ['html']       = partial ('main/_file_row.php', array ('file' => $file));
+            $result ['html']       = 
+              partial ('main/_file_row.php', array ('file' => $file));
         } else if (!$this->verifyToken()) {
             $result ['status']     = 'error';
             $result ['statusText'] = __('Action expired. Try again.');
         } else {
             $result ['status']     = 'error';
-            $result ['statusText'] = __r('You can\'t extend a file lifetime more than %x% times',
-                                    array ('x' => fz_config_get ('app', 'max_extend_count')));
+            $result ['statusText'] = 
+            __r('You can\'t extend a file lifetime more than %x% times',
+              array ('x' => fz_config_get ('app', 'max_extend_count')));
         }
 
         $this->setToken();
@@ -305,6 +315,13 @@ class App_Controller_File extends Fz_Controller {
     public function reportAction () {
         $file = $this->getFile ();
 
+        if (!$this->verifyToken()) {
+          $response ['status']     = 'error';
+          $response ['statusText'] = 
+            __('Failed to report the file. Try again.');
+          return $this->returnData ($response);           
+        }
+        
         // Send report
         $mail = $this->createMail();
         $subject = $file->file_name . ' has been reported';
@@ -344,7 +361,8 @@ class App_Controller_File extends Fz_Controller {
         catch (Exception $e) {
             fz_log ('Error while sending email (reporting)', FZ_LOG_ERROR, $e);
             $response ['status']     = 'error';
-            $response ['statusText'] = __('Failed to report the file. Try again.');
+            $response ['statusText'] = 
+              __('Failed to report the file. Try again.');
             return $this->returnData ($response);            
         }
     }
@@ -365,8 +383,8 @@ class App_Controller_File extends Fz_Controller {
         set ('uploader',        $file->getUploader ());
         
         // Check for access rights (require login)
-        if (! ( fz_config_get ('app', 'login_requirement', 'privacy') == 'off' ) ) {
-            if (fz_config_get ('app', 'login_requirement', 'force') == 'force') {
+        if (!(fz_config_get ('app', 'login_requirement', 'privacy') == 'off')) {
+            if (fz_config_get('app', 'login_requirement', 'force') == 'force') {
                 set ('requireLogin',    1);
             } else {
                 set ('requireLogin',    $file->require_login);
@@ -374,6 +392,7 @@ class App_Controller_File extends Fz_Controller {
             set ('isLoggedIn',      $this->getAuthHandler()->isSecured());
         }
         fz_log('', FZ_LOG_PREVIEW, array('file_id' => $file->id));
+        $this->setToken();
         return html ('file/preview.php');
     }
 
@@ -388,7 +407,8 @@ class App_Controller_File extends Fz_Controller {
         $result = array ();
         if (! (fz_config_get('app', 'login_requirement', 'on') == 'on')) {
             $result ['status']     = 'error';
-            $result ['statusText'] = __('You are not allowed to toggle login requirement.');
+            $result ['statusText'] = 
+            __('You are not allowed to toggle login requirement.');
         } else if (!$this->verifyToken()) {
             $result ['status']     = 'error';
             $result ['statusText'] = __('Action expired. Try again.');
@@ -400,7 +420,8 @@ class App_Controller_File extends Fz_Controller {
             $result ['statusText'] = 
             __r('Login requirement toggled %status% for file %file%', 
             array('status' => $status, 'file' => $file->file_name));
-            $result ['html']       = partial ('main/_file_row.php', array ('file' => $file));
+            $result ['html']       = partial ('main/_file_row.php', 
+              array ('file' => $file));
         }
         
         $this->setToken();
@@ -428,7 +449,8 @@ class App_Controller_File extends Fz_Controller {
         return $this->sendFile ($file, $file->isImage () ? false : true);
     }
     
-    // TODO documenter les 2 fonctions suivantes et ? les passer dans la classe controleur
+    // TODO documenter les 2 fonctions suivantes et ? les passer dans la classe 
+    // controleur
 
     private function returnError ($msg, $template) {
         if ($this->isXhrRequest ()) {
@@ -451,7 +473,8 @@ class App_Controller_File extends Fz_Controller {
 
     /**
      * Retrieve the requested file from database.
-     * If the file isn't found, the action is stopped and a 404 error is returned.
+     * If the file isn't found, the action is stopped and a 404 error is 
+     * returned.
      *
      * @return App_Model_File
      */
@@ -466,38 +489,89 @@ class App_Controller_File extends Fz_Controller {
    
     /**
      * Check if the client is authorized to download the file
+     * There is no return to be evaluated, 
+     * instead stop execution with error or redirect to
+     * appropriate url (like login page)
+     * Note: you should order functions by complexity and cost (simplest first)
      *
      * @param File $file
      */
     protected function checkFileAuthorizations ($file) {
-        
-        // TODO: this looks bloated, any way to make it look cleaner ?
-        if (! $file->isOwner ($this->getUser ())) {
-            if (fz_config_get('app', 'disable_locked_user_files') 
-            && $file->getUploader()->is_locked == 1) {
-                halt (HTTP_FORBIDDEN, 
-                __('File is locked and currently not available for download.'));
-            } else if (! $file->isAvailable ()) {
-                halt (HTTP_FORBIDDEN, __('File is not available for download'));
-            } else if (fz_config_get('app','privacy_mode') 
-                && $file->require_login == 0 && $file->password == '') {
-                halt (HTTP_FORBIDDEN, __('Security restrictions do not allow public access of this file. Please contact the file uploader to solve this problem.'));
-			} else if (   ( fz_config_get ('app', 'login_requirement', 'on') == 'force'
-                          && !$this->getAuthHandler()->isSecured() )
-                       || (! ( fz_config_get ('app', 'login_requirement', 'on') == 'off' )
-                          &&  $file->require_login 
-                          && !$this->getAuthHandler()->isSecured()) ) { // force login
-                // redirect to login page if not logged in and global login requirement is set
-                flash ('error', __('You have to login before you can access the file') . ': '. $file);
-                $this->secure();
-            } else if (! empty ($file->password)
-                    && ! $file->checkPassword ($_POST['password'])) {
-                flash ('error', __('Incorrect password'));
-                redirect ('/'.$file->getHash());
-            } else if ($file->isDownloadLimitReached($this->getUser () )) {
-                halt (HTTP_FORBIDDEN, __('Sorry, download limit reached for this file'));
-            }
+      // Do not proceed if user == owner
+      if ($file->isOwner ($this->getUser ()))
+        return;        
+      
+      if (fz_config_get('app', 'disable_locked_user_files') 
+          && $file->getUploader()->is_locked == 1) {
+        halt (HTTP_FORBIDDEN, 
+        __('File is locked and currently not available for download.'));
+      }
+      
+      if (! $file->isAvailable ())
+        halt (HTTP_FORBIDDEN, __('File is not available for download'));
+      
+      if (fz_config_get('app','privacy_mode') 
+        && $file->require_login == 0 && $file->password == '') {
+        halt (HTTP_FORBIDDEN, __(
+        'Security restrictions do not allow public access of this file.'
+        .' Please contact the file uploader to solve this problem.'));
+      }
+      
+      // Force login if global login requirement set
+      if (
+            ( fz_config_get ('app', 'login_requirement', 'on') == 'force'
+              && !$this->getAuthHandler()->isSecured()
+            )
+            ||
+            ( !fz_config_get ('app', 'login_requirement', 'on') == 'off'
+              &&  $file->require_login 
+              && !$this->getAuthHandler()->isSecured())
+      ) {
+        flash ('error', __('You have to login before you can access the file') . ': '. $file);
+        $this->secure();
+      }
+      
+      // Password mismatch
+      if (! empty ($file->password)
+            && ! $file->checkPassword ($_POST['password'])) {
+        flash ('error', __('Incorrect password'));
+        redirect ('/'.$file->getHash());
+      }
+
+      if ($file->isDownloadLimitReached($this->getUser () )) {
+        halt (HTTP_FORBIDDEN, __('Sorry, download limit reached for this file'));
+      }
+      /*               
+      // TODO: this looks bloated, any way to make it look cleaner ?
+      if (! $file->isOwner ($this->getUser ())) {
+        if (fz_config_get('app', 'disable_locked_user_files') 
+        && $file->getUploader()->is_locked == 1) {
+          halt (HTTP_FORBIDDEN, 
+          __('File is locked and currently not available for download.'));
+        } else if (! $file->isAvailable ()) {
+          halt (HTTP_FORBIDDEN, __('File is not available for download'));
+        } else if (fz_config_get('app','privacy_mode') 
+            && $file->require_login == 0 && $file->password == '') {
+            halt (HTTP_FORBIDDEN, __(
+            'Security restrictions do not allow public access of this file.'
+            .' Please contact the file uploader to solve this problem.'));
+	} else if (   ( fz_config_get ('app', 'login_requirement', 'on') == 'force'
+                      && !$this->getAuthHandler()->isSecured() )
+                   || (! ( fz_config_get ('app', 'login_requirement', 'on') == 'off' )
+                      &&  $file->require_login 
+                      && !$this->getAuthHandler()->isSecured()) ) { // force login
+            // redirect to login page if not logged in and global login requirement is set
+            flash ('error', __('You have to login before you can access the file') . ': '. $file);
+            $this->secure();
+        } else if (! empty ($file->password)
+                && ! $file->checkPassword ($_POST['password'])) {
+            flash ('error', __('Incorrect password'));
+            redirect ('/'.$file->getHash());
+        } else if ($file->isDownloadLimitReached($this->getUser () )) {
+            halt (HTTP_FORBIDDEN, __('Sorry, download limit reached for this file'));
         }
+      }
+      */
     }
 
     /**
@@ -532,17 +606,6 @@ class App_Controller_File extends Fz_Controller {
 
         halt (HTTP_UNAUTHORIZED, __('You are not the owner of the file'));
     }
-    /*
-    private function logging() {
-    	 // logging information
-        // TODO Checking logging Level
-        $log = Fz_Db::getTable('Log');
-        $user = $this->getUser();
-        $file = $this->getFile ();
-        $userID = ($user == NULL) ? "Unknown UserID" : $user->id; 
-        $log->insert($file->id, $userID);
-    }
-    */
 }
 
 ?>

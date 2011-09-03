@@ -118,7 +118,7 @@ class App_Controller_Upload extends Fz_Controller {
         $folder = array_key_exists ('folder', $_POST) ? $_POST['folder'] : '';
         
         // Allow only numbers and letters and convert space to _
-        $folder = preg_replace('/[^A-Za-z0-9_]/', '', $folder);
+        $folder = preg_replace('/[^A-Za-z0-9_ ]/', '', $folder);
         $folder = preg_replace('/ /', '_', $folder);
         
         // Validating lifetime

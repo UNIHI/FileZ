@@ -158,7 +158,8 @@
         success:      onReportFinished, // post-submit callback
         resetForm:    true,             // reset the form after successful submit
         dataType:     'json',           // force response type to JSON
-        iframe:       true              // force the form to be submitted using an iframe
+        iframe:       true,              // force the form to be submitted using an iframe
+        data:         {token: $.cookie('token') } // Validation token
       });
 
       // Let the server know it has to return JSON

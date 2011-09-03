@@ -225,6 +225,8 @@ section.report-file div#report-reason,
 section.report-file div#report-comment input,
 section.new-file div#folder input,
 section.edit-file div#edit-folder input {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -369,6 +371,9 @@ select, textarea, input {
 label {
     font-size: 0.8em;
     color: #7C746C;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
 }
 
 /*

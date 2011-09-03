@@ -84,8 +84,17 @@ class App_Controller_User extends Fz_Controller {
 
         $this->secure ('admin');
         $user = Fz_Db::getTable ('User')->findById (params ('id'));
-        $user->setIsAdmin   ($_POST ['is_admin'] == 'on' ? 1 : 0);
+        //$user->setIsAdmin   ($_POST ['is_admin'] == 'on' ? 1 : 0);
         $user->setIsLocked   ($_POST ['is_locked'] == 'on' ? 1 : 0);
+        if ($_POST ['is_locked'] == 'on') {
+          // only alphanumerical input allowed + _
+          $lockReason  = preg_replace('/[^A-Za-z0-9_ ]/', '', 
+            $_POST ['lock_reason'] );
+          $user->setLockReason($lockReason);  
+        } else {
+          $user->setLockReason('');
+        }
+        
         // If not internal database, firstname, lastname, 
         // username, password or email cannot be changed, so skip it
         if ($this->getUserFactory ()->isInternal () == false) {
