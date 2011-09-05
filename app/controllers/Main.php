@@ -41,7 +41,8 @@ class App_Controller_Main extends Fz_Controller {
         set ('start_from'       , Zend_Date::now ()->get (Zend_Date::DATE_SHORT));
         set ('refresh_rate'     , 1200);
         set ('files'            , Fz_Db::getTable ('File')
-                                    ->findByOwnerOrderByUploadDateDesc ($user));
+                                    ->findFilesByOwnerOrderByUploadDateDesc (
+                                    $user));
         set ('use_progress_bar' , $progressMonitor->isInstalled ());
         set ('upload_id_name'   , $progressMonitor->getUploadIdName ());
         set ('free_space_left'  , $freeSpaceLeft);

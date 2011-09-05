@@ -61,7 +61,8 @@ class Fz_Controller_Security_Cas extends Fz_Controller_Security_Abstract {
         $errorReporting = ini_get ('error_reporting');
         error_reporting ($errorReporting & ~E_STRICT & ~E_NOTICE);
         $this->initCasClient ();
-        phpCAS::logoutWithRedirectService ('http://'.$_SERVER['HTTP_HOST'].url_for('/')); // FIXME remove plain "http"
+        phpCAS::logoutWithRedirectService (
+        'http://'.$_SERVER['HTTP_HOST'].url_for('/')); // FIXME remove plain "http"
         error_reporting ($errorReporting);
     }
 

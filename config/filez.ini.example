@@ -9,6 +9,9 @@ use_url_rewriting = true
 ; Must be writtable by the web server
 upload_dir = "/var/fz_uploads"
 
+; Must be writable by the web server
+cache_dir = "/var/fz_cache"
+
 ; Max and default lifetime of a file on the server
 max_file_lifetime     = 20 
 default_file_lifetime = 10
@@ -38,7 +41,8 @@ user_factory_class = Fz_User_Factory_Ldap
 ; Max disk spaced per user. Support shorthand format : M (Mega), G (Giga)
 user_quota = "2G"
 
-; This option allows users to require a valid login before the file can be accessed
+; This option allows users to require a valid login before the file can be
+; accessed.
 ; Note: this option does not influence the requirement for a valid password
 ; Available modes are: 
 ; "on"      - offer login requirement option during file uploads
@@ -91,8 +95,8 @@ downloadLimitOnlyForUnknownUsers = true
 intervalCount = 1
 intervalType = "Day"
 
-; Autocomplete - does offer a list for certain input fields (depending on implementation)
-; if enabled
+; Autocomplete - does offer a list for certain input fields (depending on
+; implementation) if enabled
 enable_autocomplete = true
 
 ; Copy to clipboard adds a button using Adobe Flash to each uploaded file 
@@ -102,12 +106,18 @@ enable_copy_to_clipboard = true
 ; Do not allow files uploaded by a user who is locked to be downloaded at all 
 disable_locked_user_files = false
 
+; This is the time in seconds the user can execute actions that require a valid
+; token to get the execution processed. The user will be faced an error
+; message in case the token has expired. He will get a new valid token.
+; Tokens are a method used to counter Cross Site Request Forgery attacks.
+token_lifetime = 60
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Logging
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [logging]
 ; Must be writtable by the web server
-log_dir = /var/log/filez
+log_dir = "/var/fz_log"
 
 ; Log activities (download, upload, extend, delete, preview, etc.)
 log_activity = true

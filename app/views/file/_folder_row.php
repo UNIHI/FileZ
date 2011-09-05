@@ -10,11 +10,13 @@
 </div>
 
 <div class="file-attributes">
-  <p class="availability"><?php echo __r('Available from %from% to %to%', array (
-    'from' => ($file->getAvailableFrom  ()->get (Zend_Date::MONTH) ==
-               $file->getAvailableUntil ()->get (Zend_Date::MONTH)) ?
-               $file->getAvailableFrom ()->toString ('d') : $file->getAvailableFrom ()->toString ('d MMMM'),
-    'to' =>  '<b>'.$file->getAvailableUntil ()->toString ('d MMMM').'</b>')) // FIXME I18N ?>
-
+  <p class="availability">
+    <?php
+    echo __r('Available from %from% to %to%', array ('from' =>
+      $file->getAvailableFrom()->toString(option ('localeDateFormat')),
+    'to' => '<b>'.$file->getAvailableUntil ()->toString (
+      option ('localeDateFormat')).'</b>')
+    );
+    ?>
   </p>
 </div>

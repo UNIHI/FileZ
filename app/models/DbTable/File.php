@@ -137,7 +137,8 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
      * @param boolean $expired only count expired files
      * @return array of App_Model_File
      */
-    public function findByOwnerOrderByUploadDateDesc ($user, $expired = false) {
+    public function findFilesByOwnerOrderByUploadDateDesc (
+      $user, $expired = false) {
         $sql = 'SELECT * FROM '.$this->getTableName ()
               .' WHERE created_by=:id '
               .' AND  available_until '.($expired?'<':'>='). ' CURRENT_DATE() '

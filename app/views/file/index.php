@@ -1,7 +1,5 @@
 <h2><?php echo __('Manage files') ?></h2>
 
-<!-- TODO : find a jquery plugin to order and paginate the user list -->
-
 <table id="file_list" class="data">
   <tr>
     <th><?php echo __('Name') ?></th>
@@ -14,20 +12,34 @@
 
 <?php foreach ($files as $file): ?>
   <tr>
-    <td><a href="<?php echo $file->getDownloadUrl () ?>"><?php echo $file->file_name ?></a></td>
     <td>
-      <a href="<?php echo url_for ('/admin/users/'.$file->getUploader ()->id) ?>">
-        <?php echo h($file->getUploader ()) ?>
-      </a>
+      <?php
+      echo a(array('href'=>$file->getDownloadUrl ()), $file->file_name);
+      ?>
     </td>
-    <td><?php echo __r('from %from% to %to%', array (
-      'from' => ($file->getAvailableFrom  ()->get (Zend_Date::MONTH) ==
-                 $file->getAvailableUntil ()->get (Zend_Date::MONTH)) ?
-                 $file->getAvailableFrom ()->toString ('d') : $file->getAvailableFrom ()->toString ('d MMMM'),
-      'to' =>  '<b>'.$file->getAvailableUntil ()->toString ('d MMMM').'</b>')) // FIXME I18N ?>
+    <td>
+      <?php
+      echo a(array('href'=>url_for ('/admin/users/'.$file->getUploader()->id)),
+        h($file->getUploader ()));
+      ?>
+    </td>
+    <td>
+      <?php
+      echo __r('from %from% to %to%', array ('from' =>
+        $file->getAvailableFrom()->toString(option ('localeDateFormat')),
+        'to' => '<b>'.$file->getAvailableUntil ()->toString (
+        option ('localeDateFormat')).'</b>')
+      );
+      ?>
     </td>
     <td><?php echo $file->getReadableFileSize () ?></td>
     <td><?php echo (int) $file->download_count ?></td>
-    <td><a href="<?php echo $file->getDownloadUrl () . '/delete' ?>"><?php echo __('Delete') ?></a></td>
+    <td>
+    <?php
+    echo a(array('href'=>$file->getDownloadUrl () . '/delete',
+      'class'=>'admin-delete'),
+      __('Delete'));
+    ?>
+    </td>
 <?php endforeach ?>
 </table>

@@ -303,7 +303,7 @@ section.edit-file div#edit * {
 section.new-file div#upload-loading {
     width: 220px;
     height: 19px;
-    background: transparent url('../images/ajax-loader.gif') no-repeat center center;
+    background: transparent url(../images/ajax-loader.gif) no-repeat center center;
     margin: 0 auto;
 }
 
@@ -610,7 +610,6 @@ section#uploaded-files ul li a.toggle-off {
     display: inline-block;
 }
 
-
 section#uploaded-files ul li a.delete {
     background: transparent url(../images/icons/remove.png) no-repeat left center;
     text-indent: -5000px;
@@ -627,6 +626,12 @@ section#uploaded-files ul li a.edit {
     height: 16px;
     width: 16px;
     display: inline-block;
+}
+
+section#uploaded-files ul li .file-functions {
+  display: inline;
+  float: right;
+  padding-right: 6px;
 }
 
 

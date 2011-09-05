@@ -59,10 +59,17 @@ class App_Model_User extends Fz_Db_Table_Row_Abstract {
      * @return array                Array of App_Model_File
      */
     public function getFiles ($expired = false) {
-        return Fz_Db::getTable('File')->findByOwnerOrderByUploadDateDesc (
+        return Fz_Db::getTable('File')->findFilesByOwnerOrderByUploadDateDesc (
           $this, $expired);
     }
     
+    /**
+     * Returns amount of disk space used the user's files
+     */
+    public function getTotalDiskSpace() {
+      return Fz_Db::getTable('File')->getTotalDiskSpaceByUser($this);
+    }
+
     /**
      * Function used to encrypt the password
      *

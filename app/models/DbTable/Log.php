@@ -32,34 +32,29 @@
  */
 class App_Model_DbTable_Log extends Fz_Db_Table_Abstract {
 
-    protected $_rowClass = 'App_Model_Log';
+  protected $_rowClass = 'App_Model_Log';
 	protected $_name = 'fz_log';
     
-    protected $_columns = array (
-        'file_id',
-        'ip',
-    	'username',
-    	'timestamp',
-    	'action'
-    );
+  protected $_columns = array (
+    'file_id',
+    'ip',
+    'username',
+    'timestamp',
+    'action'
+  );
     
-    /**
-     * Count file downloads for given file in given time interval.
-     * @param $data accept array with 3 elements: file id, timestamp, timestamp
-     * @return amount of Downloads
-     */
-    public function countFileDownloads (array $data) {
-		//TODO: Errorhandling 
-		//TODO: Count all Users? 
-        $sql  = 'SELECT count(`id`) FROM `'.$this->getTableName ()
-        .'` WHERE `file_id` = ? '
-        .' AND action = \'' . FZ_LOG_DOWNLOAD
-        .'\' AND `timestamp` BETWEEN ? AND ?';
-        return $this->findOneBySQL ($sql, $data);
-    }
-
-     
-     
-
+  /**
+   * Count file downloads for given file in given time interval.
+   * @param array $data 3 elements: file id, timestamp, timestamp
+   * @return amount of downloads
+   */
+  public function countFileDownloads (array $data, $countAll = true) {
+    $sql  = 'SELECT count(`id`) FROM `'.$this->getTableName ()
+    .'` WHERE `file_id` = ? '
+    .($countAll ? '' : ' AND username IS NOT NULL')
+    .' AND action = \'' . FZ_LOG_DOWNLOAD
+    .'\' AND `timestamp` BETWEEN ? AND ?';
+    return $this->findOneBySQL ($sql, $data);
+  }
 }
 ?>

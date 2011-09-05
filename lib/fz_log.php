@@ -34,7 +34,7 @@ define ('FZ_LOG_EXTEND',           'extend');
 define ('FZ_LOG_UPLOAD_MAIL_SENT', 'uploadmail');
 define ('FZ_LOG_SHARE_MAIL_SENT',  'sharemail');
 define ('FZ_LOG_DELETE_MAIL_SENT', 'deletemail');
-define ('FZ_LOG_REPOR_MAIL_SENT', 'reportmail');
+define ('FZ_LOG_REPORT_MAIL_SENT', 'reportmail');
 
 /**
  * Logging to files and database.

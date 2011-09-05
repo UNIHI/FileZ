@@ -68,8 +68,6 @@ class App_Controller_File extends Fz_Controller {
         } else {
             $result ['status']     = 'success';
             $result ['statusText'] = __('File deleted.');
-            $file->isDeleted = 1;
-            // This does only delete the physical file but not the table row
             $file->delete();
         }
         
@@ -449,9 +447,11 @@ class App_Controller_File extends Fz_Controller {
         return $this->sendFile ($file, $file->isImage () ? false : true);
     }
     
-    // TODO documenter les 2 fonctions suivantes et ? les passer dans la classe 
-    // controleur
-
+    /**
+     * Encapsulate an error message, send as xhr if it is or use new page
+     * @param string $msg Textual error message
+     * @param in case its not HXR, so use this template page
+     */
     private function returnError ($msg, $template) {
         if ($this->isXhrRequest ()) {
             return json (array (
@@ -463,6 +463,12 @@ class App_Controller_File extends Fz_Controller {
             return html ($template);
         }
     }
+
+    /**
+     * Does return xhr success (if it is an xhr) or only redirects to a given
+     * page.
+     * @param $url In case it is not an hxr do redirect to this URL
+     */
     private function returnSuccessOrRedirect ($url) {
         if ($this->isXhrRequest ()) {
             return json (array ('status' => 'success'));
@@ -527,7 +533,8 @@ class App_Controller_File extends Fz_Controller {
               &&  $file->require_login 
               && !$this->getAuthHandler()->isSecured())
       ) {
-        flash ('error', __('You have to login before you can access the file') . ': '. $file);
+        flash ('error',
+          __('You have to login before you can access the file') . ': '. $file);
         $this->secure();
       }
       
@@ -539,10 +546,10 @@ class App_Controller_File extends Fz_Controller {
       }
 
       if ($file->isDownloadLimitReached($this->getUser () )) {
-        halt (HTTP_FORBIDDEN, __('Sorry, download limit reached for this file'));
+        halt (HTTP_FORBIDDEN,
+          __('Sorry, download limit reached for this file'));
       }
       /*               
-      // TODO: this looks bloated, any way to make it look cleaner ?
       if (! $file->isOwner ($this->getUser ())) {
         if (fz_config_get('app', 'disable_locked_user_files') 
         && $file->getUploader()->is_locked == 1) {
@@ -603,7 +610,6 @@ class App_Controller_File extends Fz_Controller {
     protected function checkOwner (App_Model_File $file, $user) {        
         if ($file->isOwner ($user))
             return;
-
         halt (HTTP_UNAUTHORIZED, __('You are not the owner of the file'));
     }
 }

@@ -3,32 +3,44 @@
   <head>
     <title>FileZ</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="shortcut Icon" href="favicon.ico" type="image/x-icon" />
+    <?php
+    $styles = array(
+      'html5-reset', 'jquery-ui-1.8.16.custom', 'jquery.qtip', 'main',
+      'jquery.autocomplete','admin'
+    );
+    if (fz_config_get ('looknfeel', 'custom_css', '' != ''))
+      array_unshift($styles, fz_config_get ('looknfeel', 'custom_css'));
+    foreach ($styles as $style)
+      echo '<link rel="stylesheet" href="'
+        . public_url_for ('resources/css/'. $style . '.css')
+        .'" type="text/css" media="all" />';
+    ?>
 
-    <link rel="stylesheet" href="<?php echo public_url_for ('resources/css/html5-reset.css') ?>" type="text/css" media="all" />
-    <link rel="stylesheet" href="<?php echo public_url_for ('resources/jquery.ui/css/cupertino/jquery-ui-1.7.2.custom.css') ?>" type="text/css" media="all" />
-    <link rel="stylesheet" href="<?php echo public_url_for ('resources/css/jquery.qtip.css') ?>" type="text/css" media="all" />
-    <link rel="stylesheet" href="<?php echo public_url_for ('resources/css/main.css') ?>" type="text/css" media="all" />
-    <link rel="stylesheet" href="<?php echo public_url_for ('resources/css/jquery.autocomplete.css') ?>" type="text/css" media="all" />
-    <link rel="stylesheet" href="<?php echo public_url_for ('resources/css/admin.css') ?>" type="text/css" media="all" />
-    <?php if (fz_config_get ('looknfeel', 'custom_css', '') != ''): ?>
-      <link rel="stylesheet" href="<?php echo public_url_for (fz_config_get ('looknfeel', 'custom_css')) ?>" type="text/css" media="all" />
-    <?php endif ?>
-
-    <!--[if lte IE 8]>
+    <?php
+    $scripts = array(
+      'jquery-1.6.2.min', 'jquery.form.min', 'jquery.progressbar.min',
+      'jquery.autocomplete.min', 'jquery.cookie.min',
+      'jquery-ui-1.8.16.custom.min', 'jquery.qtip.pack',
+      'i18n/jquery.ui.datepicker-'.option ('locale')->getLanguage (),
+      'jquery.zclip.min', 'filez');
+    foreach($scripts as $script)
+      echo '<script type="text/javascript" src="'
+        . public_url_for ('resources/js/' . $script . '.js') . '"></script>';
+    ?>
+    <!--[if lt IE 9]>
     <script type="text/javascript" src="<?php echo public_url_for ('resources/js/html5.js') ?>"></script>
     <![endif]-->
-    <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery-1.6.1.min.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery.form.min.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery.progressbar.min.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery.autocomplete.min.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery.cookie.min.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo public_url_for ('resources/jquery.ui/js/jquery-ui-1.7.2.custom.min.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery.qtip.pack.js') ?>"></script>
-    <?php if (option ('locale')->getLanguage () != 'en'): ?>
-      <script type="text/javascript" src="<?php echo public_url_for ('resources/jquery.ui/js/i18n/ui.datepicker-'.option ('locale')->getLanguage ().'.js') ?>"></script>
-    <?php endif ?>
-    <script type="text/javascript" src="<?php echo public_url_for ('resources/js/filez.js') ?>"></script>
+    <script type="text/javascript">
+      function checkPortal() {
+        if (top.location != self.document.location) {
+          //if filez is displayed through a web portal hide logos and logout box
+          document.getElementById('your-logo').style.display = 'none';
+          document.getElementById('filez-logo').style.display = 'none';
+          document.getElementById('auth-box').style.display = 'none';
+        }
+      }
+    </script>
   </head>
   <body id="admin">
 
@@ -60,7 +72,7 @@
       // small snippet to select an item in the menu
       $(document).ready (function () {
         $('nav a').each (function () {
-            console.log (document.location.href.indexOf ($(this).attr ('href')));
+          console.log (document.location.href.indexOf ($(this).attr ('href')));
           if (document.location.href.indexOf ($(this).attr ('href')) != -1) {
             $('nav .selected').removeClass ('selected');
             $(this).addClass ('selected');
@@ -68,6 +80,5 @@
         });
       });
     </script>
-
   </body>
 </html>

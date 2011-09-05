@@ -231,12 +231,12 @@ msgid "Select a lifetime"
 msgstr "Wählen Sie die Dauer der Datei"
 
 #: /home/didrya/filez/app/views/main/index.php:19
-msgid "%n% days"
-msgstr "%n% Tage"
+msgid "days"
+msgstr "Tage"
 
 #: /home/didrya/filez/app/views/main/index.php:19
-msgid "%n% day"
-msgstr "%n% Tag"
+msgid "day"
+msgstr "Tag"
 
 #: /home/didrya/filez/app/views/main/index.php:25
 msgid "Starts from"
@@ -372,8 +372,11 @@ msgstr "Diese Option kann nicht deaktiviert werden."
 msgid "You have to accept this user agreement before you can upload the file."
 msgstr "Sie müssen der Nutzungsvereinbarung zustimmen, bevor Sie die Datei hochladen können."
 
-msgid "I have read and understood the user agreement."
-msgstr "Ich habe die Nutzungsvereinbarung gelesen und verstanden."
+msgid "I have read and do understand the %userAgreement%."
+msgstr "Ich habe die %userAgreement% gelesen und verstanden."
+
+msgis "user agreement"
+msgstr "Nutzungsvereinbarung"
 
 msgid "You have to accept the user agreement."
 msgstr "Sie müssen der Nutzungsvereinbarung zustimmen, um eine Datei hochladen zu dürfen."

@@ -127,10 +127,10 @@ class Fz_Controller {
      * @return boolean true if submitted token is valid, else false
      */
     public function verifyToken () {
-        if ($_POST['token'] == $this->getTokenSecret()) {
-            // TODO: make token lifetime value configurable
-            // token is configured to be valid for 60 seconds
-            if ( (time() - $this->getTokenCreationTime()) > 60
+        if (array_key_exists('token', $_POST)
+          && $_POST['token'] == $this->getTokenSecret()) {
+            if ( (time() - $this->getTokenCreationTime()) >
+              fz_config_get('app','token_lifetime', 60)
                 || !isset($_SERVER['HTTP_REFERER'])
                 || $_SERVER['HTTP_REFERER'] == '') {
                 return false;

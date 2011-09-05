@@ -127,3 +127,18 @@ function get_mimetype_icon_url ($mimetype, $size = 32) {
         return $mime_basesir.$mimetype;
 
 }
+/**
+ * Make html hyperlink
+ * @param array $attributes assoc array with attr_name => attr_value
+ * attributes set
+ * @param string $innerhtml set tag text
+ * @return string html anchor tag
+ */
+function a(array $attributes, $innerhtml = 'undefined') {
+  $a = '<a';
+  reset($attributes);
+  while (list($key, $val) = each($attributes))
+      $a .= ' '. $key . '="' . $val . '"';
+  $a .= '>' . $innerhtml . '</a>';
+  return $a;
+}

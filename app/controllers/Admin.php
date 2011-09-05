@@ -24,114 +24,113 @@
  */
 class App_Controller_Admin extends Fz_Controller {
 
-    public function init () {
-        layout ('layout'.DIRECTORY_SEPARATOR.'admin.html.php');
+  public function init () {
+    layout ('layout'.DIRECTORY_SEPARATOR.'admin.html.php');
+  }
+
+  public function indexAction () {
+    $this->secure ('admin');
+    return html ('admin/index.php');
+  }
+
+  /**
+   * Action called to manage files
+   * List files, display stats.
+   */
+  public function filesAction () {
+    $this->setToken();
+    $this->secure ('admin');
+    set ('files', Fz_Db::getTable ('File')->findNotDeleted ());
+    return html ('file/index.php');
+    //TODO paginate
+  }
+  /**
+   * Action called to manage the config
+   * List the config settings.
+   */
+  public function configAction () {
+    $this->secure ('admin');
+    return html ('admin/index.php');
+  }
+
+  /**
+   * Evaluation of database information
+   */
+  public function statisticsAction () {
+    $this->secure ('admin');
+    return html ('admin/index.php');
+  }
+
+  /**
+   * Action called to clean expired files and send mail to those who will be
+   * in the next 2 days. This action is meant to be called from a cron script.
+   * It should not respond any output except PHP execution errors. Everything
+   * else is logged in 'filez-cron.log' and 'filez-cron-errors.log' files in
+   * the configured log directory.
+   */
+  public function checkFilesAction () {
+
+    // No access via browser, only via PHP-CLI (crontabs, etc.)
+    if ( $_SERVER['REMOTE_ADDR'] != fz_config_get ('cron', 'cron_allowed_ip', '') )
+    {
+	    fz_log ('Unallowed access to checkFiles via browser', FZ_LOG_ERROR);
+	    halt (HTTP_BAD_REQUEST, 'You are not allowed to execute this script');
+	    return;
     }
 
-    public function indexAction () {
-        $this->secure ('admin');
-        return html ('admin/index.php');
-    }
+    $lastCron = Fz_Db::getTable('Info')->getLastCronTimestamp();
+    $freq = fz_config_get ('cron', 'frequency');
 
-    /**
-     * Action called to manage files
-     * List files, display stats.
-     */
-    public function filesAction () {
-        $this->secure ('admin');        
-        set ('files', Fz_Db::getTable ('File')->findNotDeleted ()); // TODO paginat
-        return html ('file/index.php');
-        //TODO
-    }
-    /**
-     * Action called to manage the config
-     * List the config settings.
-     */
-    public function configAction () {
-        $this->secure ('admin');
-        return html ('admin/index.php');
-        //TODO
-    }
+    if(strtotime($freq." ".$lastCron) > time())
+      return;
 
-    /**
-     * Evaluation of database information
-     */
-    public function statisticsAction () {
-        $this->secure ('admin');
-        return html ('admin/index.php');
-    }
-    
-    /**
-     * Action called to clean expired files and send mail to those who will be
-     * in the next 2 days. This action is meant to be called from a cron script.
-     * It should not respond any output except PHP execution errors. Everything
-     * else is logged in 'filez-cron.log' and 'filez-cron-errors.log' files in
-     * the configured log directory.
-     */
-    public function checkFilesAction () {
-    	
-    	// No access via browser, only via PHP-CLI (crontabs, etc.)
-    	if ( $_SERVER['REMOTE_ADDR'] != fz_config_get ('cron', 'cron_allowed_ip', '') )
-    	{
-    	    fz_log ('Unallowed access to checkFiles via browser', FZ_LOG_ERROR);
-    	    halt (HTTP_BAD_REQUEST, 'You are not allowed to execute this script');
-    	    return;
-    	}
-    	
-    	$lastCron = Fz_Db::getTable('Info')->getLastCronTimestamp();
-    	$freq = fz_config_get ('cron', 'frequency');
-    
-    	if(strtotime($freq." ".$lastCron) > time())
-    		return;
-    		
-        Fz_Db::getTable('Info')->setLastCronTimestamp(date('Y-m-d H:i:s'));
-    
-        // Delete files whose lifetime expired
-        Fz_Db::getTable('File')->deleteExpiredFiles ();
+    Fz_Db::getTable('Info')->setLastCronTimestamp(date('Y-m-d H:i:s'));
 
-        // Send mail for files which will be deleted in less than 2 days
-        $days = fz_config_get('cron', 'days_before_expiration_mail');
-        foreach (Fz_Db::getTable('File')->findFilesToBeDeleted ($days) as $file) {
-            // TODO improve the SQL command to retrieve uploader email at the same time
-            //      to reduce the # of request made by notifyDeletionByEmail 
-            if ($file->notify_uploader) {
-                $file->del_notif_sent = true;
-                $file->save ();
-                $this->notifyDeletionByEmail ($file);
-            }
-        }
-    }
+    // Delete files whose lifetime expired
+    Fz_Db::getTable('File')->deleteExpiredFiles ();
 
-    /**
-     * Notify the owner of the file passed as parameter that its file is going
-     * to be deleted
-     *
-     * @param App_Model_File $file
-     */
-    private function notifyDeletionByEmail (App_Model_File $file) {
-        try {
-            option ('translate')->setLocale(fz_config_get('app','default_locale'));
-            option ('locale')->setLocale(fz_config_get('app','default_locale'));
-            $mail = $this->createMail();
-            $user = $file->getUploader ();
-            $subject = __r('[FileZ] Your file "%file_name%" is going to be deleted', array (
-                'file_name' => $file->file_name));
-            $msg = __r('email_delete_notif (%file_name%, %file_url%, %filez_url%, %available_until%)', array(
-                'file_name'       => $file->file_name,
-                'file_url'        => $file->getDownloadUrl(),
-                'filez_url'       => url_for('/'),
-                'available_until' => $file->getAvailableUntil()->toString (Zend_Date::DATE_FULL),
-            ));
-            $mail->setBodyText ($msg);
-            $mail->setSubject  ($subject);
-            $mail->addTo ($user->email);
-            $mail->send ();
-            fz_log ('', FZ_LOG_DELETE_MAIL_SENT, array('file_id' => $file->id));
-        }
-        catch (Exception $e) {
-            fz_log ('Can\'t send email to '.$user->email
-                .' file_id:'.$file->id, FZ_LOG_CRON_ERROR);
-        }
+    // Send mail for files which will be deleted in less than 2 days
+    $days = fz_config_get('cron', 'days_before_expiration_mail');
+    foreach (Fz_Db::getTable('File')->findFilesToBeDeleted ($days) as $file) {
+      // TODO improve the SQL command to retrieve uploader email at the same time
+      //      to reduce the # of request made by notifyDeletionByEmail
+      if ($file->notify_uploader) {
+        $file->del_notif_sent = true;
+        $file->save ();
+        $this->notifyDeletionByEmail ($file);
+      }
     }
+  }
 
+  /**
+   * Notify the owner of the file passed as parameter that its file is going
+   * to be deleted
+   *
+   * @param App_Model_File $file
+   */
+  private function notifyDeletionByEmail (App_Model_File $file) {
+    try {
+      option ('translate')->setLocale(fz_config_get('app','default_locale'));
+      option ('locale')->setLocale(fz_config_get('app','default_locale'));
+      $mail = $this->createMail();
+      $user = $file->getUploader ();
+      $subject = __r('[FileZ] Your file "%file_name%" is going to be deleted', array (
+        'file_name' => $file->file_name));
+      $msg = __r('email_delete_notif (%file_name%, %file_url%, %filez_url%, %available_until%)', array(
+        'file_name'       => $file->file_name,
+        'file_url'        => $file->getDownloadUrl(),
+        'filez_url'       => url_for('/'),
+        'available_until' => $file->getAvailableUntil()->toString (Zend_Date::DATE_FULL),
+      ));
+      $mail->setBodyText ($msg);
+      $mail->setSubject  ($subject);
+      $mail->addTo ($user->email);
+      $mail->send ();
+      fz_log ('', FZ_LOG_DELETE_MAIL_SENT, array('file_id' => $file->id));
+    }
+    catch (Exception $e) {
+      fz_log ('Can\'t send email to '.$user->email
+        .' file_id:'.$file->id, FZ_LOG_CRON_ERROR);
+    }
+  }
 }

@@ -8,7 +8,7 @@
         <?php endif ?>
         <span id="filez-header">
           <a href="<?php echo public_url_for ('/') ?>" id="filez-logo">
-            <img src="<?php echo public_url_for ('resources/images/filez-logo.png') ?>" title="filez" />
+            <img width="70" height="30" src="<?php echo public_url_for ('resources/images/filez-logo.png') ?>" title="filez" />
           </a>
           <?php echo __('Share files for a limited time.') ?>
         </span>

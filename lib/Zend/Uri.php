@@ -124,7 +124,6 @@ abstract class Zend_Uri
                     break;
 
                 case 'mailto':
-                    // TODO
                 default:
                     require_once 'Zend/Uri/Exception.php';
                     throw new Zend_Uri_Exception("Scheme \"$scheme\" is not supported");
