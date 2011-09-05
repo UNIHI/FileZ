@@ -247,9 +247,9 @@ function config_form_row ($section, $var, $label, $type, $default_values, $choic
 
 </form>
 
-<script type="text/javascript" src="<?php echo public_url_for ('resources/jquery.validate/js/jquery.validate.pack.js') ?>"></script>
-<script type="text/javascript" src="<?php echo public_url_for ('resources/jquery.validate/js/additional-methods.js') ?>"></script>
-<script type="text/javascript" src="<?php echo public_url_for ('resources/jquery.validate/js/localisation/messages_'.option ('locale')->getLanguage ().'.js') ?>"></script>
+<script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery.validate.pack.js') ?>"></script>
+<script type="text/javascript" src="<?php echo public_url_for ('resources/js/jquery.validate.additional.methods.js') ?>"></script>
+<script type="text/javascript" src="<?php echo public_url_for ('resources/js/i18n/jquery.validate-' . option ('locale')->getLanguage ().'.js') ?>"></script>
 <script type="text/javascript">
 
   $.fn.autoShowOptions = function () {

@@ -310,7 +310,7 @@ fz_dispatch_post ('/:file_hash/extend'          ,'File'         ,'extend');
 fz_dispatch_post ('/:file_hash/extendMaximum'   ,'File'         ,'extendMaximum');
 fz_dispatch_post ('/:file_hash/toggle'          ,'File'         ,'toggleRequireLogin');
 fz_dispatch_post ('/:file_hash/report'          ,'File'         ,'report');
-fz_dispatch_post ('/:file_hash/edit'             ,'File'         ,'edit');
-fz_dispatch_get  ('/:created_by/list/:folder'    ,'File'         ,'folder');
+fz_dispatch_post ('/:file_hash/edit'            ,'File'         ,'edit');
+fz_dispatch_get  ('/:created_by/list/:folder'   ,'File'         ,'folder');
 
 run ();
