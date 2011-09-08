@@ -15,18 +15,28 @@
         <span style="display: block; clear: both;"></span>
       </h1>
       <?php if (array_key_exists ('notification', $flash)): ?>
-        <p class="notif ok"><?php echo $flash ['notification'] ?></p>
+      <p class="notif ok"><?php echo $flash ['notification'] ?></p>
       <?php endif ?>
       <?php if (array_key_exists ('error', $flash)): ?>
-        <p class="notif error"><?php echo $flash ['error'] ?></p>
+      <p class="notif error"><?php echo $flash ['error'] ?></p>
       <?php endif ?>
-      <?php if (isset ($fz_user)): ?>
-        <p id="auth-box">
-        <?php if ( $fz_user->is_admin ): ?>
-          <a href="<?php echo url_for ('/admin') ?>" title="<?php echo __('Administration') ?>"><?php echo __('Administration') ?></a> | 
-       <?php endif ?>
-          <?php echo $fz_user->email ?> |
-          <a id="logout" href="<?php echo url_for ('/logout') ?>" title="<?php echo __('Log out') ?>">&nbsp;</a>
-        </p>
-      <?php endif ?>
+      <p id="auth-box">
+      <?php
+      $user_nav = array();
+      if (fz_config_get('looknfeel', 'help_url'))
+        array_push($user_nav,
+          a( array( 'href'=>url_for (fz_config_get('looknfeel', 'help_url')),
+            'class'=>'help','target'=>'#_blank' ), __( 'Find help' ) ) );
+      if (isset ($fz_user) && $fz_user->is_admin) {
+        array_push($user_nav, a(array('href'=>url_for ('/admin'),
+          'title'=>__('Administration')), __( 'Administration' ) ) );
+      }
+      if (isset ($fz_user)) {
+        array_push($user_nav, $fz_user->email);
+        array_push($user_nav, a(array('href'=>url_for ('/logout'),
+          'id'=>'logout', 'title'=>__('Log out') ), '&nbsp;' ) );
+      }
+      echo implode(' | ', $user_nav);
+      ?>
+      </p>
     </header>

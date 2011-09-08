@@ -30,7 +30,10 @@ class App_Controller_Admin extends Fz_Controller {
 
   public function indexAction () {
     $this->secure ('admin');
-    return html ('admin/index.php');
+    if ($this->isXhrRequest())
+      return partial ('admin/dashboard.php');
+    else
+      return html ('admin/index.php');
   }
 
   /**
@@ -41,7 +44,10 @@ class App_Controller_Admin extends Fz_Controller {
     $this->setToken();
     $this->secure ('admin');
     set ('files', Fz_Db::getTable ('File')->findNotDeleted ());
-    return html ('file/index.php');
+    if ($this->isXhrRequest())
+      return partial ('file/index.php');
+    else
+      return redirect_to ('/admin');
     //TODO paginate
   }
   /**
@@ -50,7 +56,10 @@ class App_Controller_Admin extends Fz_Controller {
    */
   public function configAction () {
     $this->secure ('admin');
-    return html ('admin/index.php');
+    if ($this->isXhrRequest())
+      return partial ('admin/config.php');
+    else
+      return redirect_to ('/admin');
   }
 
   /**
@@ -58,7 +67,10 @@ class App_Controller_Admin extends Fz_Controller {
    */
   public function statisticsAction () {
     $this->secure ('admin');
-    return html ('admin/index.php');
+    if ($this->isXhrRequest())
+      return partial ('admin/statistics.php');
+    else
+      return redirect_to ('/admin');
   }
 
   /**

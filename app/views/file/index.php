@@ -1,5 +1,3 @@
-<h2><?php echo __('Manage files') ?></h2>
-
 <table id="file_list" class="data">
   <tr>
     <th><?php echo __('Name') ?></th>

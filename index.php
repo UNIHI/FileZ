@@ -280,7 +280,6 @@ fz_dispatch_get  ('/admin/users/:id/edit'       ,'User'         ,'edit');
 // Backend::Files
 fz_dispatch_get  ('/admin/files'                ,'Admin'        ,'files');
 fz_dispatch_get  ('/admin/config'               ,'Admin'        ,'config');
-
 fz_dispatch_get  ('/admin/statistics'           ,'Admin'        ,'statistics');
 
 // Backend::CRON

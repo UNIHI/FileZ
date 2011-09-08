@@ -148,9 +148,10 @@ class App_Controller_Upload extends Fz_Controller {
         $file->setAvailableUntil($availableUntil);
         // Check for notification enforcement
         if (fz_config_get ('app', 'force_notification', false) == true) {
-            $file->notify_uploader  = true;    
+            $file->notify_uploader  = true;
         } else {
-            $file->notify_uploader  = isset ($_POST['email-notifications']);
+            $file->notify_uploader  =
+              (isset ($_POST['email-notifications'])?1:0);
         }
         
         

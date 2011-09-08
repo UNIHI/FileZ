@@ -107,6 +107,7 @@ header #your-logo {
 
 header #auth-box {
     position: absolute;
+    z-index: 10;
     top: 0;
     right: 0;
     -moz-border-radius-bottomleft: 6px;
@@ -137,13 +138,14 @@ header #auth-box a#logout {
  * Notifications
  */
 .notif {
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    padding: 1em;
-    margin-top: 2em;
-    background: #fffec2; /* notif ok */
-    border: 1px solid #E5E4AD; /* notif ok */
+  position: absolute;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  padding: 1em;
+  margin-top: 2em;
+  background: #fffec2; /* notif ok */
+  border: 1px solid #E5E4AD; /* notif ok */
 }
 
 .notif.error {
@@ -895,7 +897,7 @@ div.lim-debug hr {
     border-left: 1px solid #D4D0C9;
 }
 
-#support a.bug, #support a.help {
+#support a.bug, a.help {
     padding-left: 2.7em;
     background-position: 0.8em center;
     background-repeat: no-repeat;
@@ -907,7 +909,7 @@ div.lim-debug hr {
     background-image: url(../images/icons/bug.png);
 }
 
-#support a.help {
+a.help {
     background-image: url(../images/icons/help.png);
 }
 
