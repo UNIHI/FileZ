@@ -2,7 +2,7 @@
 <html>
   <head>
     <?php
-    include('/app/views/layout/_html.head.php');
+    include('_html.head.php');
     ?>
   </head>
   <body onLoad="checkPortal();">

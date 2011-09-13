@@ -4,7 +4,7 @@
     <?php
     $styles = array('admin','jquery.paginate'); // add admin specific css
     $scripts = array('jquery.paginate'); // and js
-    include('/app/views/layout/_html.head.php');
+    include('_html.head.php');
     ?>
   </head>
   <body id="admin">
