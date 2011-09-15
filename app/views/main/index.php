@@ -58,8 +58,8 @@
   <ul id="options">
     <li id="option-email-notifications">
       <?php if (fz_config_get('app', 'force_notification', true) == true): ?>
-      <label for="email-notifications" title="
-      <?php echo __('Send me email notifications when the file is uploaded and before it will be deleted.'); 
+      <label for="email-notifications" title="<?php
+            echo __('Send me email notifications when the file is uploaded and before it will be deleted.'); 
             echo __('This option cannot be disabled.') 
       ?>">
       <input type="checkbox" name="email-notifications"
