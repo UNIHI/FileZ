@@ -566,9 +566,8 @@ msgid "user agreement"
 msgstr "Nutzungsvereinbarung"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:114
-#, fuzzy
 msgid "I have read and do understand the %userAgreement%."
-msgstr "Ich habe die Nutzungsvereinbarung gelesen und verstanden."
+msgstr "Ich habe die %userAgreement% gelesen und verstanden."
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:123
 msgid "Upload"
