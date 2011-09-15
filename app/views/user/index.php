@@ -6,9 +6,8 @@
   <tr>
     <th><?php echo __('Name') ?></th>
     <th><?php echo __('Role') ?></th>
-    <th><?php echo __('Valid files') ?></th>
-    <th><?php echo __('Disk usage') ?> (MB)</th>
-    <th><?php echo __('Expired files') ?></th>
+    <th><?php echo __('Valid files') ?> (MB)</th>
+    <th><?php echo __('Expired files') ?> (MB)</th>
     <th><?php echo __('Actions') ?></th>
   </tr>
 
@@ -17,19 +16,16 @@
     <td><a href="<?php echo url_for ('/admin/users/'.$user_item->id) ?>">
       <?php echo h($user_item)." (".h($user_item->username).")" ?></a></td>
     <td><?php echo ($user_item->is_admin) ? __('admin') : '-' ?></td>
-    <td><?php echo count ($user_item->getFiles ()) ?></td>
-    <td>
-      <span title="<?php echo __('Expired files excluded') ?>">
-        <?php echo $user_item->getTotalDiskSpace(false) ?>
-      </span>
-      // <span title="<?php echo __('Expired files included') ?>">
-        <?php echo $user_item->getTotalDiskSpace(true); ?>
-      </span>
+    <td><?php echo count ($user_item->getFiles (false)) ?>
+      (<?php echo $user_item->getTotalDiskSpace(true) ?> MB)
     </td>
-    <td><?php echo count ($user_item->getFiles (true)) ?></td>
+    <td><?php echo count ($user_item->getFiles (true)) ?>
+      (<?php echo $user_item->getTotalDiskSpace(false) ?> MB)
+    </td>
     <td>
       <a href="<?php echo url_for ('/admin/users/'.$user_item->id.'/edit') ?>">
-         <?php echo __('Edit') ?>
+        <img src="resources/images/icons/edit.png">		        
+        <?php echo __('Edit') ?>
       </a>
     <?php if ( $fz_user->id != $user_item->id ) : // prevents self-deleting ?>
       <a onclick='javascript:return confirm (
@@ -41,8 +37,9 @@
               'username' => $user_item->username)
             )
           ) ?>)'
-         href="
-         <?php echo url_for ('/admin/users/'.$user_item->id.'/delete') ?>">
+          href="
+          <?php echo url_for ('/admin/users/'.$user_item->id.'/delete') ?>">
+        <img src="resources/images/icons/remove.png">
         <?php echo __('Delete') ?>
       </a>
     <?php endif ?>
