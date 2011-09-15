@@ -49,12 +49,12 @@ class App_Model_DbTable_Log extends Fz_Db_Table_Abstract {
    * @return amount of downloads
    */
   public function countFileDownloads (array $data, $countAll = true) {
-    $sql  = 'SELECT count(`id`) FROM `'.$this->getTableName ()
+    $sql  = 'SELECT count(`id`) AS zahl FROM `'.$this->getTableName ()
     .'` WHERE `file_id` = ? '
     .($countAll ? '' : ' AND username IS NOT NULL')
     .' AND action = \'' . FZ_LOG_DOWNLOAD
     .'\' AND `timestamp` BETWEEN ? AND ?';
-    return $this->findOneBySQL ($sql, $data);
+    return $this->findOneBySQL ($sql, $data)->zahl;
   }
 }
 ?>
