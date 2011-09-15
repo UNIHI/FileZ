@@ -144,14 +144,18 @@ function before () {
     ini_set ('display_errors', false);
     option ('debug', false);
   }
-  // Caching and i18n
-  $cache = Zend_Cache::factory(
-    'Core',
-    'File',
-    array('lifetime' => 3600 * 24 * 7, 'automatic_serialization' => true),
-    array('cache_dir' => fz_config_get('app', 'cache_dir', 'cache'))
-  );
-  Zend_Translate::setCache($cache);
+  // Caching
+  if (fz_config_get ('app', 'enable_caching') == true) {
+    $cache = Zend_Cache::factory(
+      'Core',
+      'File',
+      array('lifetime' => 3600 * 24 * 7, 'automatic_serialization' => true),
+      array('cache_dir' => fz_config_get('app', 'cache_dir', 'cache'))
+    );
+    Zend_Translate::setCache($cache);
+  }
+
+  // i18n
   Zend_Locale::setDefault (fz_config_get ('app', 'default_locale', 'de'));
 
   //$currentLocale = new Zend_Locale ('auto');
@@ -215,6 +219,9 @@ function before () {
  * Compressing the response if possible
  */
 function after($output) {
+  if (fz_config_get ('app', 'content_compression') == false)
+    return $output;
+
   if( headers_sent() )
     $encoding = false;
   elseif( strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'x-gzip') !== false )

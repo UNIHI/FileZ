@@ -1,8 +1,7 @@
-
-
 <h2 class="filename preview">
-  <img src="<?php echo get_mimetype_icon_url ($file->getMimetype (), 48) ?>" class="mimetype" />
-  <?php echo h($file->file_name) ?> (<?php echo $file->getReadableFileSize () ?>)
+  <img src="<?php echo get_mimetype_icon_url ($file->getMimetype (), 48) ?>"
+    class="mimetype" />
+  <?php echo h($file->file_name) ?> (<?php echo $file->getReadableFileSize() ?>)
 </h2>
 
 <section id="preview-file">
@@ -10,16 +9,23 @@
   <?php if ($available && ! $checkPassword && $file->isImage ()): ?>
     <p id="preview-image">
       <a href="<?php echo $file->getDownloadUrl ()?>/view">
-        <img src="<?php echo $file->getDownloadUrl ()?>/view" class="preview-image" width="617px"/>
+        <img src="<?php echo $file->getDownloadUrl ()?>/view"
+          class="preview-image" width="617px"/>
       </a>
     </p>
   <?php endif ?>
 
   <p id="availability">
-    <?php echo __r('Available from %available_from% to %available_until%', array (
-        'available_from'  => $file->getAvailableFrom()->toString  (Zend_Date::DATE_LONG),
-        'available_until' => '<b>'.$file->getAvailableUntil()->toString (Zend_Date::DATE_LONG).'</b>',
-    )) ?>
+    <?php
+    echo __r('Available from %available_from% to %available_until%',
+      array (
+        'available_from'  =>
+          $file->getAvailableFrom()->toString  (Zend_Date::DATE_LONG),
+        'available_until' => '<b>'
+          . $file->getAvailableUntil()->toString(Zend_Date::DATE_LONG).'</b>'
+      )
+    )
+    ?>
   </p>
 
   <p id="owner">
@@ -27,74 +33,93 @@
   </p>
 
   <?php if ($file->comment): ?>
-    <p id="comment"><b><?php echo __('Comments') ?></b> : <?php echo h($file->comment) ?></p>
+  <p id="comment">
+    <b><?php echo __('Comments') ?></b> : <?php echo h($file->comment) ?>
+  </p>
   <?php endif ?>
 
   <?php if (fz_config_get('app', 'enable_reporting', true)): ?>
-    <p id="report" class="report-file">
-      <a id="report-link" href="<?php echo $file->getDownloadUrl () ?>/report" class="small">
-        <?php echo __('Report this file'); ?>
-      </a>
-    </p>
+  <p id="report" class="report-file">
+    <?php
+    echo a(
+      array(
+        'href'=>$file->getDownloadUrl () .'/report',
+        'id'=>'report-link',
+        'class'=>'small'),
+      __('Report this file'));
+    ?>
+  </p>
   <?php endif ?>
 
   <?php if ($available): ?>
     <?php if (! $checkPassword && (! $requireLogin || ($requireLogin && $isLoggedIn))): 
-    // no password, login required or login requirement while logged in ?>
+    // you get here if there is no password required
+    // AND (if login requirement is off OR if it's on and you are logged in) ?>
 
       <?php if ($file->isImage ()): ?>
         <p id="download" class="image">
-          <a href="<?php echo $file->getDownloadUrl ()?>/download" class="awesome blue">
-            <?php echo __('Download') ?>
-          </a>
+          <?php
+          echo a(array('href'=>$file->getDownloadUrl ().'/download',
+            'class'=>'awesome blue'), __('Download'));
+          ?>
         </p>
-      <?php else: ?>
+      <?php else: // no image ?>
         <p id="download">
           <?php if (fz_config_get('app', 'autostart_download', true)): ?>
-              <?php echo __('Your download will start shortly...') ?>
-              <a href="<?php echo $file->getDownloadUrl ()?>/download">
-                <?php echo __('If not, click here') ?>
-              </a>.
-              <script type="text/javascript">
-                function startDownload () {window.location= "<?php echo $file->getDownloadUrl ()?>/download";}
-                $(document).ready (function() {
-                  setTimeout ('startDownload()', 1000); // Give chrome some time to finish downloading images on the page
-                });
-              </script>
-          <?php else: ?>
-              <a href="<?php echo $file->getDownloadUrl ()?>/download" class="awesome blue large">
-                <?php echo __('Click here to download the file') ?>
-              </a>
+            <?php
+            echo __('Your download will start shortly...')
+            . a(array('href'=>$file->getDownloadUrl ().'/download'),
+              __('If not, click here')) . '.';
+            ?>
+            <script type="text/javascript">
+              function startDownload () {
+                window.location="<?php echo $file->getDownloadUrl()?>/download";
+              }
+              $(document).ready (function() {
+                // Give chrome some time to finish downloading
+                // images on the page
+                setTimeout ('startDownload()', 1000);
+              });
+            </script>
+          <?php else: // no autostart ?>
+            <?php
+            echo a(array('href'=>$file->getDownloadUrl (). '/download',
+              'class'=>'awesome blue large'),
+              __('Click here to download the file'));
+            ?>
           <?php endif ?>    
         </p>
-      <?php endif ?>
+      <?php endif // end no image ?>
     <?php elseif (! $checkPassword && $requireLogin && !$isLoggedIn): 
-    // no password required, but login requirement and is is not logged in ?>
-          <p id="preview-message"><a href="login">
-          <?php flash ('download_url', $file->getDownloadUrl () ); ?>
-          <?php echo __('You need to login before you can access this file.') ?>
-          </a></p>
+      // you get here if there is no password required
+      // AND login requirement is enabled but you are NOT logged in ?>
+      <p id="preview-message"><a href="login">
+      <?php flash ('download_url', $file->getDownloadUrl () ); ?>
+      <?php echo __('You need to login before you can access this file.') ?>
+      </a></p>
     <?php else: // this file need a password ?>
-
       <form action="<?php echo $file->getDownloadUrl ()?>/download" method="POST" id="download">
         <label for="password">
           <?php echo __('You need a password to download this file') ?>
         </label>
-        <input type="password" name="password" id="password" class="password" size="4"/>
-        <input type="submit" value="<?php echo __('Download') ?>" class="awesome blue" />
+        <input type="password" name="password" id="password" class="password"
+          size="4"/>
+        <input type="submit" value="<?php echo __('Download') ?>"
+          class="awesome blue" />
       </form>
     <?php endif ?>
-  <?php else: ?>
-    <?php echo __('The file is not available yet.') ?>
+  <?php else: // availability condition is false ?>
+    <?php echo __('The file is not available.') ?>
   <?php endif ?>
 </section>
 
-
 <section class="report-file fz-modal">
-  <form method="POST" enctype="application/x-www-form-urlencoded" action="<?php echo $file->getDownloadUrl ()?>/report" id="report-form">
+  <form method="POST" enctype="application/x-www-form-urlencoded"
+    action="<?php echo $file->getDownloadUrl ()?>/report" id="report-form">
   <div id="report-reason">
-    <label for="select-report-reason"><?php echo __('Report reason') ?> :</label>
-    <select id="select-report-reason" name="report-reason" alt="<?php echo __('Select a report reason') ?>" class="report-select">
+    <label for="select-report-reason"><?php echo __('Report reason')?> :</label>
+    <select id="select-report-reason" name="report-reason"
+      alt="<?php echo __('Select a report reason') ?>" class="report-select">
       <option selected="selected"><?php echo __('Select a reason') ?></option>
       <option><?php echo __('File is corrupt') ?></option>
       <option><?php echo __('Copyright infringement') ?></option>
@@ -104,18 +129,19 @@
   </div>
   <div id="report-comment">
     <label for="input-comment"><?php echo __('Comments') ?> :</label>
-    <input type="text" id="input-comment" name="comment" value="" alt="<?php echo __('Add a comment (optional)') ?>" maxlength="200" />
+    <input type="text" id="input-comment" name="comment" value=""
+      alt="<?php echo __('Add a comment (optional)') ?>" maxlength="200" />
   </div>
   <div class="submit-report">
-    <input type="submit" id="send-report" name="upload" class="awesome blue" value="&raquo; <?php echo __('Report') ?>" />
+    <input type="submit" id="send-report" name="upload" class="awesome blue"
+      value="&raquo; <?php echo __('Report') ?>" />
   </div>
   </form>
 </section>
 
-
 <script type="text/javascript">
     $(document).ready (function () {
-    
+
       // Modal box generic configuration
       $(".fz-modal").dialog({
         bgiframe: true,
@@ -125,8 +151,9 @@
         modal: true
       });
 
-      // Set title for each modal
-      $('section.report-file').dialog ('option', 'title', <?php echo json_encode(__('Report file')) ?>);
+      // Set title for report file dialog
+      $('section.report-file').dialog ('option', 'title',
+        <?php echo json_encode(__('Report file')) ?>);
 
       // Open a modal box on click
       $('p.report-file').wrapInner ($('<a href="#"></a>'));
@@ -134,10 +161,10 @@
         $('section.report-file').dialog ('open');
         e.preventDefault();
       });
-      
+
       // Hide report button unless user has chosen a valid reason 
       $('#send-report').hide();
-      
+
       $('#select-report-reason').change(function () {
         if ($(this).val() != '<?php echo __('Select a reason') ?>') {
             $('#send-report').show();
@@ -146,26 +173,17 @@
         }
       });
 
-
-    
-        
-      //$('#report-form').ajaxForm(function () {
-        //$('section.report-file').dialog ('close');
-        //$('#report').html('<?php echo __('File has been reported.'); ?>');
-      //});
-
       $('#report-form').ajaxForm ({
-        success:      onReportFinished, // post-submit callback
-        resetForm:    true,             // reset the form after successful submit
-        dataType:     'json',           // force response type to JSON
-        iframe:       true,              // force the form to be submitted using an iframe
-        data:         {token: $.cookie('token') } // Validation token
+        success:   onReportFinished, // post-submit callback
+        resetForm: true,             // reset the form after successful submit
+        dataType:  'json',           // force response type to JSON
+        iframe:    true,       // force the form to be submitted using an iframe
+        data:      {token: $.cookie('token') } // Validation token
       });
 
       // Let the server know it has to return JSON
       $('#report-form').attr ('action', 
         $('#report-form').attr ('action') + '?is-async=1');
-        
     });
     
     /**
@@ -200,7 +218,4 @@
             .appendTo ($('header'))
             .configureNotification ();
     };
-
 </script>
-
-

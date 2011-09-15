@@ -43,7 +43,7 @@
 <?php endforeach ?>
 </table>
 <script type="text/javascript">
-   /* $(document).ready (function () {
+  $(document).ready (function () {
     $("#pagination").paging(100, {
       format: "[(qq-) ncnnn (-pp)]",
       onFormat: function(type) {
@@ -92,5 +92,5 @@
       }
     });  
   });
-*/
+
 </script>

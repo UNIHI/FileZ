@@ -71,11 +71,9 @@
       
       function checkReason() {
         if ($("#is_locked:checked").length) {
-          $('#lock_reason').show();
-          $('#lock_reason_label').show();
+          $('#lock_reason-item').show();
         } else {
-          $('#lock_reason').hide();
-          $('#lock_reason_label').hide();
+          $('#lock_reason-item').hide();
         }
       }
     });

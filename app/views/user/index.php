@@ -18,7 +18,14 @@
       <?php echo h($user_item)." (".h($user_item->username).")" ?></a></td>
     <td><?php echo ($user_item->is_admin) ? __('admin') : '-' ?></td>
     <td><?php echo count ($user_item->getFiles ()) ?></td>
-    <td><?php echo $user_item->getTotalDiskSpace(); ?></td>
+    <td>
+      <span title="<?php echo __('Expired files excluded') ?>">
+        <?php echo $user_item->getTotalDiskSpace(false) ?>
+      </span>
+      // <span title="<?php echo __('Expired files included') ?>">
+        <?php echo $user_item->getTotalDiskSpace(true); ?>
+      </span>
+    </td>
     <td><?php echo count ($user_item->getFiles (true)) ?></td>
     <td>
       <a href="<?php echo url_for ('/admin/users/'.$user_item->id.'/edit') ?>">

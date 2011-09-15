@@ -112,6 +112,16 @@ disable_locked_user_files = false
 ; Tokens are a method used to counter Cross Site Request Forgery attacks.
 token_lifetime = 60
 
+; Language strings are stored in gettext files.
+; Enabling caching option might lead to improvement in access time
+enable_caching = true
+
+; Enabling content compression causes php to gzip / x-gzip the responses
+; This option should only be considered if your web server does not
+; automatically compress contents (e.g. apache mod_gzip / mod_deflate)
+; and you have no administrative rights to enable it.
+content_compression = false
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Logging
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -66,9 +66,9 @@ class App_Model_User extends Fz_Db_Table_Row_Abstract {
     /**
      * Returns amount of disk space used the user's files in Megabytes
      */
-    public function getTotalDiskSpace() {
-      return round(Fz_Db::getTable('File')->getTotalDiskSpaceByUser($this)
-      / 1048576, 2);
+    public function getTotalDiskSpace($includeExpired = false) {
+      return round(Fz_Db::getTable('File')->getTotalDiskSpaceByUser($this,
+        $includeExpired) / 1048576, 2);
     }
 
     /**
