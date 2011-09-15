@@ -523,7 +523,7 @@ msgstr "Datei einem Ordner zuweisen (optional)"
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:62
 #, fuzzy
 msgid "Send me email notifications when the file is uploaded and before it will be deleted."
-msgstr "Schicken Sie mir eine Benachrichtigung per E-Mail, wenn die Datei hochgeladen wurde und bevor sie gelöscht wird"
+msgstr "Schicken Sie mir eine Benachrichtigung per E-Mail, wenn die Datei hochgeladen wurde und bevor sie gelöscht wird."
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:63
 msgid "This option cannot be disabled."
@@ -535,7 +535,7 @@ msgid "Send me email notifications"
 msgstr "Schicken Sie mir Benachrichtigungen per E-Mail"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:71
-msgid "Send me email notifications when the file is uploaded and before it will be deleted"
+msgid "Send me email notifications when the file is uploaded and before it will be deleted."
 msgstr "Schicken Sie mir eine Benachrichtigung per E-Mail, wenn die Datei hochgeladen wurde und bevor sie gelöscht wird"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:80
@@ -593,7 +593,7 @@ msgstr ""
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:155
 #, fuzzy
 msgid "your email"
-msgstr "E"
+msgstr "E-Mail"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:159
 msgid "Facebook"
@@ -644,7 +644,7 @@ msgstr "Datei bearbeiten"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:226
 msgid "Copied to clipboard"
-msgstr "Copied to clipboard"
+msgstr "Link kopiert"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:227
 msgid "You have to accept the user agreement to upload the file."
@@ -662,7 +662,7 @@ msgstr "Ordner"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:276
 msgid "You have to give at least a password or require a login."
-msgstr "Sie müssen mindestens ein Passwort vergeben oder einen Login für die Datei erfordern."
+msgstr "Sie müssen mindestens ein Passwort vergeben oder den Login für die Datei erfordern."
 
 #: E:\HTTP\htdocs\filez/app/views/main/_file_row.php:21
 msgid "Copy download link to clipboard"
@@ -670,15 +670,15 @@ msgstr "Download-Link in die Zwischenablage kopieren"
 
 #: E:\HTTP\htdocs\filez/app/views/main/_file_row.php:22
 msgid "Copy to clipboard"
-msgstr "Copy to clipboard"
+msgstr "In die Zwischenablage"
 
 #: E:\HTTP\htdocs\filez/app/views/main/_file_row.php:32
 msgid "Share file with others"
-msgstr "Datei anbieten"
+msgstr "Datei mit anderen teilen"
 
 #: E:\HTTP\htdocs\filez/app/views/main/_file_row.php:33
 msgid "Share"
-msgstr ""
+msgstr "Link anzeigen"
 
 #: E:\HTTP\htdocs\filez/app/views/main/_file_row.php:64
 #: E:\HTTP\htdocs\filez/app/views/main/_file_row.php:65
@@ -700,7 +700,7 @@ msgstr "Einmal heruntergeladen"
 
 #: E:\HTTP\htdocs\filez/app/views/main/_file_row.php:85
 msgid "Download %x% times"
-msgstr "%x% Mal heruntergeladen"
+msgstr "%x%-mal heruntergeladen"
 
 #: E:\HTTP\htdocs\filez/app/views/main/_file_row.php:99
 #: E:\HTTP\htdocs\filez/app/views/main/_file_row.php:100
@@ -710,7 +710,7 @@ msgstr "Loginanforderung %var%schalten"
 #: E:\HTTP\htdocs\filez/app/views/user/create.php:1
 #: E:\HTTP\htdocs\filez/app/views/user/index.php:3
 msgid "Create a new user"
-msgstr "neuen Benutzer anlegen"
+msgstr "Neuen Benutzer anlegen"
 
 #: E:\HTTP\htdocs\filez/app/views/user/create.php:5
 #: E:\HTTP\htdocs\filez/app/views/user/edit.php:8
@@ -720,17 +720,17 @@ msgstr "Benutzername:"
 #: E:\HTTP\htdocs\filez/app/views/user/create.php:7
 #: E:\HTTP\htdocs\filez/app/views/user/edit.php:10
 msgid "Password:"
-msgstr "Kennwort"
+msgstr "Passwort:"
 
 #: E:\HTTP\htdocs\filez/app/views/user/create.php:11
 #: E:\HTTP\htdocs\filez/app/views/user/edit.php:14
 msgid "Email:"
-msgstr "eMail"
+msgstr "E-Mail"
 
 #: E:\HTTP\htdocs\filez/app/views/user/create.php:12
 #: E:\HTTP\htdocs\filez/app/views/user/edit.php:15
 msgid "email"
-msgstr "eMail"
+msgstr "E-Mail"
 
 #: E:\HTTP\htdocs\filez/app/views/user/create.php:19
 msgid "This user can administrate FileZ"
@@ -749,7 +749,7 @@ msgstr "Dieser Benutzer ist von der FileZ-Nutzung ausgeschlossen."
 #: E:\HTTP\htdocs\filez/app/views/user/create.php:26
 #: E:\HTTP\htdocs\filez/app/views/user/edit.php:44
 msgid "User locked"
-msgstr "Benutzer gesperrt."
+msgstr "Benutzer gesperrt"
 
 #: E:\HTTP\htdocs\filez/app/views/user/create.php:31
 #: E:\HTTP\htdocs\filez/app/views/user/edit.php:18
