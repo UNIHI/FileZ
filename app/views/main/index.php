@@ -56,25 +56,6 @@
       maxlength="200" />
   </div>
   <ul id="options">
-    <li id="option-email-notifications">
-      <?php if (fz_config_get('app', 'force_notification', true) == true): ?>
-      <label for="email-notifications" title="<?php
-            echo __('Send me email notifications when the file is uploaded and before it will be deleted.'); 
-            echo __('This option cannot be disabled.') 
-      ?>">
-      <input type="checkbox" name="email-notifications"
-      id="email-notifications" checked="checked" disabled="disabled" />
-      <?php echo __('Send me email notifications') ?>
-      </label>
-      <?php else: ?>
-      <label for="email-notifications" title="<?php
-      echo __('Send me email notifications when the file is uploaded and before it will be deleted') ?>">
-      <input type="checkbox" name="email-notifications"
-      id="email-notifications" checked="checked"/>
-        <?php echo __('Send me email notifications') ?>
-      </label>
-      <?php endif ?>          
-    </li>
     <li id="option-use-password">
       <label for="use-password" title="<?php
       echo __('Ask a password to people who will download your file') ?>">
@@ -115,6 +96,25 @@
           array('userAgreement' => $a));
           ?>
       </label>
+    </li>
+    <li id="option-email-notifications">
+      <?php if (fz_config_get('app', 'force_notification', true) == true): ?>
+      <label for="email-notifications" title="<?php
+            echo __('Send me email notifications when the file is uploaded and before it will be deleted.'); 
+            echo __('This option cannot be disabled.') 
+      ?>">
+      <input type="checkbox" name="email-notifications"
+      id="email-notifications" checked="checked" disabled="disabled" />
+      <?php echo __('Send me email notifications') ?>
+      </label>
+      <?php else: ?>
+      <label for="email-notifications" title="<?php
+      echo __('Send me email notifications when the file is uploaded and before it will be deleted') ?>">
+      <input type="checkbox" name="email-notifications"
+      id="email-notifications" checked="checked"/>
+        <?php echo __('Send me email notifications') ?>
+      </label>
+      <?php endif ?>          
     </li>
   </ul>
   <?php endif ?>
