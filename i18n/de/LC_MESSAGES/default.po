@@ -325,8 +325,8 @@ msgid "Available from %available_from% to %available_until%"
 msgstr "Verfügbar ab dem %available_from% bis einschließlich zum %available_until%"
 
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:32
-msgid "Uploaded by"
-msgstr "Hochgeladen von"
+msgid "Uploaded by:"
+msgstr "Hochgeladen von:"
 
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:37
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:129
@@ -487,7 +487,7 @@ msgstr "Eine neue Datei hochladen"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:16
 msgid "File (Max size: %size%):"
-msgstr "Datei (maximale Dateigrösse: %size%):"
+msgstr "Datei (maximale Dateigröße %size%):"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:20
 msgid "File"
@@ -806,7 +806,10 @@ msgstr "Verfallene Dateien"
 
 #: E:\HTTP\htdocs\filez/app/views/user/index.php:19
 msgid "admin"
-msgstr ""
+msgstr "Administrator"
+
+msgid "locked"
+msgstr "gesperrt"
 
 #: E:\HTTP\htdocs\filez/app/views/user/index.php:22
 msgid "Expired files excluded"
@@ -851,6 +854,9 @@ msgstr "Ihr Zugang wurde gesperrt. Bitte wenden Sie sich an den FileZ-Administra
 #: E:\HTTP\htdocs\filez/lib/Fz/Controller.php:50
 msgid "This page is secured"
 msgstr "Diese Seite ist vor Zugriffen geschützt"
+
+msgid "Back"
+msgstr "Zurück"
 
 #, fuzzy
 #~ msgid "Include expired files"

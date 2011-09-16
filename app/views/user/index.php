@@ -8,6 +8,7 @@
     <th><?php echo __('Role') ?></th>
     <th><?php echo __('Valid files') ?> (MB)</th>
     <th><?php echo __('Expired files') ?> (MB)</th>
+    <th><?php echo __('Disk usage') ?> (MB)</th>
     <th><?php echo __('Actions') ?></th>
   </tr>
 
@@ -15,12 +16,17 @@
   <tr>
     <td><a href="<?php echo url_for ('/admin/users/'.$user_item->id) ?>">
       <?php echo h($user_item)." (".h($user_item->username).")" ?></a></td>
-    <td><?php echo ($user_item->is_admin) ? __('admin') : '-' ?></td>
+      <?php print_r($user_item); ?>
+    <td>
+      <?php echo ($user_item->is_admin) ? '<img src="resources/images/icons/admin.png" alt="'.__('admin').'" title="'.__('admin').'">' : '' ?>
+      <?php echo ($user_item->is_locked) ? '<img src="resources/images/icons/keys.png" alt="'.__('locked').'" title="'.__('locked').'">' : '' ?>
+    </td>
     <td><?php echo count ($user_item->getFiles (false)) ?>
       (<?php echo $user_item->getTotalDiskSpace(true) ?> MB)
     </td>
-    <td><?php echo count ($user_item->getFiles (true)) ?>
-      (<?php echo $user_item->getTotalDiskSpace(false) ?> MB)
+    <td><?php echo count ($user_item->getFiles (true)) ?></td>
+    <td>
+      <?php echo $user_item->getTotalDiskSpace(false) ?> MB
     </td>
     <td>
       <a href="<?php echo url_for ('/admin/users/'.$user_item->id.'/edit') ?>">
