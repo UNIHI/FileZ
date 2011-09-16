@@ -209,12 +209,13 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
    * @param App_Model_User    $user   User
    * @return float            Size in bytes
    */
-  public function getTotalDiskSpaceByUser ($user, $includeExpired = false) {
+  public function getTotalDiskSpaceByUser ($user, $includeAvailable = true, $includeExpired = true) {
     $result = Fz_Db::getConnection()
       ->prepare ('SELECT sum(file_size) FROM `'
         .$this->getTableName ()
         .'` WHERE created_by = ?'
-        .( $includeExpired ? ' AND  available_until >= CURRENT_DATE() ' : '' )
+        .( $includeAvailable && !$includeExpired ? ' AND available_until >= CURRENT_DATE() ' : '' )
+        .( !$includeAvailable && $includeExpired ? ' AND available_until <= CURRENT_DATE() ' : '' )
         .' AND isDeleted = 0');
     $result->execute (array ($user->id));
     return (float) $result->fetchColumn ();

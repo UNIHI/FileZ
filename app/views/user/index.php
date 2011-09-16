@@ -21,11 +21,13 @@
       <?php echo ($user_item->is_locked) ? '<img src="resources/images/icons/keys.png" alt="'.__('locked').'" title="'.__('locked').'">' : '' ?>
     </td>
     <td><?php echo count ($user_item->getFiles (false)) ?>
-      (<?php echo $user_item->getTotalDiskSpace(true) ?> MB)
+      (<?php echo $user_item->getTotalDiskSpace(true, false) ?> MB)
     </td>
-    <td><?php echo count ($user_item->getFiles (true)) ?></td>
+    <td><?php echo count ($user_item->getFiles (true)) ?>
+      (<?php echo $user_item->getTotalDiskSpace(false, true) ?> MB)
+    </td>
     <td>
-      <?php echo $user_item->getTotalDiskSpace(false) ?> MB
+      <?php echo $user_item->getTotalDiskSpace(true, true) ?> MB
     </td>
     <td>
       <a href="<?php echo url_for ('/admin/users/'.$user_item->id.'/edit') ?>">
