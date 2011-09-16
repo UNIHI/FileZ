@@ -175,8 +175,8 @@
   <div id="edit-folder">
     <label for="edit-input-folder">
       <?php echo __('Assign file to folder (optional):') ?></label>
-    <input type="text" id="edit-input-folder" name="folder" value="" alt=
-    "<?php echo __('Assign file to folder (optional)') ?>" maxlength="200" />
+    <input type="text" id="edit-input-folder" name="folder" value=""
+    alt="<?php echo __('Assign file to folder (optional)') ?>" maxlength="200" />
   </div>
   <ul id="edit-options">
     <li id="edit-option-use-password">
@@ -188,6 +188,15 @@
       <input type="password" id="edit-input-password" name="password"
       class="password" autocomplete="off" size="5"/>
     </li>
+    <?php if (fz_config_get ('app', 'login_requirement', 'on') == 'on'): ?>
+    <li id="edit-option-require-login">
+      <label for="edit-input-require-login" title="<?php
+      echo __('Require the user to login to grant access to your file.') ?>">
+      <input type="checkbox" name="require-login" id="edit-input-require-login" />
+        <?php echo __('Require login') ?>
+      </label>
+    </li>
+    <?php endif ?>
   </ul>
   <div id="edit">
     <input type="submit" id="do-edit" name="edit" class="awesome blue large"

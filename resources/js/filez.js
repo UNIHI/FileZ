@@ -240,12 +240,19 @@ $.fn.initFileActions = function () {
         var filename = $('.filename a', dataBlock).html();
         var comment = $('.comment', dataBlock).html();
         var folder = $('.folder', dataBlock).html();
+        var hasPassword = $('.has-password', dataBlock).html();
         var requireLogin = $('.require-login', dataBlock).html();
         //var fileHash = fileUrl.split('').reverse().join('');
         //fileHash = fileHash.substring(0,fileHash.indexOf('/')).split('').reverse().join('');
         $('#edit-modal').dialog ('option', 'title', settings.messages.editFile + ': ' + filename);
         $('#edit-modal input[name="comment"]').val(comment);
         $('#edit-modal input[name="folder"]').val(folder);
+        $('#edit-modal input[name="use-password"]').attr('checked', (hasPassword=="1"?true:false));
+        $('#edit-modal input[name="require-login"]').attr('checked', (requireLogin=="1"?true:false));
+        if ( hasPassword=="1" )
+          $('#edit-modal input.password').show().focus();
+        else
+          $('#edit-modal input.password').val('').hide();
         $('#edit-form').attr('action', fileUrl);
         
         modal.dialog ('open');
