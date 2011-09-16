@@ -330,8 +330,8 @@ msgstr "Hochgeladen von"
 
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:37
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:129
-msgid "Comments"
-msgstr "Kommentar"
+msgid "Comment (optional):"
+msgstr "Kommentar (optional):"
 
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:49
 msgid "Report this file"
@@ -486,16 +486,16 @@ msgid "Upload a new file"
 msgstr "Eine neue Datei hochladen"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:16
-msgid "File (Max size: %size%)"
-msgstr "Datei (maximale Dateigrösse: %size%)"
+msgid "File (Max size: %size%):"
+msgstr "Datei (maximale Dateigrösse: %size%):"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:20
 msgid "File"
 msgstr "Datei"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:24
-msgid "Lifetime"
-msgstr "Dauer"
+msgid "Lifetime:"
+msgstr "Dauer:"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:26
 msgid "Select a lifetime"
@@ -506,8 +506,8 @@ msgid "day"
 msgstr "Tag"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:41
-msgid "Starts from"
-msgstr "Startdatum"
+msgid "Starts from:"
+msgstr "Startdatum:"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:44
 msgid "Select a starting date"
@@ -517,6 +517,9 @@ msgstr "Wählen Sie das Startdatum"
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:55
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:178
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:180
+msgid "Assign file to folder (optional):"
+msgstr "Datei einem Ordner zuweisen (optional):"
+
 msgid "Assign file to folder (optional)"
 msgstr "Datei einem Ordner zuweisen (optional)"
 
@@ -531,7 +534,7 @@ msgstr "Diese Option kann nicht deaktiviert werden."
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:67
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:74
 msgid "Send me email notifications"
-msgstr "Schicken Sie mir Benachrichtigungen per E-Mail"
+msgstr "Benachrichtigungen per E-Mail"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:71
 msgid "Send me email notifications when the file is uploaded and before it will be deleted"
@@ -545,7 +548,7 @@ msgstr "Passwort zum Schutz der Datei verwenden"
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:82
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:187
 msgid "Use a password to download"
-msgstr "Passwort verwenden"
+msgstr "Passwort zum Download erforderlich"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:90
 msgid "Require the user to login to grant access to your file."
@@ -553,7 +556,7 @@ msgstr "Benutzer muss eingeloggt sein, um die Datei zu downloaden."
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:93
 msgid "Require login"
-msgstr "erfordere Login"
+msgstr "Download erfordert Login"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:102
 msgid "You have to accept this user agreement before you can upload the file."
