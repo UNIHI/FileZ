@@ -29,7 +29,7 @@
   </p>
 
   <p id="owner">
-    <?php echo __('Uploaded by') ?> : <b><?php echo h($uploader) ?></b>
+    <?php echo __('Uploaded by:') ?> <b><?php echo h($uploader) ?></b>
   </p>
 
   <?php if ($file->comment): ?>
