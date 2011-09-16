@@ -28,11 +28,17 @@
           a( array( 'href'=>url_for (fz_config_get('looknfeel', 'help_url')),
             'class'=>'help','target'=>'#_blank' ), __( 'Find help' ) ) );
       if (isset ($fz_user) && $fz_user->is_admin) {
-        array_push($user_nav, a(array('href'=>url_for ('/admin'),
-          'title'=>__('Administration')), __( 'Administration' ) ) );
+        if ( strpos( $_SERVER['REQUEST_URI'], "/admin" ) !== false ) {
+          array_push($user_nav, a(array('href'=>url_for ('/'),
+            'title'=>__('Back')), __( 'Back' ) ) );
+        }
+        else {
+          array_push($user_nav, a(array('href'=>url_for ('/admin'),
+            'title'=>__('Administration')), __( 'Administration' ) ) );
+        }
       }
       if (isset ($fz_user)) {
-        array_push($user_nav, $fz_user->email);
+        array_push($user_nav, '<span title="'.$fz_user->email.'">'.$fz_user->firstname." ".$fz_user->lastname." (".$fz_user->username.")</span>");
         array_push($user_nav, a(array('href'=>url_for ('/logout'),
           'id'=>'logout', 'title'=>__('Log out') ), '&nbsp;' ) );
       }
