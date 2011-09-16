@@ -582,14 +582,13 @@ msgstr "Verwendete Ordner:"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:149
 msgid "Give this link to the person you want to share this file with"
-msgstr "Informieren Sie andere Personen mit denen Sie Ihre Datei teilen möchten."
+msgstr "Geben Sie diese Adresse an die Personen weiter, mit denen Sie Ihre Datei teilen möchten"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:152
-msgid "or share using"
-msgstr ""
+msgid "or share using:"
+msgstr "oder verteilen Sie den Link über:"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:155
-#, fuzzy
 msgid "your email"
 msgstr "E-Mail"
 
