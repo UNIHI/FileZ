@@ -521,7 +521,6 @@ msgid "Assign file to folder (optional)"
 msgstr "Datei einem Ordner zuweisen (optional)"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:62
-#, fuzzy
 msgid "Send me email notifications when the file is uploaded and before it will be deleted."
 msgstr "Schicken Sie mir eine Benachrichtigung per E-Mail, wenn die Datei hochgeladen wurde und bevor sie gelöscht wird."
 
@@ -535,7 +534,7 @@ msgid "Send me email notifications"
 msgstr "Schicken Sie mir Benachrichtigungen per E-Mail"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:71
-msgid "Send me email notifications when the file is uploaded and before it will be deleted."
+msgid "Send me email notifications when the file is uploaded and before it will be deleted"
 msgstr "Schicken Sie mir eine Benachrichtigung per E-Mail, wenn die Datei hochgeladen wurde und bevor sie gelöscht wird"
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:80
