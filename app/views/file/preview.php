@@ -34,7 +34,7 @@
 
   <?php if ($file->comment): ?>
   <p id="comment">
-    <b><?php echo __('Comments') ?></b> : <?php echo h($file->comment) ?>
+    <b><?php echo __('Comment (optional):') ?></b> <?php echo h($file->comment) ?>
   </p>
   <?php endif ?>
 

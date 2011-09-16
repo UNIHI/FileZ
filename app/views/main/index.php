@@ -13,15 +13,15 @@
   <input type="hidden" name="MAX_FILE_SIZE"
   value="<?php echo $max_upload_size ?>" />
   <div id="file">
-    <label for="file-input"><?php echo __r('File (Max size: %size%)',
-    array ('size' => bytesToShorthand ($max_upload_size))) ?> :</label>
+    <label for="file-input"><?php echo __r('File (Max size: %size%):',
+    array ('size' => bytesToShorthand ($max_upload_size))) ?></label>
     <div id="input-file">
       <input type="file" id="file-input" name="file" value=""
       alt="<?php echo __('File') ?>" />
     </div>
   </div>
   <div id="lifetime">
-    <label for="select-lifetime"><?php echo __('Lifetime') ?> :</label>
+    <label for="select-lifetime"><?php echo __('Lifetime:') ?></label>
     <select id="select-lifetime" name="lifetime"
     alt="<?php echo __('Select a lifetime') ?>">
       <?php $default = fz_config_get ('app', 'default_file_lifetime', 10);
@@ -37,20 +37,19 @@
     </select>
   </div>
   <div id="start-from">
-    <label for="input-start-from">
-      <?php echo __('Starts from') ?> :</label>
+    <label for="input-start-from"><?php echo __('Starts from:') ?></label>
     <input type="text" id="input-start-from" name="start-from"
     value="<?php echo $start_from ?>"
     alt="<?php echo __('Select a starting date') ?>" />
   </div>
   <div id="comment">
-    <label for="input-comment"><?php echo __('Comments') ?> :</label>
+    <label for="input-comment"><?php echo __('Comment (optional):') ?></label>
     <input type="text" id="input-comment" name="comment" value=""
     alt="<?php echo __('Add a comment (optional)') ?>" maxlength="200" />
   </div>
   <div id="folder">
     <label for="input-folder">
-      <?php echo __('Assign file to folder (optional)') ?> :</label>
+      <?php echo __('Assign file to folder (optional):') ?></label>
       <input type="text" id="input-folder" name="folder" value=""
       alt="<?php echo __('Assign file to folder (optional)') ?>"
       maxlength="200" />
@@ -169,13 +168,13 @@
   <form method="POST" enctype="application/x-www-form-urlencoded"
   action="" id="edit-form">
   <div id="edit-comment">
-    <label for="edit-input-comment"><?php echo __('Comments') ?> :</label>
+    <label for="edit-input-comment"><?php echo __('Comment (optional):') ?></label>
     <input type="text" id="edit-input-comment" name="comment" value=""
     alt="<?php echo __('Add a comment (optional)') ?>" maxlength="200" />
   </div>
   <div id="edit-folder">
     <label for="edit-input-folder">
-      <?php echo __('Assign file to folder (optional)') ?> :</label>
+      <?php echo __('Assign file to folder (optional):') ?></label>
     <input type="text" id="edit-input-folder" name="folder" value="" alt=
     "<?php echo __('Assign file to folder (optional)') ?>" maxlength="200" />
   </div>
