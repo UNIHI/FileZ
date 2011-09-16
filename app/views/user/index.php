@@ -16,7 +16,6 @@
   <tr>
     <td><a href="<?php echo url_for ('/admin/users/'.$user_item->id) ?>">
       <?php echo h($user_item)." (".h($user_item->username).")" ?></a></td>
-      <?php print_r($user_item); ?>
     <td>
       <?php echo ($user_item->is_admin) ? '<img src="resources/images/icons/admin.png" alt="'.__('admin').'" title="'.__('admin').'">' : '' ?>
       <?php echo ($user_item->is_locked) ? '<img src="resources/images/icons/keys.png" alt="'.__('locked').'" title="'.__('locked').'">' : '' ?>
