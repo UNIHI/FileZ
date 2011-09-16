@@ -304,7 +304,7 @@ msgid "Size"
 msgstr "Größe"
 
 #: E:\HTTP\htdocs\filez/app/views/file/index.php:8
-msgid "DL count"
+msgid "Download counter"
 msgstr "Downloadzähler"
 
 #: E:\HTTP\htdocs\filez/app/views/file/index.php:9
@@ -312,9 +312,8 @@ msgid "Actions"
 msgstr "Aktionen"
 
 #: E:\HTTP\htdocs\filez/app/views/file/index.php:27
-#, fuzzy
 msgid "from %from% to %to%"
-msgstr "Verfügbar vom %from% bis %to%"
+msgstr "vom %from% bis %to%"
 
 #: E:\HTTP\htdocs\filez/app/views/file/index.php:40
 msgid "Delete"

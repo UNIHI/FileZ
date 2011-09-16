@@ -5,7 +5,7 @@
     <th><?php echo __('Uploader') ?></th>
     <th><?php echo __('Availability') ?></th>
     <th><?php echo __('Size') ?></th>
-    <th><?php echo __('DL count') ?></th>
+    <th><?php echo __('Download counter') ?></th>
     <th><?php echo __('Actions') ?></th>
   </tr>
 
@@ -37,7 +37,7 @@
     <?php
     echo a(array('href'=>$file->getDownloadUrl () . '/delete',
       'class'=>'admin-delete'),
-      __('Delete'));
+      '<img src="resources/images/icons/remove.png">'.__('Delete'));
     ?>
     </td>
 <?php endforeach ?>
