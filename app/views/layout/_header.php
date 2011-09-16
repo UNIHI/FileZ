@@ -38,7 +38,7 @@
         }
       }
       if (isset ($fz_user)) {
-        array_push($user_nav, '<span title="'.$fz_user->email.'">'.$fz_user->firstname." ".$fz_user->lastname." (".$fz_user->username.")</span>");
+        array_push($user_nav, '<span title="'.$fz_user->email.'">'.$fz_user." (".$fz_user->username.")</span>");
         array_push($user_nav, a(array('href'=>url_for ('/logout'),
           'id'=>'logout', 'title'=>__('Log out') ), '&nbsp;' ) );
       }
