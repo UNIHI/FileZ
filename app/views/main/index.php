@@ -233,6 +233,7 @@
               editFile: <?php echo json_encode(__("Edit file")) ?>,
               copiedToClipboard: <?php echo json_encode(__('Copied to clipboard')) ?>,
               acceptDisclaimer: <?php echo json_encode(__('You have to accept the user agreement to upload the file.')) ?>,
+              insertPassword: <?php echo json_encode(__('Please set a download protection password or deselect the appropriate checkbox.')) ?>,
               noFolderAssigned: <?php echo json_encode(__('No folder assigned')) ?>,
               folder: <?php echo json_encode(__('Folder')) ?>
           }

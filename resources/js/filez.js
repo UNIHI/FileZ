@@ -375,10 +375,16 @@ var onUploadFormSubmit = function (data, form, options) {
         alert(settings.messages.acceptDisclaimer);
         return false;
     }
-
+    
+    // check if empty password
+    if ( $('#input-password').val().length == 0 && $('#use-password').is(':checked')) {
+        alert(settings.messages.insertPassword);
+        return false;
+    }
+	
     console.log ('upload starts...');
     $('#start-upload').hide (); // hidding the start upload button
-        
+    
     // If the progress bar is enabled
     if (settings.progressBar.enable) {
         $("#upload-loading").hide ();
