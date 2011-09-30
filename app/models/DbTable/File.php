@@ -271,7 +271,7 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
   }
 
   /**
-   * Return true or false wheter a row of <created_by,folder> exists or not.
+   * Return true or false wheather a row of <created_by,folder> exists or not.
    *
    * @param   string      $created_by
    * @param   string      $folder
@@ -279,14 +279,11 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
    */
   public function folderExists ($created_by, $folder) {
     $db = Fz_Db::getConnection();
-    $sql  = 'SELECT folder FROM `'.$this->getTableName ().'` '
-            .'WHERE created_by = ? AND '
-            .'folder = ?';
+    $sql = 'SELECT folder FROM `'.$this->getTableName ().'` '
+            .'WHERE created_by = ? AND folder = ?';
     $stmt = $db->prepare ($sql);
     $stmt->execute (array ($created_by, $folder));
 
     return $stmt->fetchColumn () === false ? false : true;
   }
 }
-
-
