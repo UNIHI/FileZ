@@ -74,7 +74,7 @@
               'class'=>'awesome blue large'),
               __('Click here to download the file'));
             ?>
-          <?php endif ?>    
+          <?php endif ?>
         </div>
         
         <?php if (fz_config_get('app', 'enable_reporting', true)): ?>
@@ -148,7 +148,7 @@
         bgiframe: true,
         autoOpen: false,
         resizable: false,
-        width: '350px',
+        width: '320px',
         modal: true
       });
 
@@ -157,8 +157,8 @@
         <?php echo json_encode(__('Report file')) ?>);
 
       // Open a modal box on click
-      $('p.report-file').wrapInner ($('<a href="#"></a>'));
-      $('p.report-file a').click (function (e) {
+      $('div.report-file').wrapInner ($('<a href="#"></a>'));
+      $('div.report-file a').click (function (e) {
         $('section.report-file').dialog ('open');
         e.preventDefault();
       });
