@@ -138,7 +138,6 @@ header #auth-box a#logout {
  * Notifications
  */
 .notif {
-  position: absolute;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -720,21 +719,21 @@ section#preview-file #preview-message {
     text-align: center;
 }
 
-section#preview-file #download, 
-section#preview-file #comment,
-section#preview-file #report
- {
+section#preview-file #download,
+section#preview-file #comment {
     clear: both;
 }
 
 section#preview-file #report {
-    padding-top: 0px;
-    font-size: 0.6em;
+    padding: 1.2em 0;
+    text-align: center;
 }
 
 section#preview-file #download {
     padding: 1.2em 0;
     text-align: center;
+    float: left;
+    width: 50%;
 }
 
 section#preview-file #download.image {

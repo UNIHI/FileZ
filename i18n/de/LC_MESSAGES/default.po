@@ -180,9 +180,13 @@ msgstr "Diese Dokumentation existiert nicht"
 msgid "You have to accept the user agreement."
 msgstr "Sie müssen der Nutzungsvereinbarung zustimmen, um eine Datei hochladen zu dürfen."
 
-#: E:\HTTP\htdocs\filez/app/controllers/Upload.php:58
+#: E:\HTTP\htdocs\filez/app/controllers/Upload.php:60
 msgid "You have to protect your file with either login requirement or a password."
 msgstr "Sie müssen Ihre Datei mindestens mit Loginanforderung oder einem Kennwort schützen."
+
+#: E:\HTTP\htdocs\filez/app/controllers/Upload.php:66
+msgid "You have entered a date in the past. Please use the date picker to select a date."
+msgstr "Sie haben ein Datum aus der Vergangenheit eingegeben. Bitte benutzen Sie den DatePicker zur Auswahl eines Datums."
 
 #: E:\HTTP\htdocs\filez/app/controllers/Upload.php:198
 msgid "[FileZ] \"%file_name%\" uploaded successfuly"
@@ -661,6 +665,9 @@ msgstr "Ordner"
 
 msgid "Open folder contents"
 msgstr "Ordner-Inhalt anzeigen"
+
+msgid "Please set a download protection password or deselect the appropriate checkbox."
+msgstr "Bitte geben Sie ein Download-Passwort ein oder deselektieren Sie die entsprechende Checkbox." 
 
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:276
 msgid "You have to give at least a password or require a login."

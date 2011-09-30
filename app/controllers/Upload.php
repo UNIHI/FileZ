@@ -35,6 +35,9 @@ class App_Controller_Upload extends Fz_Controller {
         fz_log ('uploading');
         fz_log ('uploading', FZ_LOG_DEBUG, $_FILES);
         $response = array (); // returned data
+        $availableFrom  = array_key_exists ('start-from', $_POST) ? $_POST['start-from'] : null;
+        $availableFrom  = new Zend_Date ($availableFrom, Zend_Date::DATE_SHORT);
+        $testDate = new Zend_Date();
         // check if request exceed php.ini post_max_size
         if ($_SERVER ['CONTENT_LENGTH'] > $this->shorthandSizeToBytes (
                                                    ini_get ('post_max_size'))) {
@@ -58,6 +61,12 @@ class App_Controller_Upload extends Fz_Controller {
             $response ['statusText'] = __('You have to protect your file with either login requirement or a password.');
             return $this->returnData ($response);
 
+        }
+        // date in the past?
+        else if ($availableFrom->isEarlier($testDate, Zend_Date::DATE_SHORT)) {
+            $response ['status']     = 'error';
+            $response ['statusText'] = __('You have entered a date in the past. Please use the date picker to select a date.');
+            return $this->returnData ($response);
         }
         else if ($_FILES ['file']['error'] === UPLOAD_ERR_OK) {
             if ($this->checkQuota ($_FILES ['file'])) // Check user quota first

@@ -38,19 +38,6 @@
   </p>
   <?php endif ?>
 
-  <?php if (fz_config_get('app', 'enable_reporting', true)): ?>
-  <p id="report" class="report-file">
-    <?php
-    echo a(
-      array(
-        'href'=>$file->getDownloadUrl () .'/report',
-        'id'=>'report-link',
-        'class'=>'small'),
-      __('Report this file'));
-    ?>
-  </p>
-  <?php endif ?>
-
   <?php if ($available): ?>
     <?php if (! $checkPassword && (! $requireLogin || ($requireLogin && $isLoggedIn))): 
     // you get here if there is no password required
@@ -64,7 +51,7 @@
           ?>
         </p>
       <?php else: // no image ?>
-        <p id="download">
+        <div id="download">
           <?php if (fz_config_get('app', 'autostart_download', true)): ?>
             <?php
             echo __('Your download will start shortly...')
@@ -88,7 +75,21 @@
               __('Click here to download the file'));
             ?>
           <?php endif ?>    
-        </p>
+        </div>
+        
+        <?php if (fz_config_get('app', 'enable_reporting', true)): ?>
+        <div id="report" class="report-file">
+          <?php
+          echo a(
+            array(
+              'href'=>$file->getDownloadUrl () .'/report',
+              'id'=>'report-link',
+              'class'=>'awesome blue large'),
+            __('Report this file'));
+          ?>
+        </div>
+        <?php endif ?>
+        
       <?php endif // end no image ?>
     <?php elseif (! $checkPassword && $requireLogin && !$isLoggedIn): 
       // you get here if there is no password required
