@@ -17,13 +17,13 @@
     array ('size' => bytesToShorthand ($max_upload_size))) ?></label>
     <div id="input-file">
       <input type="file" id="file-input" name="file" value=""
-      alt="<?php echo __('File') ?>" />
+      title="<?php echo __('File') ?>" />
     </div>
   </div>
   <div id="lifetime">
     <label for="select-lifetime"><?php echo __('Lifetime:') ?></label>
     <select id="select-lifetime" name="lifetime"
-    alt="<?php echo __('Select a lifetime') ?>">
+    title="<?php echo __('Select a lifetime') ?>">
       <?php $default = fz_config_get ('app', 'default_file_lifetime', 10);
             $max     = fz_config_get ('app', 'max_file_lifetime',     20);
             for ($i = 1; $i <= $max; ++$i  ): ?>
@@ -40,18 +40,18 @@
     <label for="input-start-from"><?php echo __('Starts from:') ?></label>
     <input type="text" id="input-start-from" name="start-from"
     value="<?php echo $start_from ?>"
-    alt="<?php echo __('Select a starting date') ?>" />
+    title="<?php echo __('Select a starting date') ?>" />
   </div>
   <div id="comment">
     <label for="input-comment"><?php echo __('Comment (optional):') ?></label>
     <input type="text" id="input-comment" name="comment" value=""
-    alt="<?php echo __('Add a comment (optional)') ?>" maxlength="200" />
+    title="<?php echo __('Add a comment (optional)') ?>" maxlength="200" />
   </div>
   <div id="folder">
     <label for="input-folder">
       <?php echo __('Assign file to folder (optional):') ?></label>
       <input type="text" id="input-folder" name="folder" value=""
-      alt="<?php echo __('Assign file to folder (optional)') ?>"
+      title="<?php echo __('Assign file to folder (optional)') ?>"
       maxlength="200" />
   </div>
   <ul id="options">
@@ -170,13 +170,13 @@
   <div id="edit-comment">
     <label for="edit-input-comment"><?php echo __('Comment (optional):') ?></label>
     <input type="text" id="edit-input-comment" name="comment" value=""
-    alt="<?php echo __('Add a comment (optional)') ?>" maxlength="200" />
+    title="<?php echo __('Add a comment (optional)') ?>" maxlength="200" />
   </div>
   <div id="edit-folder">
     <label for="edit-input-folder">
       <?php echo __('Assign file to folder (optional):') ?></label>
     <input type="text" id="edit-input-folder" name="folder" value=""
-    alt="<?php echo __('Assign file to folder (optional)') ?>" maxlength="200" />
+    title="<?php echo __('Assign file to folder (optional)') ?>" maxlength="200" />
   </div>
   <ul id="edit-options">
     <li id="edit-option-use-password">
