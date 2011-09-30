@@ -167,6 +167,31 @@
 <section id="edit-modal" class="edit-file fz-modal" style="display:none">
   <form method="POST" enctype="application/x-www-form-urlencoded"
   action="" id="edit-form">
+  <div id="edit-file">
+    <label for="file-input"><?php echo __r('File (Max size: %size%):',
+    array ('size' => bytesToShorthand ($max_upload_size))) ?></label>
+    <div id="input-file">
+      <input type="file" id="file-input" name="file" value=""
+      title="<?php echo __('Replace file') ?>" />
+    </div>
+  </div>
+  <div id="edit-lifetime">
+    <label for="select-lifetime"><?php echo __('Extend lifetime:') ?></label>
+    <select id="select-lifetime" name="lifetime"
+    title="<?php echo __('Extend the file lifetime') ?>">
+      <option value="0" selected="selected"><?php echo __('None') ?></option>
+      <?php $default = fz_config_get ('app', 'default_file_lifetime', 10);
+            $max     = fz_config_get ('app', 'max_file_lifetime',     20);
+            for ($i = 1; $i <= $max; ++$i  ): ?>
+        <option value=
+        <?php echo "\"$i\"" ?>>
+          <?php echo $i.' '.__p('day', 'days', $i);
+          // 04.08.2011: Had to fix Zend Framework function to make it work.
+          // Zend/Translate/Adapter.php:750 ?>
+        </option>
+      <?php endfor ?>
+    </select>
+  </div>
   <div id="edit-comment">
     <label for="edit-input-comment"><?php echo __('Comment (optional):') ?></label>
     <input type="text" id="edit-input-comment" name="comment" value=""
