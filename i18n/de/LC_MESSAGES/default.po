@@ -329,8 +329,8 @@ msgstr "Hochgeladen von:"
 
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:37
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:129
-msgid "Comment (optional):"
-msgstr "Kommentar (optional):"
+msgid "Comment:"
+msgstr "Kommentar:"
 
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:49
 msgid "Report this file"
@@ -367,13 +367,11 @@ msgid "The file is not available."
 msgstr "Die Datei ist nicht verfügbar."
 
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:119
-#, fuzzy
-msgid "Report reason"
-msgstr "Datei melden"
+msgid "Report reason:"
+msgstr "Datei melden:"
 
 # Important: check ./app/views/file/preview.php for msgid if changed
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:120
-#, fuzzy
 msgid "Select a report reason"
 msgstr "Meldegrund wählen"
 
@@ -393,7 +391,7 @@ msgstr "Offensive Inhalte"
 
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:125
 msgid "Site rule violation"
-msgstr "Verletzung der Benutzervereinbarung"
+msgstr "Verletzung der Nutzungsvereinbarung"
 
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:130
 msgid "Add a comment (optional)"

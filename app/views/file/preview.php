@@ -34,7 +34,7 @@
 
   <?php if ($file->comment): ?>
   <p id="comment">
-    <b><?php echo __('Comment (optional):') ?></b> <?php echo h($file->comment) ?>
+    <b><?php echo __('Comment:') ?></b> <?php echo h($file->comment) ?>
   </p>
   <?php endif ?>
 
@@ -117,10 +117,10 @@
   <form method="POST" enctype="application/x-www-form-urlencoded"
     action="<?php echo $file->getDownloadUrl ()?>/report" id="report-form">
   <div id="report-reason">
-    <label for="select-report-reason"><?php echo __('Report reason')?> :</label>
+    <label for="select-report-reason"><?php echo __('Report reason:')?></label>
     <select id="select-report-reason" name="report-reason"
-      alt="<?php echo __('Select a report reason') ?>" class="report-select">
-      <option selected="selected"><?php echo __('Select a reason') ?></option>
+      title="<?php echo __('Select a report reason') ?>" class="report-select">
+      <option selected="selected" disabled="disabled"><?php echo __('Select a reason') ?></option>
       <option><?php echo __('File is corrupt') ?></option>
       <option><?php echo __('Copyright infringement') ?></option>
       <option><?php echo __('Offensive contents') ?></option>
@@ -128,9 +128,9 @@
     </select>
   </div>
   <div id="report-comment">
-    <label for="input-comment"><?php echo __('Comments') ?> :</label>
+    <label for="input-comment"><?php echo __('Comment:') ?></label>
     <input type="text" id="input-comment" name="comment" value=""
-      alt="<?php echo __('Add a comment (optional)') ?>" maxlength="200" />
+      title="<?php echo __('Add a comment (optional)') ?>" maxlength="200" />
   </div>
   <div class="submit-report">
     <input type="submit" id="send-report" name="upload" class="awesome blue"
@@ -147,7 +147,7 @@
         bgiframe: true,
         autoOpen: false,
         resizable: false,
-        width: '250px',
+        width: '350px',
         modal: true
       });
 
