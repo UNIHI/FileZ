@@ -179,12 +179,9 @@
     <label for="select-lifetime"><?php echo __('Extend lifetime:') ?></label>
     <select id="select-lifetime" name="lifetime"
     title="<?php echo __('Extend the file lifetime') ?>">
-      <option value="0" selected="selected"><?php echo __('None') ?></option>
-      <?php $default = fz_config_get ('app', 'default_file_lifetime', 10);
-            $max     = fz_config_get ('app', 'max_file_lifetime',     20);
-            for ($i = 1; $i <= $max; ++$i  ): ?>
-        <option value=
-        <?php echo "\"$i\"" ?>>
+      <?php $max = fz_config_get ('app', 'max_file_lifetime', 20);
+      for ($i = 0; $i <= $max; ++$i  ): ?>
+        <option value=<?php echo "\"$i\"" ?>>
           <?php echo $i.' '.__p('day', 'days', $i);
           // 04.08.2011: Had to fix Zend Framework function to make it work.
           // Zend/Translate/Adapter.php:750 ?>
