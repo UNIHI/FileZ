@@ -205,7 +205,8 @@ section.new-file div#start-from {
     top: 0;
 }
 
-section.new-file div#file {
+section.new-file div#file,
+section.edit-file div#edit-file {
     position: absolute;
     top: 0;
     width: 40%;
@@ -220,12 +221,14 @@ section.report-file div#report-reason {
 section.new-file div#file input, 
 section.new-file div#lifetime select, 
 section.new-file div#comment input, 
-section.edit-file div#edit-comment input,
 section.new-file div#start-from input,
-section.report-file div#report-reason,
-section.report-file div#report-comment input,
 section.new-file div#folder input,
-section.edit-file div#edit-folder input {
+section.edit-file div#edit-file input,
+section.edit-file div#edit-lifetime select,
+section.edit-file div#edit-comment input,
+section.edit-file div#edit-folder input,
+section.report-file div#report-reason,
+section.report-file div#report-comment input {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -238,7 +241,8 @@ section.edit-file div#edit-folder input {
     width: 100%;
 }
 
-section.new-file div#file {
+section.new-file div#file,
+section.edit-file div#edit-file {
     left: 1.3em;
 }
 
