@@ -240,6 +240,8 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
    */
   public function shorthandSizeToBytes ($size) {
     $size = str_replace (' ', '', $size);
+    if ( strtolower( substr($size, -1) ) == "b" || strtolower( substr($size, -1) ) == "o")
+      $size = substr($size, 0, -1);
     switch (strtolower ($size [strlen($size) - 1])) {
       case 'g': $size *= 1024;
       case 'm': $size *= 1024;
