@@ -254,6 +254,7 @@ section.new-file div#file input {
 }
 
 section.new-file div#lifetime,
+section.edit-file div#edit-lifetime,
 seciton.report-file div#report-reason {
     width: 18%;
     margin: 0 28% 0 auto;
