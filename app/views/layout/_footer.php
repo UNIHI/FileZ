@@ -11,7 +11,7 @@
       <p id="disk-usage">
         <?php echo __r('Using %space% of %quota%', array (
         // TODO this code should not be here
-        'space' => '<b id="disk-usage-value">'.bytesToShorthand (Fz_Db::getTable('File')->getTotalDiskSpaceByUser ($fz_user)).'</b>',
+        'space' => '<b id="disk-usage-value">'.bytesToShorthand (Fz_Db::getTable('File')->getTotalDiskSpaceByUser ($fz_user, true, false)).'</b>',
         'quota' => fz_config_get('app', 'user_quota')));
         ?>.
       </p>
