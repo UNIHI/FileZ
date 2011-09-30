@@ -328,9 +328,12 @@ msgid "Uploaded by:"
 msgstr "Hochgeladen von:"
 
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:37
-#: E:\HTTP\htdocs\filez/app/views/file/preview.php:129
 msgid "Comment:"
 msgstr "Kommentar:"
+
+#: E:\HTTP\htdocs\filez/app/views/file/preview.php:129
+msgid "Comment (optional):"
+msgstr "Kommentar (optional):"
 
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:49
 msgid "Report this file"
@@ -354,7 +357,6 @@ msgid "Click here to download the file"
 msgstr "Datei downloaden"
 
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:98
-#, fuzzy
 msgid "You need to login before you can access this file."
 msgstr "Sie müssen der Nutzungsvereinbarung zustimmen, bevor Sie die Datei hochladen können."
 

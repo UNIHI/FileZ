@@ -128,7 +128,7 @@
     </select>
   </div>
   <div id="report-comment">
-    <label for="input-comment"><?php echo __('Comment:') ?></label>
+    <label for="input-comment"><?php echo __('Comment (optional):') ?></label>
     <input type="text" id="input-comment" name="comment" value=""
       title="<?php echo __('Add a comment (optional)') ?>" maxlength="200" />
   </div>
