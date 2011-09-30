@@ -152,6 +152,22 @@ class App_Model_File extends Fz_Db_Table_Row_Abstract {
 
     return $proto.'://'.$name.url_for ('/').$this->getHash ();
   }
+  
+  /**
+   * Return the absolute URL of the folder of the file
+   * @return string
+   */
+  public function getDownloadFolderUrl ($userid) {
+    $proto = 'http';
+    $name  = fz_config_get ('app', 'force_fqdn', $_SERVER["SERVER_NAME"]);
+
+    if (fz_config_get ('app', 'https') == 'always')
+      $proto .= 's';
+    else if ($_SERVER["SERVER_PORT"] != 80 && $_SERVER["SERVER_PORT"] != 443)
+      $name .= ':'.$_SERVER["SERVER_PORT"];
+
+    return $proto.'://'.$name.url_for ('/'.$userid.'/list').'/'.$this->folder;
+  }
 
   /**
    * Return file size to be read by human

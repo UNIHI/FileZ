@@ -659,6 +659,9 @@ msgstr "Keinem Ordner zugewiesen"
 msgid "Folder"
 msgstr "Ordner"
 
+msgid "Open folder contents"
+msgstr "Ordner-Inhalt anzeigen"
+
 #: E:\HTTP\htdocs\filez/app/views/main/index.php:276
 msgid "You have to give at least a password or require a login."
 msgstr "Sie müssen mindestens ein Passwort vergeben oder den Login für die Datei erfordern."

@@ -39,11 +39,16 @@
     <p class="filefolder">
       <?php
       if (isset($file->folder) && $file->folder != '') {
-        echo __('Folder') .': '.$file->folder;          
+        echo __('Folder') .': ';
+        echo a(array(
+        'href'  => $file->getDownloadFolderUrl ($fz_user->id),
+        'id'    => '',
+        'class' => '',
+        'title' => __('Open folder contents')),
+        $file->folder);
       } else {
         echo __('No folder assigned');
       }
- 
       ?>
     </p>
 </div>
