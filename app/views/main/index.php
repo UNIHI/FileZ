@@ -211,6 +211,10 @@
   <div id="edit">
     <input type="submit" id="do-edit" name="edit" class="awesome blue large"
     value="&raquo; <?php echo __('Edit') ?>" />
+    <div id="delete">
+      <input type="button" id="do-delete" name="delete" class="awesome blue large"
+      value="<?php echo __('Delete') ?>" />
+    </div>
   </div>
   </form>
 </section>

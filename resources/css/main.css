@@ -310,6 +310,17 @@ section.edit-file div#edit {
     border-color: #EDF2F7;
 }
 
+section.edit-file div#delete {
+    float: right;
+}
+
+section.edit-file div#delete input {
+    background-image: url(../images/icons/remove.png);
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    padding-left: 30px;
+}
+
 section.new-file div#upload *,
 section.edit-file div#edit * {
 }
