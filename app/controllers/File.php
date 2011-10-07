@@ -114,9 +114,13 @@ class App_Controller_File extends Fz_Controller {
     // Allow only numbers and letters and convert space to _
     $folder = preg_replace('/[^A-Za-z0-9_ ]/', '', $folder);
     $folder = preg_replace('/ /', '_', $folder);
-
+    
+    $file->password = isset ($_POST ['use-password']);
+    
     if (! empty ($_POST ['password']))
       $file->setPassword  ($_POST ['password']);
+      
+    $file->require_login = isset ($_POST ['require-login']);
 
     $file->comment = substr ($comment, 0, 199);
     $file->folder  = substr ($folder, 0, 199);
