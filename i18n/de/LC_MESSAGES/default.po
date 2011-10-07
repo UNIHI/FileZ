@@ -366,7 +366,7 @@ msgstr "Sie müssen der Nutzungsvereinbarung zustimmen, bevor Sie die Datei hoch
 
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:104
 msgid "You need a password to download this file"
-msgstr "Sie benötigen ein Passwort, um diese Datei herunterzuladen"
+msgstr "Zum Download dieser Datei ist ein Passwort erforderlich"
 
 #: E:\HTTP\htdocs\filez/app/views/file/preview.php:111
 msgid "The file is not available."
