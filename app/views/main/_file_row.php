@@ -61,20 +61,6 @@
     'to' => '<b>'.$file->getAvailableUntil ()->toString (
     option ('localeDateFormat')).'</b>')
   );
-  if ($file->extends_count < fz_config_get ('app', 'max_extend_count')) {
-    echo a(array(
-    'href'  => $file->getDownloadUrl () . '/extend',
-    'id'    => '',
-    'class' => 'extend',
-    'title' => __('Extend one more day')),
-    __('Extend one more day'));
-    echo a(array(
-    'href'  => $file->getDownloadUrl () . '/extendMaximum',
-    'id'    => '',
-    'class' => 'extendMaximum',
-    'title' => __('Extend maximum possible')),
-    __('Extend maximum possible'));
-  }
   ?>
   </p>
   <p class="download-counter">
@@ -93,20 +79,6 @@
     ?>
   </p>
   <div class="file-functions">
-  <?php
-    if (fz_config_get ('app', 'login_requirement', 'on') == 'on') {
-    $toggle = ($file->require_login ? __('off') : __('on'));
-    echo '<p class="toggle">';
-    echo a(array(
-    'href'  => $file->getDownloadUrl () . '/toggle',
-    'id'    => 'toggle',
-    'class' => 'toggle-'.($file->require_login ? 'off' : 'on'),
-    'title' => __r('Toggle login requirement %var%' , array('var' => $toggle))),
-    __r('Toggle login requirement %var%' , array('var' => $toggle)));
-    echo '</p>';
-  }
-  ?>
-  
   <p class="delete">
   <?php
   echo a(array(

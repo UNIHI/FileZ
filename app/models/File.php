@@ -30,7 +30,6 @@
  * @property boolean $notify_uploader
  * @property int     $created_by
  * @property int     $created_at        TIMESTAMP
- * @property int     $extends_count
  * @property string  $password
  * @property boolean $require_login
  * @property boolean $downloadLimit
@@ -275,24 +274,6 @@ class App_Model_File extends Fz_Db_Table_Row_Abstract {
    */
   public function getOnDiskLocation () {
     return fz_config_get ('app', 'upload_dir').'/'.$this->getHash();
-  }
-
-  /**
-   * Extend file lifetime to one more day
-   */
-  public function extendLifetime () {
-    $this->setAvailableUntil ($this->getAvailableUntil()->addDay(1));
-    $this->extends_count = $this->extends_count + 1;
-  }
-
-  /**
-   * Extend file lifetime to maximum
-   */
-  public function extendMaximumLifetime () {
-    $this->setAvailableUntil (
-      $this->getCreatedAt()->addDay(
-        fz_config_get ('app', 'max_file_lifetime')));
-    $this->extends_count = fz_config_get ('app', 'max_extend_count');
   }
 
   /**
