@@ -84,7 +84,7 @@ function config_form_row ($section, $var, $label, $type, $default_values, $choic
     <legend>Uploaded files properties</legend>
     <table>
       <tr>
-        <td><?php echo config_form_row ('app', 'default_file_lifetime'  , 'Default lifetime (days)', 'text', $config) ?></td>
+        <td><?php echo config_form_row ('app', 'init_file_lifetime'     , 'Initial lifetime (days)', 'text', $config) ?></td>
         <td><?php echo config_form_row ('app', 'max_file_lifetime'      , 'Max lifetime (days)'  , 'text', $config) ?></td>
       </tr>
     </table>
@@ -303,7 +303,7 @@ function config_form_row ($section, $var, $label, $type, $default_values, $choic
             number: true,
             min: 1
         },
-        'config[app][default_file_lifetime]': {
+        'config[app][init_file_lifetime]': {
             number: true,
             min: 1
         },
