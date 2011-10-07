@@ -78,27 +78,20 @@
     }
     ?>
   </p>
-  <div class="file-functions">
-  <p class="delete">
-  <?php
+  <p>
+  <?php 
+  
   echo a(array(
-    'href'  => $file->getDownloadUrl () . '/delete',
-    'id'    => '',
-    'class' => 'delete',
-    'title' => __('Delete')),
-    __('Delete'));
+  'href'  => $file->getDownloadUrl () . '/edit',
+  'id'    => '',
+  'class' => 'edit',
+  'title' => __('Edit')),
+  __('Edit'));
+  
   ?>
-  </p>
+  <div class="file-functions">
   
   <p class="edit">
-  <?php
-  echo a(array(
-    'href'  => $file->getDownloadUrl () . '/edit',
-    'id'    => '',
-    'class' => 'edit',
-    'title' => __('Edit')),
-    __('Edit'));
-  ?>
   </p>
   </div>
 </div>

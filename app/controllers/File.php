@@ -115,15 +115,18 @@ class App_Controller_File extends Fz_Controller {
     $folder = preg_replace('/[^A-Za-z0-9_ ]/', '', $folder);
     $folder = preg_replace('/ /', '_', $folder);
     
+
+    
+    
     $file->password = isset ($_POST ['use-password']);
     
     if (! empty ($_POST ['password']))
       $file->setPassword  ($_POST ['password']);
-      
-    $file->require_login = isset ($_POST ['require-login']);
-
+    
     $file->comment = substr ($comment, 0, 199);
     $file->folder  = substr ($folder, 0, 199);
+    $file->require_login = isset ($_POST ['require-login']);
+    
 
     try {
       $file->save ();
@@ -219,7 +222,7 @@ class App_Controller_File extends Fz_Controller {
     return html ('file/email.php');
   }
 
- /**
+   /**
    * List folder content of a user
    */
   public function folderAction() {

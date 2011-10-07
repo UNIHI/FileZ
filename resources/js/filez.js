@@ -53,6 +53,7 @@ jQuery.extend({
  * Initialise actions event handlers
  */
 $.fn.initFilez = function (options) {
+	
 
     uploadForm = $(this);
     editForm = $('#edit-form');
@@ -232,6 +233,7 @@ $.fn.initFileActions = function () {
     });
 
     $('a.edit', this).click (function (e) {
+    	
         e.preventDefault();
         var modal = $('#edit-modal');
         var fileUrl = $(this).attr ('href') + '?is-async=1';
@@ -249,10 +251,17 @@ $.fn.initFileActions = function () {
         $('#edit-modal input[name="folder"]').val(folder);
         $('#edit-modal input[name="use-password"]').attr('checked', (hasPassword=="1"?true:false));
         $('#edit-modal input[name="require-login"]').attr('checked', (requireLogin=="1"?true:false));
-        if ( hasPassword == "1" )
-          $('#edit-modal input.password').show().focus();
-        else
+
+        if ( hasPassword=="1" ) {
+        	$('#edit-modal input.password').show().focus();
+        	$('#changePW').show();
+         
+        }
+        else {
           $('#edit-modal input.password').val('').hide();
+          $('#changePW').hide();
+        }
+        $('#pwNone').hide();
         $('#edit-form').attr('action', fileUrl);
         
         // ugly hack to let the datepicker ui not appear
@@ -443,7 +452,7 @@ var onFileUploadEnd = function (data, status) {
  * Function called on edit form submission
  */
 var onEditFormSubmit = function (data, form, options) {
-
+	 
     $('#do-edit').hide (); // hidding the start upload button
         
 };

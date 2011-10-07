@@ -165,7 +165,7 @@
       title="<?php echo __('Replace file') ?>" />
     </div>
   </div>
-  <div id="edit-start-from">
+ <div id="edit-start-from">
     <label for="edit-input-start-from"><?php echo __('Starts from:') ?></label>
     <input type="text" id="edit-input-start-from" name="start-from"
     value="<?php echo $start_from ?>" disabled="disabled"
@@ -195,8 +195,7 @@
       echo __('Ask a password to people who will download your file') ?>">
         <?php echo __('Use a password to download') ?>
       </label>
-      <input type="password" id="edit-input-password" name="password"
-      class="password" autocomplete="off" size="5"/>
+     
     </li>
     <?php if (fz_config_get ('app', 'login_requirement', 'on') == 'on'): ?>
     <li id="edit-option-require-login">
@@ -207,18 +206,31 @@
       </label>
     </li>
     <?php endif ?>
+    <li>
+    <label id="changePW" for="pwNone">PW ändern</label>
+      
+      <div id="pwNone" style="display: none;">
+      		<input type="password" id="edit-input-password" name="password" class="password" autocomplete="off" size="5"/> 
+       </div>
+    
+    
+    </li>
+    
+    
   </ul>
   <div id="edit">
     <input type="submit" id="do-edit" name="edit" class="awesome blue large"
     value="&raquo; <?php echo __('Edit') ?>" />
     <div id="delete">
-      <input type="button" id="do-delete" name="delete" class="awesome blue large"
+    <input type="button" id="do-delete" name="delete" class="awesome blue large"
       value="<?php echo __('Delete') ?>" />
     </div>
   </div>
   </form>
 </section>
 
+
+  
 <script type="text/javascript">
     $(document).ready (function () {
         $('#input-start-from').datepicker ({minDate: new Date()});
@@ -255,6 +267,16 @@
           }
         });
 
+       
+
+        $('#changePW').click(function(event) {
+        	$('#pwNone').show();
+        });
+
+		
+      
+        
+
         // Modal box generic configuration
         $(".fz-modal").dialog({
           bgiframe: true,
@@ -283,13 +305,18 @@
             $('input.password').val('').hide();
           }
         });
-        $('#edit-use-password, #edit-option-use-password label').click (function () { // IE quirk fix
+      
+        // IE quirk fix
+        $('#edit-use-password, #edit-option-use-password label').click (function () {
           if ($('#edit-use-password').attr ('checked')) {
+        	  $('#pwNone').show();
+        	  $('#changePW').hide();
             $('input.password').show().focus();
           } else {
             $('input.password').val('').hide();
           }
         });
+        
         $('#input-start-from').change (function () { // IE quirk fix
           var DateFrom = $("#input-start-from").val().split(".");
           var DateTo   = $("#input-available-until").val().split(".");
@@ -346,7 +373,7 @@
           }
           
         });
-        
+    
         // Check if at least one checkbox is checked
         <?php if (fz_config_get('app', 'privacy_mode', false) == true): ?>
         $('#use-password, #require-login').click(function(event) {
@@ -356,6 +383,7 @@
           }
         });
         <?php endif ?>
+
       
         <?php if (fz_config_get('app', 'enable_autocomplete', true)): ?>
         // Autocomplete content
@@ -372,5 +400,6 @@
         <?php endif ?>
     });
 
-</script>
+   
 
+</script>
