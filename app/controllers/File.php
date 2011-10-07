@@ -115,15 +115,18 @@ class App_Controller_File extends Fz_Controller {
     $folder = preg_replace('/[^A-Za-z0-9_ ]/', '', $folder);
     $folder = preg_replace('/ /', '_', $folder);
     
+
+    
+    
     $file->password = isset ($_POST ['use-password']);
     
     if (! empty ($_POST ['password']))
       $file->setPassword  ($_POST ['password']);
-      
-    $file->require_login = isset ($_POST ['require-login']);
-
+    
     $file->comment = substr ($comment, 0, 199);
     $file->folder  = substr ($folder, 0, 199);
+    $file->require_login = isset ($_POST ['require-login']);
+    
 
     try {
       $file->save ();
@@ -217,6 +220,79 @@ class App_Controller_File extends Fz_Controller {
     if (! $user->is_admin) $this->checkOwner ($file, $user);
     set ('file', $file);
     return html ('file/email.php');
+  }
+
+  /**
+   * Extend lifetime of a file
+   */
+  public function extendAction () {
+    $this->secure ();
+    $file = $this->getFile ();
+    $result = array ();
+    if ($file->extends_count < fz_config_get ('app', 'max_extend_count')) {
+      $file->extendLifetime ();
+      $file->save ();
+      fz_log('', FZ_LOG_EXTEND, array('file_id' => $file->id));
+      $result ['status']     = 'success';
+      $result ['statusText'] = __('Lifetime extended');
+      $result ['html']       =
+        partial ('main/_file_row.php', array ('file' => $file));
+    } else if (!$this->verifyToken()) {
+      $result ['status']     = 'error';
+      $result ['statusText'] = __('Action expired. Try again.');
+    } else {
+      $result ['status']     = 'error';
+      $result ['statusText'] =
+        __r('You can\'t extend a file lifetime more than %x% times',
+          array ('x' => fz_config_get ('app', 'max_extend_count')));
+    }
+
+    $this->setToken();
+    $result ['token'] = $this->getTokenSecret();
+
+    if ($this->isXhrRequest()) {
+        return json ($result);
+    } else {
+      flash (($result ['status'] == 'success' ? 'notification' : 'error'),
+        $result ['statusText']);
+      redirect_to ('/');
+    }
+  }
+
+  /**
+   * Extend lifetime to the possible allowed maximum
+   */
+  public function extendMaximumAction () {
+    $this->secure ();
+    $file = $this->getFile ();
+    $result = array ();
+    if ($file->extends_count < fz_config_get ('app', 'max_extend_count')) {
+      $file->extendMaximumLifetime ();
+      $file->save ();
+      $result ['status']     = 'success';
+      $result ['statusText'] = __('Lifetime extended to maximum');
+      $result ['html']       =
+        partial ('main/_file_row.php', array ('file' => $file));
+    } else if (!$this->verifyToken()) {
+      $result ['status']     = 'error';
+      $result ['statusText'] = __('Action expired. Try again.');
+    } else {
+      $result ['status']     = 'error';
+      $result ['statusText'] =
+      __r('You can\'t extend a file lifetime more than %x% times',
+        array ('x' => fz_config_get ('app', 'max_extend_count')));
+    }
+
+    $this->setToken();
+    $result ['token'] = $this->getTokenSecret();
+    
+    if ($this->isXhrRequest()) {
+      return json ($result);
+    } else {
+      flash (($result ['status'] == 'success' ? 'notification' : 'error'),
+        $result ['statusText']);
+      redirect_to ('/');
+    }
   }
 
  /**
