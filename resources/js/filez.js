@@ -471,6 +471,7 @@ var onFileEditEnd = function (data, status) {
 
     // Hide the modal box
     $('.ui-dialog-content').dialog('close');
+    location.reload();
 
 };
 /*------------------------------------------------------------------------------
