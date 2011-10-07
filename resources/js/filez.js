@@ -255,6 +255,8 @@ $.fn.initFileActions = function () {
           $('#edit-modal input.password').val('').hide();
         $('#edit-form').attr('action', fileUrl);
         
+        // ugly hack to let the datepicker ui not appear
+        $('#edit-input-available-until').attr('disabled', 'disabled');
         modal.dialog ('open');
         $('#edit-input-available-until').removeAttr('disabled');
         
