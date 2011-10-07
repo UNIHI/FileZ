@@ -32,14 +32,20 @@ class App_Controller_Main extends Fz_Controller {
              Fz_Db::getTable('File')->shorthandSizeToBytes (ini_get ('upload_max_filesize')),
              Fz_Db::getTable('File')->shorthandSizeToBytes (ini_get ('post_max_size')),
                 $freeSpaceLeft);
-
+        
         $progressMonitor = fz_config_get ('app', 'progress_monitor');
         $progressMonitor = new $progressMonitor ();
         $folders = implode(', ', Fz_Db::getTable('File')->getFolders($user));
         
+        $initlt = fz_config_get ('app', 'init_file_lifetime', 20);
+        if ( substr($initlt, -1) == "m" )
+          $initlt = Zend_Date::now ()->add ((int)$initlt, Zend_Date::MONTH);
+        else
+          $initlt = Zend_Date::now ()->add ((int)$initlt, Zend_Date::DAY_SHORT);
+        
         set ('upload_id'        , md5 (uniqid (mt_rand (), true)));
         set ('start_from'       , Zend_Date::now ()->get (Zend_Date::DATE_MEDIUM));
-        set ('available_until'  , Zend_Date::now ()->add (fz_config_get ('app', 'max_file_lifetime', 20), Zend_Date::DAY_SHORT)->get (Zend_Date::DATE_MEDIUM));
+        set ('available_until'  , $initlt->get (Zend_Date::DATE_MEDIUM));
         set ('refresh_rate'     , 1200);
         set ('files'            , Fz_Db::getTable ('File')
                                     ->findFilesByOwnerOrderByUploadDateDesc (
