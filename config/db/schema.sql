@@ -11,7 +11,6 @@ CREATE TABLE IF NOT EXISTS `fz_file` (
   `notify_uploader` BOOLEAN         DEFAULT 0,
   `created_by`      BIGINT          NOT NULL,
   `created_at`      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `extends_count`   INTEGER         DEFAULT '0',
   `password`        varchar(40)     DEFAULT NULL,
   `require_login`   BOOLEAN         DEFAULT 0,
   `downloadLimit`   INTEGER         DEFAULT NULL,

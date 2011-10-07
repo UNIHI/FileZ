@@ -34,7 +34,6 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
     'notify_uploader',
     'created_by',
     'created_at',
-    'extends_count',
     'comment',
     'password',
     'require_login',
