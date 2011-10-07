@@ -131,10 +131,10 @@ class App_Controller_Upload extends Fz_Controller {
         $folder = preg_replace('/ /', '_', $folder);
         
         // Validating lifetime
-        $lifetime = fz_config_get ('app', 'default_file_lifetime', 10);
+        $lifetime = (int) fz_config_get ('app', 'init_file_lifetime', 10);
         if (array_key_exists ('lifetime', $_POST) && is_numeric ($_POST['lifetime'])) {
             $lifetime = intval ($_POST['lifetime']);
-            $maxLifetime = intval (fz_config_get ('app', 'max_file_lifetime', 20));
+            $maxLifetime = (int) fz_config_get ('app', 'max_file_lifetime', 20);
             if ($lifetime > $maxLifetime)
                 $lifetime = $maxLifetime;
         }

@@ -12,9 +12,9 @@ upload_dir = "/var/fz_uploads"
 ; Must be writable by the web server
 cache_dir = "/var/fz_cache"
 
-; Max and default lifetime of a file on the server
-max_file_lifetime     = 20 
-default_file_lifetime = 10
+; Max and initial lifetime of a file on the server
+max_file_lifetime  = 20 
+init_file_lifetime = 10
 
 ; Maximum number of days the lifetime of a file can be extended
 max_extend_count = 7
