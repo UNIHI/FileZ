@@ -1,5 +1,3 @@
-Hilfeseiten, wer macht's freiwillig?
-
 # Upload-Dialog
 
 * Datei: Auswahl der Datei
@@ -24,5 +22,3 @@ Angezeigt wird:
 
 
 # Download-Zahl- / Traffic-Limit
-
- > weitere Punkte, eventuell das ganze Ding ins Wiki packen ? ich mag des markdown ned -.-
