@@ -72,7 +72,7 @@
             <?php
             echo a(array('href'=>$file->getDownloadUrl (). '/download',
               'class'=>'awesome blue large'),
-              __('Click here to download the file'));
+              "&raquo; ".__('Click here to download the file'));
             ?>
           <?php endif ?>
         </div>
@@ -85,7 +85,7 @@
               'href'=>$file->getDownloadUrl () .'/report',
               'id'=>'report-link',
               'class'=>'awesome blue large'),
-            __('Report this file'));
+            "&raquo; ".__('Report this file'));
           ?>
         </div>
         <?php endif ?>
@@ -95,19 +95,36 @@
       // you get here if there is no password required
       // AND login requirement is enabled but you are NOT logged in ?>
       <p id="preview-message"><a href="login">
-      <?php flash ('download_url', $file->getDownloadUrl () ); ?>
-      <?php echo __('You need to login before you can access this file.') ?>
+        <?php flash ('download_url', $file->getDownloadUrl () ); ?>
+        <?php echo __('You need to login before you can access this file.') ?>
       </a></p>
     <?php else: // this file need a password ?>
-      <form action="<?php echo $file->getDownloadUrl ()?>/download" method="POST" id="download">
-        <label for="password">
-          <?php echo __('You need a password to download this file') ?>
-        </label>
-        <input type="password" name="password" id="password" class="password"
-          size="4"/>
-        <input type="submit" value="<?php echo __('Download') ?>"
-          class="awesome blue" />
+    
+      <form action="<?php echo $file->getDownloadUrl ()?>/download" method="POST">
+
+        <label for="password"><?php echo __('You need a password to download this file') ?></label>
+        <input type="password" name="password" id="password" class="password" size="4"/>
+
+        <div id="download">
+          <input type="submit" value="&raquo; <?php echo __('Click here to download the file') ?>"
+            class="awesome blue large" />
+        </div>
+
+        <?php if (fz_config_get('app', 'enable_reporting', true)): ?>
+        <div id="report" class="report-file">
+          <?php
+          echo a(
+            array(
+              'href'=>$file->getDownloadUrl () .'/report',
+              'id'=>'report-link',
+              'class'=>'awesome blue large'),
+            "&raquo; ".__('Report this file'));
+          ?>
+        </div>
+        <?php endif ?>
+
       </form>
+
     <?php endif ?>
   <?php else: // availability condition is false ?>
     <?php echo __('The file is not available.') ?>
