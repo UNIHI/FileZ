@@ -716,6 +716,33 @@ section#preview-file {
     -webkit-box-shadow: inset 0 20px 20px rgba(0, 0, 0, 0.05);
     margin-top: 1em;
     padding: 1.1em;
+    overflow: hidden;
+}
+
+section#preview-file label {
+    font-size: 0.875em;
+}
+
+section#preview-file .password {
+    width: 100px;
+}
+
+section#preview-file #report {
+    padding: 1.2em 0;
+    text-align: center;
+    vertical-align: bottom;
+    width: 50%;
+    float: right;
+    height: 108px;
+}
+
+section#preview-file input {
+    font-family: Arial, sans-serif;
+}
+
+section#preview-file #input-pw {
+    width: 200px;
+    margin: 0px auto 10px;
 }
 
 section#preview-file form, section#preview-file p {
@@ -746,11 +773,6 @@ section#preview-file #preview-message {
 section#preview-file #download,
 section#preview-file #comment {
     clear: both;
-}
-
-section#preview-file #report {
-    padding: 1.2em 0;
-    text-align: center;
 }
 
 section#preview-file #download {

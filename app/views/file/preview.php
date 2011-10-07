@@ -102,24 +102,20 @@
     
       <form action="<?php echo $file->getDownloadUrl ()?>/download" method="POST">
 
-        <label for="password"><?php echo __('You need a password to download this file') ?></label>
-        <input type="password" name="password" id="password" class="password" size="4"/>
-
         <div id="download">
+          <div id="input-pw">
+            <label for="password"><?php echo __('You need a password to download this file') ?></label>
+            <input type="password" name="password" id="password" class="password" size="4"/>
+          </div>
+
           <input type="submit" value="&raquo; <?php echo __('Click here to download the file') ?>"
             class="awesome blue large" />
         </div>
 
         <?php if (fz_config_get('app', 'enable_reporting', true)): ?>
         <div id="report" class="report-file">
-          <?php
-          echo a(
-            array(
-              'href'=>$file->getDownloadUrl () .'/report',
-              'id'=>'report-link',
-              'class'=>'awesome blue large'),
-            "&raquo; ".__('Report this file'));
-          ?>
+          <input id="report-link" type="button" value="&raquo; <?php echo __('Report this file') ?>"
+            class="awesome blue large" />
         </div>
         <?php endif ?>
 
