@@ -309,8 +309,8 @@
         // IE quirk fix
         $('#edit-use-password, #edit-option-use-password label').click (function () {
           if ($('#edit-use-password').attr ('checked')) {
-        	//  $('#pwNone').show();
-        	//  $('#changePW').hide();
+        	  $('#pwNone').show();
+        	  $('#changePW').hide();
             $('input.password').show().focus();
           } else {
             $('input.password').val('').hide();

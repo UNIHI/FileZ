@@ -78,11 +78,20 @@
     }
     ?>
   </p>
-  <p><a href="<?php echo $file->getDownloadUrl () . '/edit'; ?>" class=""><?php echo __('Edit'); ?></a></p>
+  <p>
+  <?php 
+  
+  echo a(array(
+  'href'  => $file->getDownloadUrl () . '/edit',
+  'id'    => '',
+  'class' => 'edit',
+  'title' => __('Edit')),
+  __('Edit'));
+  
+  ?>
   <div class="file-functions">
   
   <p class="edit">
-  
   </p>
   </div>
 </div>
