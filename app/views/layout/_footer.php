@@ -29,7 +29,7 @@
       </a><br />
       <a href="http://www.uni-hildesheim.de/rz/" target="#_blank">
       <?php echo __('and the University of Hildesheim') ?>
-      </a>
+      </a> | <a href="http://www.uni-hildesheim.de/index.php?id=impressum" target="#_blank"><?php echo __('Imprint') ?></a>
     <?php endif ?>
 
   </footer>
