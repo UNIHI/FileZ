@@ -38,7 +38,8 @@ class App_Controller_Main extends Fz_Controller {
         $folders = implode(', ', Fz_Db::getTable('File')->getFolders($user));
         
         set ('upload_id'        , md5 (uniqid (mt_rand (), true)));
-        set ('start_from'       , Zend_Date::now ()->get (Zend_Date::DATE_SHORT));
+        set ('start_from'       , Zend_Date::now ()->get (Zend_Date::DATE_MEDIUM));
+        set ('available_until'  , Zend_Date::now ()->add (fz_config_get ('app', 'max_file_lifetime', 20), Zend_Date::DAY_SHORT)->get (Zend_Date::DATE_MEDIUM));
         set ('refresh_rate'     , 1200);
         set ('files'            , Fz_Db::getTable ('File')
                                     ->findFilesByOwnerOrderByUploadDateDesc (

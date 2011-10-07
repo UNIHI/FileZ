@@ -249,13 +249,15 @@ $.fn.initFileActions = function () {
         $('#edit-modal input[name="folder"]').val(folder);
         $('#edit-modal input[name="use-password"]').attr('checked', (hasPassword=="1"?true:false));
         $('#edit-modal input[name="require-login"]').attr('checked', (requireLogin=="1"?true:false));
-        if ( hasPassword=="1" )
+        if ( hasPassword == "1" )
           $('#edit-modal input.password').show().focus();
         else
           $('#edit-modal input.password').val('').hide();
         $('#edit-form').attr('action', fileUrl);
         
         modal.dialog ('open');
+        $('#edit-input-available-until').removeAttr('disabled');
+        
         return false;
     });
       

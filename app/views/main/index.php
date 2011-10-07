@@ -20,27 +20,17 @@
       title="<?php echo __('File') ?>" />
     </div>
   </div>
-  <div id="lifetime">
-    <label for="select-lifetime"><?php echo __('Lifetime:') ?></label>
-    <select id="select-lifetime" name="lifetime"
-    title="<?php echo __('Select a lifetime') ?>">
-      <?php $default = fz_config_get ('app', 'default_file_lifetime', 10);
-            $max     = fz_config_get ('app', 'max_file_lifetime',     20);
-            for ($i = 1; $i <= $max; ++$i  ): ?>
-        <option value=
-        <?php echo "\"$i\"".($i == $default ? ' selected="selected" ' : '') ?>>
-          <?php echo $i.' '.__p('day', 'days', $i);
-          // 04.08.2011: Had to fix Zend Framework function to make it work.
-          // Zend/Translate/Adapter.php:750 ?>
-        </option>
-      <?php endfor ?>
-    </select>
-  </div>
   <div id="start-from">
-    <label for="input-start-from"><?php echo __('Starts from:') ?></label>
+    <label for="input-start-from"><?php echo __('Available from:') ?></label>
     <input type="text" id="input-start-from" name="start-from"
     value="<?php echo $start_from ?>"
     title="<?php echo __('Select a starting date') ?>" />
+  </div>
+  <div id="available-until">
+    <label for="input-available-until"><?php echo __('Available until:') ?></label>
+    <input type="text" id="input-available-until" name="available-until"
+    value="<?php echo $available_until ?>"
+    title="<?php echo __('Select a ending date') ?>" />
   </div>
   <div id="comment">
     <label for="input-comment"><?php echo __('Comment (optional):') ?></label>
@@ -168,26 +158,24 @@
   <form method="POST" enctype="application/x-www-form-urlencoded"
   action="" id="edit-form">
   <div id="edit-file">
-    <label for="file-input"><?php echo __r('File (Max size: %size%):',
+    <label for="edit-file-input"><?php echo __r('File (Max size: %size%):',
     array ('size' => bytesToShorthand ($max_upload_size))) ?></label>
     <div id="input-file">
-      <input type="file" id="file-input" name="file" value=""
+      <input type="file" id="edit-file-input" name="file" value=""
       title="<?php echo __('Replace file') ?>" />
     </div>
   </div>
-  <div id="edit-lifetime">
-    <label for="select-lifetime"><?php echo __('Extend lifetime:') ?></label>
-    <select id="select-lifetime" name="lifetime"
-    title="<?php echo __('Extend the file lifetime') ?>">
-      <?php $max = fz_config_get ('app', 'max_file_lifetime', 20);
-      for ($i = 0; $i <= $max; ++$i  ): ?>
-        <option value=<?php echo "\"$i\"" ?>>
-          <?php echo $i.' '.__p('day', 'days', $i);
-          // 04.08.2011: Had to fix Zend Framework function to make it work.
-          // Zend/Translate/Adapter.php:750 ?>
-        </option>
-      <?php endfor ?>
-    </select>
+  <div id="edit-start-from">
+    <label for="edit-input-start-from"><?php echo __('Starts from:') ?></label>
+    <input type="text" id="edit-input-start-from" name="start-from"
+    value="<?php echo $start_from ?>" disabled="disabled"
+    title="<?php echo __('Select a starting date') ?>" />
+  </div>
+  <div id="edit-available-until">
+    <label for="edit-input-available-until"><?php echo __('Available until:') ?></label>
+    <input type="text" id="edit-input-available-until" name="available-until"
+    value="<?php echo $available_until ?>"
+    title="<?php echo __('Select a ending date') ?>" />
   </div>
   <div id="edit-comment">
     <label for="edit-input-comment"><?php echo __('Comment (optional):') ?></label>
@@ -230,6 +218,8 @@
 <script type="text/javascript">
     $(document).ready (function () {
         $('#input-start-from').datepicker ({minDate: new Date()});
+        $('#input-available-until').datepicker ({minDate: new Date(), maxDate: "+6m"});
+        $('#edit-input-available-until').datepicker ({minDate: new Date()});
         $('#upload-form').initFilez (
           {
             fileList:         'ul#files',
@@ -289,26 +279,79 @@
             $('input.password').val('').hide();
           }
         });
-      
-        // IE quirk fix
-        $('#edit-use-password, #edit-option-use-password label').click (function () {
+        $('#edit-use-password, #edit-option-use-password label').click (function () { // IE quirk fix
           if ($('#edit-use-password').attr ('checked')) {
             $('input.password').show().focus();
           } else {
             $('input.password').val('').hide();
           }
         });
-    
+        $('#input-start-from').change (function () { // IE quirk fix
+          var DateFrom = $("#input-start-from").val().split(".");
+          var DateTo   = $("#input-available-until").val().split(".");
+          if ( DateFrom[2].length == 2 )
+            DateFrom[2] = "20" + DateFrom[2];
+          if ( DateTo[2].length == 2 )
+            DateTo[2] = "20" + DateTo[2];
+          var DateFrom = new Date(DateFrom[2], DateFrom[1]-1, DateFrom[0]);
+          var DateTo   = new Date(DateTo[2], DateTo[1]-1, DateTo[0]);
+          var DateNow  = new Date();
+          DateNow.setMilliseconds(0);
+          DateNow.setSeconds(0);
+          DateNow.setMinutes(0);
+          DateNow.setHours(0);
+
+          if ( Date.parse(DateFrom) < Date.parse(DateNow) ) {
+            alert(<?php echo json_encode (__('You have entered a date in the past. Please use the date picker to select a date.')) ?>);
+            $("#input-start-from").val( $.datepicker.formatDate( 'dd.mm.yy', DateNow ) );
+          }
+          else if ( Date.parse(DateTo) < Date.parse(DateFrom) ) {
+            alert(<?php echo json_encode (__('You have entered a date after the end date. Please use the date picker to select a date.')) ?>);
+            $("#input-start-from").val( $.datepicker.formatDate( 'dd.mm.yy', DateTo ) );
+          }
+
+        });
+        $('#input-available-until').change (function () { // IE quirk fix
+          var DateFrom = $("#input-start-from").val().split(".");
+          var DateTo   = $("#input-available-until").val().split(".");
+          if ( DateFrom[2].length == 2 )
+            DateFrom[2] = "20" + DateFrom[2];
+          if ( DateTo[2].length == 2 )
+            DateTo[2] = "20" + DateTo[2];
+          var DateFrom = new Date(DateFrom[2], DateFrom[1]-1, DateFrom[0]);
+          var DateTo   = new Date(DateTo[2], DateTo[1]-1, DateTo[0]);
+          var DateNow  = new Date();
+          DateNow.setMilliseconds(0);
+          DateNow.setSeconds(0);
+          DateNow.setMinutes(0);
+          DateNow.setHours(0);
+          
+          var Date6M = $.datepicker._determineDate(null, "+6m", new Date());
+          
+          if ( Date.parse(DateTo) < Date.parse(DateNow) ) {
+            alert(<?php echo json_encode (__('You have entered a date in the past. Please use the date picker to select a date.')) ?>);
+            $("#input-available-until").val( $.datepicker.formatDate( 'dd.mm.yy', DateNow ) );
+          }
+          else if ( Date.parse(DateTo) < Date.parse(DateFrom) ) {
+            alert(<?php echo json_encode (__('You have entered a date before the start date. Please use the date picker to select a date.')) ?>);
+            $("#input-available-until").val( $.datepicker.formatDate( 'dd.mm.yy', DateFrom ) );
+          }
+          else if ( Date.parse(DateTo) > Date.parse(Date6M) ) {
+            alert(<?php echo json_encode (__('You have entered a date which is longer than six months in the future. Please use the date picker to select a date.')) ?>);
+            $("#input-available-until").val( $.datepicker.formatDate( 'dd.mm.yy', Date6M ) );
+          }
+          
+        });
+        
         // Check if at least one checkbox is checked
         <?php if (fz_config_get('app', 'privacy_mode', false) == true): ?>
         $('#use-password, #require-login').click(function(event) {
           if (!$('#use-password').is(':checked') && !$('#require-login').is(':checked')) {
             $('#require-login').attr('checked','checked')
-            alert(<?php echo "'" . __('You have to give at least a password or require a login.') . "'" ?>);
+            alert(<?php echo json_encode (__('You have to give at least a password or require a login.')) ?>);
           }
         });
         <?php endif ?>
-
       
         <?php if (fz_config_get('app', 'enable_autocomplete', true)): ?>
         // Autocomplete content
