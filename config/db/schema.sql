@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `fz_file` (
   `comment`         varchar(200),
   `download_count`  INTEGER         DEFAULT 0,
   `notify_uploader` BOOLEAN         DEFAULT 0,
-  `created_by`      BIGINT          NOT NULL,
+  `created_by`      SERIAL          NOT NULL,
   `created_at`      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `password`        varchar(40)     DEFAULT NULL,
   `require_login`   BOOLEAN         DEFAULT 0,
@@ -57,6 +57,6 @@ CREATE TABLE `fz_user` (
   `created_at`  TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_locked`   BOOLEAN     DEFAULT 0,
   `lock_reason` VARCHAR(400)
-) ENGINE = MYISAM ;
+);
 
 INSERT INTO `fz_info` (`key`, `value`) VALUES ('db_version', '2.2.0-1');
