@@ -120,8 +120,11 @@ enable_caching = true
 content_compression = false
 
 ; The following 3 settings define the duration of a file's lifetime.
-; time units: d (day), m (month), y (year)
+; available time units: d (day), m (month), y (year)
 ; Example: 6m - lifetime of the file is set to 6m
+; These values are used by javascript directly, so beware of typos which 
+; would break your javascript code (and thus the functionality of filez)
+
 ; This is the initial predefined lifetime.
 lifetime_default = 1m
 

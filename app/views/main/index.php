@@ -237,7 +237,7 @@
       // configure datepicker plugin for upload and edit modals
       $('#input-start-from').datepicker ({minDate: new Date()});
       $('#input-available-until').datepicker ({
-        defaultDate: "<?php echo fz_config_get('app', 'lifetime_default') ?>", 
+        setDate: "+<?php echo fz_config_get('app', 'lifetime_default') ?>", 
         minDate: new Date(),
         maxDate: "<?php echo fz_config_get('app','lifetime_max') ?>"
       });

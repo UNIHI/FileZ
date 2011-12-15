@@ -178,6 +178,59 @@ $.fn.initFileActions = function () {
             });
         }
     });
+    
+/*
+    $('a.toggle-on', this).click (function (e) {
+        if (confirm (settings.messages.confirmToggleOn))
+            $('<form action="'+$(this).attr('href')+'" method="post"></form>').appendTo('body').submit();
+        e.preventDefault();
+    });
+
+    $('a.toggle-off', this).click (function (e) {
+        if (confirm (settings.messages.confirmToggleOff))
+            $('<form action="'+$(this).attr('href')+'" method="post"></form>').appendTo('body').submit();
+        e.preventDefault();
+    });
+*/
+    $('#toggle', this).click (function (e) {
+        e.preventDefault();
+        var fileListItem = $(this).closest ('li.file');
+        var link = $(this);
+        var postData = { token : $.cookie('token') }
+        $.postJSON($(this).attr('href'), postData, function (data) {
+            if (data.status == undefined) {
+                notifyError (settings.messages.unknownErrorHappened);
+            } else if (data.status == 'success') {
+                link.qtip('destroy');
+                fileListItem.html (data.html);
+                fileListItem.initFileActions ();
+                notify (data.statusText);
+            } else if (data.status == 'error'){
+                notifyError (data.statusText);
+            }
+            $.cookie('token', data.token);
+        });
+    });
+    
+    $('a.extend,a.extendMaximum', this).click (function (e) {
+        e.preventDefault();
+        var fileListItem = $(this).closest ('li.file');
+        var link = $(this);
+        var postData = { token : $.cookie('token') }
+        $.postJSON($(this).attr('href'), postData, function (data) {
+            if (data.status == undefined) {
+                notifyError (settings.messages.unknownErrorHappened);
+            } else if (data.status == 'success') {
+                link.qtip('destroy');
+                fileListItem.html (data.html);
+                fileListItem.initFileActions ();
+                notify (data.statusText);
+            } else if (data.status == 'error'){
+                notifyError (data.statusText);
+            }
+            $.cookie('token', data.token);
+        });
+    });
 
     // Setup edit dialog
     $('a.edit', this).click (function (e) {
