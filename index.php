@@ -58,6 +58,19 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with Filez.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * 
+ * FileZ was forked on May 12th 2011 by University of Hildesheim.
+ * A copy of this fork can be obtained here: 
+ * 
+ * https://github.com/UNIHI/FileZ
+ * 
+ * Further development is aimed to meet the requirements of the
+ * univeristy's IT department and general acceptance to support
+ * a better exchange of large files among personal and stundents.
+ * 
+ * Suggestions and bug reports are very welcomed.
  */
 
 define ('FZ_VERSION', '2.1.0-1');
@@ -72,25 +85,6 @@ set_include_path (get_include_path ()
     .DIRECTORY_SEPARATOR.'pear'
   .PATH_SEPARATOR.dirname (__FILE__).DIRECTORY_SEPARATOR.'plugins'
   );
-
-// Tests, trying to reduce loading time
-/*
-function __class_loader($classname)
-{
-  $ns = array (
-    'App_Controller',
-    'App_Model',
-    '_'
-        );
-  $bp = array (
-    'app_controllers',
-    'app_models',
-    DIRECTORY_SEPARATOR
-      );
-  include str_replace($ns, $bp, $classname).'.php';
-}
-spl_autoload_register('__class_loader');
-*/
 
 require 'Zend/Loader/Autoloader.php';
 

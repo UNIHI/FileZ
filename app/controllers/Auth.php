@@ -58,6 +58,7 @@ class App_Controller_Auth extends Fz_Controller {
             $this->redirectHome ();
 
         $user = $authHandler->login ($_POST['username'], $_POST['password']);
+
         if ($user === null) {
             flash_now ('error', __('Wrong username or password'));
             return $this->loginFormAction (); // forward to login form

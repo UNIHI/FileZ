@@ -69,7 +69,6 @@ class Fz_User_Factory_Database extends Fz_User_Factory_Abstract {
               .'=:username AND '
               .fz_config_get ('user_factory_options', 'db_password_field')
               .'=';
-        
         $algorithm = trim ($this->getOption ('db_password_algorithm'));
         if (empty ($algorithm)) { // Shame on you !
             $sql .= ':password';

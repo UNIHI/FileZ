@@ -17,6 +17,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with Filez.  If not, see <http://www.gnu.org/licenses/>.
+ * 
  */
 
 /**
@@ -27,6 +28,7 @@ class App_Controller_Main extends Fz_Controller {
     public function indexAction () {
         $this->secure ();
         $user = $this->getUser ();
+
         $freeSpaceLeft = max (0, Fz_Db::getTable('File')->getRemainingSpaceForUser ($user));
         $maxUploadSize = min (
              Fz_Db::getTable('File')->shorthandSizeToBytes (ini_get ('upload_max_filesize')),
@@ -57,7 +59,7 @@ class App_Controller_Main extends Fz_Controller {
         set ('folders'          , $folders);
         
         $this->setToken();
-        
+
         return html ('main/index.php');
     }
 

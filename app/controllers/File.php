@@ -115,9 +115,6 @@ class App_Controller_File extends Fz_Controller {
     $folder = preg_replace('/[^A-Za-z0-9_ ]/', '', $folder);
     $folder = preg_replace('/ /', '_', $folder);
     
-
-    
-    
     $file->password = isset ($_POST ['use-password']);
     
     if (! empty ($_POST ['password']))
@@ -126,11 +123,10 @@ class App_Controller_File extends Fz_Controller {
     $file->comment = substr ($comment, 0, 199);
     $file->folder  = substr ($folder, 0, 199);
     $file->require_login = isset ($_POST ['require-login']);
-    
 
     try {
       $file->save ();
-
+      fz_log ('',FZ_LOG_EDIT, array('file_id' => $file->id));
       if ($this->isXhrRequest())
         return json (array ('status' => 'success'));
       else {

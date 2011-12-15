@@ -30,6 +30,7 @@ define ('FZ_LOG_VIEW',             'view');
 define ('FZ_LOG_PREVIEW',          'preview');
 define ('FZ_LOG_DELETE',           'delete');
 define ('FZ_LOG_EXTEND',           'extend');
+define ('FZ_LOG_EDIT',             'edit');
 
 define ('FZ_LOG_UPLOAD_MAIL_SENT', 'uploadmail');
 define ('FZ_LOG_SHARE_MAIL_SENT',  'sharemail');

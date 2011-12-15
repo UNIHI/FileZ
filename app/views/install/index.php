@@ -90,12 +90,6 @@ function config_form_row ($section, $var, $label, $type, $default_values, $choic
     </table>
     <table>
       <tr>
-        <td><?php echo config_form_row ('app', 'max_extend_count'       , 'Number of times a user can extends its file lifetime', 'text', $config) ?></td>
-        <td width="50%"></td>
-      </tr>
-    </table>
-    <table>
-      <tr>
         <td><?php echo config_form_row ('app', 'min_hash_size'          , 'Minimum size of the file download code', 'text', $config) ?></td>
         <td><?php echo config_form_row ('app', 'max_hash_size'          , 'maximum size of the file download code', 'text', $config) ?></td>
       </tr>
