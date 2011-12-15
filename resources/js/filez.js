@@ -215,6 +215,24 @@ $.fn.initFileActions = function () {
         modal.dialog ('open');
         $('#edit-input-available-until').removeAttr('disabled');
         
+        // javascript date object does not support datepicker's date arithmetic
+        // there is a library (datejs) but it's way too large (25kb) to just use
+        // it for this simple task, so we rather deal with little inaccuracy
+        var until = new Date($('.available-until', dataBlock).html());
+        if (settings.lifetimeMaxExtend.indexOf('y') != -1)
+          until.setYear(until.getYear()+settings.lifetimeMaxExtend.replace('y',''));
+        else if (settings.lifetimeMaxExtend.indexOf('m') != -1)
+          until.setMonth(until.getMonth()+settings.lifetimeMaxExtend.replace('m',''));
+        else if (settings.lifetimeMaxExtend.indexOf('m') != -1)
+          until.setDate(until.getDate()+settings.lifetimeMaxExtend.replace('d',''));
+                
+        // set file lifetime
+        $('#edit-input-available-until').datepicker ({
+          dateFormat: 'yy-mm-dd',
+          setDate: $('.available-until', dataBlock).html(),
+          minDate: $('.available-from', dataBlock).html(),
+          maxDate: until
+        });
         return false;
     });
       

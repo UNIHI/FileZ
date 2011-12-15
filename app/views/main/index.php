@@ -241,7 +241,6 @@
         minDate: new Date(),
         maxDate: "<?php echo fz_config_get('app','lifetime_max') ?>"
       });
-      $('#edit-input-available-until').datepicker ({minDate: new Date()});
       
       // Initialize dialogues
       $('#upload-form').initFilez (
@@ -250,6 +249,7 @@
           progressBox:      '#upload-progress',
           loadingBox:       '#upload-loading',
           maxFileSize:      <?php echo $max_upload_size ?>,
+          lifetimeMaxExtend: '<?php echo fz_config_get('app','lifetime_max_extend'); ?>',
           progressBar: {
             enable:        <?php echo ($use_progress_bar ? 'true':'false') ?>,
             upload_id_name: '<?php echo $upload_id_name ?>',
