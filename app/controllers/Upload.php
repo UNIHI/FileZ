@@ -171,7 +171,9 @@ class App_Controller_Upload extends Fz_Controller {
             $file->require_login    = isset ($_POST['require-login']);
         }
         
-        if (! empty ($_POST ['password']))
+        // set password
+        $file->password = isset ($_POST ['use-password']);
+        if ($file->password == true && ! empty ($_POST ['password']))
             $file->setPassword  ($_POST ['password']);
 
         try {
