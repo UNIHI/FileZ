@@ -67,7 +67,7 @@
   </ul>
   <?php if (fz_config_get('app' , 'require_user_agreement', true)): ?>
   <ul id="options">
-    <li id="option-use-password">
+    <li id="option-accept-user-agreement">
       <label for="accept-user-agreement"
       title="<?php echo __('You have to accept this user agreement before '
       .'you can upload the file.')?>">
@@ -189,12 +189,25 @@
   </div>
   <ul id="edit-options">
     <li id="edit-option-use-password">
-      <input type="checkbox" name="use-password" id="edit-use-password"/>
-      <label for="edit-input-password" title="<?php
-      echo __('Ask a password to people who will download your file') ?>">
+      <label for="edit-use-password" title="<?php
+        echo __('Ask a password to people who will download your file') ?>">
+        <input id="edit-use-password" type="checkbox" name="use-password" />
         <?php echo __('Use a password to download') ?>
       </label>
-     
+    </li>
+    <li id="edit-option-change-password" style="display:none">
+      <label for="changePW" title="<?php echo __('Change password') ?>">
+        <a id="changePW" href="#">
+          <?php echo __('Change password'); ?>
+        </a>
+      </label>
+    </li>
+    <li id="edit-option-password-field" style="display:none">
+      <label for="pwNone" title="<? echo __('Change password') ?>">
+          <input type="password" id="edit-input-password" name="password" 
+          class="password" autocomplete="off" size="5"/> 
+
+      </label>
     </li>
     <?php if (fz_config_get ('app', 'login_requirement', 'on') == 'on'): ?>
     <li id="edit-option-require-login">
@@ -205,17 +218,6 @@
       </label>
     </li>
     <?php endif ?>
-    <li>
-    <label id="changePW" for="pwNone">PW ändern</label>
-      
-      <div id="pwNone" style="display: none;">
-      		<input type="password" id="edit-input-password" name="password" class="password" autocomplete="off" size="5"/> 
-       </div>
-    
-    
-    </li>
-    
-    
   </ul>
   <div id="edit">
     <input type="submit" id="do-edit" name="edit" class="awesome blue large"
@@ -232,171 +234,182 @@
   
 <script type="text/javascript">
     $(document).ready (function () {
-        $('#input-start-from').datepicker ({minDate: new Date()});
-        $('#input-available-until').datepicker ({minDate: new Date(), maxDate: "+6m"});
-        $('#edit-input-available-until').datepicker ({minDate: new Date()});
-        $('#upload-form').initFilez (
-          {
-            fileList:         'ul#files',
-            progressBox:      '#upload-progress',
-            loadingBox:       '#upload-loading',
-            maxFileSize:      <?php echo $max_upload_size ?>,
-            progressBar: {
-              enable:        <?php echo ($use_progress_bar ? 'true':'false') ?>,
-              upload_id_name: '<?php echo $upload_id_name ?>',
-              barImage:     '<?php echo public_url_for ('resources/images/progressbg_green.gif') ?>',
-              boxImage:     '<?php echo public_url_for ('resources/images/progressbar.gif') ?>',
-              refreshRate:   <?php echo $refresh_rate ?>,
-              progressUrl:  '<?php echo url_for ('upload/progress/') ?>'
-            },
-            messages: {
-              confirmDelete: <?php echo  json_encode (__('Are you sure to delete this file ?')) ?>,
-              confirmToggleOn: <?php echo json_encode(__('Do you want to toggle on login requirement for this file?')) ?>,
-              confirmToggleOff: <?php echo json_encode(__('Do you want to toggle off login requirement for this file ?')) ?>,
-              unknownError: <?php echo  json_encode (__('Unknown error')) ?>,
-              unknownErrorHappened: <?php echo  json_encode (__('An unknown error hapenned while uploading the file')) ?>,
-              cancel: <?php echo  json_encode (__('Cancel')) ?>,
-              emailMessage: <?php echo  json_encode (__('You can download the file I uploaded here')) ?>,
-              editFile: <?php echo json_encode(__("Edit file")) ?>,
-              copiedToClipboard: <?php echo json_encode(__('Copied to clipboard')) ?>,
-              acceptDisclaimer: <?php echo json_encode(__('You have to accept the user agreement to upload the file.')) ?>,
-              insertPassword: <?php echo json_encode(__('Please set a download protection password or deselect the appropriate checkbox.')) ?>,
-              noFolderAssigned: <?php echo json_encode(__('No folder assigned')) ?>,
-              folder: <?php echo json_encode(__('Folder')) ?>
-          }
-        });
-
-       
-
-        $('#changePW').click(function(event) {
-        	$('#pwNone').show();
-        });
-
-		
+      // configure datepicker plugin for upload and edit modals
+      $('#input-start-from').datepicker ({minDate: new Date()});
+      $('#input-available-until').datepicker ({
+        defaultDate: "<?php echo fz_config_get('app', 'lifetime_default') ?>", 
+        minDate: new Date(),
+        maxDate: "<?php echo fz_config_get('app','lifetime_max') ?>"
+      });
+      $('#edit-input-available-until').datepicker ({minDate: new Date()});
       
-        
+      // Initialize dialogues
+      $('#upload-form').initFilez (
+        {
+          fileList:         'ul#files',
+          progressBox:      '#upload-progress',
+          loadingBox:       '#upload-loading',
+          maxFileSize:      <?php echo $max_upload_size ?>,
+          progressBar: {
+            enable:        <?php echo ($use_progress_bar ? 'true':'false') ?>,
+            upload_id_name: '<?php echo $upload_id_name ?>',
+            barImage:     '<?php echo public_url_for ('resources/images/progressbg_green.gif') ?>',
+            boxImage:     '<?php echo public_url_for ('resources/images/progressbar.gif') ?>',
+            refreshRate:   <?php echo $refresh_rate ?>,
+            progressUrl:  '<?php echo url_for ('upload/progress/') ?>'
+          },
+          messages: {
+            confirmDelete: <?php echo  json_encode (__('Are you sure to delete this file ?')) ?>,
+            confirmToggleOn: <?php echo json_encode(__('Do you want to toggle on login requirement for this file?')) ?>,
+            confirmToggleOff: <?php echo json_encode(__('Do you want to toggle off login requirement for this file ?')) ?>,
+            unknownError: <?php echo  json_encode (__('Unknown error')) ?>,
+            unknownErrorHappened: <?php echo  json_encode (__('An unknown error hapenned while uploading the file')) ?>,
+            cancel: <?php echo  json_encode (__('Cancel')) ?>,
+            emailMessage: <?php echo  json_encode (__('You can download the file I uploaded here')) ?>,
+            editFile: <?php echo json_encode(__("Edit file")) ?>,
+            copiedToClipboard: <?php echo json_encode(__('Copied to clipboard')) ?>,
+            acceptDisclaimer: <?php echo json_encode(__('You have to accept the user agreement to upload the file.')) ?>,
+            insertPassword: <?php echo json_encode(__('Please set a download protection password or deselect the appropriate checkbox.')) ?>,
+            noFolderAssigned: <?php echo json_encode(__('No folder assigned')) ?>,
+            folder: <?php echo json_encode(__('Folder')) ?>
+        }
+      });
 
-        // Modal box generic configuration
-        $(".fz-modal").dialog({
-          bgiframe: true,
-          autoOpen: false,
-          resizable: false,
-          width: '650px',
-          modal: true
-        });
+      $('#changePW').click(function(event) {
+      	$('#pwNone').show();
+      });
 
-        // Set title for each modal
-        $('section.new-file').dialog ('option', 'title', <?php echo json_encode(__('Upload a new file')) ?>);
+      // Modal box generic configuration
+      $(".fz-modal").dialog({
+        bgiframe: true,
+        autoOpen: false,
+        resizable: false,
+        width: '650px',
+        modal: true
+      });
 
-        // Replace upload form with one big button, and open a modal box on click
-        $('h2.new-file').wrapInner ($('<a href="#" class="awesome large"></a>'));
-        $('h2.new-file a').click (function (e) {
-          $('section.new-file').dialog ('open');
-          e.preventDefault();
-        });
-      
-        // Show password box on checkbox click
-        $('input.password').hide();
-        $('#use-password, #option-use-password label').click (function () { // IE quirk fix
-          if ($('#use-password').attr ('checked')) {
-            $('input.password').show().focus();
-          } else {
-            $('input.password').val('').hide();
-          }
-        });
-      
-        // IE quirk fix
-        $('#edit-use-password, #edit-option-use-password label').click (function () {
-          if ($('#edit-use-password').attr ('checked')) {
-        	  $('#pwNone').show();
-        	  $('#changePW').hide();
-            $('input.password').show().focus();
-          } else {
-            $('input.password').val('').hide();
-          }
-        });
-        
-        $('#input-start-from').change (function () { // IE quirk fix
-          var DateFrom = $("#input-start-from").val().split(".");
-          var DateTo   = $("#input-available-until").val().split(".");
-          if ( DateFrom[2].length == 2 )
-            DateFrom[2] = "20" + DateFrom[2];
-          if ( DateTo[2].length == 2 )
-            DateTo[2] = "20" + DateTo[2];
-          var DateFrom = new Date(DateFrom[2], DateFrom[1]-1, DateFrom[0]);
-          var DateTo   = new Date(DateTo[2], DateTo[1]-1, DateTo[0]);
-          var DateNow  = new Date();
-          DateNow.setMilliseconds(0);
-          DateNow.setSeconds(0);
-          DateNow.setMinutes(0);
-          DateNow.setHours(0);
+      // Set title for each modal
+      $('section.new-file').dialog ('option', 'title', <?php echo json_encode(__('Upload a new file')) ?>);
 
-          if ( Date.parse(DateFrom) < Date.parse(DateNow) ) {
-            alert(<?php echo json_encode (__('You have entered a date in the past. Please use the date picker to select a date.')) ?>);
-            $("#input-start-from").val( $.datepicker.formatDate( 'dd.mm.yy', DateNow ) );
-          }
-          else if ( Date.parse(DateTo) < Date.parse(DateFrom) ) {
-            alert(<?php echo json_encode (__('You have entered a date after the end date. Please use the date picker to select a date.')) ?>);
-            $("#input-start-from").val( $.datepicker.formatDate( 'dd.mm.yy', DateTo ) );
-          }
-
-        });
-        $('#input-available-until').change (function () { // IE quirk fix
-          var DateFrom = $("#input-start-from").val().split(".");
-          var DateTo   = $("#input-available-until").val().split(".");
-          if ( DateFrom[2].length == 2 )
-            DateFrom[2] = "20" + DateFrom[2];
-          if ( DateTo[2].length == 2 )
-            DateTo[2] = "20" + DateTo[2];
-          var DateFrom = new Date(DateFrom[2], DateFrom[1]-1, DateFrom[0]);
-          var DateTo   = new Date(DateTo[2], DateTo[1]-1, DateTo[0]);
-          var DateNow  = new Date();
-          DateNow.setMilliseconds(0);
-          DateNow.setSeconds(0);
-          DateNow.setMinutes(0);
-          DateNow.setHours(0);
-          
-          var Date6M = $.datepicker._determineDate(null, "+6m", new Date());
-          
-          if ( Date.parse(DateTo) < Date.parse(DateNow) ) {
-            alert(<?php echo json_encode (__('You have entered a date in the past. Please use the date picker to select a date.')) ?>);
-            $("#input-available-until").val( $.datepicker.formatDate( 'dd.mm.yy', DateNow ) );
-          }
-          else if ( Date.parse(DateTo) < Date.parse(DateFrom) ) {
-            alert(<?php echo json_encode (__('You have entered a date before the start date. Please use the date picker to select a date.')) ?>);
-            $("#input-available-until").val( $.datepicker.formatDate( 'dd.mm.yy', DateFrom ) );
-          }
-          else if ( Date.parse(DateTo) > Date.parse(Date6M) ) {
-            alert(<?php echo json_encode (__('You have entered a date which is longer than six months in the future. Please use the date picker to select a date.')) ?>);
-            $("#input-available-until").val( $.datepicker.formatDate( 'dd.mm.yy', Date6M ) );
-          }
-          
-        });
+      // Replace upload form with one big button, and open a modal box on click
+      $('h2.new-file').wrapInner ($('<a href="#" class="awesome large"></a>'));
+      $('h2.new-file a').click (function (e) {
+        $('section.new-file').dialog ('open');
+        e.preventDefault();
+      });
     
-        // Check if at least one checkbox is checked
-        <?php if (fz_config_get('app', 'privacy_mode', false) == true): ?>
-        $('#use-password, #require-login').click(function(event) {
-          if (!$('#use-password').is(':checked') && !$('#require-login').is(':checked')) {
-            $('#require-login').attr('checked','checked')
-            alert(<?php echo json_encode (__('You have to give at least a password or require a login.')) ?>);
-          }
-        });
-        <?php endif ?>
-
+      // // Show password box on checkbox click
+      $('input.password').hide();
+      $('#use-password, #option-use-password label').click (function () { // IE quirk fix
+        if ($('#use-password').attr ('checked')) {
+          $('input.password').show().focus();
+        } else {
+          $('input.password').val('').hide();
+        }
+      });
+    
+      // Password IE quirk fix
+      $('#edit-use-password, #edit-option-use-password label').click (function () {
+        if ($('#edit-use-password').attr ('checked')) {
+      	  $('#edit-option-change-password').show();
+          $('input.password').show().focus();
+        } else {
+          $('input.password').val('').hide();
+          $('#edit-option-password-field').hide();
+          $('#edit-option-change-password').hide();
+        }
+      });
+      $('#changePW').click(function() {
+        if ($('#edit-option-password-field').css('display') != 'none') {
+          $('#edit-option-password-field').hide();
+        } else {
+          $('#edit-input-password').val('');
+          $('#edit-option-password-field').show();
+        }
+      });
       
-        <?php if (fz_config_get('app', 'enable_autocomplete', true)): ?>
-        // Autocomplete content
-        $('#input-folder').autocomplete({
-          width: 300,
-          delimiter: /(,|;)\s*/,
-          lookup: '<?php echo $folders ?>'.split(',')
-        });
-        $('#edit-input-folder').autocomplete({
-          width: 300,
-          delimiter: /(,|;)\s*/,
-          lookup: '<?php echo $folders ?>'.split(',')
-        });        
-        <?php endif ?>
+      // Check date intervals for correctness
+      $('#input-start-from').change (function () { // IE quirk fix
+        var DateFrom = $("#input-start-from").val().split(".");
+        var DateTo   = $("#input-available-until").val().split(".");
+        if ( DateFrom[2].length == 2 )
+          DateFrom[2] = "20" + DateFrom[2];
+        if ( DateTo[2].length == 2 )
+          DateTo[2] = "20" + DateTo[2];
+        var DateFrom = new Date(DateFrom[2], DateFrom[1]-1, DateFrom[0]);
+        var DateTo   = new Date(DateTo[2], DateTo[1]-1, DateTo[0]);
+        var DateNow  = new Date();
+        DateNow.setMilliseconds(0);
+        DateNow.setSeconds(0);
+        DateNow.setMinutes(0);
+        DateNow.setHours(0);
+
+        if ( Date.parse(DateFrom) < Date.parse(DateNow) ) {
+          alert(<?php echo json_encode (__('You have entered a date in the past. Please use the date picker to select a date.')) ?>);
+          $("#input-start-from").val( $.datepicker.formatDate( 'dd.mm.yy', DateNow ) );
+        }
+        else if ( Date.parse(DateTo) < Date.parse(DateFrom) ) {
+          alert(<?php echo json_encode (__('You have entered a date after the end date. Please use the date picker to select a date.')) ?>);
+          $("#input-start-from").val( $.datepicker.formatDate( 'dd.mm.yy', DateTo ) );
+        }
+
+      });
+      $('#input-available-until').change (function () { // IE quirk fix
+        var DateFrom = $("#input-start-from").val().split(".");
+        var DateTo   = $("#input-available-until").val().split(".");
+        if ( DateFrom[2].length == 2 )
+          DateFrom[2] = "20" + DateFrom[2];
+        if ( DateTo[2].length == 2 )
+          DateTo[2] = "20" + DateTo[2];
+        var DateFrom = new Date(DateFrom[2], DateFrom[1]-1, DateFrom[0]);
+        var DateTo   = new Date(DateTo[2], DateTo[1]-1, DateTo[0]);
+        var DateNow  = new Date();
+        DateNow.setMilliseconds(0);
+        DateNow.setSeconds(0);
+        DateNow.setMinutes(0);
+        DateNow.setHours(0);
+        
+        var Date6M = $.datepicker._determineDate(null, "+6m", new Date());
+        
+        if ( Date.parse(DateTo) < Date.parse(DateNow) ) {
+          alert(<?php echo json_encode (__('You have entered a date in the past. Please use the date picker to select a date.')) ?>);
+          $("#input-available-until").val( $.datepicker.formatDate( 'dd.mm.yy', DateNow ) );
+        }
+        else if ( Date.parse(DateTo) < Date.parse(DateFrom) ) {
+          alert(<?php echo json_encode (__('You have entered a date before the start date. Please use the date picker to select a date.')) ?>);
+          $("#input-available-until").val( $.datepicker.formatDate( 'dd.mm.yy', DateFrom ) );
+        }
+        else if ( Date.parse(DateTo) > Date.parse(Date6M) ) {
+          alert(<?php echo json_encode (__('You have entered a date which is longer than six months in the future. Please use the date picker to select a date.')) ?>);
+          $("#input-available-until").val( $.datepicker.formatDate( 'dd.mm.yy', Date6M ) );
+        }
+        
+      });
+  
+      // Check if at least one checkbox is checked
+      <?php if (fz_config_get('app', 'privacy_mode', false) == true): ?>
+      $('#use-password, #require-login').click(function(event) {
+        if (!$('#use-password').is(':checked') && !$('#require-login').is(':checked')) {
+          $('#require-login').attr('checked','checked')
+          alert(<?php echo json_encode (__('You have to give at least a password or require a login.')) ?>);
+        }
+      });
+      <?php endif ?>
+
+
+      // Autocomplete for folders    
+      <?php if (fz_config_get('app', 'enable_autocomplete', true)): ?>
+      $('#input-folder').autocomplete({
+        width: 300,
+        delimiter: /(,|;)\s*/,
+        lookup: '<?php echo $folders ?>'.split(',')
+      });
+      $('#edit-input-folder').autocomplete({
+        width: 300,
+        delimiter: /(,|;)\s*/,
+        lookup: '<?php echo $folders ?>'.split(',')
+      });        
+      <?php endif ?>
     });
 
    

@@ -320,10 +320,12 @@ class App_Controller_File extends Fz_Controller {
     $this->setToken();
     return html ('file/preview.php');
   }
-
+  
   /**
    * Toggle login requirement
    */
+  // Design change made it obsolete
+  /*
   public function toggleRequireLoginAction () {
     $this->secure ();
     $file = $this->getFile ();
@@ -360,7 +362,8 @@ class App_Controller_File extends Fz_Controller {
       $user->is_admin ? redirect_to ('/admin/files') : redirect_to ('/');
     }
   }
-
+  */
+ 
   /**
    * View an image
    */

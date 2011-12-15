@@ -232,6 +232,7 @@ $.fn.initFileActions = function () {
         });
     });
 
+    // Setup edit dialog
     $('a.edit', this).click (function (e) {
     	
         e.preventDefault();
@@ -253,15 +254,13 @@ $.fn.initFileActions = function () {
         $('#edit-modal input[name="require-login"]').attr('checked', (requireLogin=="1"?true:false));
 
         if ( hasPassword=="1" ) {
+          $('#edit-option-change-password').show();
         	$('#edit-modal input.password').show().focus();
-        	$('#changePW').show();
-         
         }
         else {
+          $('#edit-option-change-password').hide();
           $('#edit-modal input.password').val('').hide();
-          $('#changePW').hide();
         }
-        $('#pwNone').hide();
         $('#edit-form').attr('action', fileUrl);
         
         // ugly hack to let the datepicker ui not appear
@@ -273,7 +272,7 @@ $.fn.initFileActions = function () {
     });
       
     // initialize tips
-    $('a.extend, a.extendMaximum, a.delete, a.share, a.zclip, a.edit, a.toggle-on, a.toggle-off').qtip({
+    $('a.share, a.zclip, a.edit').qtip({
         content: {
            attr: 'title'
         },
