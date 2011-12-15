@@ -168,8 +168,7 @@
  <div id="edit-start-from">
     <label for="edit-input-start-from"><?php echo __('Starts from:') ?></label>
     <input type="text" id="edit-input-start-from" name="start-from"
-    value="<?php echo $start_from ?>" disabled="disabled"
-    title="<?php echo __('Select a starting date') ?>" />
+    value="<?php echo $start_from ?>" disabled="disabled" />
   </div>
   <div id="edit-available-until">
     <label for="edit-input-available-until"><?php echo __('Available until:') ?></label>

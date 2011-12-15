@@ -119,6 +119,19 @@ enable_caching = true
 ; and you have no administrative rights to enable it.
 content_compression = false
 
+; The following 3 settings define the duration of a file's lifetime.
+; time units: d (day), m (month), y (year)
+; Example: 6m - lifetime of the file is set to 6m
+; This is the initial predefined lifetime.
+lifetime_default = 1m
+
+; This is the maximum allowed initial lifetime the user can set for a new file.
+lifetime_max = 6m
+
+; This is the maximum allowed duration for extending a file's lifetime
+; This is only possible if the file has not yet been expired and thus deleted.
+lifetime_max_extend = 2m
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Logging
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

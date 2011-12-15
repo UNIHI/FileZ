@@ -153,6 +153,7 @@ function before () {
   Zend_Locale::setDefault (fz_config_get ('app', 'default_locale', 'de'));
 
   //$currentLocale = new Zend_Locale ('auto');
+  // TODO: hardcode to 'de' because 'auto' can break code for unsupported langs
   $currentLocale = new Zend_Locale ('de');
   $translate     = new Zend_Translate (
     'gettext',
