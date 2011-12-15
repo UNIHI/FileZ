@@ -20,7 +20,7 @@ foreach ($styles as $style)
 if (!isset($scripts) || !is_array($scripts))
   $scripts = array();
 array_unshift($scripts,
-  'jquery-1.6.2.min', 'jquery.form.min', 'jquery.progressbar.min',
+  'jquery-1.7.1.min', 'jquery.form.min', 'jquery.progressbar.min',
   'jquery.autocomplete.min', 'jquery.cookie.min',
   'jquery-ui-1.8.16.custom.min', 'jquery.qtip.pack',
   'i18n/jquery.ui.datepicker-'.option ('locale')->getLanguage (),
