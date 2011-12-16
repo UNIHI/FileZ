@@ -13,6 +13,7 @@
   <p class="available-from"><?php echo $file->available_from; ?></p>
   <p class="available-until"><?php echo $file->available_until; ?></p>
   <p class="filesize">(<?php echo $file->getReadableFileSize () ?>)</p>
+  <p class="deletelink"><?php echo $file->getDownloadUrl()?>/delete</p>
   <?php
   if (fz_config_get ('app', 'enable_copy_to_clipboard', true)) {
     echo '  <p class="zclip">';

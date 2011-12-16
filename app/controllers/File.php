@@ -126,7 +126,38 @@ class App_Controller_File extends Fz_Controller {
     $file->comment = substr ($comment, 0, 199);
     $file->folder  = substr ($folder, 0, 199);
     $file->require_login = isset ($_POST ['require-login']);
-
+    
+    // validate start and end dates
+    $availableFrom  = 
+      array_key_exists ('start-from', $_POST) ? $_POST['start-from'] : null;
+    $availableFrom  = 
+      new Zend_Date ($availableFrom, Zend_Date::DATE_SHORT);
+    $availableUntil  = 
+      array_key_exists ('available-until', $_POST) ? $_POST['available-until'] : null;
+    $availableUntil  = 
+      new Zend_Date ($availableUntil, 'YYYY-MM-dd');
+    if ($availableUntil->isEarlier($availableFrom))
+      $availableUntil = new Zend_date($availableFrom);
+    $lifetimeMax = new Zend_Date($availabeFrom);
+    $lifetimeMaxSetting = fz_config_get('app', 'lifetime_max');
+    $unit = substr($lifetimeMaxSetting, -1);
+    switch($unit) {
+      case 'y':
+        $lifetimeMax->add(substr($lifetimeMaxSetting, 0, -1), 
+          Zend_Date::YEAR);
+        break;
+      case 'm':
+        $lifetimeMax->add(substr($lifetimeMaxSetting, 0, -1), 
+        Zend_Date::MONTH_SHORT);
+        break;
+      case 'd':
+        $lifetimeMax->add(substr($lifetimeMaxSetting, 0, -1), 
+        Zend_Date::DAY_SHORT);
+        break;
+    }
+    if ($availableUntil->isLater($lifetimeMax))
+      $availableUntil = new Zend_Date($lifetimeMax);
+        
     try {
       $file->save ();
       fz_log ('',FZ_LOG_EDIT, array('file_id' => $file->id));

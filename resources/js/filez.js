@@ -179,21 +179,19 @@ $.fn.initFileActions = function () {
         }
     });
 
-    // Setup edit dialog
+    // Set up edit dialog
     $('a.edit', this).click (function (e) {
     	
         e.preventDefault();
         var modal = $('#edit-modal');
         var fileUrl = $(this).attr ('href') + '?is-async=1';
         var dataBlock = $(this).closest ('li.file');
-        //var dataBlock = $(this).closest('.file-attributes').prev().prev();
         var filename = $('.filename a', dataBlock).html();
         var comment = $('.comment', dataBlock).html();
         var folder = $('.folder', dataBlock).html();
         var hasPassword = $('.has-password', dataBlock).html();
         var requireLogin = $('.require-login', dataBlock).html();
-        //var fileHash = fileUrl.split('').reverse().join('');
-        //fileHash = fileHash.substring(0,fileHash.indexOf('/')).split('').reverse().join('');
+
         $('#edit-modal').dialog ('option', 'title', settings.messages.editFile + ': ' + filename);
         $('#edit-modal input[name="comment"]').val(comment);
         $('#edit-modal input[name="folder"]').val(folder);
@@ -210,28 +208,59 @@ $.fn.initFileActions = function () {
         }
         $('#edit-form').attr('action', fileUrl);
         
-        // ugly hack to let the datepicker ui not appear
+        // ugly hack to let the datepicker ui not appear before edit dialog
+        // is opened
         $('#edit-input-available-until').attr('disabled', 'disabled');
         modal.dialog ('open');
         $('#edit-input-available-until').removeAttr('disabled');
         
-        // javascript date object does not support datepicker's date arithmetic
-        // there is a library (datejs) but it's way too large (25kb) to just use
-        // it for this simple task, so we rather deal with little inaccuracy
+        // javascript date object does not support localization
+        // (see datejs for more sophisticaed date library)
+        // TODO: improve localization handling
+        var datePartsFrom = $('.available-from', dataBlock).html().split('-');
+        var dateFrom = datePartsFrom[2]+'.'+datePartsFrom[1]+'.'+datePartsFrom[0];
+        $('#edit-input-available-from').val(dateFrom);
         var until = new Date($('.available-until', dataBlock).html());
+          
         if (settings.lifetimeMaxExtend.indexOf('y') != -1)
           until.setYear(until.getYear()+settings.lifetimeMaxExtend.replace('y',''));
         else if (settings.lifetimeMaxExtend.indexOf('m') != -1)
           until.setMonth(until.getMonth()+settings.lifetimeMaxExtend.replace('m',''));
-        else if (settings.lifetimeMaxExtend.indexOf('m') != -1)
+        else if (settings.lifetimeMaxExtend.indexOf('d') != -1)
           until.setDate(until.getDate()+settings.lifetimeMaxExtend.replace('d',''));
-                
-        // set file lifetime
+        
+        var datePartsUntil = $('.available-until', dataBlock).html().split('-');
+        var dateUntil = datePartsUntil[2]+'.'+datePartsUntil[1]+'.'+datePartsUntil[0];
+        $('#edit-input-available-until').val(dateUntil);
         $('#edit-input-available-until').datepicker ({
-          dateFormat: 'yy-mm-dd',
-          setDate: $('.available-until', dataBlock).html(),
-          minDate: $('.available-from', dataBlock).html(),
+          dateFormat: 'dd.mm.yy',
+          setDate: dateUntil,
+          minDate: dateFrom,
           maxDate: until
+        });
+        
+        // set up delete button
+        $('#do-delete').click(function() {
+          var deleteLink = $('.deletelink', dataBlock).html();
+          if (confirm (settings.messages.confirmDelete)) {
+              var fileListItem = $(this).closest ('li.file');
+              var link = $(this);
+              var postData = { token : $.cookie('token') }
+              $.postJSON($(this).attr('href'), postData, function (data) {
+                  if (data.status == undefined) {
+                      notifyError (settings.messages.unknownErrorHappened);
+                  } else if (data.status == 'success') {
+                      link.qtip('destroy');
+                      fileListItem.slideUp(1000, function() { $(this).remove(); });
+                      fileListItem.initFileActions ();
+                      notify (data.statusText);
+                  } else if (data.status == 'error'){
+                      notifyError (data.statusText);
+                  }
+                  $.cookie('token', data.token);
+              });
+          }
+
         });
         return false;
     });
@@ -416,8 +445,8 @@ var onFileUploadEnd = function (data, status) {
  * Function called on edit form submission
  */
 var onEditFormSubmit = function (data, form, options) {
-	 
-    $('#do-edit').hide (); // hidding the start upload button
+	  alert('X');
+    $('#do-edit').hide (); // hidding the edit button
         
 };
 

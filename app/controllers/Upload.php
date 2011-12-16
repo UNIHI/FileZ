@@ -130,19 +130,36 @@ class App_Controller_Upload extends Fz_Controller {
         $folder = preg_replace('/[^A-Za-z0-9_ ]/', '', $folder);
         $folder = preg_replace('/ /', '_', $folder);
         
-        // Validating lifetime
-        $lifetime = (int) fz_config_get ('app', 'init_file_lifetime', 10);
-        if (array_key_exists ('lifetime', $_POST) && is_numeric ($_POST['lifetime'])) {
-            $lifetime = intval ($_POST['lifetime']);
-            $maxLifetime = (int) fz_config_get ('app', 'max_file_lifetime', 20);
-            if ($lifetime > $maxLifetime)
-                $lifetime = $maxLifetime;
+        // validate start and end dates
+        $availableFrom  = 
+          array_key_exists ('start-from', $_POST) ? $_POST['start-from'] : null;
+        $availableFrom  = 
+          new Zend_Date ($availableFrom, Zend_Date::DATE_SHORT);
+        $availableUntil  = 
+          array_key_exists ('available-until', $_POST) ? $_POST['available-until'] : null;
+        $availableUntil  = 
+          new Zend_Date ($availableUntil, Zend_Date::DATE_SHORT);
+        if ($availableUntil->isEarlier($availableFrom))
+          $availableUntil = new Zend_date($availableFrom);
+        $lifetimeMax = new Zend_Date($availabeFrom);
+        $lifetimeMaxSetting = fz_config_get('app', 'lifetime_max');
+        $unit = substr($lifetimeMaxSetting, -1);
+        switch($unit) {
+          case 'y':
+            $lifetimeMax->add(substr($lifetimeMaxSetting, 0, -1), 
+              Zend_Date::YEAR);
+            break;
+          case 'm':
+            $lifetimeMax->add(substr($lifetimeMaxSetting, 0, -1), 
+            Zend_Date::MONTH_SHORT);
+            break;
+          case 'd':
+            $lifetimeMax->add(substr($lifetimeMaxSetting, 0, -1), 
+            Zend_Date::DAY_SHORT);
+            break;
         }
-
-        $availableFrom  = array_key_exists ('start-from', $_POST) ? $_POST['start-from'] : null;
-        $availableFrom  = new Zend_Date ($availableFrom, Zend_Date::DATE_SHORT);
-        $availableUntil = clone ($availableFrom);
-        $availableUntil->add ($lifetime, Zend_Date::DAY);
+        if ($availableUntil->isLater($lifetimeMax))
+          $availableUntil = new Zend_Date($lifetimeMax);
 
         $user = $this->getUser ();
         

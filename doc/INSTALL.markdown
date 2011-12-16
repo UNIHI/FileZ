@@ -49,9 +49,6 @@ The "[app]" section contains common options :
 
 - "use_url_rewriting" (boolean) : Not tested with "false" yet
 - "upload_dir" (Absolute path)  : Upload directory (writtable by the web server)
-- "max_file_lifetime" (integer) : Maximum lifetime of the file on the server before being delete
-- "init_file_lifetime (integer) : Initial lifetime
-- "extend_file_lifetime (int)   : Max period for extending lifetime
 - "min_hash_size" (integer)     : Minimum number of characters in the hash
 - "max_hash_size" (integer)     : Maximum number of characters in the hash
 - "default_locale" (string)     : Default locale used when Filez can find the prefered user locale or when there is no corresponding i18n for the user locale.

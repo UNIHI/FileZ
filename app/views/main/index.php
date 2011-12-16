@@ -157,7 +157,7 @@
 <section id="edit-modal" class="edit-file fz-modal" style="display:none">
   <form method="POST" enctype="application/x-www-form-urlencoded"
   action="" id="edit-form">
-  <div id="edit-file">
+  <div id="edit-file" style="display:none">
     <label for="edit-file-input"><?php echo __r('File (Max size: %size%):',
     array ('size' => bytesToShorthand ($max_upload_size))) ?></label>
     <div id="input-file">
@@ -166,8 +166,8 @@
     </div>
   </div>
  <div id="edit-start-from">
-    <label for="edit-input-start-from"><?php echo __('Starts from:') ?></label>
-    <input type="text" id="edit-input-start-from" name="start-from"
+    <label for="edit-input-available-from"><?php echo __('Starts from:') ?></label>
+    <input type="text" id="edit-input-available-from" name="start-from"
     value="<?php echo $start_from ?>" disabled="disabled" />
   </div>
   <div id="edit-available-until">

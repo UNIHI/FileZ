@@ -84,12 +84,6 @@ function config_form_row ($section, $var, $label, $type, $default_values, $choic
     <legend>Uploaded files properties</legend>
     <table>
       <tr>
-        <td><?php echo config_form_row ('app', 'init_file_lifetime'     , 'Initial lifetime (days)', 'text', $config) ?></td>
-        <td><?php echo config_form_row ('app', 'max_file_lifetime'      , 'Max lifetime (days)'  , 'text', $config) ?></td>
-      </tr>
-    </table>
-    <table>
-      <tr>
         <td><?php echo config_form_row ('app', 'min_hash_size'          , 'Minimum size of the file download code', 'text', $config) ?></td>
         <td><?php echo config_form_row ('app', 'max_hash_size'          , 'maximum size of the file download code', 'text', $config) ?></td>
       </tr>
@@ -292,14 +286,6 @@ function config_form_row ($section, $var, $label, $type, $default_values, $choic
         'config[logging][log_dir]': {
             nowhitespace: true,
             required: true
-        },
-        'config[app][max_file_lifetime]': {
-            number: true,
-            min: 1
-        },
-        'config[app][init_file_lifetime]': {
-            number: true,
-            min: 1
         },
         'config[app][max_extend_count]': {
             number: true,

@@ -509,9 +509,11 @@ section#uploaded-files ul li p.comment,
 section#folder-content ul li p.comment,
 section#uploaded-files ul li p.folder,
 section#uploaded-files ul li p.has-password,
-section#uploaded-files ul li p.require-login {
+section#uploaded-files ul li p.require-login,
+section#uploaded-files ul li p.available-from,
+section#uploaded-files ul li p.available-until,
+section#uploaded-files ul li p.deletelink {
     display: none;
-    /* TODO */
 }
 
 section#uploaded-files ul li .filesize,

@@ -12,10 +12,6 @@ upload_dir = "/var/fz_uploads"
 ; Must be writable by the web server
 cache_dir = "/var/fz_cache"
 
-; Max and initial lifetime of a file on the server
-max_file_lifetime  = 20 
-init_file_lifetime = 10
-
 ; Min/Max size of files hash codes
 min_hash_size = 4
 max_hash_size = 6

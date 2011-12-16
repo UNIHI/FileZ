@@ -39,7 +39,7 @@ class App_Controller_Main extends Fz_Controller {
         $progressMonitor = new $progressMonitor ();
         $folders = implode(', ', Fz_Db::getTable('File')->getFolders($user));
         
-        $initlt = fz_config_get ('app', 'init_file_lifetime', 20);
+        $initlt = fz_config_get ('app', 'lifetime_default');
         if ( substr($initlt, -1) == "m" )
           $initlt = Zend_Date::now ()->add ((int)$initlt, Zend_Date::MONTH);
         else
