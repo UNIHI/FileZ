@@ -165,7 +165,7 @@
       title="<?php echo __('Replace file') ?>" />
     </div>
   </div>
- <div id="edit-start-from">
+  <div id="edit-start-from">
     <label for="edit-input-available-from"><?php echo __('Starts from:') ?></label>
     <input type="text" id="edit-input-available-from" name="start-from"
     value="<?php echo $start_from ?>" disabled="disabled" />
@@ -237,9 +237,9 @@
       // configure datepicker plugin for upload and edit modals
       $('#input-start-from').datepicker ({minDate: new Date()});
       $('#input-available-until').datepicker ({
-        setDate: "+<?php echo fz_config_get('app', 'lifetime_default') ?>", 
         minDate: new Date(),
-        maxDate: "<?php echo fz_config_get('app','lifetime_max') ?>"
+        maxDate: "<?php echo fz_config_get('app','lifetime_max') ?>",
+        setDate: "+<?php echo fz_config_get('app', 'lifetime_default') ?>"
       });
       
       // Initialize dialogues
@@ -285,7 +285,8 @@
         autoOpen: false,
         resizable: false,
         width: '650px',
-        modal: true
+        modal: true,
+        beforeClose: function() { $('#do-delete').unbind('click'); }
       });
 
       // Set title for each modal

@@ -150,29 +150,6 @@ $.fn.initFileActions = function () {
             $(this).text(settings.messages.copiedToClipboard);
         }
     }),
-   
-    // Design change made this code obsolete
-    // $('a.delete', this).click (function (e) {
-        // e.preventDefault();
-        // if (confirm (settings.messages.confirmDelete)) {
-            // var fileListItem = $(this).closest ('li.file');
-            // var link = $(this);
-            // var postData = { token : $.cookie('token') }
-            // $.postJSON($(this).attr('href'), postData, function (data) {
-                // if (data.status == undefined) {
-                    // notifyError (settings.messages.unknownErrorHappened);
-                // } else if (data.status == 'success') {
-                    // link.qtip('destroy');
-                    // fileListItem.slideUp(1000, function() { $(this).remove(); });
-                    // fileListItem.initFileActions ();
-                    // notify (data.statusText);
-                // } else if (data.status == 'error'){
-                    // notifyError (data.statusText);
-                // }
-                // $.cookie('token', data.token);
-            // });
-        // }
-    // });
 
     // Set up edit dialog
     $('a.edit', this).click (function (e) {
@@ -216,27 +193,44 @@ $.fn.initFileActions = function () {
       var dateFrom = datePartsFrom[2]+'.'+datePartsFrom[1]+'.'+datePartsFrom[0];
       $('#edit-input-available-from').val(dateFrom);
       var until = new Date($('.available-until', dataBlock).html());
-        
-      if (settings.lifetimeMaxExtend.indexOf('y') != -1)
-        until.setYear(until.getYear()+settings.lifetimeMaxExtend.replace('y',''));
-      else if (settings.lifetimeMaxExtend.indexOf('m') != -1)
-        until.setMonth(until.getMonth()+settings.lifetimeMaxExtend.replace('m',''));
-      else if (settings.lifetimeMaxExtend.indexOf('d') != -1)
-        until.setDate(until.getDate()+settings.lifetimeMaxExtend.replace('d',''));
+      var allowExtendDate = new Date($('.available-until', dataBlock).html());
+      
+      // next block calculates max extend date and if user is allowed to pick
+      // a date. he's only allowed to do so if current date is at least
+      // greater than x days/months/years before expiration date
+      if (settings.lifetimeMaxExtend.indexOf('y') != -1) {
+        var extendValue = parseInt(settings.lifetimeMaxExtend.replace('y',''));
+        until.setYear(until.getYear() + extendValue);
+        allowExtendDate.setYear(allowExtendDate.getYear() - extendValue);
+      } else if (settings.lifetimeMaxExtend.indexOf('m') != -1) {
+        var extendValue = parseInt(settings.lifetimeMaxExtend.replace('m',''));
+        until.setMonth(until.getMonth() + extendValue);
+        allowExtendDate.setMonth(allowExtendDate.getMonth() - extendValue);
+      } else if (settings.lifetimeMaxExtend.indexOf('d') != -1) {
+        var extendValue = parseInt(settings.lifetimeMaxExtend.replace('d',''))
+        until.setDate(until.getDate() + extendValue);
+        allowExtendDate.setDate(allowExtendDate.getDate() - extendValue);
+      }
       
       var datePartsUntil = $('.available-until', dataBlock).html().split('-');
       var dateUntil = datePartsUntil[2]+'.'+datePartsUntil[1]+'.'+datePartsUntil[0];
       $('#edit-input-available-until').val(dateUntil);
-      $('#edit-input-available-until').datepicker ({
-        dateFormat: 'dd.mm.yy',
-        setDate: dateUntil,
-        minDate: dateFrom,
-        maxDate: until
-      });
       
+      var today = new Date();
+      if (today.getTime() > allowExtendDate.getTime())
+      {
+        $('#edit-input-available-until').datepicker ({
+          dateFormat: 'dd.mm.yy',
+          setDate: dateUntil,
+          minDate: dateFrom,
+          maxDate: until
+        });
+      } else {
+        $('#edit-input-available-until').removeAttr('title');
+        $('#edit-input-available-until').attr('disabled', 'disabled');
+      }
       // set up delete button
-      $('#do-delete').click(function() {
-        $('#do-delete').unbind('click');
+      $('#do-delete').on('click',function() {
         if (confirm (settings.messages.confirmDelete)) {
           // Hide the modal box
           $('.ui-dialog-content').dialog('close');
@@ -439,7 +433,6 @@ var onFileUploadEnd = function (data, status) {
  * Function called on edit form submission
  */
 var onEditFormSubmit = function (data, form, options) {
-	  alert('X');
     $('#do-edit').hide (); // hidding the edit button
         
 };

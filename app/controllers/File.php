@@ -135,29 +135,40 @@ class App_Controller_File extends Fz_Controller {
     $availableUntil  = 
       array_key_exists ('available-until', $_POST) ? $_POST['available-until'] : null;
     $availableUntil  = 
-      new Zend_Date ($availableUntil, 'YYYY-MM-dd');
+      new Zend_Date ($availableUntil, Zend_Date::DATE_SHORT);
     if ($availableUntil->isEarlier($availableFrom))
       $availableUntil = new Zend_date($availableFrom);
-    $lifetimeMax = new Zend_Date($availabeFrom);
-    $lifetimeMaxSetting = fz_config_get('app', 'lifetime_max');
-    $unit = substr($lifetimeMaxSetting, -1);
+    $lifetimeMax = $file->getAvailableUntil();
+    $previousAvailableUntil = $file->getAvailableUntil();
+    $lifetimeMaxExtend = fz_config_get('app', 'lifetime_max_extend');
+    $lifetimeMaxExtendValueOnly = substr($lifetimeMaxExtend, 0, -1);
+    $unit = substr($lifetimeMaxExtend, -1);
     switch($unit) {
       case 'y':
-        $lifetimeMax->add(substr($lifetimeMaxSetting, 0, -1), 
+        $lifetimeMax->add($lifetimeMaxExtendValueOnly, Zend_Date::YEAR);
+        $previousAvailableUntil->sub($lifetimeMaxExtendValueOnly, 
           Zend_Date::YEAR);
         break;
       case 'm':
-        $lifetimeMax->add(substr($lifetimeMaxSetting, 0, -1), 
-        Zend_Date::MONTH_SHORT);
+        $lifetimeMax->add($lifetimeMaxExtendValueOnly, Zend_Date::MONTH_SHORT);
+        $previousAvailableUntil->sub($lifetimeMaxExtendValueOnly, 
+          Zend_Date::MONTH_SHORT);
         break;
       case 'd':
-        $lifetimeMax->add(substr($lifetimeMaxSetting, 0, -1), 
-        Zend_Date::DAY_SHORT);
+        $lifetimeMax->add($lifetimeMaxExtendValueOnly, Zend_Date::DAY_SHORT);
+        $previousAvailableUntil->sub($lifetimeMaxExtendValueOnly, 
+          Zend_Date::DAY_SHORT);
         break;
     }
     if ($availableUntil->isLater($lifetimeMax))
       $availableUntil = new Zend_Date($lifetimeMax);
-        
+    
+    // user must be within extend-time before expiration date 
+    // to be allowed to extend
+    $now = new Zend_Date();
+    if ($now->isLater($previousAvailableUntil))
+      $file->setAvailableUntil($availableUntil);
+    
     try {
       $file->save ();
       fz_log ('',FZ_LOG_EDIT, array('file_id' => $file->id));
