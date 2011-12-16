@@ -166,9 +166,11 @@ class App_Controller_File extends Fz_Controller {
     // user must be within extend-time before expiration date 
     // to be allowed to extend
     $now = new Zend_Date();
-    if ($now->isLater($previousAvailableUntil))
+    if ($availableUntil->isLater($file->getAvailableUntil()) 
+        && $now->isLater($previousAvailableUntil)) {
+      fz_log ('',FZ_LOG_EXTEND, array('file_id' => $file->id));
       $file->setAvailableUntil($availableUntil);
-    
+    }
     try {
       $file->save ();
       fz_log ('',FZ_LOG_EDIT, array('file_id' => $file->id));
