@@ -291,7 +291,7 @@ class App_Controller_Upload extends Fz_Controller {
         $response ['disk_usage'] = bytesToShorthand (max (0,
                      Fz_Db::getTable('File')->getTotalDiskSpaceByUser ($user)));
         $this->setToken();
-        $result ['token'] = $this->getTokenSecret();
+        $response ['token'] = $this->getTokenSecret();
         return $this->returnData ($response);
     }
 

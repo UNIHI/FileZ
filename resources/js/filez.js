@@ -150,119 +150,114 @@ $.fn.initFileActions = function () {
             $(this).text(settings.messages.copiedToClipboard);
         }
     }),
-    /*
-    $('a.delete', this).click (function (e) {
-        if (confirm (settings.messages.confirmDelete))
-            $('<form action="'+$(this).attr('href')+'" method="post"></form>').appendTo('body').submit();
-        e.preventDefault();
-    });
-    */
-    $('a.delete', this).click (function (e) {
-        e.preventDefault();
-        if (confirm (settings.messages.confirmDelete)) {
-            var fileListItem = $(this).closest ('li.file');
-            var link = $(this);
-            var postData = { token : $.cookie('token') }
-            $.postJSON($(this).attr('href'), postData, function (data) {
-                if (data.status == undefined) {
-                    notifyError (settings.messages.unknownErrorHappened);
-                } else if (data.status == 'success') {
-                    link.qtip('destroy');
-                    fileListItem.slideUp(1000, function() { $(this).remove(); });
-                    fileListItem.initFileActions ();
-                    notify (data.statusText);
-                } else if (data.status == 'error'){
-                    notifyError (data.statusText);
-                }
-                $.cookie('token', data.token);
-            });
-        }
-    });
+   
+    // Design change made this code obsolete
+    // $('a.delete', this).click (function (e) {
+        // e.preventDefault();
+        // if (confirm (settings.messages.confirmDelete)) {
+            // var fileListItem = $(this).closest ('li.file');
+            // var link = $(this);
+            // var postData = { token : $.cookie('token') }
+            // $.postJSON($(this).attr('href'), postData, function (data) {
+                // if (data.status == undefined) {
+                    // notifyError (settings.messages.unknownErrorHappened);
+                // } else if (data.status == 'success') {
+                    // link.qtip('destroy');
+                    // fileListItem.slideUp(1000, function() { $(this).remove(); });
+                    // fileListItem.initFileActions ();
+                    // notify (data.statusText);
+                // } else if (data.status == 'error'){
+                    // notifyError (data.statusText);
+                // }
+                // $.cookie('token', data.token);
+            // });
+        // }
+    // });
 
     // Set up edit dialog
     $('a.edit', this).click (function (e) {
     	
-        e.preventDefault();
-        var modal = $('#edit-modal');
-        var fileUrl = $(this).attr ('href') + '?is-async=1';
-        var dataBlock = $(this).closest ('li.file');
-        var filename = $('.filename a', dataBlock).html();
-        var comment = $('.comment', dataBlock).html();
-        var folder = $('.folder', dataBlock).html();
-        var hasPassword = $('.has-password', dataBlock).html();
-        var requireLogin = $('.require-login', dataBlock).html();
+      e.preventDefault();
+      var modal = $('#edit-modal');
+      var fileUrl = $(this).attr ('href') + '?is-async=1';
+      var dataBlock = $(this).closest ('li.file');
+      var filename = $('.filename a', dataBlock).html();
+      var comment = $('.comment', dataBlock).html();
+      var folder = $('.folder', dataBlock).html();
+      var hasPassword = $('.has-password', dataBlock).html();
+      var requireLogin = $('.require-login', dataBlock).html();
 
-        $('#edit-modal').dialog ('option', 'title', settings.messages.editFile + ': ' + filename);
-        $('#edit-modal input[name="comment"]').val(comment);
-        $('#edit-modal input[name="folder"]').val(folder);
-        $('#edit-modal input[name="use-password"]').attr('checked', (hasPassword=="1"?true:false));
-        $('#edit-modal input[name="require-login"]').attr('checked', (requireLogin=="1"?true:false));
+      $('#edit-modal').dialog ('option', 'title', settings.messages.editFile + ': ' + filename);
+      $('#edit-modal input[name="comment"]').val(comment);
+      $('#edit-modal input[name="folder"]').val(folder);
+      $('#edit-modal input[name="use-password"]').attr('checked', (hasPassword=="1"?true:false));
+      $('#edit-modal input[name="require-login"]').attr('checked', (requireLogin=="1"?true:false));
 
-        if ( hasPassword=="1" ) {
-          $('#edit-option-change-password').show();
-        	$('#edit-modal input.password').show().focus();
-        }
-        else {
-          $('#edit-option-change-password').hide();
-          $('#edit-modal input.password').val('').hide();
-        }
-        $('#edit-form').attr('action', fileUrl);
+      if ( hasPassword=="1" ) {
+        $('#edit-option-change-password').show();
+      	$('#edit-modal input.password').show().focus();
+      }
+      else {
+        $('#edit-option-change-password').hide();
+        $('#edit-modal input.password').val('').hide();
+      }
+      $('#edit-form').attr('action', fileUrl);
+      
+      // ugly hack to let the datepicker ui not appear before edit dialog
+      // is opened
+      $('#edit-input-available-until').attr('disabled', 'disabled');
+      modal.dialog ('open');
+      $('#edit-input-available-until').removeAttr('disabled');
+      
+      // javascript date object does not support localization
+      // (see datejs for more sophisticaed date library)
+      // TODO: improve localization handling
+      var datePartsFrom = $('.available-from', dataBlock).html().split('-');
+      var dateFrom = datePartsFrom[2]+'.'+datePartsFrom[1]+'.'+datePartsFrom[0];
+      $('#edit-input-available-from').val(dateFrom);
+      var until = new Date($('.available-until', dataBlock).html());
         
-        // ugly hack to let the datepicker ui not appear before edit dialog
-        // is opened
-        $('#edit-input-available-until').attr('disabled', 'disabled');
-        modal.dialog ('open');
-        $('#edit-input-available-until').removeAttr('disabled');
-        
-        // javascript date object does not support localization
-        // (see datejs for more sophisticaed date library)
-        // TODO: improve localization handling
-        var datePartsFrom = $('.available-from', dataBlock).html().split('-');
-        var dateFrom = datePartsFrom[2]+'.'+datePartsFrom[1]+'.'+datePartsFrom[0];
-        $('#edit-input-available-from').val(dateFrom);
-        var until = new Date($('.available-until', dataBlock).html());
-          
-        if (settings.lifetimeMaxExtend.indexOf('y') != -1)
-          until.setYear(until.getYear()+settings.lifetimeMaxExtend.replace('y',''));
-        else if (settings.lifetimeMaxExtend.indexOf('m') != -1)
-          until.setMonth(until.getMonth()+settings.lifetimeMaxExtend.replace('m',''));
-        else if (settings.lifetimeMaxExtend.indexOf('d') != -1)
-          until.setDate(until.getDate()+settings.lifetimeMaxExtend.replace('d',''));
-        
-        var datePartsUntil = $('.available-until', dataBlock).html().split('-');
-        var dateUntil = datePartsUntil[2]+'.'+datePartsUntil[1]+'.'+datePartsUntil[0];
-        $('#edit-input-available-until').val(dateUntil);
-        $('#edit-input-available-until').datepicker ({
-          dateFormat: 'dd.mm.yy',
-          setDate: dateUntil,
-          minDate: dateFrom,
-          maxDate: until
-        });
-        
-        // set up delete button
-        $('#do-delete').click(function() {
+      if (settings.lifetimeMaxExtend.indexOf('y') != -1)
+        until.setYear(until.getYear()+settings.lifetimeMaxExtend.replace('y',''));
+      else if (settings.lifetimeMaxExtend.indexOf('m') != -1)
+        until.setMonth(until.getMonth()+settings.lifetimeMaxExtend.replace('m',''));
+      else if (settings.lifetimeMaxExtend.indexOf('d') != -1)
+        until.setDate(until.getDate()+settings.lifetimeMaxExtend.replace('d',''));
+      
+      var datePartsUntil = $('.available-until', dataBlock).html().split('-');
+      var dateUntil = datePartsUntil[2]+'.'+datePartsUntil[1]+'.'+datePartsUntil[0];
+      $('#edit-input-available-until').val(dateUntil);
+      $('#edit-input-available-until').datepicker ({
+        dateFormat: 'dd.mm.yy',
+        setDate: dateUntil,
+        minDate: dateFrom,
+        maxDate: until
+      });
+      
+      // set up delete button
+      $('#do-delete').click(function() {
+        $('#do-delete').unbind('click');
+        if (confirm (settings.messages.confirmDelete)) {
+          // Hide the modal box
+          $('.ui-dialog-content').dialog('close');
           var deleteLink = $('.deletelink', dataBlock).html();
-          if (confirm (settings.messages.confirmDelete)) {
-              var fileListItem = $(this).closest ('li.file');
-              var link = $(this);
-              var postData = { token : $.cookie('token') }
-              $.postJSON($(this).attr('href'), postData, function (data) {
-                  if (data.status == undefined) {
-                      notifyError (settings.messages.unknownErrorHappened);
-                  } else if (data.status == 'success') {
-                      link.qtip('destroy');
-                      fileListItem.slideUp(1000, function() { $(this).remove(); });
-                      fileListItem.initFileActions ();
-                      notify (data.statusText);
-                  } else if (data.status == 'error'){
-                      notifyError (data.statusText);
-                  }
-                  $.cookie('token', data.token);
-              });
-          }
-
-        });
-        return false;
+          var fileListItem = $('.deletelink', dataBlock).closest ('li.file');
+          var postData = { token : $.cookie('token') }
+          $.post(deleteLink, postData, function (data) {
+            if (data.status == undefined) {
+              notifyError (settings.messages.unknownErrorHappened);
+            } else if (data.status == 'success') {
+              fileListItem.slideUp(1000, function() { $(this).remove(); });
+              fileListItem.initFileActions ();
+              notify (data.statusText);
+            } else if (data.status == 'error'){
+              notifyError (data.statusText);
+            }
+            $.cookie('token', data.token);
+          });
+        }
+      });
+      return false;
     });
       
     // initialize tips
@@ -433,11 +428,10 @@ var onFileUploadEnd = function (data, status) {
     } else {
         notifyError (settings.messages.unknownErrorHappened);
     }
+
     $.cookie('token', data.token);
-    
     // Hide the modal box
     $('.ui-dialog-content').dialog('close');
-
 };
 
 

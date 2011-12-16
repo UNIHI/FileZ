@@ -75,7 +75,7 @@ function fz_log_file ($message, $type = null, $vars = null) {
         $message .= var_export ($vars, true)."\n";
 
     $message = str_replace("\n", "\n   ", $message);
-    $message = '['.strftime ('%F %T').'] '
+    $message = '['.strftime ('%Y-%m-%d %H:%M:%S').'] '
             .str_pad ('['.$_SERVER["REMOTE_ADDR"].']', 18)
             .$message."\n";
 

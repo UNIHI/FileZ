@@ -542,7 +542,7 @@ section#folder-content ul li p.share a {
 }
 
 section#uploaded-files ul li p.zclip a {
-    background-image: url(../images/icons/share-this-icon.png);
+    background-image: url(../images/icons/copy-this-icon.png);
     background-position: 7px center;
     background-repeat: no-repeat;
     padding-left: 26px;

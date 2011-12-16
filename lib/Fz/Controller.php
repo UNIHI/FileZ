@@ -92,6 +92,8 @@ class Fz_Controller {
      * Set request token in session (secret, created_at)
      * and send token with response as temporary cookie.
      * 
+	 * TODO: improve secret algorithm
+	 * 
      * @param boolean $delete if true, delete token 
      * @return void
      */
