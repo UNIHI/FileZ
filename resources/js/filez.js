@@ -143,14 +143,13 @@ $.fn.initFileActions = function () {
         return false;
     }),
     
-    $('a.zclip', this).zclip({
-        path:'resources/js/ZeroClipboard.swf',
-        copy:$('a.zclip',this).attr('href').substring (-1, $('a.zclip',this).attr ('href').lastIndexOf ('/')),
-        afterCopy:function() {
-            $(this).text(settings.messages.copiedToClipboard);
-        }
-    }),
-
+      // $('a.zclip', this).zclip({
+          // path:'resources/js/ZeroClipboard.swf',
+          // copy:$('a.zclip',this).attr('href').substring (-1, $('a.zclip',this).attr ('href').lastIndexOf ('/')),
+          // afterCopy:function() {
+              // $(this).text(settings.messages.copiedToClipboard);
+          // }
+      // })
     // Set up edit dialog
     $('a.edit', this).click (function (e) {
     	
@@ -253,7 +252,18 @@ $.fn.initFileActions = function () {
       });
       return false;
     });
-      
+  
+    // needs to be checked, else results in javascript error
+    if (settings.enableCopyToClipboard == true) {
+      $('a.zclip', this).zclip({
+        path:'resources/js/ZeroClipboard.swf',
+        copy:$('a.zclip',this).attr('href').substring (-1, $('a.zclip',this).attr ('href').lastIndexOf ('/')),
+        afterCopy:function() {
+            $(this).text(settings.messages.copiedToClipboard);
+        }
+      });
+    }
+
     // initialize tips
     $('a.share, a.zclip, a.edit').qtip({
         content: {

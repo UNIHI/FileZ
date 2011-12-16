@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: filez-2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-16 15:43+0100\n"
-"PO-Revision-Date: 2011-12-16 15:43+0100\n"
+"POT-Creation-Date: 2011-12-16 16:50+0100\n"
+"PO-Revision-Date: 2011-12-16 16:50+0100\n"
 "Last-Translator: Dennis Bruenig <dennisbruenig1983@googlemail.com>\n"
 "Language-Team: Universität Hildesheim <arnaud.didry@univ-avignon.fr>\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,6 @@ msgid "[FileZ] Your file \"%file_name%\" is going to be deleted"
 msgstr "[FileZ] Ihre Datei \"%file_name%\" wird demnächst gelöscht"
 
 #: C:\htdocs\filez/app/controllers/Admin.php:131
-#: C:\htdocs\filez/app/controllers/Admin.php:163
 msgid "email_delete_notif (%file_name%, %file_url%, %filez_url%, %available_until%)"
 msgstr ""
 "Hallo,\n"
@@ -34,10 +33,6 @@ msgstr ""
 "\n"
 "\n"
 "-----BITTE ANTWORTEN SIE NICHT AUF DIESE NACHRICHT! Diese ist eine automatisch generierte Nachricht, Ihre Antwort wird nicht gelesen!"
-
-#: C:\htdocs\filez/app/controllers/Admin.php:161
-msgid "[FileZ] Your file \"%file_name%\" is going to expire soon"
-msgstr "[FileZ] Ihre Datei \"%file_name%\" läuft demnächst ab."
 
 #: C:\htdocs\filez/app/controllers/Auth.php:63
 msgid "Wrong username or password"
@@ -52,19 +47,19 @@ msgstr "Aktion abgelaufen. Bitte versuchen Sie es noch einmal."
 msgid "File deleted."
 msgstr "Die Datei wurde gelöscht."
 
-#: C:\htdocs\filez/app/controllers/File.php:181
+#: C:\htdocs\filez/app/controllers/File.php:184
 msgid "File updated."
 msgstr "Datei wurde erfolgreich aktualisiert."
 
-#: C:\htdocs\filez/app/controllers/File.php:192
+#: C:\htdocs\filez/app/controllers/File.php:195
 msgid "File could not be updated."
 msgstr "Datei konnte nicht aktualisiert werden."
 
-#: C:\htdocs\filez/app/controllers/File.php:210
+#: C:\htdocs\filez/app/controllers/File.php:213
 msgid "[FileZ] \"%sender%\" wants to share a file with you"
 msgstr "[FileZ] %sender% möchte eine Datei mit Ihnen teilen"
 
-#: C:\htdocs\filez/app/controllers/File.php:212
+#: C:\htdocs\filez/app/controllers/File.php:215
 msgid "email_share_file (%file_name%, %file_url%, %sender%, %msg%)"
 msgstr ""
 "Hallo,\n"
@@ -74,29 +69,29 @@ msgstr ""
 "Ihre persönliche Nachricht:\n"
 "%msg%"
 
-#: C:\htdocs\filez/app/controllers/File.php:236
+#: C:\htdocs\filez/app/controllers/File.php:239
 msgid "Email address \"%email%\" is incorrect, please correct it."
 msgstr "Die E-Mail-Adresse \"%email%\" ist falsch, bitte korrigieren."
 
-#: C:\htdocs\filez/app/controllers/File.php:251
+#: C:\htdocs\filez/app/controllers/File.php:254
 msgid "An error occured during email submission. Please try again."
 msgstr "Beim Versand der E-Mail ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
 
-#: C:\htdocs\filez/app/controllers/File.php:276
+#: C:\htdocs\filez/app/controllers/File.php:279
 msgid "There are no files in this folder."
 msgstr "In diesem Ordner befinden sich keine Dateien."
 
-#: C:\htdocs\filez/app/controllers/File.php:295
-#: C:\htdocs\filez/app/controllers/File.php:339
+#: C:\htdocs\filez/app/controllers/File.php:298
+#: C:\htdocs\filez/app/controllers/File.php:342
 msgid "Failed to report the file. Try again."
 msgstr "Fehler beim Melden der Datei. Bitte versuchen Sie es später noch einmal."
 
 # Important: If you change this ID, change it in the app/File.php
-#: C:\htdocs\filez/app/controllers/File.php:304
+#: C:\htdocs\filez/app/controllers/File.php:307
 msgid "File is corrupt"
 msgstr "Download defekt"
 
-#: C:\htdocs\filez/app/controllers/File.php:306
+#: C:\htdocs\filez/app/controllers/File.php:309
 msgid ""
 "This is an automatically sent message by FileZ.\\n"
 "Your uploaded file \"%file%\" is corrupt.\\n"
@@ -106,39 +101,39 @@ msgstr ""
 "\n"
 "Vielen Dank."
 
-#: C:\htdocs\filez/app/controllers/File.php:332
+#: C:\htdocs\filez/app/controllers/File.php:335
 msgid "File has been reported."
 msgstr "Datei wurde gemeldet."
 
-#: C:\htdocs\filez/app/controllers/File.php:467
+#: C:\htdocs\filez/app/controllers/File.php:470
 msgid "There is no file for this code"
 msgstr "Für diesen Code existiert keine Datei"
 
-#: C:\htdocs\filez/app/controllers/File.php:489
+#: C:\htdocs\filez/app/controllers/File.php:492
 msgid "File is locked and currently not available for download."
 msgstr "Die Datei ist gesperrt und steht derzeit nicht zur Verfügung."
 
-#: C:\htdocs\filez/app/controllers/File.php:493
+#: C:\htdocs\filez/app/controllers/File.php:496
 msgid "File is not available for download"
 msgstr "Datei ist steht nicht as Download zur Verfügung"
 
-#: C:\htdocs\filez/app/controllers/File.php:498
+#: C:\htdocs\filez/app/controllers/File.php:501
 msgid "Security restrictions do not allow public access of this file. Please contact the file uploader to solve this problem."
 msgstr "Die Sicherheitseinschränkungen erlauben keinen öffentlichen Zugriff auf diese Datei. Kontaktieren Sie den Datei-Uploader."
 
-#: C:\htdocs\filez/app/controllers/File.php:513
+#: C:\htdocs\filez/app/controllers/File.php:516
 msgid "You have to login before you can access the file"
 msgstr "Sie müssen sich einlogge, bevor Sie auf die Datei zugreifen können."
 
-#: C:\htdocs\filez/app/controllers/File.php:520
+#: C:\htdocs\filez/app/controllers/File.php:523
 msgid "Incorrect password"
 msgstr "Falsches Passwort"
 
-#: C:\htdocs\filez/app/controllers/File.php:526
+#: C:\htdocs\filez/app/controllers/File.php:529
 msgid "Sorry, download limit reached for this file"
 msgstr "Das Download-Limit wurde erreicht"
 
-#: C:\htdocs\filez/app/controllers/File.php:559
+#: C:\htdocs\filez/app/controllers/File.php:562
 msgid "You are not the owner of the file"
 msgstr "Sie sind nicht der Besitzer dieser Datei"
 
@@ -450,19 +445,23 @@ msgstr "Impressum"
 msgid "Share files for a limited time."
 msgstr "Share files for a limited time."
 
-#: C:\htdocs\filez/app/views/layout/_header.php:29
+#: C:\htdocs\filez/app/views/layout/_header.php:31
 msgid "Find help"
 msgstr "Hilfe"
 
-#: C:\htdocs\filez/app/views/layout/_header.php:33
+#: C:\htdocs\filez/app/views/layout/_header.php:36
 msgid "Back"
 msgstr "Zurück"
 
-#: C:\htdocs\filez/app/views/layout/_header.php:37
+#: C:\htdocs\filez/app/views/layout/_header.php:40
 msgid "Administration"
 msgstr "Administration"
 
-#: C:\htdocs\filez/app/views/layout/_header.php:43
+#: C:\htdocs\filez/app/views/layout/_header.php:46
+msgid "Switch user interface"
+msgstr "Benutzerschnittstelle umschalten"
+
+#: C:\htdocs\filez/app/views/layout/_header.php:48
 msgid "Log out"
 msgstr "Abmelden"
 
@@ -857,6 +856,9 @@ msgstr "Ihr Zugang wurde gesperrt. Bitte wenden Sie sich an den FileZ-Administra
 #: C:\htdocs\filez/lib/Fz/Controller.php:50
 msgid "This page is secured"
 msgstr "Diese Seite ist zugriffsgeschützt"
+
+#~ msgid "[FileZ] Your file \"%file_name%\" is going to expire soon"
+#~ msgstr "[FileZ] Ihre Datei \"%file_name%\" läuft demnächst ab."
 
 #~ msgid "You are not allowed to toggle login requirement."
 #~ msgstr "Sie haben nicht die Berechtigung die Loginanforderung umzustellen."

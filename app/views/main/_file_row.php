@@ -1,3 +1,5 @@
+<?php if ($_COOKIE['ui-switch'] == 'simple'): ?>
+<?php else: ?>
 <div class="file-description">
   <img src="<?php echo get_mimetype_icon_url ($file->getMimetype ()) ?>"
     class="mimetype" />
@@ -98,3 +100,4 @@
   </p>
   </div>
 </div>
+<?php endif ?>

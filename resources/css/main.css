@@ -134,6 +134,12 @@ header #auth-box a#logout {
     overflow: hidden;
 }
 
+header #auth-box a#switch-ui {
+    background: transparent url(../images/icons/system-switch-ui.png) no-repeat right center;
+    padding: 6px;
+    text-indent: -2000px;
+    overflow: hidden;
+}
 /*
  * Notifications
  */

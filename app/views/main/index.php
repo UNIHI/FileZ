@@ -250,6 +250,7 @@
           loadingBox:       '#upload-loading',
           maxFileSize:      <?php echo $max_upload_size ?>,
           lifetimeMaxExtend: '<?php echo fz_config_get('app','lifetime_max_extend'); ?>',
+          enableCopyToClipboard: <?php echo fz_config_get('app', 'enable_copy_to_clipboard'); ?>,
           progressBar: {
             enable:        <?php echo ($use_progress_bar ? 'true':'false') ?>,
             upload_id_name: '<?php echo $upload_id_name ?>',
