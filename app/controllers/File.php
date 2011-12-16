@@ -170,6 +170,9 @@ class App_Controller_File extends Fz_Controller {
         && $now->isLater($previousAvailableUntil)) {
       fz_log ('',FZ_LOG_EXTEND, array('file_id' => $file->id));
       $file->setAvailableUntil($availableUntil);
+      // Reset notification lock to prevent cron script from notifying again
+      // after lifetime extension.
+      $file->del_notif_sent = false;
     }
     try {
       $file->save ();

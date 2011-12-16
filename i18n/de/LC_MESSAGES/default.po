@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: filez-2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-15 11:13+0100\n"
-"PO-Revision-Date: 2011-12-15 11:14+0100\n"
+"POT-Creation-Date: 2011-12-16 15:43+0100\n"
+"PO-Revision-Date: 2011-12-16 15:43+0100\n"
 "Last-Translator: Dennis Bruenig <dennisbruenig1983@googlemail.com>\n"
 "Language-Team: Universität Hildesheim <arnaud.didry@univ-avignon.fr>\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,7 @@ msgid "[FileZ] Your file \"%file_name%\" is going to be deleted"
 msgstr "[FileZ] Ihre Datei \"%file_name%\" wird demnächst gelöscht"
 
 #: C:\htdocs\filez/app/controllers/Admin.php:131
+#: C:\htdocs\filez/app/controllers/Admin.php:163
 msgid "email_delete_notif (%file_name%, %file_url%, %filez_url%, %available_until%)"
 msgstr ""
 "Hallo,\n"
@@ -34,12 +35,15 @@ msgstr ""
 "\n"
 "-----BITTE ANTWORTEN SIE NICHT AUF DIESE NACHRICHT! Diese ist eine automatisch generierte Nachricht, Ihre Antwort wird nicht gelesen!"
 
+#: C:\htdocs\filez/app/controllers/Admin.php:161
+msgid "[FileZ] Your file \"%file_name%\" is going to expire soon"
+msgstr "[FileZ] Ihre Datei \"%file_name%\" läuft demnächst ab."
+
 #: C:\htdocs\filez/app/controllers/Auth.php:63
 msgid "Wrong username or password"
 msgstr "Falscher Login oder falsches Passwort"
 
 #: C:\htdocs\filez/app/controllers/File.php:69
-#: C:\htdocs\filez/app/controllers/File.php:339
 msgid "Action expired. Try again."
 msgstr "Aktion abgelaufen. Bitte versuchen Sie es noch einmal."
 
@@ -48,19 +52,19 @@ msgstr "Aktion abgelaufen. Bitte versuchen Sie es noch einmal."
 msgid "File deleted."
 msgstr "Die Datei wurde gelöscht."
 
-#: C:\htdocs\filez/app/controllers/File.php:134
+#: C:\htdocs\filez/app/controllers/File.php:181
 msgid "File updated."
 msgstr "Datei wurde erfolgreich aktualisiert."
 
-#: C:\htdocs\filez/app/controllers/File.php:145
+#: C:\htdocs\filez/app/controllers/File.php:192
 msgid "File could not be updated."
 msgstr "Datei konnte nicht aktualisiert werden."
 
-#: C:\htdocs\filez/app/controllers/File.php:163
+#: C:\htdocs\filez/app/controllers/File.php:210
 msgid "[FileZ] \"%sender%\" wants to share a file with you"
 msgstr "[FileZ] %sender% möchte eine Datei mit Ihnen teilen"
 
-#: C:\htdocs\filez/app/controllers/File.php:165
+#: C:\htdocs\filez/app/controllers/File.php:212
 msgid "email_share_file (%file_name%, %file_url%, %sender%, %msg%)"
 msgstr ""
 "Hallo,\n"
@@ -70,29 +74,29 @@ msgstr ""
 "Ihre persönliche Nachricht:\n"
 "%msg%"
 
-#: C:\htdocs\filez/app/controllers/File.php:189
+#: C:\htdocs\filez/app/controllers/File.php:236
 msgid "Email address \"%email%\" is incorrect, please correct it."
 msgstr "Die E-Mail-Adresse \"%email%\" ist falsch, bitte korrigieren."
 
-#: C:\htdocs\filez/app/controllers/File.php:204
+#: C:\htdocs\filez/app/controllers/File.php:251
 msgid "An error occured during email submission. Please try again."
 msgstr "Beim Versand der E-Mail ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
 
-#: C:\htdocs\filez/app/controllers/File.php:229
+#: C:\htdocs\filez/app/controllers/File.php:276
 msgid "There are no files in this folder."
 msgstr "In diesem Ordner befinden sich keine Dateien."
 
-#: C:\htdocs\filez/app/controllers/File.php:248
-#: C:\htdocs\filez/app/controllers/File.php:292
+#: C:\htdocs\filez/app/controllers/File.php:295
+#: C:\htdocs\filez/app/controllers/File.php:339
 msgid "Failed to report the file. Try again."
 msgstr "Fehler beim Melden der Datei. Bitte versuchen Sie es später noch einmal."
 
 # Important: If you change this ID, change it in the app/File.php
-#: C:\htdocs\filez/app/controllers/File.php:257
+#: C:\htdocs\filez/app/controllers/File.php:304
 msgid "File is corrupt"
 msgstr "Download defekt"
 
-#: C:\htdocs\filez/app/controllers/File.php:259
+#: C:\htdocs\filez/app/controllers/File.php:306
 msgid ""
 "This is an automatically sent message by FileZ.\\n"
 "Your uploaded file \"%file%\" is corrupt.\\n"
@@ -102,55 +106,39 @@ msgstr ""
 "\n"
 "Vielen Dank."
 
-#: C:\htdocs\filez/app/controllers/File.php:285
+#: C:\htdocs\filez/app/controllers/File.php:332
 msgid "File has been reported."
 msgstr "Datei wurde gemeldet."
 
-#: C:\htdocs\filez/app/controllers/File.php:336
-msgid "You are not allowed to toggle login requirement."
-msgstr "Sie haben nicht die Berechtigung die Loginanforderung umzustellen."
-
-#: C:\htdocs\filez/app/controllers/File.php:342
-msgid "on"
-msgstr "an"
-
-#: C:\htdocs\filez/app/controllers/File.php:342
-msgid "off"
-msgstr "aus"
-
-#: C:\htdocs\filez/app/controllers/File.php:346
-msgid "Login requirement toggled %status% for file %file%"
-msgstr "Loginanforderung für %file% %status%gestellt"
-
-#: C:\htdocs\filez/app/controllers/File.php:417
+#: C:\htdocs\filez/app/controllers/File.php:467
 msgid "There is no file for this code"
 msgstr "Für diesen Code existiert keine Datei"
 
-#: C:\htdocs\filez/app/controllers/File.php:439
+#: C:\htdocs\filez/app/controllers/File.php:489
 msgid "File is locked and currently not available for download."
 msgstr "Die Datei ist gesperrt und steht derzeit nicht zur Verfügung."
 
-#: C:\htdocs\filez/app/controllers/File.php:443
+#: C:\htdocs\filez/app/controllers/File.php:493
 msgid "File is not available for download"
 msgstr "Datei ist steht nicht as Download zur Verfügung"
 
-#: C:\htdocs\filez/app/controllers/File.php:448
+#: C:\htdocs\filez/app/controllers/File.php:498
 msgid "Security restrictions do not allow public access of this file. Please contact the file uploader to solve this problem."
 msgstr "Die Sicherheitseinschränkungen erlauben keinen öffentlichen Zugriff auf diese Datei. Kontaktieren Sie den Datei-Uploader."
 
-#: C:\htdocs\filez/app/controllers/File.php:463
+#: C:\htdocs\filez/app/controllers/File.php:513
 msgid "You have to login before you can access the file"
 msgstr "Sie müssen sich einlogge, bevor Sie auf die Datei zugreifen können."
 
-#: C:\htdocs\filez/app/controllers/File.php:470
+#: C:\htdocs\filez/app/controllers/File.php:520
 msgid "Incorrect password"
 msgstr "Falsches Passwort"
 
-#: C:\htdocs\filez/app/controllers/File.php:476
+#: C:\htdocs\filez/app/controllers/File.php:526
 msgid "Sorry, download limit reached for this file"
 msgstr "Das Download-Limit wurde erreicht"
 
-#: C:\htdocs\filez/app/controllers/File.php:509
+#: C:\htdocs\filez/app/controllers/File.php:559
 msgid "You are not the owner of the file"
 msgstr "Sie sind nicht der Besitzer dieser Datei"
 
@@ -170,11 +158,11 @@ msgstr "Sie müssen Ihre Datei mindestens mit Loginanforderung oder einem Kennwo
 msgid "You have entered a date in the past. Please use the date picker to select a date."
 msgstr "Sie haben ein Datum aus der Vergangenheit eingegeben. Bitte benutzen Sie den DatePicker zur Auswahl eines Datums."
 
-#: C:\htdocs\filez/app/controllers/Upload.php:207
+#: C:\htdocs\filez/app/controllers/Upload.php:226
 msgid "[FileZ] \"%file_name%\" uploaded successfuly"
 msgstr "[Filez] Ihre Datei \"%file_name%\" wurde erfolgreich hochgeladen"
 
-#: C:\htdocs\filez/app/controllers/Upload.php:209
+#: C:\htdocs\filez/app/controllers/Upload.php:228
 msgid "email_upload_success (%file_name%, %file_url%, %filez_url%, %available_from%, %available_until%)"
 msgstr ""
 "Hallo,\n"
@@ -189,27 +177,27 @@ msgstr ""
 "\n"
 "-----BITTE ANTWORTEN SIE NICHT AUF DIESE NACHRICHT! Diese ist eine automatisch generierte Nachricht, Ihre Antwort wird nicht gelesen!"
 
-#: C:\htdocs\filez/app/controllers/Upload.php:269
+#: C:\htdocs\filez/app/controllers/Upload.php:288
 msgid "The file was successfuly uploaded"
 msgstr "Die Datei wurde erfolgreich hochgeladen"
 
-#: C:\htdocs\filez/app/controllers/Upload.php:289
+#: C:\htdocs\filez/app/controllers/Upload.php:308
 msgid "An error occured while uploading the file."
 msgstr "Beim Hochladen der Datei ist ein Fehler aufgetreten."
 
-#: C:\htdocs\filez/app/controllers/Upload.php:306
+#: C:\htdocs\filez/app/controllers/Upload.php:325
 msgid "The uploaded file exceeds the max file size."
 msgstr "Die hochgeladene Datei ist zu groß."
 
-#: C:\htdocs\filez/app/controllers/Upload.php:311
+#: C:\htdocs\filez/app/controllers/Upload.php:330
 msgid "The uploaded file was only partially uploaded."
 msgstr "Die Datei wurde nur teilweise hochgeladen."
 
-#: C:\htdocs\filez/app/controllers/Upload.php:315
+#: C:\htdocs\filez/app/controllers/Upload.php:334
 msgid "No file was uploaded."
 msgstr "Es wurde keine Datei hochgeladen."
 
-#: C:\htdocs\filez/app/controllers/Upload.php:318
+#: C:\htdocs\filez/app/controllers/Upload.php:337
 msgid "You exceeded your disk space quota (%space%)."
 msgstr "Der verfügbare Festplattenspeicher wurde überschritten (%space%)."
 
@@ -479,7 +467,7 @@ msgid "Log out"
 msgstr "Abmelden"
 
 #: C:\htdocs\filez/app/views/main/index.php:9
-#: C:\htdocs\filez/app/views/main/index.php:289
+#: C:\htdocs\filez/app/views/main/index.php:293
 msgid "Upload a new file"
 msgstr "Eine neue Datei hochladen"
 
@@ -531,12 +519,12 @@ msgid "Use a password to download"
 msgstr "Passwort zum Download erforderlich"
 
 #: C:\htdocs\filez/app/views/main/index.php:60
-#: C:\htdocs\filez/app/views/main/index.php:212
+#: C:\htdocs\filez/app/views/main/index.php:215
 msgid "Require the user to login to grant access to your file."
 msgstr "Der Benutzer muss eingeloggt sein, um die Datei downloaden zu können."
 
 #: C:\htdocs\filez/app/views/main/index.php:63
-#: C:\htdocs\filez/app/views/main/index.php:214
+#: C:\htdocs\filez/app/views/main/index.php:217
 msgid "Require login"
 msgstr "Download erfordert Login"
 
@@ -611,115 +599,117 @@ msgid "Starts from:"
 msgstr "Startdatum:"
 
 #: C:\htdocs\filez/app/views/main/index.php:199
+#: C:\htdocs\filez/app/views/main/index.php:201
+#: C:\htdocs\filez/app/views/main/index.php:206
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: C:\htdocs\filez/app/views/main/index.php:221
-#: C:\htdocs\filez/app/views/main/_file_row.php:88
-#: C:\htdocs\filez/app/views/main/_file_row.php:89
+#: C:\htdocs\filez/app/views/main/index.php:224
+#: C:\htdocs\filez/app/views/main/_file_row.php:91
+#: C:\htdocs\filez/app/views/main/_file_row.php:92
 #: C:\htdocs\filez/app/views/user/index.php:35
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: C:\htdocs\filez/app/views/main/index.php:259
+#: C:\htdocs\filez/app/views/main/index.php:262
 msgid "Are you sure to delete this file ?"
 msgstr "Möchten Sie diese Datei wirklich löschen?"
 
-#: C:\htdocs\filez/app/views/main/index.php:260
+#: C:\htdocs\filez/app/views/main/index.php:263
 msgid "Do you want to toggle on login requirement for this file?"
 msgstr "Möchten Sie die Loginanforderung für dise Datei anschalten?"
 
-#: C:\htdocs\filez/app/views/main/index.php:261
+#: C:\htdocs\filez/app/views/main/index.php:264
 msgid "Do you want to toggle off login requirement for this file ?"
 msgstr "Möchten Sie die Loginanforderung für diese Datei aussschalten?"
 
-#: C:\htdocs\filez/app/views/main/index.php:262
+#: C:\htdocs\filez/app/views/main/index.php:265
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 
-#: C:\htdocs\filez/app/views/main/index.php:263
+#: C:\htdocs\filez/app/views/main/index.php:266
 msgid "An unknown error hapenned while uploading the file"
 msgstr "Beim Hochladen der Datei ist ein unbekannter Fehler aufgetreten"
 
-#: C:\htdocs\filez/app/views/main/index.php:264
+#: C:\htdocs\filez/app/views/main/index.php:267
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: C:\htdocs\filez/app/views/main/index.php:265
+#: C:\htdocs\filez/app/views/main/index.php:268
 msgid "You can download the file I uploaded here"
 msgstr "Hier können Sie die hochgeladenen Datei herunterladen"
 
-#: C:\htdocs\filez/app/views/main/index.php:266
+#: C:\htdocs\filez/app/views/main/index.php:269
 msgid "Edit file"
 msgstr "Datei bearbeiten"
 
-#: C:\htdocs\filez/app/views/main/index.php:267
+#: C:\htdocs\filez/app/views/main/index.php:270
 msgid "Copied to clipboard"
 msgstr "Link kopiert"
 
-#: C:\htdocs\filez/app/views/main/index.php:268
+#: C:\htdocs\filez/app/views/main/index.php:271
 msgid "You have to accept the user agreement to upload the file."
 msgstr "Sie müssen der Benutzervereinbarung zustimmen, um die Datei hochzuladen."
 
-#: C:\htdocs\filez/app/views/main/index.php:269
+#: C:\htdocs\filez/app/views/main/index.php:272
 msgid "Please set a download protection password or deselect the appropriate checkbox."
 msgstr "Bitte geben Sie ein Download-Passwort ein oder deselektieren Sie die entsprechende Checkbox."
 
-#: C:\htdocs\filez/app/views/main/index.php:270
-#: C:\htdocs\filez/app/views/main/_file_row.php:50
+#: C:\htdocs\filez/app/views/main/index.php:273
+#: C:\htdocs\filez/app/views/main/_file_row.php:53
 msgid "No folder assigned"
 msgstr "Keinem Ordner zugewiesen"
 
-#: C:\htdocs\filez/app/views/main/index.php:271
-#: C:\htdocs\filez/app/views/main/_file_row.php:42
+#: C:\htdocs\filez/app/views/main/index.php:274
+#: C:\htdocs\filez/app/views/main/_file_row.php:45
 msgid "Folder"
 msgstr "Ordner"
 
-#: C:\htdocs\filez/app/views/main/index.php:340
+#: C:\htdocs\filez/app/views/main/index.php:353
 msgid "You have entered a date after the end date. Please use the date picker to select a date."
 msgstr "Sie haben ein Datum angegeben, das vor dem Enddatum liegt. Bitte verwenden Sie die Datumsauswahl um ein gültiges Datum zu wählen."
 
-#: C:\htdocs\filez/app/views/main/index.php:367
+#: C:\htdocs\filez/app/views/main/index.php:380
 msgid "You have entered a date before the start date. Please use the date picker to select a date."
 msgstr "Sie haben ein Datum angegeben, das vor dem Startdatum liegt. Bitte verwenden Sie die Datumsauswahl um ein gültiges Datum zu wählen."
 
-#: C:\htdocs\filez/app/views/main/index.php:371
+#: C:\htdocs\filez/app/views/main/index.php:384
 msgid "You have entered a date which is longer than six months in the future. Please use the date picker to select a date."
 msgstr "Sie haben ein Datum angegeben, das mehr als 6 Monate ind er Zukunft liegt. Bitte verwenden Sie die Datumsauswahl um ein gültiges Datum zu wählen."
 
-#: C:\htdocs\filez/app/views/main/index.php:382
+#: C:\htdocs\filez/app/views/main/index.php:395
 msgid "You have to give at least a password or require a login."
 msgstr "Sie müssen mindestens ein Passwort vergeben oder den Login für die Datei erfordern."
 
-#: C:\htdocs\filez/app/views/main/_file_row.php:21
+#: C:\htdocs\filez/app/views/main/_file_row.php:24
 msgid "Copy download link to clipboard"
 msgstr "Download-Link in die Zwischenablage kopieren"
 
-#: C:\htdocs\filez/app/views/main/_file_row.php:22
+#: C:\htdocs\filez/app/views/main/_file_row.php:25
 msgid "Copy to clipboard"
 msgstr "In die Zwischenablage"
 
-#: C:\htdocs\filez/app/views/main/_file_row.php:32
+#: C:\htdocs\filez/app/views/main/_file_row.php:35
 msgid "Share file with others"
 msgstr "Datei mit anderen teilen"
 
-#: C:\htdocs\filez/app/views/main/_file_row.php:33
+#: C:\htdocs\filez/app/views/main/_file_row.php:36
 msgid "Share"
 msgstr "Link anzeigen"
 
-#: C:\htdocs\filez/app/views/main/_file_row.php:47
+#: C:\htdocs\filez/app/views/main/_file_row.php:50
 msgid "Open folder contents"
 msgstr "Ordner-Inhalt anzeigen"
 
-#: C:\htdocs\filez/app/views/main/_file_row.php:70
+#: C:\htdocs\filez/app/views/main/_file_row.php:73
 msgid "Never downloaded"
 msgstr "Noch nie heruntergeladen"
 
-#: C:\htdocs\filez/app/views/main/_file_row.php:73
+#: C:\htdocs\filez/app/views/main/_file_row.php:76
 msgid "Downloaded once"
 msgstr "Einmal heruntergeladen"
 
-#: C:\htdocs\filez/app/views/main/_file_row.php:76
+#: C:\htdocs\filez/app/views/main/_file_row.php:79
 msgid "Download %x% times"
 msgstr "%x%-mal heruntergeladen"
 
@@ -867,6 +857,18 @@ msgstr "Ihr Zugang wurde gesperrt. Bitte wenden Sie sich an den FileZ-Administra
 #: C:\htdocs\filez/lib/Fz/Controller.php:50
 msgid "This page is secured"
 msgstr "Diese Seite ist zugriffsgeschützt"
+
+#~ msgid "You are not allowed to toggle login requirement."
+#~ msgstr "Sie haben nicht die Berechtigung die Loginanforderung umzustellen."
+
+#~ msgid "on"
+#~ msgstr "an"
+
+#~ msgid "off"
+#~ msgstr "aus"
+
+#~ msgid "Login requirement toggled %status% for file %file%"
+#~ msgstr "Loginanforderung für %file% %status%gestellt"
 
 #~ msgid "Lifetime extended"
 #~ msgstr "Dauer wurde verlängert"
