@@ -431,6 +431,11 @@ section#folder-content ul li.file {
     padding-top: 0.7em;
 }
 
+section#uploaded-files ul li.simple-file {
+    position: relative;
+    padding-top: 0em;
+}
+
 section#uploaded-files ul li.file.even,
 section#folder-content ul li.file.even {
     background: #F5F4F2;
@@ -473,6 +478,10 @@ section#folder-content ul li .file-description {
     padding: 0 0 0.2em 64px;
 }
 
+section#uploaded-files ul li .no-indent {
+    padding: 0 0 0.2em 5px;
+}
+
 section#uploaded-files ul li .file-description p,
 section#folder-content ul li .file-description p {
     display: inline;
@@ -489,11 +498,20 @@ section#folder-content ul li p.filename a {
     letter-spacing: -0.05em;
 }
 
+section#uploaded-files ul li p.small-filename a {
+    font-size: 0.8em;
+    letter-spacing: -0.05em;
+}
+
 section#uploaded-files ul li img.mimetype,
 section#folder-content ul li img.mimetype {
     position: absolute;
     top: 0.9em;
     left: 1.0em;
+}
+
+section#uploaded-files ul li img.mimetype-simple {
+  display: none;
 }
 
 section#uploaded-files ul li p a.copy2clipboard,
@@ -528,6 +546,11 @@ section#folder-content ul li .filesize {
     font-size: 0.82em;
 }
 
+section#uploaded-files ul li .small-filesize {
+    color: #B0ABA6;
+    font-size: 0.62em;
+}
+
 section#uploaded-files ul li p.share,
 section#uploaded-files ul li p.zclip,
 section#folder-content ul li p.share {
@@ -547,6 +570,21 @@ section#folder-content ul li p.share a {
     right: 6px;
 }
 
+section#uploaded-files ul li p.share-simple a {
+    text-indent: -20000px;
+    background-image: url(../images/icons/share-this-icon.png);
+    background-repeat: no-repeat;
+    background-color: #019652;
+    position: absolute;
+    top:5px;
+    right:22px;
+    width:16px;
+    height:16px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+
 section#uploaded-files ul li p.zclip a {
     background-image: url(../images/icons/copy-this-icon.png);
     background-position: 7px center;
@@ -554,6 +592,18 @@ section#uploaded-files ul li p.zclip a {
     padding-left: 26px;
     padding-top: 4px;
     padding-bottom: 4px;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+}
+
+section#uploaded-files ul li p.zclip-simple a {
+    width: 16px;
+    height: 16px;
+    text-indent:-2000px;
+    background-image: url(../images/icons/copy-this-icon.png);
+    background-repeat: no-repeat;
+    padding: 0px;
     position: absolute;
     top: 6px;
     right: 6px;
@@ -576,6 +626,13 @@ section#folder-content ul li .file-attributes p + p {
     margin-left: 0.5em;
 }
 
+section#uploaded-files ul li .folder-simple {
+  position: absolute;
+  float: left;
+  padding: 0px;
+  top: 0px;
+}
+
 section#uploaded-files ul li .file-attributes,
 section#folder-content ul li .file-attributes {
     color: #7C746C;
@@ -594,6 +651,36 @@ section#folder-content ul li .file-attributes .availability b {
     color: #433C34;
 }
 
+section#uploaded-files ul li .availability-simple {
+  float: right;
+  padding-top: 2px;
+  padding-right: 65px;
+  font-size: 0.6em;
+}
+
+section#uploaded-files ul li p.availability-hide {
+  display: none;
+}
+
+section#uploaded-files ul li .filefolder-simple {
+  float: right;
+  padding-right: 5px;
+  padding-top: 2px;
+  font-size: 0.7em;
+}
+
+section#uploaded-files ul li p.filefolder-hide {
+  display: none;
+}
+
+
+/*
+section#uploaded-files ul li .availability-simple {
+  position: absolute;
+  top: 0px;
+  font-size: 0.6em;
+}
+*/
 section#uploaded-files ul li a.send-by-email {
     background-image: url(../images/icons/mail-message-new.png);
 }
@@ -610,6 +697,16 @@ section#uploaded-files ul li a.delete {
 section#uploaded-files ul li a.edit {
     background: transparent url(../images/icons/edit.png) no-repeat left center;
     text-indent: -5000px;
+    line-height: 16px;
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+}
+
+section#uploaded-files ul li a.edit-simple {
+    position: absolute;
+    top:4px;
+    right: 40px;
     line-height: 16px;
     height: 16px;
     width: 16px;

@@ -125,7 +125,8 @@
 <section id="uploaded-files">
   <ul id="files">
     <?php $odd = true; foreach ($files as $file): ?>
-      <li class="file <?php echo $odd ? 'odd' : 'even'; $odd = ! $odd ?>"
+      <li class="file <?php echo $odd ? 'odd' : 'even'; $odd = ! $odd ?>
+        <?php echo $_COOKIE['ui-switch'] == 'simple' ? 'simple-file' : ''?>"
         id="<?php echo 'file-'.$file->getHash() ?>">
         <?php echo partial ('main/_file_row.php', array ('file' => $file)) ?> 
       </li>
