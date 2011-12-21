@@ -264,6 +264,7 @@ fz_dispatch ('/'                                ,'Main'         ,'index');
 fz_dispatch_get  ('/disclaimer'                 ,'Main'         ,'disclaimer');
 
 // Upload controller
+fz_dispatch_get  ('/upload'                     ,'Upload'       ,'uploadForm');
 fz_dispatch_post ('/upload'                     ,'Upload'       ,'start');
 fz_dispatch_get  ('/upload/progress/:upload_id' ,'Upload'       ,'getProgress');
 
@@ -305,14 +306,17 @@ fz_dispatch_post ('/:file_hash/download'        ,'File'         ,'download'); //
 // File controller
 fz_dispatch_get  ('/:file_hash/email'           ,'File'         ,'emailForm');
 fz_dispatch_post ('/:file_hash/email'           ,'File'         ,'email');
-fz_dispatch_get  ('/:file_hash/delete'          ,'File'         ,'delete');
+fz_dispatch_get  ('/:file_hash/delete'          ,'File'         ,'confirmDelete');
 fz_dispatch_post ('/:file_hash/delete'          ,'File'         ,'delete');
 //design change made them obsolete:
 //fz_dispatch_post ('/:file_hash/extend'          ,'File'         ,'extend');
 //fz_dispatch_post ('/:file_hash/extendMaximum'   ,'File'         ,'extendMaximum');
 //fz_dispatch_post ('/:file_hash/toggle'          ,'File'         ,'toggleRequireLogin');
 fz_dispatch_post ('/:file_hash/report'          ,'File'         ,'report');
+fz_dispatch_get  ('/:file_hash/edit'            ,'File'         ,'editForm');
 fz_dispatch_post ('/:file_hash/edit'            ,'File'         ,'edit');
 fz_dispatch_get  ('/:created_by/list/:folder'   ,'File'         ,'folder');
+fz_dispatch_get  ('/:file_hash/share'           ,'File'         ,'share');
+fz_dispatch_get  ('/:file_hash/copy'            ,'File'         ,'share');
 
 run ();

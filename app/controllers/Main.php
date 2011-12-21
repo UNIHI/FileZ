@@ -57,7 +57,6 @@ class App_Controller_Main extends Fz_Controller {
         set ('free_space_left'  , $freeSpaceLeft);
         set ('max_upload_size'  , $maxUploadSize);
         set ('folders'          , $folders);
-        
         $this->setToken();
 
         return html ('main/index.php');

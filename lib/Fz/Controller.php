@@ -124,25 +124,20 @@ class Fz_Controller {
     }
     
     /**
-     * Verify token. (equality, expiration, http_referer)
+     * Verify token. (equality, expiration)
      * 
      * @return boolean true if submitted token is valid, else false
      */
     public function verifyToken () {
-        if (array_key_exists('token', $_POST)
-          && $_POST['token'] == $this->getTokenSecret()) {
-            if ( (time() - $this->getTokenCreationTime()) >
-              fz_config_get('app','token_lifetime', 60)
-                || !isset($_SERVER['HTTP_REFERER'])
-                || $_SERVER['HTTP_REFERER'] == '') {
-                return false;
-            } else {
-                return true;
-            }
-            
+      if (array_key_exists('token', $_POST) && $_POST['token'] == $this->getTokenSecret()) {
+        if ( (time() - $this->getTokenCreationTime()) > fz_config_get('app','token_lifetime', 60)) {
+          return false;
         } else {
-            return false;
+          return true;
         }
+      } else {
+        return false;
+      }
     }
     
     /**

@@ -55,6 +55,19 @@ class App_Controller_File extends Fz_Controller {
   */
 
   /**
+   * Confirm deletion dialog
+   */
+  public function confirmDeleteAction () {
+      $this->secure ();
+      $file = $this->getFile ();
+      $user = $this->getUser ();
+      if (! $user->is_admin) $this->checkOwner ($file, $user);
+      set ('file', $file);
+      $this->setToken();
+      return html ('file/confirmDelete.php');
+  }
+  
+  /**
    * Delete a file
    */
   public function deleteAction () {
@@ -67,9 +80,11 @@ class App_Controller_File extends Fz_Controller {
     if (!$this->verifyToken()) {
       $result ['status']     = 'error';
       $result ['statusText'] = __('Action expired. Try again.');
+      flash ('notification', __('Action expired. Try again.'));
     } else {
       $result ['status']     = 'success';
       $result ['statusText'] = __('File deleted.');
+      flash ('notification', __('File deleted.'));
       $file->delete();
     }
 
@@ -78,10 +93,8 @@ class App_Controller_File extends Fz_Controller {
 
     if ($this->isXhrRequest())
       return json ($result);
-    else {
-      flash ('notification', __('File deleted.'));
+    else
       $user->is_admin ? redirect_to ('/admin/files') : redirect_to ('/');
-    }
   }
 
   /**
@@ -97,6 +110,25 @@ class App_Controller_File extends Fz_Controller {
   }
 
   /**
+   * 
+   */
+  public function editFormAction() {
+    $this->secure ();
+    $file = $this->getFile ();
+    $user = $this->getUser ();
+    if (! $user->is_admin) $this->checkOwner ($file, $user);
+    set ('file', $file);
+    // TODO: fix localization
+    $availableFrom =  new Zend_Date($file->getAvailableFrom());
+    $availableFrom = $availableFrom->toString('dd.MM.yyyy');
+    $availableUntil =  new Zend_Date($file->getAvailableUntil());
+    $availableUntil = $availableUntil->toString('dd.MM.yyyy');
+    set ('availableFrom', $availableFrom);
+    set ('availableUntil', $availableUntil);
+    return html ('file/editForm.php');
+  }
+  
+   /**
    * Edit a file.
    */
   public function editAction () {
@@ -116,16 +148,24 @@ class App_Controller_File extends Fz_Controller {
     $folder = preg_replace('/ /', '_', $folder);
 
     // set password
-    $file->password = isset ($_POST ['use-password']);
-    if ($file->password == true && ! empty ($_POST ['password']))
-      $file->setPassword  ($_POST ['password']);
-    else 
-      $file->password = false;
+    if (isset($_POST ['use-password'])) {
+      switch($_POST ['use-password']) {
+        case 0: // remove password
+          $file->password = '';
+          break;
+        case 1: // change password if not empty
+          if (! empty ($_POST ['password']))
+            $file->setPassword ($_POST ['password']);
+          break;
+        default:
+          break;
+      }
+    }
     
-    // remaining fields
-    $file->comment = substr ($comment, 0, 199);
-    $file->folder  = substr ($folder, 0, 199);
-    $file->require_login = isset ($_POST ['require-login']);
+    // validate comment, folder, require_login
+    $file->comment = substr ($comment, 0, 199); // length restriction imposed
+    $file->folder  = substr ($folder, 0, 199); // by database
+    $file->require_login = isset ($_POST ['require-login'])?1:0;
     
     // validate start and end dates
     $availableFrom  = 
@@ -188,7 +228,7 @@ class App_Controller_File extends Fz_Controller {
       }
     } catch (Exception $e) {
       fz_log (
-        'Can\'t update file "'. $file .'" edited by '.$user['email'],
+        'Can\'t update file "'. $file .'" edited by '.$user->email,
         FZ_LOG_ERROR);
       fz_log ($e, FZ_LOG_ERROR);
       $response ['status']     = 'error';
@@ -561,6 +601,18 @@ class App_Controller_File extends Fz_Controller {
       return;
     halt (HTTP_UNAUTHORIZED, __('You are not the owner of the file'));
   }
+  
+  /*
+   * Share action handler
+   */
+  public function shareAction () {
+    $this->secure ();
+    $user = $this->getUser ();
+    $file = $this->getFile ();
+    if (! $user->is_admin) $this->checkOwner ($file, $user);
+    set ('file', $file);
+    return html ('file/share.php');
+  }  
 }
 
 ?>

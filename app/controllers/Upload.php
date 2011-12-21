@@ -339,5 +339,31 @@ class App_Controller_Upload extends Fz_Controller {
         }
         return $this->returnData ($response);
     }
+
+    /*
+     * 
+     */
+    public function uploadFormAction() {
+        $this->secure ();
+        $user = $this->getUser ();
+
+        $freeSpaceLeft = max (0, Fz_Db::getTable('File')->getRemainingSpaceForUser ($user));
+        $maxUploadSize = min (
+             Fz_Db::getTable('File')->shorthandSizeToBytes (ini_get ('upload_max_filesize')),
+             Fz_Db::getTable('File')->shorthandSizeToBytes (ini_get ('post_max_size')),
+                $freeSpaceLeft);
+        
+        $initlt = fz_config_get ('app', 'lifetime_default');
+        if ( substr($initlt, -1) == "m" )
+          $initlt = Zend_Date::now ()->add ((int)$initlt, Zend_Date::MONTH);
+        else
+          $initlt = Zend_Date::now ()->add ((int)$initlt, Zend_Date::DAY_SHORT);
+        
+        set ('start_from'       , Zend_Date::now ()->get (Zend_Date::DATE_MEDIUM));
+        set ('available_until'  , $initlt->get (Zend_Date::DATE_MEDIUM));
+        set ('max_upload_size'  , $maxUploadSize);
+        $this->setToken();
+    return html ('upload/uploadForm.php');
+    }
 }
 

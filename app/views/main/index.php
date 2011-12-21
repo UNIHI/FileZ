@@ -6,7 +6,11 @@
     redirect_to($download_url);
 } ?>
 
-<h2 class="new-file"><?php echo __('Upload a new file') ?></h2>
+<h2 class="new-file">
+  <a id="upload-link" href="upload">
+    <?php echo __('Upload a new file') ?>
+  </a>
+</h2>
 <section class="new-file fz-modal" style="display:none">
   <form method="POST" enctype="multipart/form-data"
   action="<?php echo url_for ('upload') ?>" id="upload-form">
@@ -65,8 +69,8 @@
     </li>
     <?php endif ?>
   </ul>
-  <?php if (fz_config_get('app' , 'require_user_agreement', true)): ?>
   <ul id="options">
+  <?php if (fz_config_get('app' , 'require_user_agreement', true)): ?>
     <li id="option-accept-user-agreement">
       <label for="accept-user-agreement"
       title="<?php echo __('You have to accept this user agreement before '
@@ -86,6 +90,7 @@
           ?>
       </label>
     </li>
+  <?php endif ?>
     <li id="option-email-notifications">
       <?php if (fz_config_get('app', 'force_notification', true) == true): ?>
       <label for="email-notifications" title="<?php
@@ -106,7 +111,6 @@
       <?php endif ?>          
     </li>
   </ul>
-  <?php endif ?>
   <div id="upload">
     <input type="submit" id="start-upload" name="upload"
     class="awesome blue large" value="&raquo; <?php echo __('Upload') ?>" />
@@ -295,6 +299,9 @@
       $('section.new-file').dialog ('option', 'title', <?php echo json_encode(__('Upload a new file')) ?>);
 
       // Replace upload form with one big button, and open a modal box on click
+      // also allow non-javascript enabled browsers to see the link
+      var uploadText = $('#upload-link').html();
+      $('h2.new-file').html(uploadText);
       $('h2.new-file').wrapInner ($('<a href="#" class="awesome large"></a>'));
       $('h2.new-file a').click (function (e) {
         $('section.new-file').dialog ('open');

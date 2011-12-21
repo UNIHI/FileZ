@@ -361,6 +361,11 @@ section.edit-file ul#edit-options li label {
     display: inline;
 }
 
+ul#options li,
+ul#edit-options li {
+  list-style-type: none;  
+}
+
 h2.new-file a.awesome {
     background-image: url(../images/icons/upload.png);
     background-position: 10px center;
@@ -653,6 +658,7 @@ section#folder-content ul li .file-attributes .availability b {
 
 section#uploaded-files ul li .availability-simple {
   float: right;
+  top: 0px;
   padding-top: 2px;
   padding-right: 65px;
   font-size: 0.6em;
@@ -664,9 +670,11 @@ section#uploaded-files ul li p.availability-hide {
 
 section#uploaded-files ul li .filefolder-simple {
   float: right;
+  top: 0px;
   padding-right: 5px;
   padding-top: 2px;
-  font-size: 0.7em;
+  font-size: 0.6em;
+  height: 19px;
 }
 
 section#uploaded-files ul li p.filefolder-hide {
