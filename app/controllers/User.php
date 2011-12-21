@@ -36,11 +36,11 @@ class App_Controller_User extends Fz_Controller {
     $this->secure ('admin');
     set ('users', Fz_Db::getTable ('User')->findAll ()); // TODO paginate
     set ('isInternal', $this->getUserFactory ()->isInternal ());
-    if ($this->isXhrRequest())
-      return partial('user/index.php');
-    else {
-      return html('admin/index.php');
-    }
+    // if ($this->isXhrRequest())
+      return html('user/index.php');
+    // else {
+      // return html('admin/index.php');
+    // }
   }
 
   /**

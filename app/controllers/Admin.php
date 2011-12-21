@@ -30,6 +30,9 @@ class App_Controller_Admin extends Fz_Controller {
 
   public function indexAction () {
     $this->secure ('admin');
+    set ('numberOfUsers', Fz_Db::getTable ('User')->getNumberOfUsers() );
+    set ('numberOfFiles', Fz_Db::getTable ('File')->getNumberOfFiles() );
+    set ('totalDiskSpace', Fz_Db::getTable ('File')->getTotalDiskSpace() );
     if ($this->isXhrRequest())
       return partial ('admin/dashboard.php');
     else
@@ -44,24 +47,14 @@ class App_Controller_Admin extends Fz_Controller {
     $this->setToken();
     $this->secure ('admin');
     set ('files', Fz_Db::getTable ('File')->findNotDeleted ());
-    if ($this->isXhrRequest())
-      return partial ('file/index.php');
-    else
-      return redirect_to ('/admin');
+    return html('file/index.php');
+    // if ($this->isXhrRequest())
+      // return partial ('file/index.php');
+    // else
+      // return redirect_to ('/admin');
     //TODO paginate
   }
-  /**
-   * Action called to manage the config
-   * List the config settings.
-   */
-  public function configAction () {
-    $this->secure ('admin');
-    if ($this->isXhrRequest())
-      return partial ('admin/config.php');
-    else
-      return redirect_to ('/admin');
-  }
-
+  
   /**
    * Evaluation of database information
    */

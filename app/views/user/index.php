@@ -1,6 +1,9 @@
 <?php if ($isInternal): ?>
-<p><a href="<?php echo url_for ('/admin/users/new') ?>" class="awesome">
-  <?php echo __('Create a new user') ?></a></p>
+<p>
+  <a href="<?php echo url_for ('/admin/users/new') ?>" class="awesome">
+    <?php echo __('Create a new user') ?>
+  </a>
+</p>
 <?php endif ?>
 <table id="user_list" class="data">
   <tr>
@@ -54,24 +57,3 @@
   </tr>
 <?php endforeach ?>
 </table>
-<script type="text/javascript">
-  $(document).ready (function () {
-    $('a.admin-delete', this).click (function (e) {
-      e.preventDefault();
-      var postData = { token : $.cookie('token') }
-      $.postJSON($(this).attr('href'), postData, function (data) {
-        if (data.status == undefined) {
-          //notifyError (settings.messages.unknownErrorHappened);
-        } else if (data.status == 'success') {
-          //link.qtip('destroy');
-          //fileListItem.slideUp(1000, function() { $(this).remove(); });
-          //fileListItem.initFileActions ();
-          //notify (data.statusText);
-        } else if (data.status == 'error'){
-          //notifyError (data.statusText);
-        }
-        $.cookie('token', data.token);
-      });
-    });
-  });
-</script>
