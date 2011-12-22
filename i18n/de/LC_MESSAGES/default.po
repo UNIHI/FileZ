@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: filez-2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-21 14:24+0100\n"
-"PO-Revision-Date: 2011-12-21 14:24+0100\n"
+"POT-Creation-Date: 2011-12-22 13:38+0100\n"
+"PO-Revision-Date: 2011-12-22 14:03+0100\n"
 "Last-Translator: Dennis Bruenig <dennisbruenig1983@googlemail.com>\n"
 "Language-Team: Universität Hildesheim <arnaud.didry@univ-avignon.fr>\n"
 "MIME-Version: 1.0\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SearchPath-0: C:\\htdocs\\filez\n"
 
-#: C:\htdocs\filez/app/controllers/Admin.php:129
+#: C:\htdocs\filez/app/controllers/Admin.php:122
 msgid "[FileZ] Your file \"%file_name%\" is going to be deleted"
 msgstr "[FileZ] Ihre Datei \"%file_name%\" wird demnächst gelöscht"
 
-#: C:\htdocs\filez/app/controllers/Admin.php:131
+#: C:\htdocs\filez/app/controllers/Admin.php:124
 msgid "email_delete_notif (%file_name%, %file_url%, %filez_url%, %available_until%)"
 msgstr ""
 "Hallo,\n"
@@ -38,28 +38,29 @@ msgstr ""
 msgid "Wrong username or password"
 msgstr "Falscher Login oder falsches Passwort"
 
-#: C:\htdocs\filez/app/controllers/File.php:69
+#: C:\htdocs\filez/app/controllers/File.php:82
+#: C:\htdocs\filez/app/controllers/File.php:83
 msgid "Action expired. Try again."
 msgstr "Aktion abgelaufen. Bitte versuchen Sie es noch einmal."
 
-#: C:\htdocs\filez/app/controllers/File.php:72
-#: C:\htdocs\filez/app/controllers/File.php:82
+#: C:\htdocs\filez/app/controllers/File.php:86
+#: C:\htdocs\filez/app/controllers/File.php:87
 msgid "File deleted."
 msgstr "Die Datei wurde gelöscht."
 
-#: C:\htdocs\filez/app/controllers/File.php:202
+#: C:\htdocs\filez/app/controllers/File.php:224
 msgid "File updated."
 msgstr "Datei wurde erfolgreich aktualisiert."
 
-#: C:\htdocs\filez/app/controllers/File.php:213
+#: C:\htdocs\filez/app/controllers/File.php:235
 msgid "File could not be updated."
 msgstr "Datei konnte nicht aktualisiert werden."
 
-#: C:\htdocs\filez/app/controllers/File.php:231
+#: C:\htdocs\filez/app/controllers/File.php:253
 msgid "[FileZ] \"%sender%\" wants to share a file with you"
 msgstr "[FileZ] %sender% möchte eine Datei mit Ihnen teilen"
 
-#: C:\htdocs\filez/app/controllers/File.php:233
+#: C:\htdocs\filez/app/controllers/File.php:255
 msgid "email_share_file (%file_name%, %file_url%, %sender%, %msg%)"
 msgstr ""
 "Hallo,\n"
@@ -69,29 +70,29 @@ msgstr ""
 "Ihre persönliche Nachricht:\n"
 "%msg%"
 
-#: C:\htdocs\filez/app/controllers/File.php:257
+#: C:\htdocs\filez/app/controllers/File.php:279
 msgid "Email address \"%email%\" is incorrect, please correct it."
 msgstr "Die E-Mail-Adresse \"%email%\" ist falsch, bitte korrigieren."
 
-#: C:\htdocs\filez/app/controllers/File.php:272
+#: C:\htdocs\filez/app/controllers/File.php:294
 msgid "An error occured during email submission. Please try again."
 msgstr "Beim Versand der E-Mail ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
 
-#: C:\htdocs\filez/app/controllers/File.php:297
+#: C:\htdocs\filez/app/controllers/File.php:319
 msgid "There are no files in this folder."
 msgstr "In diesem Ordner befinden sich keine Dateien."
 
-#: C:\htdocs\filez/app/controllers/File.php:316
-#: C:\htdocs\filez/app/controllers/File.php:360
+#: C:\htdocs\filez/app/controllers/File.php:338
+#: C:\htdocs\filez/app/controllers/File.php:382
 msgid "Failed to report the file. Try again."
 msgstr "Fehler beim Melden der Datei. Bitte versuchen Sie es später noch einmal."
 
 # Important: If you change this ID, change it in the app/File.php
-#: C:\htdocs\filez/app/controllers/File.php:325
+#: C:\htdocs\filez/app/controllers/File.php:347
 msgid "File is corrupt"
 msgstr "Download defekt"
 
-#: C:\htdocs\filez/app/controllers/File.php:327
+#: C:\htdocs\filez/app/controllers/File.php:349
 msgid ""
 "This is an automatically sent message by FileZ.\\n"
 "Your uploaded file \"%file%\" is corrupt.\\n"
@@ -101,39 +102,39 @@ msgstr ""
 "\n"
 "Vielen Dank."
 
-#: C:\htdocs\filez/app/controllers/File.php:353
+#: C:\htdocs\filez/app/controllers/File.php:375
 msgid "File has been reported."
 msgstr "Datei wurde gemeldet."
 
-#: C:\htdocs\filez/app/controllers/File.php:488
+#: C:\htdocs\filez/app/controllers/File.php:510
 msgid "There is no file for this code"
 msgstr "Für diesen Code existiert keine Datei"
 
-#: C:\htdocs\filez/app/controllers/File.php:510
+#: C:\htdocs\filez/app/controllers/File.php:532
 msgid "File is locked and currently not available for download."
 msgstr "Die Datei ist gesperrt und steht derzeit nicht zur Verfügung."
 
-#: C:\htdocs\filez/app/controllers/File.php:514
+#: C:\htdocs\filez/app/controllers/File.php:536
 msgid "File is not available for download"
 msgstr "Datei ist steht nicht as Download zur Verfügung"
 
-#: C:\htdocs\filez/app/controllers/File.php:519
+#: C:\htdocs\filez/app/controllers/File.php:541
 msgid "Security restrictions do not allow public access of this file. Please contact the file uploader to solve this problem."
 msgstr "Die Sicherheitseinschränkungen erlauben keinen öffentlichen Zugriff auf diese Datei. Kontaktieren Sie den Datei-Uploader."
 
-#: C:\htdocs\filez/app/controllers/File.php:534
+#: C:\htdocs\filez/app/controllers/File.php:556
 msgid "You have to login before you can access the file"
 msgstr "Sie müssen sich einlogge, bevor Sie auf die Datei zugreifen können."
 
-#: C:\htdocs\filez/app/controllers/File.php:541
+#: C:\htdocs\filez/app/controllers/File.php:563
 msgid "Incorrect password"
 msgstr "Falsches Passwort"
 
-#: C:\htdocs\filez/app/controllers/File.php:547
+#: C:\htdocs\filez/app/controllers/File.php:569
 msgid "Sorry, download limit reached for this file"
 msgstr "Das Download-Limit wurde erreicht"
 
-#: C:\htdocs\filez/app/controllers/File.php:580
+#: C:\htdocs\filez/app/controllers/File.php:602
 msgid "You are not the owner of the file"
 msgstr "Sie sind nicht der Besitzer dieser Datei"
 
@@ -197,22 +198,27 @@ msgid "You exceeded your disk space quota (%space%)."
 msgstr "Der verfügbare Festplattenspeicher wurde überschritten (%space%)."
 
 #: C:\htdocs\filez/app/models/File.php:177
+#: C:\htdocs\filez/app/models/DbTable/File.php:284
 msgid "B"
 msgstr "B"
 
 #: C:\htdocs\filez/app/models/File.php:177
+#: C:\htdocs\filez/app/models/DbTable/File.php:284
 msgid "KB"
 msgstr "KB"
 
 #: C:\htdocs\filez/app/models/File.php:177
+#: C:\htdocs\filez/app/models/DbTable/File.php:284
 msgid "MB"
 msgstr "MB"
 
 #: C:\htdocs\filez/app/models/File.php:177
+#: C:\htdocs\filez/app/models/DbTable/File.php:284
 msgid "GB"
 msgstr "GB"
 
 #: C:\htdocs\filez/app/models/File.php:177
+#: C:\htdocs\filez/app/models/DbTable/File.php:284
 msgid "TB"
 msgstr "TB"
 
@@ -227,6 +233,14 @@ msgstr "Dateien"
 #: C:\htdocs\filez/app/views/admin/dashboard.php:2
 msgid "Manage %users% and %files%."
 msgstr "%users% und %files% verwalten."
+
+#: C:\htdocs\filez/app/views/admin/index.php:1
+msgid "Admin dashboard"
+msgstr "Admin dashboard"
+
+#: C:\htdocs\filez/app/views/admin/index.php:3
+msgid "Manage %NumberOfUsers% users</a> and %NumberOfFiles% files</a>."
+msgstr "%NumberOfUsers% Benutzer</a> und %NumberOfFiles% Dateien</a> verwalten."
 
 #: C:\htdocs\filez/app/views/auth/loginForm.php:8
 msgid "Username"
@@ -244,11 +258,11 @@ msgstr "Anmelden"
 msgid "Do you want to delete this file"
 msgstr "Möchten Sie diese Datei löschen"
 
-#: C:\htdocs\filez/app/views/file/confirmDelete.php:6
+#: C:\htdocs\filez/app/views/file/confirmDelete.php:7
 msgid "Yes, delete this file"
 msgstr "Ja, Datei löschen"
 
-#: C:\htdocs\filez/app/views/file/confirmDelete.php:7
+#: C:\htdocs\filez/app/views/file/confirmDelete.php:8
 msgid "No, return to the main page"
 msgstr "Nein, zurück zur Hauptseite"
 
@@ -290,32 +304,32 @@ msgstr "Datei einem Ordner zuweisen (optional):"
 msgid "Assign file to folder (optional)"
 msgstr "Datei einem Ordner zuweisen (optional)"
 
-#: C:\htdocs\filez/app/views/file/editForm.php:41
+#: C:\htdocs\filez/app/views/file/editForm.php:40
 msgid "No password or remove password"
 msgstr "Kein Passwort oder Passwort entfernen"
 
-#: C:\htdocs\filez/app/views/file/editForm.php:49
+#: C:\htdocs\filez/app/views/file/editForm.php:48
 msgid "Do not change password"
 msgstr "Passwort unverändert beibehalten"
 
-#: C:\htdocs\filez/app/views/file/editForm.php:56
-#: C:\htdocs\filez/app/views/file/editForm.php:59
+#: C:\htdocs\filez/app/views/file/editForm.php:55
+#: C:\htdocs\filez/app/views/file/editForm.php:58
 msgid "Add or change password"
 msgstr "Passwort setzen oder ändern"
 
-#: C:\htdocs\filez/app/views/file/editForm.php:73
+#: C:\htdocs\filez/app/views/file/editForm.php:72
 msgid "Require the user to login to grant access to your file."
 msgstr "Der Benutzer muss eingeloggt sein, um die Datei downloaden zu können."
 
-#: C:\htdocs\filez/app/views/file/editForm.php:76
+#: C:\htdocs\filez/app/views/file/editForm.php:75
 msgid "Require login"
 msgstr "Download erfordert Login"
 
-#: C:\htdocs\filez/app/views/file/editForm.php:83
+#: C:\htdocs\filez/app/views/file/editForm.php:82
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: C:\htdocs\filez/app/views/file/editForm.php:86
+#: C:\htdocs\filez/app/views/file/editForm.php:88
 #: C:\htdocs\filez/app/views/file/index.php:40
 msgid "Delete"
 msgstr "Löschen"
@@ -437,6 +451,26 @@ msgstr "Melden"
 msgid "Report file"
 msgstr "Datei melden"
 
+#: C:\htdocs\filez/app/views/file/share.php:3
+msgid "Give this link to the person you want to share this file with"
+msgstr "Geben Sie diese Adresse an die Personen weiter, mit denen Sie Ihre Datei teilen möchten"
+
+#: C:\htdocs\filez/app/views/file/share.php:11
+msgid "or share using:"
+msgstr "oder verteilen Sie den Link über:"
+
+#: C:\htdocs\filez/app/views/file/share.php:15
+msgid "your email"
+msgstr "E-Mail"
+
+#: C:\htdocs\filez/app/views/file/share.php:19
+msgid "Facebook"
+msgstr "Facebook"
+
+#: C:\htdocs\filez/app/views/file/share.php:24
+msgid "Twitter"
+msgstr "Twitter"
+
 #: C:\htdocs\filez/app/views/file/_folder_row.php:15
 msgid "Available from %from% to %to%"
 msgstr "Verfügbar vom %from% bis %to%"
@@ -461,19 +495,15 @@ msgstr "Abschicken"
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: C:\htdocs\filez/app/views/layout/admin.html.php:22
+#: C:\htdocs\filez/app/views/layout/admin.html.php:24
 msgid "Users"
 msgstr "Benutzer"
 
-#: C:\htdocs\filez/app/views/layout/admin.html.php:25
+#: C:\htdocs\filez/app/views/layout/admin.html.php:29
 msgid "Files"
 msgstr "Dateien"
 
-#: C:\htdocs\filez/app/views/layout/admin.html.php:30
-msgid "Config"
-msgstr "Konfiguration"
-
-#: C:\htdocs\filez/app/views/layout/admin.html.php:36
+#: C:\htdocs\filez/app/views/layout/admin.html.php:35
 msgid "Statistics"
 msgstr "Statistik"
 
@@ -522,175 +552,170 @@ msgstr "Benutzerschnittstelle umschalten"
 msgid "Log out"
 msgstr "Abmelden"
 
-#: C:\htdocs\filez/app/views/main/index.php:9
-#: C:\htdocs\filez/app/views/main/index.php:295
+#: C:\htdocs\filez/app/views/main/index.php:11
+#: C:\htdocs\filez/app/views/main/index.php:299
 msgid "Upload a new file"
 msgstr "Eine neue Datei hochladen"
 
-#: C:\htdocs\filez/app/views/main/index.php:16
-#: C:\htdocs\filez/app/views/main/index.php:162
+#: C:\htdocs\filez/app/views/main/index.php:20
+#: C:\htdocs\filez/app/views/main/index.php:166
+#: C:\htdocs\filez/app/views/upload/uploadForm.php:6
 msgid "File (Max size: %size%):"
 msgstr "Datei (maximale Dateigröße %size%):"
 
-#: C:\htdocs\filez/app/views/main/index.php:24
+#: C:\htdocs\filez/app/views/main/index.php:28
+#: C:\htdocs\filez/app/views/upload/uploadForm.php:14
 msgid "Available from:"
 msgstr "Verfügbar ab:"
 
-#: C:\htdocs\filez/app/views/main/index.php:27
+#: C:\htdocs\filez/app/views/main/index.php:31
+#: C:\htdocs\filez/app/views/upload/uploadForm.php:17
 msgid "Select a starting date"
 msgstr "Wählen Sie das Startdatum"
 
-#: C:\htdocs\filez/app/views/main/index.php:50
-#: C:\htdocs\filez/app/views/main/index.php:194
+#: C:\htdocs\filez/app/views/main/index.php:54
+#: C:\htdocs\filez/app/views/main/index.php:198
+#: C:\htdocs\filez/app/views/upload/uploadForm.php:42
 msgid "Ask a password to people who will download your file"
 msgstr "Passwort zum Schutz der Datei verwenden"
 
-#: C:\htdocs\filez/app/views/main/index.php:52
-#: C:\htdocs\filez/app/views/main/index.php:196
+#: C:\htdocs\filez/app/views/main/index.php:56
+#: C:\htdocs\filez/app/views/main/index.php:200
+#: C:\htdocs\filez/app/views/upload/uploadForm.php:44
 msgid "Use a password to download"
 msgstr "Passwort zum Download erforderlich"
 
-#: C:\htdocs\filez/app/views/main/index.php:72
+#: C:\htdocs\filez/app/views/main/index.php:76
+#: C:\htdocs\filez/app/views/upload/uploadForm.php:64
 msgid "You have to accept this user agreement before you can upload the file."
 msgstr "Sie müssen der Nutzungsvereinbarung zustimmen, bevor Sie die Datei hochladen können."
 
-#: C:\htdocs\filez/app/views/main/index.php:81
-#: C:\htdocs\filez/app/views/main/index.php:83
+#: C:\htdocs\filez/app/views/main/index.php:85
+#: C:\htdocs\filez/app/views/main/index.php:87
+#: C:\htdocs\filez/app/views/upload/uploadForm.php:73
+#: C:\htdocs\filez/app/views/upload/uploadForm.php:75
 msgid "user agreement"
 msgstr "Nutzungsvereinbarung"
 
-#: C:\htdocs\filez/app/views/main/index.php:84
+#: C:\htdocs\filez/app/views/main/index.php:88
+#: C:\htdocs\filez/app/views/upload/uploadForm.php:76
 msgid "I have read and do understand the %userAgreement%."
 msgstr "Ich habe die %userAgreement% gelesen und verstanden."
 
-#: C:\htdocs\filez/app/views/main/index.php:92
+#: C:\htdocs\filez/app/views/main/index.php:97
+#: C:\htdocs\filez/app/views/upload/uploadForm.php:85
 msgid "Send me email notifications when the file is uploaded and before it will be deleted."
 msgstr "Schicken Sie mir eine Benachrichtigung per E-Mail, wenn die Datei hochgeladen wurde und bevor sie gelöscht wird."
 
-#: C:\htdocs\filez/app/views/main/index.php:93
+#: C:\htdocs\filez/app/views/main/index.php:98
+#: C:\htdocs\filez/app/views/upload/uploadForm.php:86
 msgid "This option cannot be disabled."
 msgstr "Diese Option kann nicht deaktiviert werden."
 
-#: C:\htdocs\filez/app/views/main/index.php:97
-#: C:\htdocs\filez/app/views/main/index.php:104
+#: C:\htdocs\filez/app/views/main/index.php:102
+#: C:\htdocs\filez/app/views/main/index.php:109
+#: C:\htdocs\filez/app/views/upload/uploadForm.php:90
+#: C:\htdocs\filez/app/views/upload/uploadForm.php:97
 msgid "Send me email notifications"
 msgstr "Benachrichtigungen per E-Mail"
 
-#: C:\htdocs\filez/app/views/main/index.php:101
+#: C:\htdocs\filez/app/views/main/index.php:106
+#: C:\htdocs\filez/app/views/upload/uploadForm.php:94
 msgid "Send me email notifications when the file is uploaded and before it will be deleted"
 msgstr "Schicken Sie mir eine Benachrichtigung per E-Mail, wenn die Datei hochgeladen wurde und bevor sie gelöscht wird"
 
-#: C:\htdocs\filez/app/views/main/index.php:112
+#: C:\htdocs\filez/app/views/main/index.php:116
+#: C:\htdocs\filez/app/views/upload/uploadForm.php:104
 msgid "Upload"
 msgstr "Hochladen"
 
-#: C:\htdocs\filez/app/views/main/index.php:120
+#: C:\htdocs\filez/app/views/main/index.php:124
 msgid "Uploaded files"
 msgstr "Verfügbare Dateien"
 
-#: C:\htdocs\filez/app/views/main/index.php:123
+#: C:\htdocs\filez/app/views/main/index.php:127
 msgid "Used folders:"
 msgstr "Verwendete Ordner:"
 
-#: C:\htdocs\filez/app/views/main/index.php:139
-msgid "Give this link to the person you want to share this file with"
-msgstr "Geben Sie diese Adresse an die Personen weiter, mit denen Sie Ihre Datei teilen möchten"
-
-#: C:\htdocs\filez/app/views/main/index.php:142
-msgid "or share using:"
-msgstr "oder verteilen Sie den Link über:"
-
-#: C:\htdocs\filez/app/views/main/index.php:145
-msgid "your email"
-msgstr "E-Mail"
-
-#: C:\htdocs\filez/app/views/main/index.php:149
-msgid "Facebook"
-msgstr "Facebook"
-
-#: C:\htdocs\filez/app/views/main/index.php:152
-msgid "Twitter"
-msgstr "Twitter"
-
-#: C:\htdocs\filez/app/views/main/index.php:166
+#: C:\htdocs\filez/app/views/main/index.php:170
 msgid "Replace file"
 msgstr "Datei ersetzen"
 
-#: C:\htdocs\filez/app/views/main/index.php:200
-#: C:\htdocs\filez/app/views/main/index.php:202
-#: C:\htdocs\filez/app/views/main/index.php:207
+#: C:\htdocs\filez/app/views/main/index.php:204
+#: C:\htdocs\filez/app/views/main/index.php:206
+#: C:\htdocs\filez/app/views/main/index.php:211
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: C:\htdocs\filez/app/views/main/index.php:264
+#: C:\htdocs\filez/app/views/main/index.php:268
 msgid "Are you sure to delete this file ?"
 msgstr "Möchten Sie diese Datei wirklich löschen?"
 
-#: C:\htdocs\filez/app/views/main/index.php:265
+#: C:\htdocs\filez/app/views/main/index.php:269
 msgid "Do you want to toggle on login requirement for this file?"
 msgstr "Möchten Sie die Loginanforderung für dise Datei anschalten?"
 
-#: C:\htdocs\filez/app/views/main/index.php:266
+#: C:\htdocs\filez/app/views/main/index.php:270
 msgid "Do you want to toggle off login requirement for this file ?"
 msgstr "Möchten Sie die Loginanforderung für diese Datei aussschalten?"
 
-#: C:\htdocs\filez/app/views/main/index.php:267
+#: C:\htdocs\filez/app/views/main/index.php:271
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 
-#: C:\htdocs\filez/app/views/main/index.php:268
+#: C:\htdocs\filez/app/views/main/index.php:272
 msgid "An unknown error hapenned while uploading the file"
 msgstr "Beim Hochladen der Datei ist ein unbekannter Fehler aufgetreten"
 
-#: C:\htdocs\filez/app/views/main/index.php:269
+#: C:\htdocs\filez/app/views/main/index.php:273
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: C:\htdocs\filez/app/views/main/index.php:270
+#: C:\htdocs\filez/app/views/main/index.php:274
 msgid "You can download the file I uploaded here"
 msgstr "Hier können Sie die hochgeladenen Datei herunterladen"
 
-#: C:\htdocs\filez/app/views/main/index.php:271
+#: C:\htdocs\filez/app/views/main/index.php:275
 msgid "Edit file"
 msgstr "Datei bearbeiten"
 
-#: C:\htdocs\filez/app/views/main/index.php:272
+#: C:\htdocs\filez/app/views/main/index.php:276
 msgid "Copied to clipboard"
 msgstr "Link kopiert"
 
-#: C:\htdocs\filez/app/views/main/index.php:273
+#: C:\htdocs\filez/app/views/main/index.php:277
 msgid "You have to accept the user agreement to upload the file."
 msgstr "Sie müssen der Benutzervereinbarung zustimmen, um die Datei hochzuladen."
 
-#: C:\htdocs\filez/app/views/main/index.php:274
+#: C:\htdocs\filez/app/views/main/index.php:278
 msgid "Please set a download protection password or deselect the appropriate checkbox."
 msgstr "Bitte geben Sie ein Download-Passwort ein oder deselektieren Sie die entsprechende Checkbox."
 
-#: C:\htdocs\filez/app/views/main/index.php:275
+#: C:\htdocs\filez/app/views/main/index.php:279
 #: C:\htdocs\filez/app/views/main/_file_row.php:41
 #: C:\htdocs\filez/app/views/main/_file_row.php:88
 msgid "No folder assigned"
 msgstr "Keinem Ordner zugewiesen"
 
-#: C:\htdocs\filez/app/views/main/index.php:276
+#: C:\htdocs\filez/app/views/main/index.php:280
 #: C:\htdocs\filez/app/views/main/_file_row.php:33
 #: C:\htdocs\filez/app/views/main/_file_row.php:80
 msgid "Folder"
 msgstr "Ordner"
 
-#: C:\htdocs\filez/app/views/main/index.php:355
+#: C:\htdocs\filez/app/views/main/index.php:362
 msgid "You have entered a date after the end date. Please use the date picker to select a date."
 msgstr "Sie haben ein Datum angegeben, das vor dem Enddatum liegt. Bitte verwenden Sie die Datumsauswahl um ein gültiges Datum zu wählen."
 
-#: C:\htdocs\filez/app/views/main/index.php:382
+#: C:\htdocs\filez/app/views/main/index.php:389
 msgid "You have entered a date before the start date. Please use the date picker to select a date."
 msgstr "Sie haben ein Datum angegeben, das vor dem Startdatum liegt. Bitte verwenden Sie die Datumsauswahl um ein gültiges Datum zu wählen."
 
-#: C:\htdocs\filez/app/views/main/index.php:386
+#: C:\htdocs\filez/app/views/main/index.php:393
 msgid "You have entered a date which is longer than six months in the future. Please use the date picker to select a date."
 msgstr "Sie haben ein Datum angegeben, das mehr als 6 Monate ind er Zukunft liegt. Bitte verwenden Sie die Datumsauswahl um ein gültiges Datum zu wählen."
 
-#: C:\htdocs\filez/app/views/main/index.php:397
+#: C:\htdocs\filez/app/views/main/index.php:404
 msgid "You have to give at least a password or require a login."
 msgstr "Sie müssen mindestens ein Passwort vergeben oder den Login für die Datei erfordern."
 
@@ -732,7 +757,7 @@ msgid "Download %x% times"
 msgstr "%x%-mal heruntergeladen"
 
 #: C:\htdocs\filez/app/views/user/create.php:1
-#: C:\htdocs\filez/app/views/user/index.php:3
+#: C:\htdocs\filez/app/views/user/index.php:4
 msgid "Create a new user"
 msgstr "Neuen Benutzer anlegen"
 
@@ -812,31 +837,31 @@ msgstr "Grund für die Sperre"
 msgid "Update"
 msgstr "Änderungen speichern"
 
-#: C:\htdocs\filez/app/views/user/index.php:8
+#: C:\htdocs\filez/app/views/user/index.php:11
 msgid "Role"
 msgstr "Rolle"
 
-#: C:\htdocs\filez/app/views/user/index.php:9
+#: C:\htdocs\filez/app/views/user/index.php:12
 msgid "Valid files"
 msgstr "Gültige Dateien"
 
-#: C:\htdocs\filez/app/views/user/index.php:10
+#: C:\htdocs\filez/app/views/user/index.php:13
 msgid "Expired files"
 msgstr "Verfallene Dateien"
 
-#: C:\htdocs\filez/app/views/user/index.php:11
+#: C:\htdocs\filez/app/views/user/index.php:14
 msgid "Disk usage"
 msgstr "Speichernutzung"
 
-#: C:\htdocs\filez/app/views/user/index.php:20
+#: C:\htdocs\filez/app/views/user/index.php:23
 msgid "admin"
 msgstr "Administrator"
 
-#: C:\htdocs\filez/app/views/user/index.php:21
+#: C:\htdocs\filez/app/views/user/index.php:24
 msgid "locked"
 msgstr "gesperrt"
 
-#: C:\htdocs\filez/app/views/user/index.php:40
+#: C:\htdocs\filez/app/views/user/index.php:43
 msgid "Are you sure you want to delete the user \"%displayname%\" (%username%)?"
 msgstr "Möchten Sie den Benutzer \"%displayname%\" (%username%) wirklich löschen?"
 
@@ -846,19 +871,11 @@ msgstr "E-Mail"
 
 #: C:\htdocs\filez/app/views/user/show.php:4
 msgid "Account created"
-msgstr "Account erstellt am"
+msgstr "Zugang erstellt am"
 
 #: C:\htdocs\filez/app/views/user/show.php:5
-msgid "Administrator ?"
-msgstr "Administrator ?"
-
-#: C:\htdocs\filez/app/views/user/show.php:5
-msgid "yes"
-msgstr "ja"
-
-#: C:\htdocs\filez/app/views/user/show.php:5
-msgid "no"
-msgstr "nein"
+msgid "Has administrative privileges"
+msgstr "Hat administrative Rechte"
 
 #: C:\htdocs\filez/app/views/user/show.php:12
 msgid "DL count"
@@ -875,6 +892,18 @@ msgstr "Ihr Zugang wurde gesperrt. Bitte wenden Sie sich an den FileZ-Administra
 #: C:\htdocs\filez/lib/Fz/Controller.php:50
 msgid "This page is secured"
 msgstr "Diese Seite ist zugriffsgeschützt"
+
+#~ msgid "Config"
+#~ msgstr "Konfiguration"
+
+#~ msgid "Administrator ?"
+#~ msgstr "Administrator ?"
+
+#~ msgid "yes"
+#~ msgstr "ja"
+
+#~ msgid "no"
+#~ msgstr "nein"
 
 #~ msgid "[FileZ] Your file \"%file_name%\" is going to expire soon"
 #~ msgstr "[FileZ] Ihre Datei \"%file_name%\" läuft demnächst ab."
@@ -950,9 +979,6 @@ msgstr "Diese Seite ist zugriffsgeschützt"
 
 #~ msgid "Manage users"
 #~ msgstr "Benutzerverwaltung"
-
-#~ msgid "Admin dashboard"
-#~ msgstr "Admin dashboard"
 
 #~ msgid "Manage files"
 #~ msgstr "Dateiverwaltung"

@@ -8,10 +8,12 @@ nav {
   margin: 0;
   color: #AAA;
 }
+
 nav ul li {
   display: inline;
   padding: 0 1px;
 }
+
 nav ul li a {
   display: inline-block;
   background: white;
@@ -29,6 +31,7 @@ nav ul li a {
   -webkit-border-top-right-radius: 7px;
   border-radius-topleft: 7px;
 }
+
 nav ul li a.selected {
   background: white;
   font-weight: bold;
@@ -52,9 +55,11 @@ width: 100%;
 cellspacing: 1px;
 margin: 1em 0;
 }
+
 table.data th, table.data td {
 padding: 4px 6px;
 }
+
 table.data th {
 background: #DDD;
 text-align: left;
@@ -62,8 +67,36 @@ color: #999;
 border: 1px solid #CCC;
 text-shadow: 1px 1px 1px #FFF;
 }
+
 table.data td {
 background: white;
 border: 1px solid #DDD;
 font-size: 0.8em;
 }
+
+h2#user-details-username {
+  padding-top: 5px;
+  font-size: 1.5em;
+  font-weigh: 700;
+  display: inline;
+  text-shadow: 0px 0px 9px #505050;
+  filter: dropshadow(color=#505050, offx=0, offy=0)
+}
+
+ul#show-user-details {
+  font-size: 0.8em;
+  display: inline;
+  padding-left: 20px;
+}
+
+ul#show-user-details li {
+  list-style: none;
+  display: inline;
+  padding-right: 5px;
+}
+
+ul#show-user-details li + li {
+  border-left: 1px solid #ccc;
+  padding-left: 7px;
+}
+section.new-file ul#options li + li, section.edit-file ul#edit-options li + li {

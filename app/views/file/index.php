@@ -37,7 +37,7 @@
     <?php
     echo a(array('href'=>$file->getDownloadUrl () . '/delete',
       'class'=>'admin-delete'),
-      '<img src="resources/images/icons/remove.png">'.__('Delete'));
+      '<img src="../resources/images/icons/remove.png">'.__('Delete'));
     ?>
     </td>
 <?php endforeach ?>

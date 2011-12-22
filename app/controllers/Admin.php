@@ -60,10 +60,7 @@ class App_Controller_Admin extends Fz_Controller {
    */
   public function statisticsAction () {
     $this->secure ('admin');
-    if ($this->isXhrRequest())
-      return partial ('admin/statistics.php');
-    else
-      return redirect_to ('/admin');
+    return html ('admin/statistics.php');
   }
 
   /**

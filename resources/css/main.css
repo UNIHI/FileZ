@@ -7,7 +7,7 @@ html {
 
 body {
     font-size: 100%;
-    font-family: Arial, sans-serif;
+    font-family: Segoe-UI, Ubuntu, Arial, sans-serif;
     line-height: 1.125em;
 }
 
@@ -587,8 +587,13 @@ section#uploaded-files ul li p.share-simple a {
     height:16px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    opacity: 0.2;
 }
 
+
+section#uploaded-files ul li:hover p.share-simple a {
+  opacity: 1.0;
+}
 
 section#uploaded-files ul li p.zclip a {
     background-image: url(../images/icons/copy-this-icon.png);
@@ -612,6 +617,11 @@ section#uploaded-files ul li p.zclip-simple a {
     position: absolute;
     top: 6px;
     right: 6px;
+    opacity: 0.2;
+}
+
+section#uploaded-files ul li:hover p.zclip-simple a {
+  opacity: 1.0;
 }
 
 /*
@@ -709,6 +719,11 @@ section#uploaded-files ul li a.edit {
     height: 16px;
     width: 16px;
     display: inline-block;
+    opacity: 0.2;
+}
+
+section#uploaded-files ul li:hover a.edit {
+  opacity: 1.0;
 }
 
 section#uploaded-files ul li a.edit-simple {
@@ -804,7 +819,7 @@ section#preview-file #report {
 }
 
 section#preview-file input {
-    font-family: Arial, sans-serif;
+    font-family: Segoe-UI, Ubuntu, Arial, sans-serif;
 }
 
 section#preview-file #input-pw {
@@ -1117,7 +1132,7 @@ a.help {
     -moz-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
     border: 0;
-    font-family: Arial, sans-serif;
+    font-family: Segoe-UI, Ubuntu, Arial, sans-serif;
     font-size: 100%;
 }
 

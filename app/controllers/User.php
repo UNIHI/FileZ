@@ -36,11 +36,7 @@ class App_Controller_User extends Fz_Controller {
     $this->secure ('admin');
     set ('users', Fz_Db::getTable ('User')->findAll ()); // TODO paginate
     set ('isInternal', $this->getUserFactory ()->isInternal ());
-    // if ($this->isXhrRequest())
-      return html('user/index.php');
-    // else {
-      // return html('admin/index.php');
-    // }
+    return html('user/index.php');
   }
 
   /**
@@ -49,10 +45,7 @@ class App_Controller_User extends Fz_Controller {
   public function showAction () {
     $this->secure ('admin');
     set ('user', Fz_Db::getTable ('User')->findById (params ('id')));
-    if ($this->isXhrRequest())
-      return partial ('user/show.php');
-    else
-      return redirect_to ('/admin');
+    return html ('user/show.php');
   }
 
   /**
@@ -141,10 +134,7 @@ class App_Controller_User extends Fz_Controller {
       "error: cannot create new users while using external user database");
       return $this->indexAction ();
     } else {
-      if ($this->isXhrRequest())
-        return partial ('user/create.php');
-      else
-        return redirect_to ('/admin');
+      return html ('user/create.php');
     }
   }
 
@@ -155,10 +145,7 @@ class App_Controller_User extends Fz_Controller {
     $this->secure ('admin');
     set ('user', Fz_Db::getTable ('User')->findById (params ('id')));
     set ('isInternal', $this->getUserFactory ()->isInternal ());
-    if ($this->isXhrRequest())
-      return partial('user/edit.php');
-    else
-      return redirect_to ('/admin');
+    return html('user/edit.php');
   }
 
   /**
