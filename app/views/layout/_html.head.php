@@ -1,12 +1,17 @@
 <title>FileZ</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="shortcut Icon" href="favicon.ico" type="image/x-icon" />
+<link rel="shortcut Icon" 
+  href="<?php echo isset($styles) && in_array('admin',$styles)?'../':''?>favicon.ico" 
+  type="image/x-icon" />
 <?php
 if (!isset($styles) || !is_array($styles))
   $styles = array();
-array_unshift($styles,
-'html5-reset', 'jquery-ui-1.8.16.custom', 'jquery.qtip', 'main',
-'jquery.autocomplete'
+  array_unshift($styles,
+    'html5-reset', 
+    'jquery-ui-1.8.16.custom', 
+    'jquery.qtip', 
+    'main',
+    'jquery.autocomplete'
 );
 if (fz_config_get ('looknfeel', 'custom_css', '' != ''))
   array_unshift($styles, fz_config_get ('looknfeel', 'custom_css'));

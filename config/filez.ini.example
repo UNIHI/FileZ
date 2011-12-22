@@ -131,6 +131,10 @@ lifetime_max = 6m
 ; This is only possible if the file has not yet been expired and thus deleted.
 lifetime_max_extend = 2m
 
+; Files / Users to be shown at once in admin panel
+; This value is used for pagination
+items_per_page = 10
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Logging
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

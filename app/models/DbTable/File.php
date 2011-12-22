@@ -255,7 +255,21 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
   * @return integer number of files
   */
   public function getNumberOfFiles () {
-    $sql = 'SELECT COUNT(*) AS count FROM '.$this->getTableName ();
+    $sql = 'SELECT COUNT(*) AS count '
+      . 'FROM '.$this->getTableName ()
+      . ' WHERE isDeleted = 0';
+    $res = Fz_Db::findAssocBySQL($sql);
+    return $res[0]['count'];
+  }
+  
+  /**
+  * Count the number of files including deleted files
+  *
+  * @return integer number of files
+  */
+  public function getNumberOfFilesIncludingDeleted () {
+    $sql = 'SELECT COUNT(*) AS count '
+      . 'FROM '.$this->getTableName ();
     $res = Fz_Db::findAssocBySQL($sql);
     return $res[0]['count'];
   }

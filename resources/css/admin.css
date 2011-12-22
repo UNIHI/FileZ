@@ -99,4 +99,38 @@ ul#show-user-details li + li {
   border-left: 1px solid #ccc;
   padding-left: 7px;
 }
-section.new-file ul#options li + li, section.edit-file ul#edit-options li + li {
+
+div#pagination {
+  padding: 0px;
+  margin: 0px;
+  float: right;
+}
+
+div#pagination ul {
+  display: block;
+  margin-bottom: 10px;
+}
+
+li.item-page {
+  color: #cccccc;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  border: 1px solid black;
+  margin: 2px;
+  padding: 2px;
+  font-weight: bold;
+  background-color: #547DE9;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  text-shadow: 1px 1px 10px #cccccc;
+  filter: dropshadow(color=#cccccc, offx=1, offy=1)
+}
+
+li.item-page:hover {
+  background-color: #1A49C6;
+}

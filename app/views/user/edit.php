@@ -40,7 +40,7 @@
       <input type="checkbox" name="is_locked" id="is_locked" 
       <?php echo ($user->is_locked==1) ? "checked" : "" ?> />
       <label for="is_locked" title="
-      <?php echo __('This user is excluded from FileZ usage.') ?>">
+      <?php echo __('Exclude user rom FileZ usage.') ?>">
         <?php echo __('User locked') ?>
       </label>
     </li>

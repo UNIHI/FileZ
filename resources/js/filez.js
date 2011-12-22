@@ -483,7 +483,9 @@ var onFileEditEnd = function (data, status) {
 var appendFile = function (html, fileHash) {
     var files = $(settings.fileList);
     var cssClass = files.children ('li:first').hasClass ('odd') ? 'even' : 'odd' ;
-
+    // check if compact/simple mode is active
+    if ($.cookie('ui-switch') == 'simple')
+      cssClass += ' file-simple';
     files.prepend (
         '<li id="file-' + fileHash + '" class="file '+cssClass+'" style="display: none;">'+html+'</li>'
     );

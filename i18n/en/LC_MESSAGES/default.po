@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: filez-2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-22 13:38+0100\n"
-"PO-Revision-Date: 2011-12-22 13:40+0100\n"
+"POT-Creation-Date: 2011-12-22 14:20+0100\n"
+"PO-Revision-Date: 2011-12-22 14:20+0100\n"
 "Last-Translator: Dennis Bruenig <dennisbruenig1983@googlemail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,11 +15,11 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: C:\\htdocs\\filez\n"
 
-#: C:\htdocs\filez/app/controllers/Admin.php:122
+#: C:\htdocs\filez/app/controllers/Admin.php:119
 msgid "[FileZ] Your file \"%file_name%\" is going to be deleted"
 msgstr "[FileZ] Ihre datei \"%file_name%\"wird bald gelöscht"
 
-#: C:\htdocs\filez/app/controllers/Admin.php:124
+#: C:\htdocs\filez/app/controllers/Admin.php:121
 msgid "email_delete_notif (%file_name%, %file_url%, %filez_url%, %available_until%)"
 msgstr ""
 "Hello,\n"
@@ -785,7 +785,6 @@ msgid "Admin"
 msgstr "Admin"
 
 #: C:\htdocs\filez/app/views/user/create.php:25
-#: C:\htdocs\filez/app/views/user/edit.php:43
 #: C:\htdocs\filez/app/views/user/edit.php:52
 msgid "This user is excluded from FileZ usage."
 msgstr "This user is excluded from FileZ usage."
@@ -822,6 +821,10 @@ msgstr "Create"
 #: C:\htdocs\filez/app/views/user/edit.php:1
 msgid "Edit user"
 msgstr "Edit user"
+
+#: C:\htdocs\filez/app/views/user/edit.php:43
+msgid "Exclude user rom FileZ usage."
+msgstr "Exclude user rom FileZ usage."
 
 #: C:\htdocs\filez/app/views/user/edit.php:53
 msgid "Lock reason"
@@ -867,11 +870,11 @@ msgstr "Email"
 msgid "Account created"
 msgstr "Account created"
 
-#: C:\htdocs\filez/app/views/user/show.php:5
+#: C:\htdocs\filez/app/views/user/show.php:6
 msgid "Has administrative privileges"
 msgstr "Has administrative privileges"
 
-#: C:\htdocs\filez/app/views/user/show.php:12
+#: C:\htdocs\filez/app/views/user/show.php:14
 msgid "DL count"
 msgstr "DL count"
 

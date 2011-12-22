@@ -46,13 +46,25 @@ class App_Controller_Admin extends Fz_Controller {
   public function filesAction () {
     $this->setToken();
     $this->secure ('admin');
+    // hier festlegen wieviele datensätze abgerufen werden sollen
     set ('files', Fz_Db::getTable ('File')->findNotDeleted ());
     return html('file/index.php');
-    // if ($this->isXhrRequest())
-      // return partial ('file/index.php');
-    // else
-      // return redirect_to ('/admin');
-    //TODO paginate
+  }
+  
+  /**
+   * Return number of files
+   */
+  public function numFiles() {
+  $this->secure ('admin');  
+    return Fz_Db::getTable ('File')->getNumberOfFiles (); 
+  }
+  
+  /**
+   * Return number of files which are deleted
+   */
+  public function numFilesIncludingDeleted() {
+    $this->secure ('admin');
+    return Fz_Db::getTable ('File')->getNumberOfFilesIncludingDeleted (); 
   }
   
   /**
@@ -135,4 +147,5 @@ class App_Controller_Admin extends Fz_Controller {
         .' file_id:'.$file->id, FZ_LOG_CRON_ERROR);
     }
   }
+
 }

@@ -23,24 +23,10 @@
  * Controller used to do various actions on files (delete, email, download)
  */
 class App_Controller_File extends Fz_Controller {
-  /**
-   * Delete a file.
-   * Temporarly disabled, maybe removing forever
-   */
-  /*
-  public function confirmDeleteAction () {
-      $this->secure ();
-      $file = $this->getFile ();
-      $user = $this->getUser ();
-      if (! $user->is_admin) $this->checkOwner ($file, $user);
-      set ('file', $file);
-
-      return html ('file/confirmDelete.php');
-  }
-  */
 
   /**
    * Toggle login requirement
+   * obsolete by design descision
    */
   /*
   public function confirmToggleRequireLoginAction () {

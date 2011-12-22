@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: filez-2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-22 13:38+0100\n"
-"PO-Revision-Date: 2011-12-22 14:03+0100\n"
+"POT-Creation-Date: 2011-12-22 14:20+0100\n"
+"PO-Revision-Date: 2011-12-22 14:20+0100\n"
 "Last-Translator: Dennis Bruenig <dennisbruenig1983@googlemail.com>\n"
 "Language-Team: Universität Hildesheim <arnaud.didry@univ-avignon.fr>\n"
 "MIME-Version: 1.0\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SearchPath-0: C:\\htdocs\\filez\n"
 
-#: C:\htdocs\filez/app/controllers/Admin.php:122
+#: C:\htdocs\filez/app/controllers/Admin.php:119
 msgid "[FileZ] Your file \"%file_name%\" is going to be deleted"
 msgstr "[FileZ] Ihre Datei \"%file_name%\" wird demnächst gelöscht"
 
-#: C:\htdocs\filez/app/controllers/Admin.php:124
+#: C:\htdocs\filez/app/controllers/Admin.php:121
 msgid "email_delete_notif (%file_name%, %file_url%, %filez_url%, %available_until%)"
 msgstr ""
 "Hallo,\n"
@@ -790,7 +790,6 @@ msgid "Admin"
 msgstr "Admin"
 
 #: C:\htdocs\filez/app/views/user/create.php:25
-#: C:\htdocs\filez/app/views/user/edit.php:43
 #: C:\htdocs\filez/app/views/user/edit.php:52
 msgid "This user is excluded from FileZ usage."
 msgstr "Dieser Benutzer ist von der FileZ-Nutzung ausgeschlossen."
@@ -827,6 +826,10 @@ msgstr "Erstellen"
 #: C:\htdocs\filez/app/views/user/edit.php:1
 msgid "Edit user"
 msgstr "Benutzer bearbeiten"
+
+#: C:\htdocs\filez/app/views/user/edit.php:43
+msgid "Exclude user rom FileZ usage."
+msgstr "Benutzer vonder FileZ-Nutzung ausschließen."
 
 # Important: check ./app/views/file/preview.php for msgid if changed
 #: C:\htdocs\filez/app/views/user/edit.php:53
@@ -873,11 +876,11 @@ msgstr "E-Mail"
 msgid "Account created"
 msgstr "Zugang erstellt am"
 
-#: C:\htdocs\filez/app/views/user/show.php:5
+#: C:\htdocs\filez/app/views/user/show.php:6
 msgid "Has administrative privileges"
 msgstr "Hat administrative Rechte"
 
-#: C:\htdocs\filez/app/views/user/show.php:12
+#: C:\htdocs\filez/app/views/user/show.php:14
 msgid "DL count"
 msgstr "DL-Zähler"
 

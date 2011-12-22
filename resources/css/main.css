@@ -439,6 +439,7 @@ section#folder-content ul li.file {
 section#uploaded-files ul li.simple-file {
     position: relative;
     padding-top: 0em;
+    height: 24px;
 }
 
 section#uploaded-files ul li.file.even,
