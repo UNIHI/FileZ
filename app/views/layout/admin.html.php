@@ -3,6 +3,7 @@
   <head>
     <?php
     $styles = array('admin'); // add admin specific css
+    $scripts = array('jquery.paginate.min');
     include('_html.head.php');
     ?>
   </head>

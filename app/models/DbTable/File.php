@@ -121,11 +121,21 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
 
   /**
    * Retrieve all rows of the current table
-   *
+   * @param integer $currentPage the current page to fetch items from
+   * @param boolean $isDeleted include deleted files, default: false
    * @return array  Array of Fz_Table_Row_Abstrat
    */
-  public function findNotDeleted () {
-    $sql = "SELECT * FROM ".$this->getTableName () . " WHERE isDeleted = 0";
+  public function find ($currentPage, $isDeleted = false) {
+    $itemsPerPage = (int)(fz_config_get('app','items_per_page'));
+    if (!is_int($itemsPerPage))
+      $itemsPerPage = 10;
+    $currentPage = ($currentPage-1) * $itemsPerPage;
+    $limit = ' LIMIT ' . $currentPage .',' . $itemsPerPage;
+    $deletedCondition = '';
+    if ($isDeleted == false)
+      $deletedCondition = ' AND isDeleted = 0';
+    $sql = "SELECT * FROM ".$this->getTableName () 
+      . " WHERE 1=1 $deletedCondition $limit";
     return Fz_Db::findObjectsBySQL ($sql, $this->getRowClass ());
   }
 
@@ -251,13 +261,14 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
   
   /**
   * Count the number of files
-  *
+  * @param $includeDeleted include deleted files, default: false
   * @return integer number of files
   */
-  public function getNumberOfFiles () {
-    $sql = 'SELECT COUNT(*) AS count '
-      . 'FROM '.$this->getTableName ()
-      . ' WHERE isDeleted = 0';
+  public function getNumberOfFiles ($includeDeleted = false) {
+    $condition = '';
+    if ($includeDeleted == false)
+      $condition = ' WHERE isDeleted = 0';
+    $sql = 'SELECT COUNT(*) AS count ' . 'FROM '.$this->getTableName () . $condition;
     $res = Fz_Db::findAssocBySQL($sql);
     return $res[0]['count'];
   }

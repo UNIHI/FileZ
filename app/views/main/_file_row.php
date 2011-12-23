@@ -1,5 +1,5 @@
 <?php 
-  if ($_COOKIE['ui-switch'] == 'simple') 
+  if (array_key_exists('ui-switch', $_COOKIE) && $_COOKIE['ui-switch'] == 'simple') 
     $simple = true;
   else $simple = false;
 ?>

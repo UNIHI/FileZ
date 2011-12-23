@@ -46,25 +46,40 @@ class App_Controller_Admin extends Fz_Controller {
   public function filesAction () {
     $this->setToken();
     $this->secure ('admin');
-    // hier festlegen wieviele datensätze abgerufen werden sollen
-    set ('files', Fz_Db::getTable ('File')->findNotDeleted ());
-    return html('file/index.php');
-  }
-  
-  /**
-   * Return number of files
-   */
-  public function numFiles() {
-  $this->secure ('admin');  
-    return Fz_Db::getTable ('File')->getNumberOfFiles (); 
-  }
-  
-  /**
-   * Return number of files which are deleted
-   */
-  public function numFilesIncludingDeleted() {
-    $this->secure ('admin');
-    return Fz_Db::getTable ('File')->getNumberOfFilesIncludingDeleted (); 
+    
+    // check input vars
+    if (!array_key_exists('currentPage',$_POST) 
+      || !is_int((int)$_POST['currentPage']) || $_POST['currentPage'] <= 0)
+      $currentPage = 1;
+    else
+      $currentPage = $_POST['currentPage'];
+    if (array_key_exists('isDeleted', $_COOKIE) && $_COOKIE['isDeleted'] == 'true')
+      $isDeleted = true;
+    else
+      $isDeleted = false;
+    
+    $files = Fz_Db::getTable ('File')->find($currentPage, $isDeleted);
+
+    if ($this->isXhrRequest()) {
+      $err = false;
+      $response = '';
+      $response['items'] = '';
+      foreach ($files as $file) {
+        $response['items'] .= 
+          partial('admin/_file_row.php', array ('file' => $file));
+      }
+      if ($err == false) {
+        $response ['status'] = 'success';
+      } else {
+        $response ['status'] = 'error';
+        $response ['statusText'] = __('Error while processing data');
+      }
+      return json ($response);
+    } else {
+      set ('files', $files);
+      set ('numberOfFiles', Fz_Db::getTable ('File')->getNumberOfFiles($isDeleted));
+      return html('file/index.php');
+    }
   }
   
   /**

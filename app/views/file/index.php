@@ -1,22 +1,17 @@
-<!-- der paginator muss wissen wieviele datensätze vorhanden sind,
-  um zu ermitteln, ob er überhaupt benötigt und falls ja, wieviele 
-  links zu generieren sind -->
-<?php if (count($files) > fz_config_get('app','items_per_page')): ?>
-<div id="pagination">
-  <ul>
-    <?php
-    $numPages = ceil(count($files) / fz_config_get('app','items_per_page'));
-    for($i=0;$i<$numPages;$i++) {
-      echo '<li class="item-page" href="#">' . ($i+1) . '</li>';
-    }
-    ?>
-  </ul>
-</div>
+<?php if ($numberOfFiles > fz_config_get('app','items_per_page')): ?>
+
+<div id="pagination"></div>
+<input id="is-deleted" type="checkbox" name="isDeleted" value="true"
+  <?php 
+  if (array_key_exists('isDeleted', $_COOKIE) && $_COOKIE["isDeleted"] == 'true')
+    echo 'checked="checked"';
+  ?>>
+<?php echo __('Include already deleted files') ?>
+
 <?php endif ?>
 
-
 <table id="file_list" class="data">
-  <tr>
+  <tr id="table-header-row">
     <th><?php echo __('Name') ?></th>
     <th><?php echo __('Uploader') ?></th>
     <th><?php echo __('Availability') ?></th>
@@ -28,7 +23,7 @@
 
 
 <?php foreach ($files as $file): ?>
-  <tr>
+  <tr class="table-data-row">
     <td>
       <?php
       echo a(array('href'=>$file->getDownloadUrl ()), $file->file_name);
@@ -58,26 +53,44 @@
       '<img src="../resources/images/icons/remove.png">'.__('Delete'));
     ?>
     </td>
+  </tr>
 <?php endforeach ?>
 </table>
-
 <script type="text/javascript">
   $(document).ready(function(){
-    $('.item-page',this).on('click', function() {
-      //alert ($(this).html());
-      
-      // Hier muss nun geprüft werden, ob nachträglich weitere dateien
-      // hinzugefügt worden sind, falls ja, dann muss eventuell noch eine
-      // weitere zahl am ende hinzukommen
-      
-      //der klick auf die datei soll dann ein request auslösen, dem
-      //die notwendigen daten übergeben werden. das ist die zahl, die der
-      // benutzer angeklickt hat. diese zahl wird dann durch eine funktion
-      // auf dem server auf gültigkeit überprüft. ist die zahl gültig, dann
-      // wird ein respose geschickt. der respose könnte 1. reines html sein
-      // so dass de javascript ufnktion nur den inhalt ersetzen muss
-      // oder es kann json sein, der erst auf dem client ausgewertet wird.
-      
+    $('#is-deleted', this).on('click', function(){
+      if ($(this).attr('checked') != undefined) {
+        $.cookie('isDeleted', 'true', { expires: 30});
+      } else
+        $.cookie('isDeleted', 'false', { expires: 30});
+      location.reload();
+    });
+    
+    $("#pagination").paginate({
+      count                  : <?php echo ceil($numberOfFiles / fz_config_get('app','items_per_page')) ?>,
+      start                  : 1,
+      display                : 7,
+      border                 : true,
+      border_color           : '#fff',
+      text_color             : '#fff',
+      background_color       : 'black',  
+      border_hover_color     : '#ccc',
+      text_hover_color       : '#000',
+      background_hover_color : '#fff', 
+      images                 : false,
+      mouse                  : 'press',
+      onChange               : function(page) {
+        var postData = {
+          currentPage : page,
+          isDeleted   : $.cookie('isDeleted')
+        };
+        $.post('files', postData, function(data) {
+          if (data.status == 'success') {
+            $('tr.table-data-row').remove();
+            $('#table-header-row').after(data.items);
+          }
+        }, 'json');
+      }
     });
   });
 </script>

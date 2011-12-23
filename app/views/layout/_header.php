@@ -42,8 +42,9 @@
   }
   if (isset ($fz_user)) {
     array_push($user_nav, '<span title="'.$fz_user->email.'">'.$fz_user." (".$fz_user->username.")</span>");
-    array_push($user_nav, a(array('href'=>'#','id'=>'switch-ui',
-      'title'=>__('Switch user interface') ), '&nbsp;') );
+    if ( strpos( $_SERVER['REQUEST_URI'], "/admin" ) === false )
+      array_push($user_nav, a(array('href'=>'#','id'=>'switch-ui',
+        'title'=>__('Switch user interface') ), '&nbsp;') );
     array_push($user_nav, a(array('href'=>url_for ('/logout'),
       'id'=>'logout', 'title'=>__('Log out') ), '&nbsp;' ) );
   }
