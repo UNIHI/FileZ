@@ -120,12 +120,39 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
   }
 
   /**
-   * Retrieve all rows of the current table
-   * @param integer $currentPage the current page to fetch items from
-   * @param boolean $isDeleted include deleted files, default: false
+   * Retrieve rows of the current table under certain conditions
+   * @param $currentPage integer the current page to fetch items from
+   * @param $isDeleted boolean include deleted files, default: false
+   * @param $filesOrder string order result by $filesOrder 
+   * {for legal values see below}
+   * @param $filesOrderDirection string direction of ordering
    * @return array  Array of Fz_Table_Row_Abstrat
    */
-  public function find ($currentPage, $isDeleted = false) {
+  public function find ($currentPage, $isDeleted = false, 
+    $filesOrder, $filesOrderDirection, $filesNameFilter) {
+    // only allow minimal set of characters for search
+    $nameCondition = '';
+    if ($filesNameFilter != '') {
+        $filesNameFilter = preg_replace('/[^A-Za-z0-9_ ]/', '', $filesNameFilter);
+        $nameCondition = "AND file_name LIKE '%" . $filesNameFilter . "%'";
+    }
+    
+    $orderBy = array (
+      'name' => 'file_name', 
+      'availability' => 'available_from',
+      'size' => 'file_size',
+      'downloadCounter' => 'download_count'
+    );
+    if (array_key_exists($filesOrder, $orderBy)) {
+      $order = " ORDER BY " . $orderBy[$filesOrder] . ' ';
+      if ($filesOrderDirection == 'asc')
+        $order .= 'ASC ';
+      else
+        $order .= 'DESC ';
+    } else {
+      $order = '';
+    }
+
     $itemsPerPage = (int)(fz_config_get('app','items_per_page'));
     if (!is_int($itemsPerPage))
       $itemsPerPage = 10;
@@ -135,7 +162,7 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
     if ($isDeleted == false)
       $deletedCondition = ' AND isDeleted = 0';
     $sql = "SELECT * FROM ".$this->getTableName () 
-      . " WHERE 1=1 $deletedCondition $limit";
+      . " WHERE 1=1 $deletedCondition $nameCondition $order $limit";
     return Fz_Db::findObjectsBySQL ($sql, $this->getRowClass ());
   }
 
@@ -143,7 +170,7 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
    * Return all file owned by $uid which are available (not deleted)
    *
    * @param App_Model_User $user
-   * @param boolean $expired only count expired files
+   * @param $expired boolean only count expired files
    * @return array of App_Model_File
    */
   public function findFilesByOwnerOrderByUploadDateDesc (
@@ -264,27 +291,24 @@ class App_Model_DbTable_File extends Fz_Db_Table_Abstract {
   * @param $includeDeleted include deleted files, default: false
   * @return integer number of files
   */
-  public function getNumberOfFiles ($includeDeleted = false) {
-    $condition = '';
+  public function getNumberOfFiles ($includeDeleted = false, $filesNameFilter='') {
+    $deletedCondition = '';
     if ($includeDeleted == false)
-      $condition = ' WHERE isDeleted = 0';
-    $sql = 'SELECT COUNT(*) AS count ' . 'FROM '.$this->getTableName () . $condition;
+      $deletedCondition = ' AND isDeleted = 0';
+    
+    $nameCondition = '';
+    if ($filesNameFilter != '') {
+      $filesNameFilter = preg_replace('/[^A-Za-z0-9_ ]/', '', $filesNameFilter);
+      $nameCondition = "AND file_name LIKE '%" . $filesNameFilter . "%'";
+    }
+    $sql = 'SELECT COUNT(*) AS count ' 
+      . 'FROM '.$this->getTableName () . ' WHERE 1=1 '
+      . $deletedCondition
+      . $nameCondition;
     $res = Fz_Db::findAssocBySQL($sql);
     return $res[0]['count'];
   }
   
-  /**
-  * Count the number of files including deleted files
-  *
-  * @return integer number of files
-  */
-  public function getNumberOfFilesIncludingDeleted () {
-    $sql = 'SELECT COUNT(*) AS count '
-      . 'FROM '.$this->getTableName ();
-    $res = Fz_Db::findAssocBySQL($sql);
-    return $res[0]['count'];
-  }
-
   /**
   * Return disk space used by everybody
   *

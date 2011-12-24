@@ -51,27 +51,57 @@ margin-bottom: 1em;
 }
 
 table.data {
-width: 100%;
-cellspacing: 1px;
-margin: 1em 0;
+  width: 100%;
+  cellspacing: 1px;
+  margin: 1em 0;
 }
 
 table.data th, table.data td {
-padding: 4px 6px;
+  padding: 4px 6px;
 }
 
 table.data th {
-background: #DDD;
-text-align: left;
-color: #999;
-border: 1px solid #CCC;
-text-shadow: 1px 1px 1px #FFF;
+  background: #DDD;
+  text-align: left;
+  color: #999;
+  border: 1px solid #CCC;
+  text-shadow: 1px 1px 1px #FFF;
+}
+
+table.data th.sorting-enabled {
+  cursor: pointer;
+}
+
+table.data tr#table-filter-row {
+  padding: 0px;
+}
+
+table.data tr#table-filter-row td {
+  padding: 0px;
+  font-size: 0.6em;
+}
+
+input#name-filter-input {
+  font-size: 0.8em;
+  width: 80%;
+  margin: 0px;
+  padding-left:  5px;
+  padding-right: 18px;
+  height: 10px;
+}
+
+img#name-filter-clear-input {
+  display: inline;
+  line-height: 10px;
+  vertical-align:middle;
+  margin-left: -22px;
+  cursor: pointer;
 }
 
 table.data td {
-background: white;
-border: 1px solid #DDD;
-font-size: 0.8em;
+  background: white;
+  border: 1px solid #DDD;
+  font-size: 0.8em;
 }
 
 h2#user-details-username {
@@ -83,93 +113,27 @@ h2#user-details-username {
   filter: dropshadow(color=#505050, offx=0, offy=0)
 }
 
-ul#show-user-details {
+ul#show-user-details,
+ul#filters {
   font-size: 0.8em;
   display: inline;
   padding-left: 20px;
 }
 
-ul#show-user-details li {
+ul#show-user-details li,
+ul#filters li {
   list-style: none;
   display: inline;
   padding-right: 5px;
 }
 
-ul#show-user-details li + li {
+ul#show-user-details li + li,
+ul#filters li + li {
   border-left: 1px solid #ccc;
   padding-left: 7px;
 }
 
-/*
-div#pagination {
-  padding: 0px;
-  margin: 0px;
-  float: right;
-}
-
-div#pagination ul {
-  display: block;
-  margin-bottom: 10px;
-}
-
-li.item-page {
-  color: #111111;
-  text-align: center;
-  position: relative;
-  display: inline-block;
-  border: 2px solid #303030;
-  margin: 2px;
-  padding: 2px;
-  font-weight: bold;
-  background-color: #547DE9;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  user-select: none;
-  cursor: pointer;
-  width: 15px;
-  height: 15px;
-  text-shadow: 1px 1px 10px #cccccc;
-  filter: dropshadow(color=#cccccc, offx=1, offy=1)
-  border-radius: 3px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-}
-
-li.item-page:hover {
-  background-color: #1A49C6;
-}
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* jQuery.Paginate plugin */
 .jPaginate{
   height:34px;
   position:relative;

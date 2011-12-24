@@ -62,11 +62,65 @@ class App_Model_DbTable_User extends Fz_Db_Table_Abstract {
   *
   * @return integer number of users
   */
-  public function getNumberOfUsers () {
-    $sql = 'SELECT COUNT(*) AS count FROM '.$this->getTableName ();
+  public function getNumberOfUsers ($usersNameFilter='') {
+    $nameCondition = '';
+    if ($usersNameFilter != '') {
+      $usersNameFilter = preg_replace('/[^A-Za-z0-9_ ]/', '', $usersNameFilter);
+      $nameCondition = "AND (firstname LIKE '%" . $usersNameFilter . "%'"
+        . "OR lastname LIKE '%" . $usersNameFilter . "%')";
+    }
+    $sql = 'SELECT COUNT(*) AS count FROM '.$this->getTableName ()
+      . ' WHERE 1=1 '
+      . $nameCondition;
     $res = Fz_Db::findAssocBySQL($sql);
     return $res[0]['count'];
   }
+  
+  /**
+   * Retrieve rows of the current table under certain conditions
+   * @param $currentPage integer the current page to fetch items from
+   * @param $isDeleted boolean include deleted files, default: false
+   * @param $filesOrder string order result by $filesOrder 
+   * {for legal values see below}
+   * @param $filesOrderDirection string direction of ordering
+   * @return array  Array of Fz_Table_Row_Abstrat
+   */
+  public function find ($currentPage, $usersOrder, $usersOrderDirection, 
+    $usersNameFilter) {
+    // only allow minimal set of characters for search
+    $nameCondition = '';
+    if ($usersNameFilter != '') {
+        $usersNameFilter = preg_replace('/[^A-Za-z0-9_ ]/', '', $usersNameFilter);
+        $nameCondition = "AND (firstname LIKE '%" . $usersNameFilter . "%'"
+          . "OR lastname LIKE '%" . $usersNameFilter . "%')";
+    }
+    
+    $orderBy = array (
+      'name' => 'lastname',
+      'email' => 'email', 
+      'role' => 'is_admin'
+    );
+    if (array_key_exists($usersOrder, $orderBy)) {
+      $order = " ORDER BY " . $orderBy[$usersOrder] . ' ';
+      if ($usersOrderDirection == 'asc')
+        $order .= 'ASC ';
+      else
+        $order .= 'DESC ';
+    } else {
+      $order = '';
+    }
+
+    $itemsPerPage = (int)(fz_config_get('app','items_per_page'));
+    if (!is_int($itemsPerPage))
+      $itemsPerPage = 10;
+    $currentPage = ($currentPage-1) * $itemsPerPage;
+    $limit = ' LIMIT ' . $currentPage .',' . $itemsPerPage;
+
+    $sql = "SELECT * FROM ".$this->getTableName () 
+      . " WHERE 1=1 $nameCondition $order $limit";
+    return Fz_Db::findObjectsBySQL ($sql, $this->getRowClass ());
+  }
+
 }
 
 

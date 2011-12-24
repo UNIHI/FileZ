@@ -44,21 +44,35 @@ class App_Controller_Admin extends Fz_Controller {
    * List files, display stats.
    */
   public function filesAction () {
-    $this->setToken();
     $this->secure ('admin');
-    
+    $this->setToken();
+        
     // check input vars
     if (!array_key_exists('currentPage',$_POST) 
       || !is_int((int)$_POST['currentPage']) || $_POST['currentPage'] <= 0)
       $currentPage = 1;
     else
       $currentPage = $_POST['currentPage'];
+    
     if (array_key_exists('isDeleted', $_COOKIE) && $_COOKIE['isDeleted'] == 'true')
       $isDeleted = true;
     else
       $isDeleted = false;
     
-    $files = Fz_Db::getTable ('File')->find($currentPage, $isDeleted);
+    $filesOrder = 'name';
+    if (array_key_exists('filesOrder',$_COOKIE))
+      $filesOrder = $_COOKIE['filesOrder'];
+    
+    $filesOrderDirection = 'asc';
+    if (array_key_exists('filesOrderDirection',$_COOKIE))
+      $filesOrderDirection = $_COOKIE['filesOrderDirection'];
+
+    $filesNameFilter = '';
+    if (array_key_exists('filesNameFilter',$_COOKIE))
+      $filesNameFilter = $_COOKIE['filesNameFilter'];
+    
+    $files = Fz_Db::getTable ('File')->find($currentPage, $isDeleted, 
+      $filesOrder, $filesOrderDirection, $filesNameFilter);
 
     if ($this->isXhrRequest()) {
       $err = false;
@@ -77,7 +91,8 @@ class App_Controller_Admin extends Fz_Controller {
       return json ($response);
     } else {
       set ('files', $files);
-      set ('numberOfFiles', Fz_Db::getTable ('File')->getNumberOfFiles($isDeleted));
+      set ('numberOfFiles', 
+        Fz_Db::getTable ('File')->getNumberOfFiles($isDeleted, $filesNameFilter));
       return html('file/index.php');
     }
   }
