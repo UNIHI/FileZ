@@ -133,6 +133,8 @@ class App_Controller_File extends Fz_Controller {
     $folder = preg_replace('/[^A-Za-z0-9_ ]/', '', $folder);
     $folder = preg_replace('/ /', '_', $folder);
 
+    $comment = preg_replace('/[^A-Za-z0-9_.,:; ]/', '', $comment);
+
     // set password
     if (isset($_POST ['use-password'])) {
       switch($_POST ['use-password']) {
@@ -156,12 +158,20 @@ class App_Controller_File extends Fz_Controller {
     // validate start and end dates
     $availableFrom  = 
       array_key_exists ('start-from', $_POST) ? $_POST['start-from'] : null;
-    $availableFrom  = 
-      new Zend_Date ($availableFrom, Zend_Date::DATE_SHORT);
+    try {
+      $availableFrom  = 
+        new Zend_Date ($availableFrom, Zend_Date::DATE_SHORT);
+    } catch (Exception $e) {
+      $availableFrom = $file->getAvailableFrom();
+    }
     $availableUntil  = 
       array_key_exists ('available-until', $_POST) ? $_POST['available-until'] : null;
+    try {
     $availableUntil  = 
       new Zend_Date ($availableUntil, Zend_Date::DATE_SHORT);
+    } catch (Exception $e) {
+      $availableUntil = $file->getAvailableUntil();
+    }
     if ($availableUntil->isEarlier($availableFrom))
       $availableUntil = new Zend_date($availableFrom);
     $lifetimeMax = $file->getAvailableUntil();

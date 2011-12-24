@@ -36,8 +36,12 @@ class App_Controller_Upload extends Fz_Controller {
         fz_log ('uploading', FZ_LOG_DEBUG, $_FILES);
         $response = array (); // returned data
         $availableFrom  = array_key_exists ('start-from', $_POST) ? $_POST['start-from'] : null;
-        $availableFrom  = new Zend_Date ($availableFrom, Zend_Date::DATE_SHORT);
-        $testDate = new Zend_Date();
+        $now = new Zend_Date();
+        try {
+          $availableFrom  = new Zend_Date ($availableFrom, Zend_Date::DATE_SHORT);
+        } catch (Exception $e) {
+          $availableFrom = new Zend_Date();
+        }
         // check if request exceed php.ini post_max_size
         if ($_SERVER ['CONTENT_LENGTH'] > $this->shorthandSizeToBytes (
                                                    ini_get ('post_max_size'))) {
@@ -63,7 +67,7 @@ class App_Controller_Upload extends Fz_Controller {
 
         }
         // date in the past?
-        else if ($availableFrom->isEarlier($testDate, Zend_Date::DATE_SHORT)) {
+        else if ($availableFrom->isEarlier($now, Zend_Date::DATE_SHORT)) {
             $response ['status']     = 'error';
             $response ['statusText'] = __('You have entered a date in the past. Please use the date picker to select a date.');
             return $this->returnData ($response);
@@ -130,15 +134,24 @@ class App_Controller_Upload extends Fz_Controller {
         $folder = preg_replace('/[^A-Za-z0-9_ ]/', '', $folder);
         $folder = preg_replace('/ /', '_', $folder);
         
+        $comment = preg_replace('/[^A-Za-z0-9_.,:; ]/', '', $comment);
         // validate start and end dates
         $availableFrom  = 
           array_key_exists ('start-from', $_POST) ? $_POST['start-from'] : null;
-        $availableFrom  = 
-          new Zend_Date ($availableFrom, Zend_Date::DATE_SHORT);
+        try {
+          $availableFrom  = 
+            new Zend_Date ($availableFrom, Zend_Date::DATE_SHORT);
+        } catch (Exception $e) {
+          $availableFrom = new Zend_Date();
+        }
         $availableUntil  = 
           array_key_exists ('available-until', $_POST) ? $_POST['available-until'] : null;
-        $availableUntil  = 
-          new Zend_Date ($availableUntil, Zend_Date::DATE_SHORT);
+        try {
+          $availableUntil  = 
+            new Zend_Date ($availableUntil, Zend_Date::DATE_SHORT);
+        } catch (Exception $e) {
+          $availableUntil = new Zend_Date();
+        }
         if ($availableUntil->isEarlier($availableFrom))
           $availableUntil = new Zend_date($availableFrom);
         $lifetimeMax = new Zend_Date($availabeFrom);
